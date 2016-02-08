@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="com.hethi.rest.model.exception" table="ixsd_exception" schema="hethi">
+
+        <composite-id>
+           <key-property name="efs_uin" type="string" column="efs_uin"  />
+           <key-property name="sfs_uin" type="string" column="sfs_uin"  />
+           <key-property name="uid" type="string" column="uid"  />
+           <key-property name="din" type="string" column="din"  />
+           <key-property name="version" type="int" column="version"  />   
+           <key-property name="exceptionreason" type="string" column="exceptionreason"/>
+           <key-property name="exceptioncode" type="string" column="exceptioncode"/>
+           <key-property name="exceptioncategory" type="string" column="exceptioncategory"/>
+           <key-property name="exceptionfields" type="string" column="exceptionfields"/>           
+           <key-property name="exception_datetime" type="timestamp" column="exception_datetime"  />
+           <key-property name="lastupdtm" type="timestamp" column="lastupdtm"  />
+       </composite-id>
+    </class>
+    
+  
+   
+ 
+</hibernate-mapping>

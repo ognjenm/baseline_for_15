@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+ 
+    <class name="com.hethi.rest.model.ixsd_cefs100103" table="ixsd_cefs100103" schema="hethi">
+        <composite-id>
+           <key-property name="version" type="int" column="version"  />
+           <key-property name="lastupdtm" type="timestamp" column="lastupdtm"  />
+           <key-property name="din" type="string" column="din"  />
+           <key-property name="uid" type="string" column="uid"  />
+           <key-property name="efs_uin" type="string" column="efs_uin"  />
+           <key-property name="branch_location" type="string" column="branch_location"/>
+           <key-property name="claimedby" type="string" column="claimedby"/>
+           <key-property name="company_code" type="string" column="company_code"/>
+           <key-property name="credit_category" type="string" column="credit_category"/>
+           <key-property name="credit_original_invoice" type="string" column="credit_original_invoice"/>
+           <key-property name="currency" type="string" column="currency"/>
+           <key-property name="datetime" type="timestamp" column="datetime"/>
+           <key-property name="department_code" type="string" column="department_code"/>
+           <key-property name="dept_lookup_flag" type="string" column="dept_lookup_flag"/>
+           <key-property name="document_type" type="string" column="document_type"/>
+           <key-property name="duplicate_flag" type="string" column="duplicate_flag"/>
+           <key-property name="exceptionreason" type="string" column="exceptionreason"/>
+           <key-property name="frieght_term" type="string" column="frieght_term"/>
+           <key-property name="icoming_type" type="string" column="icoming_type"/>
+           <key-property name="invoice_amount" type="string" column="invoice_amount"/>
+           <key-property name="invoice_date" type="timestamp" column="invoice_date"/>
+           <key-property name="invoice_number" type="string" column="invoice_number"/>
+           <key-property name="invoice_sub_total" type="string" column="invoice_sub_total"/>
+           <key-property name="last_upade_date" type="timestamp" column="last_upade_date"/>
+           <key-property name="lastupuser" type="string" column="lastupuser"/>
+           <key-property name="paymentterms" type="string" column="paymentterms"/>
+           <key-property name="po_lookup_flag" type="string" column="po_lookup_flag"/>
+           <key-property name="po_number" type="string" column="po_number"/>
+           <key-property name="po_type" type="string" column="po_type"/>
+           <key-property name="po_vcost" type="string" column="po_vcost"/>
+           <key-property name="priority" type="string" column="priority"/>
+           <key-property name="queue" type="string" column="queue"/>
+           <key-property name="queue_id" type="string" column="queue_id"/>
+           <key-property name="returnmailcategory" type="string" column="returnmailcategory"/>
+           <key-property name="Scandate" type="timestamp" column="Scandate"/>
+           <key-property name="tax_flag" type="string" column="tax_flag"/>
+           <key-property name="vendor_address01" type="string" column="vendor_address01"/>
+           <key-property name="vendor_address02" type="string" column="vendor_address02"/>
+           <key-property name="vendor_city" type="string" column="vendor_city"/>
+           <key-property name="vendor_class" type="string" column="vendor_class"/>
+           <key-property name="vendor_lookup_flag" type="string" column="vendor_lookup_flag"/>
+           <key-property name="vendor_name" type="string" column="vendor_name"/>
+           <key-property name="vendor_number" type="string" column="vendor_number"/>
+           <key-property name="vendor_state" type="string" column="vendor_state"/>
+           <key-property name="vendor_zip_4" type="string" column="vendor_zip_4"/>
+           <key-property name="vendor_zip_5" type="string" column="vendor_zip_5"/>
+           <key-property name="wfremovedate" type="timestamp" column="wfremovedate"/>
+           <key-property name="workflowstartdate" type="timestamp" column="workflowstartdate"/>
+           <key-property name="workflowstatus" type="string" column="workflowstatus"/>
+       </composite-id>
+    </class>
+    <class name="com.hethi.rest.model.ixsd_cefs100103_exception" table="ixsd_cefs100103_exception" schema="hethi">
+        <composite-id>
+           <key-property name="version" type="int" column="version"  />
+           <key-property name="din" type="string" column="din"  />
+           <key-property name="lastupdtm" type="timestamp" column="lastupdtm"  />
+           <key-property name="efs_uin" type="string" column="efs_uin"  />
+           <key-property name="uid" type="string" column="uid"  />
+           <key-property name="exception_datetime" type="timestamp" column="exception_datetime"  />
+           <key-property name="excepionreason" type="string" column="excepionreason"/>
+           <key-property name="exceptioncategory" type="string" column="exceptioncategory"/>
+           <key-property name="line_item_exception_reason" type="string" column="line_item_exception_reason"/>
+           <key-property name="descrepancy_reason" type="string" column="descrepancy_reason"/>
+       </composite-id>
+    </class>
+    
+  
+    <class name="com.hethi.rest.model.ixsd_cefs100103_lineitem" table="ixsd_cefs100103_lineitem" schema="hethi">
+        <composite-id>
+           <key-property name="version" type="int" column="version"  />
+           <key-property name="din" type="string" column="din"  />
+           <key-property name="lastupdtm" type="timestamp" column="lastupdtm"  />
+           <key-property name="uid" type="string" column="uid"  />
+           <key-property name="efs_uin" type="string" column="efs_uin"  />
+           <key-property name="sequence_no" type="int" column="sequence_no"  />
+           <key-property name="part_description" type="string" column="part_description"/>
+           <key-property name="po_extended_price" type="string" column="po_extended_price"/>
+           <key-property name="po_line_items" type="string" column="po_line_items"/>
+           <key-property name="po_line_number" type="string" column="po_line_number"/>
+           <key-property name="po_ordered_price" type="string" column="po_ordered_price"/>
+           <key-property name="po_ordered_quantity" type="string" column="po_ordered_quantity"/>
+           <key-property name="po_part_number" type="string" column="po_part_number"/>
+           <key-property name="po_pool" type="string" column="po_pool"/>
+           <key-property name="po_uom" type="string" column="po_uom"/>
+           <key-property name="status" type="string" column="status"/>
+        </composite-id>
+    </class>
+    
+ 
+</hibernate-mapping>

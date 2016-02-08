@@ -1,0 +1,66 @@
+[
+        {
+            "operation": "shift",
+            "spec": {
+                    "industry": {
+                        "values": "Industry"
+                    },
+                    "companyName": {
+                        "values": "Company_Name"
+                    },
+                     "vendorID": {
+                        "values": "VendorID"
+                    },
+                    "streetAddress": {
+                        "values": "Street_Address"
+                    },
+                    "purchaseOrderNo": {
+                        "values": "PO_No"
+                    },
+                    "purchaseOrderDate": {
+                        "values": "PO_Date"
+                    },
+                    "item": {
+                        "values": "Item_Name"
+                    },
+                    "rate": {
+                        "values": "Unit_Price"
+                    },
+                    "qty": {
+                        "values": "Quantity"
+                    },
+                    "amount": {
+                        "values": "Amount"
+                    },
+                    "subTotal": {
+                        "values": "Sub_Total"
+                    },
+                    "freightCharges": {
+                        "values": "Freight"
+                    },
+                    "tax": {
+                        "values": "Sales_Tax"
+                    },
+                    "total": {
+                        "values": "Order_Total"
+                    },
+                    "approvedBy": {
+                        "values": "Approved_Authourity"
+                    },                   
+                    "*": {
+                       		 "values": "MasterXSD.&1.Value",
+                        	 "$": "MasterXSD.&.Id"
+                    	  }
+                    }
+           
+        },
+        {
+            "operation": "default",
+            "spec": {
+            
+     		           "MasterXSD" : {
+                    					"*" : {}
+               							}
+          			  }
+        }
+    ]

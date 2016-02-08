@@ -1,0 +1,35 @@
+package com.hethi.daas.service;
+ 
+import com.hethi.domain.iPost; 
+
+
+
+
+rule "ValidationSuccess"
+    when
+         ip : iPost( clientID.length > 0, cid : clientID)
+    then
+        System.out.println( "Validating document on daas "); 
+        System.out.println( "clientID  : " + cid);         
+        System.out.println( "Validation Status Success"); 
+        System.out.println("----------------------- " );
+         
+        ip.stackDescription("clientID is  "+cid);
+        ip.stackDescription("Validation Status Success");
+        ip.setproceedToSplitMergeQueue("Success");
+        
+end
+rule "ValidationFailiure"
+    when
+         ip : iPost( clientID.length ==0 , cid : clientID)
+    then
+        System.out.println( "Validating document on daas "); 
+        System.out.println( "clientID  : " + cid);         
+        System.out.println( "Validation failed"); 
+        System.out.println("----------------------- " );
+         
+        ip.stackDescription("clientID is null ");
+        ip.stackDescription("Validation status failed");
+        ip.setproceedToSplitMergeQueue("Failed");
+        
+end

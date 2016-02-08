@@ -1,0 +1,62 @@
+    {  
+            "industry": {
+                "values": "Finance"
+            },
+            
+            "companyName": {
+                "values": "Cronyco"
+            },
+            
+            "vendorID": {
+                "values": "FNC123"
+            },
+            
+            "streetAddress": {
+                "values": "Sreevalsam ,Palakkad"
+            },
+            
+            "purchaseOrderNo": {
+                "values": 12345679
+            },
+            "purchaseOrderDate": {
+                "values":"02-10-2015"
+            },            
+            
+             "item": {
+                "values": "item name"
+            },             
+            
+             "rate": {
+                "values": 1000.00
+            }, 
+            
+            "qty": {
+                "values": 10
+            },
+            
+           "amount": {
+                "values": 10000.00
+            },
+            
+            "subTotal": {
+                "values": 10000.00
+            },
+            
+            "freightCharges": {
+                "values": 1000.00
+            },
+            
+            "tax": {
+                "values": 500.00
+            },
+            
+            "total": {
+                "values": 10
+            },
+            
+            "approvedBy": {
+                "values": "a superman fan"
+            } 
+        
+    }
+    

@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns = "http://www.springframework.org/schema/beans"
+       xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int = "http://www.springframework.org/schema/integration"
+       xmlns:jms="http://www.springframework.org/schema/jms"  
+       xmlns:context="http://www.springframework.org/schema/context" 
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:int-stream ="http://www.springframework.org/schema/integration/stream"
+       xsi:schemaLocation = "http://www.springframework.org/schema/beans 
+      		http://www.springframework.org/schema/beans/spring-beans.xsd 
+       		http://www.springframework.org/schema/integration 
+       		http://www.springframework.org/schema/integration/spring-integration.xsd
+       		http://www.springframework.org/schema/jms  
+    		http://www.springframework.org/schema/jms/spring-jms-3.0.xsd
+    		http://schema.cloudfoundry.org/spring
+			http://schema.cloudfoundry.org/spring/cloudfoundry-spring.xsd
+			http://www.springframework.org/schema/rabbit
+			http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+			http://www.springframework.org/schema/integration/amqp
+			http://www.springframework.org/schema/integration/amqp/spring-integration-amqp.xsd 
+			http://www.springframework.org/schema/integration/stream
+		    http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd" >
+
+    <!-- intercept and log every message -->
+    <int:logging-channel-adapter id="logger" level="DEBUG" />
+	
+	<!-- common channels -->	
+    <int:channel id = "routingChannel" /> 	
+    <int:channel id = "exit_channel" /> 
+    
+	
+	<!-- Core servicepaly channels -->
+	
+	<int:channel id = "daas.inventory"/>
+	<int:channel id = "daas.fullextract"/>
+	<int:channel id = "daas.classify"/>
+	<int:channel id = "daas.index"/>
+	<int:channel id = "daas.split_merge"/>	
+	<int:channel id = "daas.batch"/>
+	<int:channel id = "daas.keywise"/>
+	<int:channel id = "daas.baashandoff"/>
+	<int:channel id = "baas.workflow"/>
+	<int:channel id = "baaS.reject"/>	
+	<int:channel id = "oaas.output"/>
+	<int:channel id = "oaas.shipment"/>
+	<int:channel id = "oaas.reject"/>
+	<int:channel id = "oaas.HML"/>
+	<int:channel id = "oaas.ANSI"/>
+	<int:channel id = "oaas.Edifact"/>
+	<int:channel id = "oaas.DELIMITED"/>
+	<int:channel id = "oaas.PROP"/>
+	<int:channel id = "IaaS.SAP"/>
+	<int:channel id = "IaaS.Lawson"/>
+	<int:channel id = "IaaS.OracleFusion"/>
+	<int:channel id = "IaaS.BAAN"/>
+	<int:channel id = "StaaS.MetaData"/>
+	<int:channel id = "StaaS.Image"/>
+	<int:channel id = "AaaS.SummaryReport"/>
+	<int:channel id = "AaaS.ReconciliationReport"/>
+	<int:channel id = "AaaS.ShipmentReport"/>
+	<int:channel id = "AaaS.DetailedShipmentReport"/>
+	<int:channel id = "AaaS.EmailReport"/>
+	<int:channel id = "AaaS.FaxReport"/>
+	<int:channel id = "AaaS.BillingReport"/>
+	<int:channel id = "AaaS.POMatchRateReport"/>
+	<int:channel id = "AaaS.EDIReport"/>
+	<int:channel id = "AaaS.WorkflowReports"/>
+	<int:channel id = "AaaS.ActivityAging Report"/>
+	<int:channel id = "AaaS.ExceptionReport"/>
+	<int:channel id = "AaaS.PerformanceReport"/>
+	<int:channel id = "AaaS.WorkItemDetailReport"/>
+	<int:channel id = "AaaS.WorkflowWorkInProgress(WIP)Report"/>
+	<int:channel id = "AaaS.AuditTrailReport"/>
+	<int:channel id = "AaaS.ProductivityReport"/>
+	<int:channel id = "AaaS.InventoryReport"/>
+	<int:channel id = "AaaS.AbsenteeDelegationReport"/>
+	<int:channel id = "AaaS.Re-AssignReport"/>
+	<int:channel id = "AaaS.Re-RouteReport"/>
+	<int:channel id = "AaaS.WorkItemHistoryReport"/>	
+	
+	
+
+   <int:gateway 	id="inboundGateway"
+     				service-interface="com.hethi.utils.InboundGateway"        
+        			default-request-channel="routingChannel" 
+        			default-reply-timeout="" /> 
+        			   
+    <int:header-value-router input-channel="routingChannel" header-name="NextQue"/>
+    
+<!-- Daas service activators -->   
+
+    <int:service-activator 	input-channel="daas.inventory" 
+    						ref="daas_inventory"
+							method="Inventory" 
+							output-channel="routingChannel"/>	
+    <bean id="daas_inventory" class="com.hethi.daas.Inventory"/>
+    
+    
+    <int:service-activator 	input-channel="daas.fullextract" 
+    						ref="daas_fullextract"
+							method="Fullextract" 
+							output-channel="routingChannel"/>	
+    <bean id="daas_fullextract" class="com.hethi.daas.Fullextract"/>
+    
+    
+        <int:service-activator 	input-channel="daas.classify" 
+    						ref="daas_classify"
+							method="Classify" 
+							output-channel="routingChannel"/>	
+    <bean id="daas_classify" class="com.hethi.daas.Classify"/>
+   
+   
+    <int:service-activator 	input-channel="daas.index" 
+							ref="daas_index"  
+							method="Index" 
+							output-channel="routingChannel"/>														
+    <bean id="daas_index" class="com.hethi.daas.Index"/>
+    
+    
+   
+    <int:service-activator 	input-channel="daas.split_merge" 
+							ref="daas_split_merge"  
+							method="Split_merge" 
+							output-channel="routingChannel"/>							
+    <bean id="daas_split_merge" class="com.hethi.daas.Split_merge"/> 
+    
+    <int:service-activator 	input-channel="daas.extract" 
+							ref="daas_extract"  
+							method="Extract" 
+							output-channel="routingChannel"/>							
+    <bean id="daas_extract" class="com.hethi.daas.Extract"/>
+    
+     <int:service-activator 	input-channel="daas.batch" 
+							ref="daas_batch"  
+							method="Batch" 
+							output-channel="routingChannel"/>							
+    <bean id="daas_batch" class="com.hethi.daas.Batch"/> 
+    
+    
+    <int:service-activator 	input-channel="daas.keywise" 
+							ref="daas_keywise"  
+							method="Keywise" 
+							output-channel="routingChannel"/>														
+    <bean id="daas_keywise" class="com.hethi.daas.Keywise"/> 
+    
+     <int:service-activator 	input-channel="daas.baashandoff" 
+							ref="daas_baashandoff"  
+							method="Baashandoff" 
+							output-channel="routingChannel"/>							
+    <bean id="daas_baashandoff" class="com.hethi.daas.Baashandoff"/> 
+    
+    
+    
+<!-- Baas service activators -->   
+
+    <int:service-activator 	input-channel="baas.workflow" 
+							ref="baas_workflow"  
+							method="Workflow" 
+							output-channel="routingChannel"/>														
+    <bean id="baas_workflow" class="com.hethi.baas.Workflow"/>
+     
+    
+    <int:service-activator 	input-channel="baas.reject" 
+							ref="baas_reject"  
+							method="Reject" 
+							output-channel="routingChannel"/>														
+    <bean id="baas_reject" class="com.hethi.baas.Reject"/> 
+    
+       
+	
+<!-- Oaas service activators -->   
+
+
+    <int:service-activator 	input-channel="oaas.output" 
+							ref="oaas_output"  
+							method="Output" 
+							output-channel="routingChannel"/>														
+    <bean id="oaas_output" class="com.hethi.oaas.Output"/>
+    
+        <int:service-activator 	input-channel="oaas.shipment" 
+							ref="oaas_shipment"  
+							method="Shipment" 
+							output-channel="routingChannel"/>														
+    <bean id="oaas_shipment" class="com.hethi.oaas.Shipment"/>
+    
+        <int:service-activator 	input-channel="oaas.rejects" 
+							ref="oaas_rejects"  
+							method="Rejects" 
+							output-channel="routingChannel"/>														
+    <bean id="oaas_rejects" class="com.hethi.oaas.Rejects"/>
+    
+    
+    <int:service-activator 	input-channel="oaas.hml" 
+							ref="oaas_hml"  
+							method="HML" 
+							output-channel="routingChannel"/>														
+    <bean id="oaas_hml" class="com.hethi.oaas.HML"/>
+	
+
+    <int:service-activator 	input-channel="oaas.ansi" 
+							ref="oaas_ansi"  
+							method="ANSI" 
+							output-channel="routingChannel"/>														
+    <bean id="oaas_ansi" class="com.hethi.oaas.ANSI"/>
+	
+	
+    <int:service-activator 	input-channel="oaas.edifact" 
+							ref="oaas_edifact"  
+							method="Edifact" 
+							output-channel="routingChannel"/>														
+    <bean id="oaas_edifact" class="com.hethi.oaas.Edifact"/>
+    
+    	
+    <int:service-activator 	input-channel="oaas.delimited" 
+							ref="oaas_delimited"  
+							method="Delimited" 
+							output-channel="routingChannel"/>														
+    <bean id="oaas_delimited" class="com.hethi.oaas.Delimited"/>
+			
+
+    <int:service-activator 	input-channel="oaas.prop" 
+							ref="oaas_prop"  
+							method="Prop" 
+							output-channel="routingChannel"/>														
+    <bean id="oaas_prop" class="com.hethi.oaas.Prop"/>
+    
+
+       
+<!-- Iaas Service activator -->
+
+    <int:service-activator 	input-channel="iaas.sap" 
+							ref="iaas_sap"  
+							method="SAP" 
+							output-channel="routingChannel"/>														
+    <bean id="iaas_sap" class="com.hethi.iaas.SAP"/>
+    
+    <int:service-activator 	input-channel="iaas.lawson" 
+							ref="iaas_lawson"  
+							method="Lawson" 
+							output-channel="routingChannel"/>														
+    <bean id="iaas_lawson"  class="com.hethi.iaas.Lawson"/>
+
+
+    <int:service-activator 	input-channel="iaas.oracle_fusion" 
+							ref="iaas_oracle_fusion"  
+							method="OracleFusion" 
+							output-channel="routingChannel"/>														
+    <bean id="iaas_oracle_fusion" class="com.hethi.iaas.OracleFusion"/>
+     
+
+    <int:service-activator 	input-channel="iaas.baan" 
+							ref="iaas_baan"  
+							method="Baan" 
+							output-channel="routingChannel"/>														
+    <bean id="iaas_baan" class="com.hethi.iaas.Baan"/>			
+		
+			
+
+			
+
+			
+		<!-- Aaas Service activator -->
+        <int:service-activator 
+			input-channel="Aaas_Channel" 
+			ref="Aaas"  
+			method="aaas" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.SummaryReport" 
+			ref="Aaasservice"  
+			method="aaasSummaryReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.ReconciliationReport" 
+			ref="Aaasservice"  
+			method="aaasReconciliationReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.ShipmentReport" 
+			ref="Aaasservice"  
+			method="aaasShipmentReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.DetailedShipmentReport" 
+			ref="Aaasservice"  
+			method="aaasDetailedShipmentReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.EmailReport" 
+			ref="Aaasservice"  
+			method="aaasEmailReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.FaxReport" 
+			ref="Aaasservice"  
+			method="aaasFaxReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.BillingReport" 
+			ref="Aaasservice"  
+			method="aaasBillingReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.POMatchRateReport" 
+			ref="Aaasservice"  
+			method="aaasPoMatchRateReport" 
+			output-channel="routingChannel"/>
+		
+		<int:service-activator 
+			input-channel="AaaS.EDIReport" 
+			ref="Aaasservice"  
+			method="aaasEdiReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.WorkflowReport" 
+			ref="Aaasservice"  
+			method="aaasWorkflowReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.ActivityAgingReport" 
+			ref="Aaasservice"  
+			method="aaasActivityAgingReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.ExceptionReport" 
+			ref="Aaasservice"  
+			method="aaasExceptionReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.PerformanceReport" 
+			ref="Aaasservice"  
+			method="aaasPerformanceReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.WorkItemDetailReport" 
+			ref="Aaasservice"  
+			method="aaasWorkItemDetailReport" 
+			output-channel="routingChannel"/>	
+			
+		<int:service-activator 
+			input-channel="AaaS.WorkflowWorkinProgressReport" 
+			ref="Aaasservice"  
+			method="aaasWorkflowWorkinProgressReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.AuditTrailReport" 
+			ref="Aaasservice"  
+			method="aaasAuditTrailReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.ProductivityReport" 
+			ref="Aaasservice"  
+			method="aaasProductivityReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.InventoryReport" 
+			ref="Aaasservice"  
+			method="aaasInventoryReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.AbsenteeDelegationReport" 
+			ref="Aaasservice"  
+			method="aaasAbsenteeDelegationReport" 
+			output-channel="routingChannel"/>
+		
+		<int:service-activator 
+			input-channel="AaaS.ReassignReport" 
+			ref="Aaasservice"  
+			method="aaasReassignReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.RerouteReport" 
+			ref="Aaasservice"  
+			method="aaasRerouteReport" 
+			output-channel="routingChannel"/>
+			
+		<int:service-activator 
+			input-channel="AaaS.WorkItemHistoryReport" 
+			ref="Aaasservice"  
+			method="aaasWorkItemHistoryReport" 
+			output-channel="routingChannel"/>
+			
+			<!-- Staas Service activator -->
+        <int:service-activator 
+			input-channel="Staas_Channel" 
+			ref="Staas"  
+			method="staas" 
+			output-channel="routingChannel"/>
+		<int:service-activator 
+			input-channel="StaaS.MetaData" 
+			ref="Staasservice"  
+			method="staasMetaData" 
+			output-channel="routingChannel"/>
+		<int:service-activator 
+			input-channel="StaaS.Image" 
+			ref="Staasservice"  
+			method="staasImage" 
+			output-channel="routingChannel"/>
+			
+	<int:service-activator 
+			input-channel="exit_channel" 
+			ref="workflow_exit"  
+			method="exit_from_workflow"/>	
+   <bean id="workflow_exit" class="com.hethi.commonfunctions.ExitWorkflow"/> 				
+			
+			
+    <int-stream:stdout-channel-adapter id="gateway_out"/>
+
+			             
+
+    
+  
+       
+        <!-- Hethi services  -->
+
+        <bean id="Aaas" class="com.hethi.aaas.Aaas"/>
+        <bean id="Staas" class="com.hethi.staas.Staas"/>
+
+
+        <!-- Hethi core service play -->
+        
+        
+ 
+   
+     
+
+        <bean id="Staasservice" class="com.hethi.staas.StaasCoreServices"/>
+        <bean id="Aaasservice" class="com.hethi.aaas.AaasCoreServices"/>
+        
+
+        
+
+	
+        	
+     <!--    	
+		<bean id="getRuleBeam" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+			<property name="serviceUrl" value="rmi://localhost:1099/getRuleService" />
+			<property name="serviceInterface" value="com.hethi.commonfunctions.RuleInterface" />
+		</bean> -->
+	 <int:poller id="poller" default="true" fixed-delay="1000" /> 
+
+
+
+</beans>
+
+
