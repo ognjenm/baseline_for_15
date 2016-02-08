@@ -1,0 +1,266 @@
+<div  class="panel panel-default table-dynamic"  data-ng-controller="reportsController">
+
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Registration</strong></div>
+        <div class="panel-body ">
+
+    <!--<div class="" >-->
+
+
+
+        <div class="row">
+
+
+            <div class="col-md-12">
+                <div class="">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" >
+                                <!--<div class="col-md-4">-->
+                                <!--<h4>Registration Type</h4>-->
+                                <!--<div class="form-group ">-->
+                                    <!--&lt;!&ndash;<div class="col-md-3 col-sm-3 text-left">Company</div>&ndash;&gt;-->
+
+                                    <!--<div class="col-md-12 col-sm-12">-->
+                                        <!--&lt;!&ndash;<input type="text" class="form-control input-md input-hethi">&ndash;&gt;-->
+                                        <!--<select class="form-control input-md text-center">-->
+                                            <!--<option>Industry  </option>-->
+                                            <!--<option>Finance</option>-->
+                                            <!--<option>Health Care</option>-->
+                                            <!--<option>E-Publishing</option>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+
+                                <div class="col-md-offset-1 col-md-9">
+                                    <div class="form-group">
+                                        <label class="col-md-4" >Customer</label>
+                                        <div class="col-md-8">
+                                            <input type="text" name="username" required="" class="form-control input-md input-hethi" ng-model="signup.company" placeholder="Customer Name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-offset-1 col-md-9">
+                                    <div class="form-group">
+                                        <label class="col-md-4">Email</label>
+                                        <div class="col-md-8">
+                                            <input type="email" class="form-control input-md input-hethi" ng-model="signup.email" placeholder="E-mail">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-offset-1 col-md-9">
+                                    <div class="form-group">
+                                        <label class="col-md-4" >PhoneNumber</label>
+                                        <div class="col-md-8">
+                                            <input type="text" required="" class="form-control input-md input-hethi" ng-model="signup.password" placeholder="Phone Number">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-offset-1 col-md-9">
+                                    <div class="form-group">
+                                        <label class="col-md-4" >Business Process</label>
+                                        <div class="col-md-8">
+                                        <select class="form-control input-hethi input-md text-center">
+                                            <option>Claims To Pay  </option>
+                                            <option>Enroll To Pay </option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-offset-1 col-md-9">
+                                    <div class="form-group">
+                                        <label class="col-md-4" >Industry</label>
+                                        <div class="col-md-8">
+                                        <select class="form-control input-hethi input-md text-center">
+                                            <option>Finance</option>
+                                            <option>Health Care</option>
+                                            <option>E-Publishing</option>
+                                        </select>
+                                    </div>
+                                        </div>
+                                </div>
+
+                                <div class="col-md-offset-1 col-md-9">
+                                    <div class="form-group">
+                                        <label class="col-md-4" >Form Type</label>
+                                        <div class="col-md-8">
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="0" >
+                                                <span>HCFA</span>
+                                            </label>
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="1" >
+                                                <span>HCFA Plus</span>
+                                            </label>
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="2" >
+                                                <span>CMS</span>
+                                            </label>
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="3" >
+                                                <span>CRA-2</span>
+                                            </label>
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="4" >
+                                                <span>INC-18</span>
+                                            </label>
+
+
+                                            </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-offset-1 col-md-9">
+                                    <div class="form-group">
+                                        <label class="col-md-4" >Transport</label>
+                                        <div class="col-md-8">
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="0" >
+                                                <span>Email</span>
+                                            </label>
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="1" >
+                                                <span>FTP</span>
+                                            </label>
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="2" >
+                                                <span>FAX</span>
+                                            </label>
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="3" >
+                                                <span>E-FAX</span>
+                                            </label>
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="4" >
+                                                <span>UPLOAD</span>
+                                            </label>
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="5" >
+                                                <span>SFTP</span>
+                                            </label>
+                                            <!--<input class="" type="checkbox" name="HCFA" value="0"> <strong>Email</strong>-->
+                                            <!--<input class="" type="checkbox" name="HCFA" value="1"> <strong>FTP</strong>-->
+                                            <!--<input class="" type="checkbox" name="HCFA" value="2"> <strong>FAX</strong>-->
+                                            <!--<input class="" type="checkbox" name="HCFA" value="2"> <strong>E-FAX</strong>-->
+                                            <!--<input class="" type="checkbox" name="HCFA" value="3"> <strong>UPLOAD</strong>-->
+                                            <!--<input class="" type="checkbox" name="HCFA" value="4"> <strong>SFTP</strong><br>-->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-offset-1 col-md-9">
+                                    <div class="form-group">
+                                        <label class="col-md-4" >Transport Medium</label>
+                                        <div class="col-md-8">
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="0" >
+                                                <span>ZIP</span>
+                                            </label>
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="1" >
+                                                <span>JPG</span>
+                                            </label>
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="2" >
+                                                <span>PNG</span>
+                                            </label>
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="3" >
+                                                <span>XLSX</span>
+                                            </label>
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1" type="checkbox" value="4" >
+                                                <span>CSV</span>
+                                            </label>
+                                            <!--<input class="" type="checkbox" name="HCFA" value="0"> <strong>ZIP</strong>-->
+                                            <!--<input class="" type="checkbox" name="HCFA" value="1"> <strong>JPG</strong>-->
+                                            <!--<input class="" type="checkbox" name="HCFA" value="2"> <strong>PNG</strong>-->
+                                            <!--<input class="" type="checkbox" name="HCFA" value="3"> <strong>XLSX</strong>-->
+                                            <!--<input class="" type="checkbox" name="HCFA" value="4"> <strong>CSV</strong><br>-->
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                                <div class="col-md-offset-1 col-md-9">
+                                <div class="form-group margin-top-20">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-8">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn_hethi btn-success btn-block" >Register!</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{image}}" class="thumbnail img-responsive">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="divider-md"></div>
+
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="text-center margin-bottom-30">-->
+        <!--<button type="button" class="btn_hethi btn-primary" data-ng-click="stencil()">create mxsd</button>-->
+
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--</div>-->
+
+
+
+
+
+
+        <!--<div class="row">-->
+        <!--<div class="col-md-3">-->
+
+        <!--<div class="xsdBtn">-->
+        <!--<div class="fa-btn">-->
+        <!--<span class="fa fa-file"></span>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<span class="btn_hethi btn-primary btn-file">-->
+        <!--upload your file <input type="file" class="input-md">-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-md-3">-->
+
+        <!--<div class="xsdBtn">-->
+
+        <!--<div>-->
+        <!--<button type="button" class="btn_hethi btn-primary" data-ng-click="stencil()">create mxsd</button>-->
+
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+    </div>
+
+</div>

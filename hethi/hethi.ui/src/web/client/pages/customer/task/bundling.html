@@ -1,0 +1,323 @@
+<div class="panel-info panel-body panel" data-ng-controller="hethi_artist_home_Controller">
+
+
+    <div class="dnd_box_header">
+        <div class="row">
+            <header class="dnd_box_header">
+                <!--<div class="codrops-links">-->
+                <!--<a class="codrops-icon codrops-icon--prev" href="http://tympanus.net/Tutorials/SVGRipples/" title="Previous Demo"><span>Previous Demo</span></a>-->
+                <!--<a class="codrops-icon codrops-icon--drop" href="http://tympanus.net/codrops/?p=24831" title="Back to the article"><span>Back to the Codrops article</span></a>-->
+                <!--</div>-->
+                <h1>Bundle Your forms</h1>
+
+                <div class="divider"></div>
+
+            </header>
+            <div class="box" >
+                <div class="row">
+                    <div class="col-md-4" ng-repeat="(listname,list) in models.lists" >
+                        <div class="panel panel-dark">
+                            <div class="dnd_box_header">
+                                <header class="dnd_box_header">
+                                    <h1  ng-if="listname=='A'" >Uploaded forms</h1>
+                                    <h1  ng-if="listname=='B'" >Drop your form here</h1>
+                                    <div class="divider"></div>
+                                </header>
+                                <div class="box_pad_3 text-left">
+                                    <div class="scrollbar" id="style-7">
+                                        <div class="force-overflow">
+                                            <ul dnd-list="list" class="trans_box">
+                                                <li ng-repeat="item in list"
+                                                    dnd-draggable="item"
+                                                    dnd-moved="list.splice($index, 1)"
+                                                    dnd-effect-allowed="copy"
+                                                    dnd-selected="models.selected = item"
+                                                    ng-class="{'selected': models.selected === item} "
+                                                    class="dnd_line_item">
+                                                    {{item.form_type}}
+
+                                                </li>
+                                                <div ng-if="listname=='B'"   ng-hide="models.lists.B.length" class="dnd_line_item">
+                                                    <span class="dnd_line_item"><i class="fa fa-download"> </i> Drag your form and drop here  </span>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!--<div class="scroll_bundle">-->
+                                        <!--<ul dnd-list="list" class="trans_box">-->
+                                            <!--<li ng-repeat="item in list"-->
+                                                <!--dnd-draggable="item"-->
+                                                <!--dnd-moved="list.splice($index, 1)"-->
+                                                <!--dnd-effect-allowed="copy"-->
+                                                <!--dnd-selected="models.selected = item"-->
+                                                <!--ng-class="{'selected': models.selected === item} "-->
+                                                <!--class="dnd_line_item">-->
+                                                <!--{{item.form_type}}-->
+
+                                            <!--</li>-->
+                                            <!--<div ng-if="listname=='B'"   ng-hide="models.lists.B.length" class="dnd_line_item">-->
+                                                <!--<span class="dnd_line_item"><i class="fa fa-download"> </i> Drag your form and drop here  </span>-->
+                                            <!--</div>-->
+                                        <!--</ul>-->
+
+                                    <!--</div>-->
+                                </div>
+
+                                <div ng-if="listname=='B'"   ng-show="models.lists.B.length" class="dnd_line_item">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <select class="form-control  ng-pristine ng-valid"
+                                                    ng-model="searchVal" ng-options="user as  user.bundle_name  for user in hethi_bundle_type">
+                                                <option value="" class="">select form bundle</option>
+                                            </select>
+                                        </div>
+                                        <div class="divider"></div><br><br>
+                                        <div class="col-md-12">
+                                            <button type="button" class="form-control btn_hethi  btn-danger" data-ng-click="setFormBundleToUploads(searchVal);">Create New Bundle</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="panel panel-dark">
+
+                        <div class="dnd_box_header">
+                            <header class="dnd_box_header">
+                                <h1><span ></span> Available Bundles</h1>
+                                <div class="divider"></div>
+                            </header>
+                            <div  class="box_pad_3">
+
+                                <div class="scrollbar" id="style-7">
+                                    <div class="force-overflow">
+                                        <ul class="trans_box">
+                                            <li ng-repeat="user in hethi_bundle_type"
+                                                class="dnd_line_item">
+                                                {{user.bundle_name}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!--<div class="scroll_bundle" id="ex3">-->
+                                    <!--<ul class="trans_box">-->
+                                        <!--<li ng-repeat="user in hethi_bundle_type"-->
+                                            <!--class="dnd_line_item">-->
+                                            <!--{{user.bundle_name}}-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
+                                <!--</div>-->
+
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+        <div class="divider-md"></div>
+
+    <!--<div class="content">-->
+        <!--<div class="box">-->
+
+            <!--<div class="col-md-4">-->
+                <!--sdfsdfsdfsd-->
+            <!--</div>-->
+            <!--<div class="col-md-5">-->
+                <!--dsfdsfdsf-->
+            <!--</div>-->
+            <!--<div class="col-md-3">-->
+                <!--dsaf-->
+            <!--</div>-->
+
+
+            <!--<form ng-submit="UploadImage(ImagePath)" class="form-horizontal" >-->
+                <!--<div class="divider-lg"></div>-->
+
+                <!--<div class="form-group ">-->
+                    <!--&lt;!&ndash;<div class="col-md-3 col-sm-3 text-left">Company</div>&ndash;&gt;-->
+                    <!--<div class="col-md-8 col-lg-offset-2">-->
+                        <!--&lt;!&ndash;<input type="text" class="form-control input-md input-hethi">&ndash;&gt;-->
+
+                        <!--<select class="form-control input-md input-round text-center">-->
+                            <!--<option>-- Your Industry --</option>-->
+                            <!--<option>Industry  </option>-->
+                            <!--<option>Finance</option>-->
+                            <!--<option>Health Care</option>-->
+                            <!--<option>E-Publishing</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--&lt;!&ndash;<div class="col-md-2"></div>&ndash;&gt;-->
+                    <!--<div class="col-md-8 col-md-offset-2">-->
+                        <!--<div class="input-group mouse_point">-->
+                                  <!--<span class="input-group-btn mouse_point">-->
+                                      <!--<span class="btn-file-hethi btn-danger btn-file">-->
+
+                                            <!--<span class="fa fa-upload"></span> Choose a file&hellip;-->
+                                          <!--<input type="file" name="file" id="file" data-ng-file-model="ImagePath" >-->
+
+                                      <!--</span>-->
+                                  <!--</span>-->
+                            <!--<input type="text" ng-model="pathfile" class="form-control input-hethi input-lg" readonly>-->
+                                <!--<span class="input-group-btn">-->
+                                    <!--<button class="btn-file-hethi btn-primary" type="submit">Upload</button>-->
+                                <!--</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;<div class="col-md-2"></div>&ndash;&gt;-->
+
+                <!--</div>-->
+
+                <!--<div class="form-group">-->
+                    <!--<div class="col-md-8 col-lg-offset-2">-->
+                        <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
+                        <!--<img src="{{image}}" class="thumbnail img-responsive">-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-md-8 col-lg-offset-2">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="pull-right">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button type="submit" class="btn_hethi btn-primary">Upload</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--</form>-->
+
+        <!--</div>-->
+
+    <!--</div>-->
+
+    <!--Form Bundle Modal CODE Begins Here-->
+
+    <div id="bundleview" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="false">
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <div>
+                    <div class="modal-header modal-head-bg-default">
+                        <span class="fa fa-close white-c pull-right mouse_point" data-dismiss="modal" aria-hidden="true"></span>
+
+                        <h4 class="modal-title text-center">Form Bundling</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="ui-tab-container">
+                            <tabset justified="true" class="ui-tab">
+                                <tab heading="Position">
+                                    <div id="coords" >
+                                        <div class="input-group input-group-sm">
+                                            <label class="input-group-addon" for="x1">X</label>
+                                            <input type="text" class="form-control" id="x1" name="x1" placeholder="x">
+                                            <span class="input-group-addon">px</span>
+                                        </div>
+                                        <div class="input-group input-group-sm">
+                                            <label class="input-group-addon" for="y1">Y</label>
+                                            <input type="text" class="form-control"  id="y1" name="y1"placeholder="y">
+                                            <span class="input-group-addon">px</span>
+                                        </div>
+                                        <div class="input-group input-group-sm">
+                                            <label class="input-group-addon" for="w">Width</label>
+                                            <input type="text" class="form-control"  id="w" name="w" placeholder="width">
+                                            <span class="input-group-addon">px</span>
+                                        </div>
+                                        <div class="input-group input-group-sm">
+                                            <label class="input-group-addon" for="h">Height</label>
+                                            <input type="text" class="form-control"  id="h" name="h" placeholder="height">
+                                            <span class="input-group-addon">px</span>
+                                        </div>
+
+                                    </div>
+
+                                </tab>
+                                <tab heading="Classify">
+                                    <div id="classify" >
+
+                                        <div class="row text-center">
+
+                                            <div class="col-md-6">
+                                                <label>Tag to Reject?</label>
+                                                <div class="btn-group">
+                                                    <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.toreject= 'Y'" data-ng-model="selectedValue.classify.toreject" btn-radio="'Y'" style="font-size: 12px"> Yes</button>
+                                                    <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.toreject= 'N'" data-ng-model="selectedValue.classify.toreject" btn-radio="'N'" style="font-size: 12px"> No </button>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Tag to Split?</label>
+                                                    <div class="btn-group">
+                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.tosplit= 'Y'" data-ng-model="selectedValue.classify.tosplit" btn-radio="'Y'" style="font-size: 12px"> Yes</button>
+                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.tosplit= 'N'" data-ng-model="selectedValue.classify.tosplit" btn-radio="'N'" style="font-size: 12px"> No </button>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row text-center">
+                                            <div class="col-md-6">
+
+                                                <label>Tag to Merge?</label>
+                                                <div class="btn-group">
+                                                    <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.tomerge= 'Y'" data-ng-model="selectedValue.classify.tomerge" btn-radio="'Y'" style="font-size: 12px"> Yes</button>
+                                                    <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.tomerge= 'N'" data-ng-model="selectedValue.classify.tomerge" btn-radio="'N'" style="font-size: 12px"> No </button>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Tag to mXSD?</label>
+                                                <div class="btn-group">
+                                                    <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.tomXSD= 'Y'" data-ng-model="selectedValue.classify.tomXSD" btn-radio="'Y'" style="font-size: 12px"> Yes</button>
+                                                    <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.tomXSD= 'N'" data-ng-model="selectedValue.classify.tomXSD" btn-radio="'N'" style="font-size: 12px"> No </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </tab>
+                                <tab heading="Industry">Long Labeled Justified content</tab>
+                            </tabset>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn_hethi btn-default btn-w-md" data-dismiss="modal">Close</button>
+                        <button type="reset" class="btn_hethi btn-warning btn-w-md" onclick="destroySelection()">  Back  </button>
+                        <button type="submit" class="btn_hethi btn-success btn-w-md">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Form Bundle Modal CODE Ends Here-->
+
+
+
+</div>
+
+

@@ -1,0 +1,124 @@
+<div class="panel-info panel-body panel" >
+
+
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12 col-sm-12" >
+
+              <div class="table-responsive ">
+
+                  <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                      <thead style="background-color: #000000;color: #ffffff" ng-show="stenciledFieldList.length">
+                      <tr>
+
+                          <th>
+                              <div class="th">
+                                  Field Name
+                              </div>
+                          </th>
+
+
+                          <th>
+                              <div class="th">
+                                  Tag Classify ?
+                              </div>
+                          </th>
+
+                          <th>
+                              <div class="th">
+                                  Tag Split ?
+                              </div>
+                          </th>
+
+                          <th>
+                              <div class="th">
+                                  Tag Merge ?
+                              </div>
+                          </th>
+
+                          <th>
+                              <div class="th">
+                                  Tag Reject ?
+                              </div>
+                          </th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr data-ng-repeat="list in stenciledFieldList" >
+
+
+
+                          <td>
+                              <div class="th">
+                                  {{list.name}}
+                              </div>
+                          </td>
+                          <!--&nbsp;&nbsp;&nbsp;-->
+
+                          <td>
+
+                              <div class="col-md-12">
+                                  <div class="btn-group">
+                                      <button type="button" class="btn btn-success " data-ng-click="list.classify= 'yes' " data-ng-model="list.classify" btn-radio="'yes'" style="font-size: 12px"> Yes</button>
+                                      <button type="button" class="btn btn-success " data-ng-click="list.classify= 'no' " data-ng-model="list.classify" btn-radio="'no'" style="font-size: 12px"> No </button>
+                                  </div>
+                              </div>
+
+                          </td>
+
+                          <td>
+                              <div class="col-md-12">
+                                  <div class="btn-group">
+                                      <button type="button" class="btn btn-success " data-ng-click="list.classify= 'yes'" data-ng-model="list.split" btn-radio="'yes'" style="font-size: 12px"> Yes</button>
+                                      <button type="button" class="btn btn-success " data-ng-click="list.classify= 'no'" data-ng-model="list.split" btn-radio="'no'" style="font-size: 12px"> No </button>
+                                  </div>
+                              </div>
+                          </td>
+
+                          <td>
+                              <div class="col-md-12">
+                                  <div class="btn-group">
+                                      <button type="button" class="btn btn-success " data-ng-click="list.classify= 'yes'" data-ng-model="list.merge" btn-radio="'yes'" style="font-size: 12px"> Yes</button>
+                                      <button type="button" class="btn btn-success " data-ng-click="list.classify= 'no'" data-ng-model="list.merge" btn-radio="'no'" style="font-size: 12px"> No </button>
+                                  </div>
+                              </div>
+                          </td>
+
+                          <td>
+                              <div class="col-md-12">
+                                  <div class="btn-group">
+                                      <button type="button" class="btn btn-success " data-ng-click="list.classify= 'yes'" data-ng-model="list.reject" btn-radio="'yes'" style="font-size: 12px"> Yes</button>
+                                      <button type="button" class="btn btn-success " data-ng-click="list.classify= 'no'" data-ng-model="list.reject" btn-radio="'no'" style="font-size: 12px"> No </button>
+                                  </div>
+                              </div>
+                          </td>
+
+                      </tr>
+                      </tbody>
+                  </table>
+
+
+
+
+              </div>
+
+          </div>
+      </div>
+
+        <div class="divider-md"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center margin-bottom-30">
+                    <button type="button"  data-ng-click="selectStencilTab(1)"class="btn_hethi-lg btn-warning">Back </button>
+                    <button type="button" data-ng-click="completeStencilingProcess()" style="margin-left: 10px" class="btn_hethi-lg btn-warning">Complete stenciling</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+</div>

@@ -1,0 +1,158 @@
+<h3  class="text-center"> <label>{{selectedOPTab}} </label></h3>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class = "table-filters row ">
+
+            <div class="col-md-4 col-sm-12 text-center">
+                <label>business mode </label>
+                <div class="form-group" ng-switch="business_mode">
+
+                    <div class="btn-group ">
+                        <button type="button" class="btn btn-line-info " data-ng-click="business_mode = 'on_offer';set_selected_b_mode('on_offer')" data-ng-model="business_mode" btn-radio="'on_offer'" style="font-size: 12px"> on offer</button>
+                        <button type="button" class="btn btn-line-info " data-ng-click="business_mode = 'on_board';set_selected_b_mode('on_board')"  data-ng-model="business_mode" btn-radio="'on_board'" style="font-size: 12px"> on board </button>
+                    </div>
+
+                    <select ng-switch-when="on_offer" class = "form-control input-round" ng-change="selectedOfferChanged(selectedOffer);" data-ng-model="selectedOffer" data-ng-options="item as item.offer_name for item in business_modes">
+                        <option value=""> select an offer</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12 text-center">
+                <label>search </label>
+                <div class="input-group">
+                    <input type = "text" class = "form-control input-round text-center " data-ng-model="searchKeywordsIndexer"
+                           data-ng-keyup="searchIndexer()" placeholder="search" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default"  style="border-top-right-radius: 48%;border-bottom-right-radius: 48%" type="button"><span class="fa fa-search"></span></button>
+                                                </span>
+
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12 text-right">
+
+
+
+
+                <label>assign to business authority : </label>
+                <div class="form-group">
+                    <select class = "form-control input-round" ng-change="selectedArtistChanged(assigned_artist);" ng-model="assigned_artist"   data-ng-options="item as item.user_name for item in artistData" >
+                        <option value=""> select the business  authority to assign</option>
+                    </select>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="divider-md"></div>
+
+        <div class="table-dynamic">
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                <thead class="text-lowercase" style="background-color: #000000;color: #ffffff">
+                <tr>
+                    <th class="text-center">
+                        <div class="thSn">
+                            #
+                        </div>
+                    </th>
+
+                    <th style="width:200px" class="text-center" >
+                        <div class="">
+                            business partner
+                        </div>
+                    </th>
+                    <th  class="text-center">
+                        <div class="th">
+                            BPaaS
+                        </div>
+                    </th>
+                    <th>
+                        <div class="th">
+                            industry
+                        </div>
+                    </th>
+                    <th class="text-center">
+                        <div class="th">
+                            Form
+                        </div>
+                    </th>
+                    <th class="text-center" style="width:200px" >
+                        <div class="th">
+                            received time
+                        </div>
+                    </th>
+                    <!--<th class="text-center">-->
+                        <!--<div class="th">-->
+                            <!--offer name-->
+                        <!--</div>-->
+                    <!--</th>-->
+
+
+                    <th class="text-center">
+                        <div class="th">
+                            select
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-click="selectbps($index);" ng-repeat="row in currentPageCustomerList">
+                    <td class="text-center">{{numPerPageIndexer*(currentPageIndexer-1)+$index+1}}</td>
+                    <td class="text-center">{{row.customer_name}}</td>
+                    <td class="text-center">{{row.BPaaS_service}} 	</td>
+                    <td class="text-center">{{row.indus_service}}</td>
+                    <td class="text-center">{{row.form_type}}</td>
+                    <td class="text-11 text-center">
+                        {{row.lastupdtm | date:'medium'}}
+                    </td>
+                    <!--<td class="text-center"> on network * </td>-->
+
+                    <td class="text-center"><label class="switch"><input type="checkbox" ng-change="chooseItem($index);" ng-model="row.status" ><i></i></label>
+                        <!--<a  ng-click="selectbps($index);" class="  text-small"> click </a> -->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer ng-show="currentPageIndexer" class="table-footer">
+            <div class="row">
+                <div class="col-md-6 page-num-info">
+                             <span>
+                                 <!--data-ng-options="num for num in numPerPageOptIndexer"-->
+                                 Show
+                        <select data-ng-model="numPerPageIndexer"
+                                data-ng-options="num for num in numPerPageOptIndexer"
+                                data-ng-change="onNumPerPageChangeIndexer(numPerPageIndexer)">
+                            <!--<option ng-repeat="num in numPerPageOptIndexer" value="{{num.no}}">{{num.no}}</option>-->
+                        </select>
+                        entries per page
+                    </span>
+                </div>
+                <div class="col-md-6 text-right pagination-container">
+                    <pagination class="pagination-sm"
+                                page="currentPageIndexer"
+                                total-items="filteredCustomerList.length"
+                                max-size="4"
+                                ng-click="selectIndexer(currentPageIndexer)"
+                                items-per-page="numPerPageIndexer"
+                                rotate="false"
+                                boundary-links="true"></pagination>
+                </div>
+            </div>
+        </footer>
+            </div>
+        <div class="col-md-12 ">
+            <button class="pull-right btn btn-line-success  btn-w-lg btn-round" data-ng-click="assignToArtist();">
+                save
+            </button>
+        </div>
+
+
+
+
+    </div>
+</div>

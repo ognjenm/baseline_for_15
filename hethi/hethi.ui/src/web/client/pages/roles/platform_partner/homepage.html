@@ -1,0 +1,504 @@
+<div data-ng-controller="PlatformPartnerController">
+    <div class="margin_top_60"  ng-hide="customerSelected">
+
+        <div class="panel panel-success">
+            <div class="panel-body" ng-hide="cbaas_workflow_rules">
+                <div class="row margin-top-30">
+                    <div class="col-md-7 col-md-offset-3">
+                        <form data-ng-submit="load_data_cbaas_workflow( selectedFormData )">
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <select  class = "form-control " data-ng-model="customerSelected" data-ng-options="item as item.form_type for item in all_forms">
+                                        <option value=""> select the form</option>
+                                    </select>
+                                </div>
+                                <div class="divider divider-lg"></div>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <div class="divider divider"></div>
+                                <div class="col-sm-10">
+                                    <button type="submit" class=" btn btn-line-info "> go to freemium </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div ng-show="customerSelected">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div style="margin-top: 160px;">
+
+                    <div class="col-sm-6 col-md-4 " ng-repeat="(key,value) in main_tabs">
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="row home-page" >
+                                <div class="services clearfix">
+                                    <div class="service_item service_two span4">
+                                        <!--background-color:#7cc0fc; detail_{{$index}}-->
+                                        <div class="detail  " style="background-color:#7cc0fc;"  data-ng-click="select_main_tab(key)">
+                                            <div ng-switch="key">
+                                                <h2 ng-switch-default="" > {{key}}</h2>
+
+                                                <!--<span ng-show="value" class="service_item  detail_{{value}}  " >_____________________</span>-->
+                                            </div>
+
+                                            <p></p>
+                                            <a href="" data-ng-click="select_main_tab(key)" class="detail_{{value}}" style="font-weight: 900; "><b>____</b></a>
+                                        </div>
+                                        <img class="shadow" src="styles/img/service_shadow.png" alt="" border="0">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <HR>
+            <div class="col-md-12" id="details_div" >
+                <div ng-switch="selected_main_tab">
+                    <div ng-switch-default="">
+                        <h3  class="text-center"> <label>{{selected_main_tab}} </label></h3>
+                        <h3 ng-show="selected_main_tab"> <label>Unable to open this tab please refer the page 'pages/roles/platform_partner/homepage.html' </label></h3>
+                    </div>
+                    <div ng-switch-when="service & delivery">
+
+
+                        <h3  class="text-center"> <label>{{selected_main_tab}} </label></h3>
+                        <div>
+
+                            <div class=" col-md-1"> </div>
+
+
+                            <div class="text-center text-lowercase ">
+                                <button ng-repeat="tab in service_delivery_tabs" type="button" class="btn_hethi  btn-primary btn_wizard"  ng-class="tab.isActive"  data-ng-click="set_service_delivery_tab(tab.menu_name)"> {{tab.menu_name}}</button>
+                            </div>
+
+
+
+
+
+                            <div class="divider-md"></div>
+
+                            <div ng-switch="service_delivery_tab">
+
+                                <div ng-switch-default="">
+                                    <h3  class="text-center"> <label>{{service_delivery_tab}} </label></h3>
+                                    <h3 ng-show="service_delivery_tab"> <label>Unable to open this tab please refer the page 'pages/roles/platform_partner/homepage.html' </label></h3>
+                                </div>
+
+                                <div ng-switch-when="capture">
+
+                                    <h3  class="text-center"> <label>{{service_delivery_tab}} </label></h3>
+
+                                </div>
+                                <div ng-switch-when="workflow">
+
+                                    <div class="panel panel-success">
+                                        <div class="panel-body" ng-show="cbaas_workflow_rules">
+
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <h3  class="text-left"> <label>define workflow </label></h3>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label> change the form </label>
+                                                    <select  class = "form-control " data-ng-model="selectedFormData" data-ng-options="item as item.form_type for item in all_forms" ng-change="load_data_cbaas_workflow( selectedFormData )">
+                                                        <option value=""> select the form</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            <div class="row" >
+
+
+                                                <div class="divider-md"></div>
+
+                                                <div class="table-responsive" >
+                                                    <table class="table table-bordered table-striped table-responsive ">
+                                                        <thead class="text-lowercase table-bg-info">
+                                                        <tr>
+                                                            <th class="text-center">
+                                                                <div class="thSn">
+                                                                    #
+                                                                </div>
+                                                            </th>
+
+                                                            <th  class="text-center" >
+                                                                <div class="th">
+                                                                    Role
+                                                                </div>
+                                                            </th>
+                                                            <th  class="text-center">
+                                                                <div class="th">
+                                                                    Rule set
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="th">
+                                                                    descion
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="th">
+                                                                    priority
+                                                                </div>
+                                                            </th>
+
+                                                            <th class="text-center">
+                                                                <div class="th">
+                                                                    queue
+                                                                </div>
+                                                            </th>
+                                                            <th class="text-center">
+                                                                <div class="th">
+                                                                    activate
+                                                                </div>
+                                                            </th>
+
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody ng-repeat=" item in cbaas_workflow_rules">
+                                                        <tr  >
+                                                            <td class="text-center">{{$index+1}}</td>
+                                                            <td class="text-center">ap analyst</td>
+                                                            <td class="text-center"> <a ng-mouseover="item.show_rule_desc=!item.show_rule_desc" ng-mouseleave="item.show_rule_desc=!item.show_rule_desc">{{item.crulesset_name}}</a>  </td>
+                                                            <td class="text-center">{{item.decision}}</td>
+                                                            <td class="text-center">{{item.ruleset_order}}</td>
+                                                            <td class="text-center">{{item.decision}} </td>
+                                                            <td class="text-center">  <label class="switch"><input type="checkbox" ng-model="item.activate"><i></i></label> </td>
+                                                        </tr>
+                                                        <tr collapse="!item.show_rule_desc">
+                                                            <td colspan="2"></td>
+                                                            <td colspan="5" class="text-left">
+                                                                {{item.cruleset_desc}}
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-12 ">
+                                                    <div class="pull-right">
+                                                        <button class=" btn btn-line-info  btn-w-lg ">
+                                                            add custom rule set
+                                                        </button>
+                                                        <button class=" btn btn-line-info  btn-w-lg ">
+                                                            save
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="panel-body" ng-hide="cbaas_workflow_rules">
+                                            <div class="row margin-top-30">
+                                                <div class="col-md-7 col-md-offset-3">
+                                                    <form data-ng-submit="load_data_cbaas_workflow( selectedFormData )">
+                                                        <div class="form-group">
+                                                            <div class="col-sm-10">
+                                                                <select  class = "form-control " data-ng-model="selectedFormData" data-ng-options="item as item.form_type for item in all_forms">
+                                                                    <option value=""> select the form</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="divider divider-lg"></div>
+                                                        </div>
+
+                                                        <div class="form-group text-center">
+                                                            <div class="divider divider"></div>
+                                                            <div class="col-sm-10">
+                                                                <button type="submit" class=" btn btn-line-info "> get sop rules </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+
+
+
+
+                                </div>
+                                <div  ng-switch-when="organization structure">
+
+                                    <div class="panel panel-success">
+                                        <div class="panel-body">
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <h3  class="text-left"> <label>define define role and q definition  </label></h3>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label> select the form </label>
+                                                    <select  class = "form-control " data-ng-model="selectedFormData" data-ng-options="item as item.form_type for item in all_forms" ng-change="load_data_cbaas_workflow( selectedFormData )">
+                                                        <option value=""> select the form</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+
+                                                <div class="divider-md"></div>
+
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped table-responsive ">
+                                                        <thead class="text-lowercase table-bg-info">
+                                                        <tr>
+                                                            <th class="text-center">
+                                                                <div class="thSn">
+                                                                    #
+                                                                </div>
+                                                            </th>
+
+                                                            <th style="width:100px" class="text-center" >
+                                                                <div class="">
+                                                                    Role
+                                                                </div>
+                                                            </th>
+                                                            <th  class="text-center">
+                                                                <div class="th">
+                                                                    Rule set
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="th">
+                                                                    descion
+                                                                </div>
+                                                            </th>
+                                                            <th>
+                                                                <div class="th">
+                                                                    priority
+                                                                </div>
+                                                            </th>
+
+                                                            <th class="text-center">
+                                                                <div class="th">
+                                                                    queue
+                                                                </div>
+                                                            </th>
+                                                            <th class="text-center">
+                                                                <div class="th">
+                                                                    activate
+                                                                </div>
+                                                            </th>
+
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr ng-click="selectbps($index);" >
+                                                            <td class="text-center">{{$index+1}}</td>
+                                                            <td class="text-center">ap analyst</td>
+                                                            <td class="text-center">  rules   </td>
+                                                            <td class="text-center"> descion	</td>
+                                                            <td class="text-center"> priority</td>
+                                                            <td class="text-center"> queue </td>
+                                                            <td class="text-center">  <label class="switch"><input type="checkbox" checked><i></i></label> </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-md-12 ">
+                                                    <div class="pull-right">
+                                                        <button class=" btn btn-line-info  btn-w-lg ">
+                                                            add custom rule set
+                                                        </button>
+                                                        <button class=" btn btn-line-info  btn-w-lg ">
+                                                            save
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div ng-switch-when="platform as a service">
+                        <h3  class="text-center"> <label>{{selected_main_tab}} </label></h3>
+                    </div>
+                    <div ng-switch-when="infrastructure as a service">
+                        <h3  class="text-center"> <label>{{selected_main_tab}} </label></h3>
+                    </div>
+                    <div ng-switch-when="initiate_implementation">
+                        <h3  class="text-center"> <label>{{selected_main_tab}} </label></h3>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class = "table-filters row ">
+
+                                    <div class="col-md-3 col-sm-12 text-center">
+                                        <label>business mode </label>
+                                        <div class="form-group" ng-switch="business_mode">
+
+                                            <div class="btn-group ">
+                                                <button type="button" class="btn btn-line-info " data-ng-click="business_mode = 'on_offer';set_selected_b_mode('on_offer')" data-ng-model="business_mode" btn-radio="'on_offer'" style="font-size: 12px"> on offer</button>
+                                                <button type="button" class="btn btn-line-info " data-ng-click="business_mode = 'on_board';set_selected_b_mode('on_board')"  data-ng-model="business_mode" btn-radio="'on_board'" style="font-size: 12px"> on board </button>
+                                            </div>
+
+                                            <select ng-switch-when="on_offer" class = "form-control input-round" data-ng-model="searchKeywordsIndexer" data-ng-options="item as item.offer_name for item in business_modes">
+                                                <option value=""> select the business mode</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-5 col-sm-12 text-center">
+                                        <label>search </label>
+                                        <div class="input-group">
+                                            <input type = "text" class = "form-control input-round text-center " data-ng-model="searchKeywordsIndexer"
+                                                   data-ng-keyup="searchIndexer()" placeholder="search" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default"  style="border-top-right-radius: 48%;border-bottom-right-radius: 48%" type="button"><span class="fa fa-search"></span></button>
+                                                </span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-sm-12 text-right">
+
+
+
+
+                                        <label>assign to business authority : </label>
+                                        <div class="form-group">
+                                            <select class = "form-control input-round" ng-model="assigned_artist"   data-ng-options="item as item.user_name for item in artistData" >
+                                                <option value=""> select the business  authority to assign</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="divider-md"></div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-responsive ">
+                                        <thead class="text-lowercase table-bg-info">
+                                        <tr>
+                                            <th class="text-center">
+                                                <div class="thSn">
+                                                    #
+                                                </div>
+                                            </th>
+
+                                            <th style="width:200px" class="text-center" >
+                                                <div class="">
+                                                    business partner
+                                                </div>
+                                            </th>
+                                            <th  class="text-center">
+                                                <div class="th">
+                                                    BPaaS
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="th">
+                                                    service partner
+                                                </div>
+                                            </th>
+                                            <th>
+                                                <div class="th">
+                                                    form
+                                                </div>
+                                            </th>
+
+                                            <th class="text-center">
+                                                <div class="th">
+                                                    capture
+                                                </div>
+                                            </th>
+                                            <th class="text-center">
+                                                <div class="th">
+                                                    manage
+                                                </div>
+                                            </th>
+                                            <th class="text-center">
+                                                <div class="th">
+                                                    deliver
+                                                </div>
+                                            </th>
+                                            <th class="text-center">
+                                                <div class="th">
+                                                    integrate
+                                                </div>
+                                            </th>
+                                            <th class="text-center">
+                                                <div class="th">
+                                                    storage
+                                                </div>
+                                            </th>
+                                            <th class="text-center">
+                                                <div class="th">
+                                                    analytics
+                                                </div>
+                                            </th>
+
+                                            <th class="text-center">
+                                                <div class="th">
+                                                    allocate
+                                                </div>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-click="selectbps($index);" >
+                                            <td class="text-center">{{$index+1}}</td>
+                                            <td class="text-center">{{row.customer_name}}</td>
+                                            <td class="text-center">{{row.BPaaS_service}} 	</td>
+                                            <td class="text-center"> service partner </td>
+                                            <td class="text-center"> form </td>
+                                            <td class="text-center">  <input type="checkbox" checked="true">  </td>
+                                            <td class="text-center">  <input type="checkbox" checked="true">  </td>
+                                            <td class="text-center">  <input type="checkbox" checked="true">  </td>
+                                            <td class="text-center">  <input type="checkbox" checked="true">  </td>
+                                            <td class="text-center">  <input type="checkbox" checked="true">  </td>
+                                            <td class="text-center">  <input type="checkbox" checked="true">  </td>
+                                            <td class="text-center">  <label class="switch"><input type="checkbox" checked><i></i></label> </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-12 ">
+                                    <button class="pull-right btn btn-line-success  btn-w-lg btn-round">
+                                        save
+                                    </button>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,60 @@
+<div data-ng-switch="homepage_chooser" class="margin_top_60">
+
+    <div data-ng-switch-when="1">
+        <div ng-init="setPath('hethistudio_admin')"></div>
+        <!--<div data-ng-include="'pages/hethistudio/admin/admin_home.html'"></div>-->
+    </div>
+    <div data-ng-switch-when="2">
+        <div ng-init="setPath('hethistudio_artist')"></div>
+        <!--<div data-ng-include="'pages/hethistudio/artist/home_page.html'"></div>-->
+    </div>
+    <div data-ng-switch-when="3">
+        <div data-ng-include="'pages/hethi/home_page.html'"></div>
+    </div>
+    <div data-ng-switch-when="4">
+        <div data-ng-include="'pages/roles/menu.html'"></div>
+    </div>
+    <div data-ng-switch-when="5">
+        <div data-ng-include="'pages/roles/menu.html'"></div>
+    </div>
+    <div data-ng-switch-when="6">
+        <div data-ng-include="'pages/roles/menu.html'"></div>
+    </div>
+
+    <div data-ng-switch-when="9">
+        <div data-ng-include="'pages/roles/operations_partner/homepage.html'"></div>
+    </div>
+    <div data-ng-switch-when="10">
+        <div data-ng-include="'pages/roles/platform_partner/homepage.html'"></div>
+    </div>
+    <div data-ng-switch-default>
+        <div data-ng-include="'pages/hethi/home_page.html'"></div>
+    </div>
+
+</div>
+
+<!--<div data-ng-switch="homepage_chooser">-->
+
+    <!--<div data-ng-switch-when="homepage_chooser">-->
+        <!--<div data-ng-include="homepage_url"></div>-->
+    <!--</div>-->
+
+    <!--<div data-ng-switch-default>-->
+        <!--<div data-ng-include="'pages/hethi/home_page.html'"></div>-->
+    <!--</div>-->
+
+<!--</div>-->
+<!--<div data-ng-switch="isSigned">-->
+
+        <!--<div data-ng-switch-when="true">-->
+            <!--<div data-ng-include="homepage_url"></div>-->
+        <!--</div>-->
+
+         <!--<div data-ng-switch-when="false">-->
+             <!--<div data-ng-include="'pages/hethi/home_page.html'"></div>-->
+        <!--</div>-->
+       <!--<div data-ng-switch-default="">-->
+            <!--<div data-ng-include="'pages/hethi/home_page.html'"></div>-->
+       <!--</div>-->
+
+<!--</div>-->

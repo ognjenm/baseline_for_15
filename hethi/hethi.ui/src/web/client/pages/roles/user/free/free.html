@@ -1,0 +1,446 @@
+<div class="margin_top_60" data-ng-controller="FreeController" xmlns="http://www.w3.org/1999/html"
+     xmlns="http://www.w3.org/1999/html">
+
+<!-- First time new login CODE Starts Here ( Authenticate the user is a new customer and show this 2 section CODE ) -->
+
+    <div ng-hide="false" >
+<!-- -------
+            -- ! -- WARNING -- ! -- Don't Change this 2 Sections inside and out side of the CODE
+              and !!!! DON'T ADD any Div class or span Class inside
+              the ID named "freeSlider" and "scroll_slider_content"
+ ------------    -->
+        <section class="{{ hideSliderclass1 }}" id="freeSlider" ng-hide="mainslider">
+            <div id="demo" class="center_div">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <data-owl-carousel class="owl-carousel"
+                                               data-options='{items : 4,
+                                                   itemsDesktop : [1199,3],
+                                                   itemsDesktopSmall : [979,3],
+                                                   pagination:false,
+                                                   navigation: true,
+                                                   navigationText:["<i class=fa fa-chevron-left  icon-white></i>","<i class=fa fa-chevron-right icon-white></i>"] }'>
+                                <div owl-carousel-item="" ng-repeat="item in BpaaS_Service_List" class="item dodgerBlue owlbox-main" data-ng-click="showOne($index);">
+                                    <div class="">
+                                        {{item.BpaaS_service}}
+                                    </div>
+                                </div>
+                            </data-owl-carousel>
+                            <!--<div id="owl-demo" class="owl-carousel">-->
+                                <!--<div class="item dodgerBlue owlbox-main" ng-repeat="list in BpaaS_Service_List" data-ng-click="showOne($index);">-->
+                                    <!--<div class="">-->
+                                        <!--{{list.BpaaS_service}}-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+
+                                <!--<div class="item dodgerBlue owlbox-main">-->
+                                    <!--<div class="">-->
+                                        <!--invoice process to pay-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="item dodgerBlue owlbox-main">-->
+                                    <!--<div class="">-->
+                                        <!--partner integration to pay-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="item dodgerBlue owlbox-main">-->
+                                    <!--<div class="">-->
+                                        <!--claims process to pay-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="item dodgerBlue owlbox-main">-->
+                                    <!--<div class="">-->
+                                        <!--5-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="item dodgerBlue owlbox-main">-->
+                                    <!--<div class="">-->
+                                        <!--6-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+
+                            <!--</div>-->
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="{{ hideSliderclass1 }} center_div" ng-show="one">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="margin-top: 5px;margin-bottom: 5px;border: 1px solid transparent;width: 330px;position: relative;">
+                            <div class="industry_select_box">
+                                {{selectedBpaaS.BpaaS_service}}
+                            </div>
+                            <div class="div_attach_icon" data-ng-click="showMainSlider()"><i class="fa fa-close"></i></div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div id="demo-1">
+
+                            <data-owl-carousel ng-if="item==selectedBpaaS"  ng-repeat="item in BpaaS_Service_List" class="owl-carousel"
+                                               data-options="{items : 4,
+                                               itemsDesktop : [1199,3],
+                                               itemsDesktopSmall : [979,3],
+                                               pagination:false,
+                                               navigation: true,
+                                               navigationText: ['<i class=fa fa-chevron-left icon-white></i>','<i class=fa fa-chevron-right icon-white></i>']}">
+                                <div owl-carousel-item ng-repeat="list in item.BpaaS_service_industry_list" class="item owlbox-content darkCyan" data-ng-click="GotoUpload($index);">
+                                    <div class="">
+                                        {{list.indus_service}}
+                                    </div>
+                                </div>
+                            </data-owl-carousel>
+                            <!--<div id="owl-demo1" class="owl-carousel">-->
+
+                                <!--<div data-ng-click="GotoUpload()" class="item owlbox-content darkCyan">-->
+                                    <!--<div class="" >-->
+                                        <!--industry-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="item owlbox-content darkCyan">-->
+                                    <!--<div class="">-->
+                                        <!--industry-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="item owlbox-content darkCyan">-->
+                                    <!--<div class="">-->
+                                        <!--industry-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="item owlbox-content darkCyan">-->
+                                    <!--<div>-->
+                                        <!--industry-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="item owlbox-content darkCyan">-->
+                                    <!--<div class="">-->
+                                        <!--industry-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+
+                            <!--</div>-->
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section ng-show="uploadForm">
+            <div class="">
+                <div class="row hethi_grey_color">
+                    <div class="col-md-6">
+                        <h3>
+                            uploads forms or EDI
+                        </h3>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="pull-right">
+                            <!--<h2>-->
+                            <!--<span class="fa fa-cloud-upload"> </span>-->
+                            <!--CloudPlug-->
+                            <!--</h2>-->
+                            <img class="img_width_200" src="images/icon/cloud_plug.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <select class="form-control input-md input-hethi" ng-model="selectedIndustryList" ng-options="data as data.indus_service for data in selectedBpaaS.BpaaS_service_industry_list">
+                                    <option value="">--Select a Industry--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <select class="form-control input-md input-hethi" ng-model="selectedForms" ng-options="data as data.form_type for data in selectedIndustryList.industry_form_list">
+                                    <option value="">--Select a Form--</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+
+                        <form ng-submit="UploadImage(ImagePath)" >
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group">
+
+                                    <input type="text" ng-model="pathfile" class="form-control input-hethi input-md" readonly  >
+                        <span class="input-group-btn">
+                                      <span class="btn-file-hethi btn-warning btn-file">
+
+                                            <span class="fa fa-upload"></span>
+                                          <!--Choose a file&hellip;-->
+                                          <input type="file" name="file" id="file" data-ng-file-model="ImagePath"  >
+
+                                      </span>
+                                  </span>
+                                         <span class="input-group-btn">
+                                    <button ng-disable="loading" class="btn_hethi input-md btn-w-md btn-primary" type="submit">
+                                        <span ng-if="loading" class="fa fa-refresh fa-spin"></span>
+                                        Upload
+                                    </button>
+                                </span>
+                                </div>
+                                <div class="divider"></div>
+                                <p class="text-center">(Upload EDI, zip, jpeg, TIFF, PDF, DOCX, XLSX, DOC, XLS)</p>
+                            </div>
+                        </div>
+                            </form>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+                <div class="row" style="border-top: 1px solid #2A6497;
+    padding-top: 30px;margin-top: 20px">
+                    <div class="col-md-offset-2 col-md-8">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead class="thead-bg">
+                                <tr>
+                                    <th class="text-center">
+                                        upload time
+                                    </th>
+                                    <th class="text-center">
+                                        form / edi type
+                                    </th>
+                                    <th class="text-center">
+                                        file
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="text-center">
+                                        01:45:00
+                                    </td>
+                                    <td class="text-center">
+                                        edi
+                                    </td>
+                                    <td class="text-center">
+                                        invoice_pd.pdf
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+    </div>
+
+<!-- First time new login CODE Ends Here ( Authenticate the user is a new customer and show this 2 section CODE ) -->
+
+
+
+    <!-- ####################################### -- Existing Customer When Logged In -- ###################################################  -->
+
+    <!-- Existing Customer login CODE Starts Here ( Authenticate the user is a existing customer and show this 2 section CODE ) -->
+
+    <div ng-hide="true">
+        <!-- -------
+                    -- ! -- WARNING -- ! -- Don't Change this 2 Sections inside and out side of the CODE
+                      and !!!! DON'T ADD any Div class or span Class inside
+                      the ID named "freeSlider" and "scroll_slider_content"
+         ------------    -->
+        <section class="{{ hideSliderclass1 }}" id="freeSlider_1" ng-hide="mainslider">
+            <div id="existing-customer-demo" class="center_div">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div id="existing-customer-owl-demo" class="owl-carousel">
+                                <div class="item owlbox-main dodgerBlue" data-ng-click="showOne();">
+                                    <div class="">
+                                        my BPaaS
+                                    </div>
+                                </div>
+                                <div class="item dodgerBlue owlbox-main">
+                                    <div class="">
+                                        try more forms / EDI
+                                    </div>
+                                </div>
+                                <div class="item dodgerBlue owlbox-main">
+                                    <div class="">
+                                        find a business partner
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="{{ hideSliderclass1 }} center_div" ng-show="one">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="margin-top: 5px;margin-bottom: 5px;border: 1px solid transparent;width: 330px;position: relative;">
+                            <div class="industry_select_box">
+                                try more forms / EDI
+                            </div>
+                            <div class="div_attach_icon" data-ng-click="showMainSlider()"><i class="fa fa-close"></i></div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div id="existing-customer-content">
+                            <div id="existing-customer-content-owl-demo" class="owl-carousel">
+
+                                <div class="item owlbox-content darkCyan" data-ng-click="GotoUpload()">
+                                    <div class="">
+                                        partner integration to pay
+                                    </div>
+                                </div>
+                                <div class="item owlbox-content darkCyan">
+                                    <div class="">
+                                        invoice process to pay
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section ng-show="downloadCloudPlug">
+            <div class="">
+                <div class="row hethi_grey_color">
+                    <div class="col-md-6">
+                        <h3>
+                            download cloudplug
+                        </h3>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="pull-right">
+                            <!--<h2>-->
+                            <!--<span class="fa fa-cloud-upload"> </span>-->
+                            <!--CloudPlug-->
+                            <!--</h2>-->
+                            <img class="img_width_200" src="images/icon/cloud_plug.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="row" style="border-top: 1px solid #2A6497;padding-top: 30px;margin-top: 20px">
+                    <div class="col-md-offset-1 col-md-10">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead class="thead-bg">
+                                <tr>
+                                    <th class="text-center">
+                                        upload time
+                                    </th>
+                                    <th class="text-center">
+                                        form / edi type
+                                    </th>
+                                    <th class="text-center">
+                                        form / edi file
+                                    </th>
+                                    <th class="text-center">
+                                        service partner
+                                    </th>
+                                    <th class="text-center">
+                                        version
+                                    </th>
+                                    <th class="text-center">
+                                        select
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="text-center">
+                                        1/10/2016 11:45
+                                    </td>
+                                    <td class="text-center">
+                                        PO - invoice process to pay
+                                    </td>
+                                    <td class="text-center">
+                                        invoice_pd.pdf
+                                    </td>
+                                    <td class="text-center">
+                                        pearson
+                                    </td>
+                                    <td class="text-center">
+                                        1.0
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn_hethi btn_hethi_md blue">download cloudplug</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+    </div>
+
+    <!-- Existing Customer login CODE Ends Here ( Authenticate the user is a existing customer and show this 2 section CODE ) -->
+
+
+
+</div>

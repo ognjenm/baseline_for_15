@@ -1,0 +1,598 @@
+<div ng-controller="hethi_freemium_customer_cloud_play_controller" class="margin_top_60">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-4">
+                <span style="font-size: 20px;color: #880000;font-weight: bold">Customer : {{selectedCustomerData.customer_name}}</span>
+
+            </div>
+            <div class="col-md-4">
+                <span style="font-size: 20px;font-weight: bold">BPS : {{selectedBPS.BPaaS_service}}</span>
+            </div>
+            <div class="col-md-4 ">
+                <span class="pull-right" style="font-size: 20px;font-weight: bold">Type :<i style="color: #0184ff"> {{selectedBPS.Type}} </i></span>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="form-group">
+        <div class="row">
+
+
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-1" ng-repeat="menu in menuItems">
+                    <div class="text-center margin-bottom-30">
+                        <button type="button" class="btn_hethi btn-primary text-small minHeight85" ng-class="menu.isActive"> {{menu.menu_name}} </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-3" style="border-right: 1px solid lightgray">
+                <ul class="nav nav-boxed tabbable ver-vertical-menu">
+                    <li ng-class="BusinessDemographyActiveTab['locale'] ? 'active':''"><a href="#" data-toggle="tab" data-ng-click="setBusinessDemographyTab('locale')">Locale demography </a></li>
+                    <li ng-class="BusinessDemographyActiveTab['calendar'] ? 'active':''"><a href="#" data-toggle="tab" data-ng-click="setBusinessDemographyTab('calendar')">Business calendar</a></li>
+                    <li ng-class="BusinessDemographyActiveTab['aspects'] ? 'active':''"><a href="#" data-toggle="tab" data-ng-click="setBusinessDemographyTab('aspects')">Image aspects</a></li>
+                    <li ng-class="BusinessDemographyActiveTab['volume'] ? 'active':''"><a href="#" data-toggle="tab" data-ng-click="setBusinessDemographyTab('volume')">Daily volume</a></li>
+                    <li ng-class="BusinessDemographyActiveTab['delivery'] ? 'active':''"><a href="#" data-toggle="tab" data-ng-click="setBusinessDemographyTab('delivery')">Delivery aspects</a></li>
+                    <li ng-class="BusinessDemographyActiveTab['compliance'] ? 'active':''"><a href="#" data-toggle="tab" data-ng-click="setBusinessDemographyTab('compliance')">Define Compliance aspects</a></li>
+                    <!--<li><a href="#" data-toggle="tab" data-ng-click="selectTab('custome')">Add any custome</a></li>-->
+
+
+
+                </ul>
+
+
+            </div>
+            <div class="col-md-9 panel-body">
+                <div ng-switch="BusinessDemographyTab">
+                    <div ng-switch-when="locale">
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <span>country</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="localeData.country" required="">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>time zone</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <select class="form-control "  ng-model="localeData.zone"  ng-change="fill_localeData_by_zone(localeData)" ng-options="row as row.zone_timezone for row in czones" required="">
+                                    <option value=""> select time zone</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>currency</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control"  placeholder="currency" ng-model="localeData.currency_type">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>primary document language</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <select class="form-control "  ng-model="localeData.primary_doc_lang" ng-options="row as row.language_name for row in clanguages" required="">
+                                    <option value=""> primary document language</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>expected document language</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <select class="form-control "  ng-model="localeData.expected_doc_lang" ng-options="row as row.language_name for row in clanguages" required="">
+                                    <option value=""> expected document language</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-7 text-center">
+                                <button class="btn btn-info" data-ng-click="save_locale_and_proceed(localeData)">define business calendar <span class="fa fa-forward"></span></button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div ng-switch-when="calendar">
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <span>locale weekday start</span>
+                            </div>
+                            <div class="col-md-4" >
+
+                                <select class="form-control "  ng-model="calendarData.weekday_start" ng-options="row as row.dayname for row in weekdays" required="">
+                                    <option value=""> locale weekday start</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>locale weekday end</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <select class="form-control "  ng-model="calendarData.weekday_end" ng-options="row as row.dayname for row in weekdays" required="">
+                                    <option value=""> locale weekday end</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>geo holiday calendar</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row margin-top-10">
+                            <div class="col-md-7 text-center">
+                            <button class="btn btn-info" data-ng-click="save_calendar_and_proceed(calendarData)">define image aspects <span class="fa fa-forward"></span></button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div ng-switch-when="aspects">
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <span>layout</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="imageData.layout">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>image size</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="imageData.image_size">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>standard DPI</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control"ng-model="imageData.standard_dpi">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>minimum acceptable DPI</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control"ng-model="imageData.min_acceptable_dpi">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>average pages per form</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="imageData.avg_pages_form">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>average pages per form bundle</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="imageData.avg_pageds_form_bundle">
+                            </div>
+                        </div>
+
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>total form field</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="imageData.total_form_fields">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>average no of character/field</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="imageData.avg_character_fields">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>avg (total number of character/form)</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control"ng-model="imageData.avg_character_form">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-7 text-center">
+                                <button class="btn btn-info" data-ng-click="save_imageaspect_and_proceed(imageData)">define daily volume <span class="fa fa-forward"></span></button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div ng-switch-when="volume">
+
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>daily volume</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control"ng-model="volumeData.daily_volume">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>weekly volume</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="volumeData.weekly_volume">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>monthly volume</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control"ng-model="volumeData.monthly_volume">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>High volume day Sunday</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="volumeData.high_volume_day_sunday">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>High volume day Monday</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="volumeData.high_volume_day_monday">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>High volume day Tuesday</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="volumeData.high_volume_day_tuesday">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>High volume day Wednesday</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="volumeData.high_volume_day_wednesday">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>High volume day Thursday</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="volumeData.high_volume_day_thursday">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>High volume day Friday</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="volumeData.high_volume_day_friday">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>High volume day Saturday</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="volumeData.high_volume_day_saturday">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-7 text-center">
+                                <button class="btn btn-info" data-ng-click="save_volumeaspects_and_proceed(volumeData)">define delivery aspects <span class="fa fa-forward"></span></button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div ng-switch-when="delivery">
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <span>data shipment file size threshold</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="deliveryData.max_shipment_file_size">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>data shipment record size threshold</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="deliveryData.max_shipment_file_record_nos">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3 ">
+                                <span>minimum data shipment record threshold</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="deliveryData.min_shipment_record_size_nos">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>image shipment file size threshold</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="deliveryData.max_shipment_image_size">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>image shipment record size threshold</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="deliveryData.max_shipment_image_record_nos">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>customer shipment cut off</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="deliveryData.customer_shipment_cutoff">
+                            </div>
+                        </div>
+
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>shipment frequency</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="text" class="form-control" ng-model="deliveryData.shipment_freq">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>shipment begin time</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="datetime" class="form-control" ng-model="deliveryData.shipment_start_time">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-3">
+                                <span>shipment end time</span>
+                            </div>
+                            <div class="col-md-4" >
+                                <input type="datetime" class="form-control" ng-model="deliveryData.shipment_end_time">
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-md-7 text-center">
+                                <button class="btn btn-info" data-ng-click="save_deliveryaspects_and_proceed(deliveryData)">define compliance aspects <span class="fa fa-forward"></span></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-switch-when="compliance">
+                        <form data-ng-submit="save_complianceaspects_and_proceed(cD)">
+                            <div class="row">
+                                <div class="col-md-3 ">
+                                    <span>industry compliance</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <input type="text" class="form-control" ng-model="cD.industry_compliance">
+                                </div>
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-md-3 ">
+                                    <span>information security</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <input type="text" class="form-control" ng-model="cD.information_security">
+                                </div>
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-md-3 ">
+                                    <span>data shipment file name(naming convention)</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <input type="text" class="form-control"ng-model="cD.data_shipment_file_name">
+                                </div>
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-md-3">
+                                    <span>customer DIN format</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <input type="text" class="form-control"ng-model="cD.customer_din_format">
+                                </div>
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-md-3">
+                                    <span>hethi DIN format</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <input type="text" class="form-control"ng-model="cD.hethi_din_format">
+                                </div>
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-md-3">
+                                    <span>data archival period</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <input type="text" class="form-control"ng-model="cD.data_archival_period">
+                                </div>
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-md-3">
+                                    <span>image archival period</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <input type="text" class="form-control"ng-model="cD.image_archival_period">
+                                </div>
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-md-3">
+                                    <span>data retention period</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <input type="text" class="form-control"ng-model="cD.data_retention_period">
+                                </div>
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-md-3">
+                                    <span>image retention period</span>
+                                </div>
+                                <div class="col-md-4" >
+                                    <input type="text" class="form-control"ng-model="cD.image_retention_period">
+                                </div>
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-md-12 ">
+                                    <span style="font-weight: bold;font-size: 20px">Congratulation , you have completed business demography</span>
+                                </div>
+
+                            </div>
+                            <div class="row margin-top-10">
+                                <div class="col-md-7 text-center">
+                                    <!--<a href="/Select_your_data_services" class="btn btn-primary">Complete</a>-->
+                                    <button class="btn btn-info" >Complete <span class="fa fa-forward"></span></button>
+                                </div>
+                            </div>
+                        </form>
+                        <!--<div class="row">-->
+                            <!--<div class="col-md-3 ">-->
+                                <!--<span>industry compliance</span>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4" >-->
+                                <!--<input type="text" class="form-control" ng-model="cD.industry_compliance">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row margin-top-10">-->
+                            <!--<div class="col-md-3 ">-->
+                                <!--<span>information security</span>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4" >-->
+                                <!--<input type="text" class="form-control" ng-model="cD.information_security">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row margin-top-10">-->
+                            <!--<div class="col-md-3 ">-->
+                                <!--<span>data shipment file name(naming convention)</span>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4" >-->
+                                <!--<input type="text" class="form-control"ng-model="cD.data_shipment_file_name">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row margin-top-10">-->
+                            <!--<div class="col-md-3">-->
+                                <!--<span>customer DIN format</span>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4" >-->
+                                <!--<input type="text" class="form-control"ng-model="cD.customer_din_format">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row margin-top-10">-->
+                            <!--<div class="col-md-3">-->
+                                <!--<span>hethi DIN format</span>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4" >-->
+                                <!--<input type="text" class="form-control"ng-model="cD.hethi_din_format">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row margin-top-10">-->
+                            <!--<div class="col-md-3">-->
+                                <!--<span>data archival period</span>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4" >-->
+                                <!--<input type="text" class="form-control"ng-model="cD.data_archival_period">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row margin-top-10">-->
+                            <!--<div class="col-md-3">-->
+                                <!--<span>image archival period</span>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4" >-->
+                                <!--<input type="text" class="form-control"ng-model="cD.image_archival_period">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row margin-top-10">-->
+                            <!--<div class="col-md-3">-->
+                                <!--<span>data retention period</span>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4" >-->
+                                <!--<input type="text" class="form-control"ng-model="cD.data_retention_period">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row margin-top-10">-->
+                            <!--<div class="col-md-3">-->
+                                <!--<span>image retention period</span>-->
+                            <!--</div>-->
+                            <!--<div class="col-md-4" >-->
+                                <!--<input type="text" class="form-control"ng-model="cD.image_retention_period">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row margin-top-10">-->
+                            <!--<div class="col-md-12 ">-->
+                                <!--<span style="font-weight: bold;font-size: 20px">Congratulation , you have completed business demography</span>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="form-group">
+        <div class="row">
+            <div ng-switch="review">
+                <div ng-switch-when="true">
+                    <div class="col-md-4 col-md-offset-3">
+                        <button  ng-click="" class="btn btn-danger">Click here to preview</button>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="/Select_your_data_services" class="btn btn-primary">Complete</a>
+                    </div>
+                </div>
+                <div ng-switch-when="false">
+
+                    <div class="col-md-3 col-md-offset-7">
+                        <div class="row margin-top-10">
+                            <div class="col-md-7 text-center">
+                                <!--<a href="/Select_your_data_services" class="btn btn-primary">Complete</a>-->
+                                <!--<button class="btn btn-info" >Complete <span class="fa fa-forward"></span></button>-->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

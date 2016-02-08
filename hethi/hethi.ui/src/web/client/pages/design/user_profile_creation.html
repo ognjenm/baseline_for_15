@@ -1,0 +1,344 @@
+<div class="" data-ng-controller="design_Controller">
+    <div class="panel panel-info " style="height: auto;width: auto">
+        <div class="divider-lg"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hethiSummary_Caption">
+                     <span >User Management</span>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top-50 margin-bottom-20" ng-show="!divShow">
+
+            <div class="col-md-offset-3 col-md-3">
+                <div ng-click="divShow=!divShow" class="mouse_point" style="border:2px solid #1399b7;padding: 5px;
+                     border-radius: 5px">
+                    <div style="color:white;background-color: #009fff;
+                        padding: 55px;border-radius: 5px">
+                        <label>platform user management</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="mouse_point" style="border:2px solid #1399b7;padding: 5px;
+                     border-radius: 5px">
+                    <div style="color:white;background-color: #00c0ef;
+                        padding: 55px;border-radius: 5px">
+                        <label>workflow user management</label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div ng-show="divShow" class="panel panel-body">
+            <div class="row margin-bottom-20">
+                <div class="col-md-12">
+                    <ul class="nav nav-pills" style="border-bottom: 1px solid gray">
+                        <li ng-class="tabText=='addUser'?'active':'btn-default'"><a href="" data-toggle="tab" ng-click="tabText='addUser'" >Add platform user</a></li>
+                        <li ng-class="tabText=='manage'?'active':'btn-default'"><a href="" data-toggle="tab" ng-click="tabText='manage'">Manage platform user</a></li>
+                        <li ng-class="tabText=='roles'?'active':'btn-default'"><a href="" data-toggle="tab" ng-click="tabText='roles'">Manage roles & privilages</a></li>
+                        <li ng-class="tabText=='profile'?'active':'btn-default'"><a href="" data-toggle="tab" ng-click="tabText='profile';editProfile()">Manage my profile</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div ng-show="tabText=='addUser'">
+                <form class="form-horizontal" data-ng-submit="addUser(user)">
+                    <div class="box-body col-md-offset-1" >
+
+                        <div class="form-group">
+                            <label class="col-md-4 ">login id as your email id</label>
+                            <div class="col-md-4">
+                                <input required="" type="email" class="form-control" ng-model="user.username" placeholder="User Name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 ">select role name</label>
+                            <div class="col-md-4">
+                                <select required="" class="form-control" ng-model="user.role">
+                                    <option value="">select role</option>
+                                    <option ng-repeat="role in roleList" value="{{role.role_id}}">{{role.role_name}}</option>
+                                </select>
+                                <!--<input type="text"  placeholder="Role">-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 "></label>
+                            <div class="col-md-2">
+                                <button type="reset"  class="btn btn-danger form-control">Cancel</button>
+
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" ng-hide="editBtn" class="btn btn-info form-control ">Save</button>
+                                <button type="submit" ng-show="editBtn" class="btn btn-info form-control ">Update</button>
+                            </div>
+                        </div>
+
+
+                    </div><!-- /.box-body -->
+                    <!--<div class="box-footer">-->
+                        <!--&lt;!&ndash;<button type="submit" data-ng-click="ShowHide()" class="btn btn-default">Cancel</button>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button type="submit" ng-hide="editBtn" class="btn btn-info pull-right">Save</button>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button type="submit" ng-show="editBtn" class="btn btn-info pull-right">Update</button>&ndash;&gt;-->
+                    <!--</div>&lt;!&ndash; /.box-footer &ndash;&gt;-->
+                </form>
+
+
+            </div>
+            <div ng-show="tabText=='manage'">
+                <div class="form-group">
+                    <div class="row col-md-12 " style="border-bottom-color: grey">
+                        <div class="bg_txt text-center margin-bottom-20" style="padding: 10px">
+                            <label class="text-primary"><i class="fa fa-info-circle"></i>
+                                user information</label>
+                        </div>
+                        <div class="table-responsive">
+                            <form data-ng-submit="saveChanges(cur_index)" >
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Sl.No</th>
+                                        <th>User name</th>
+                                        <th>Role name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="users in availableRoles" ng-init="cur_index=$index">
+                                        <td>{{$index+1}}</td>
+                                        <td>{{users.user_name}} </td>
+                                        <td><span ng-if="users.flagOn">{{users.role_name}}</span>
+                                            <input ng-style="{width: users.length}" ng-if="!users.flagOn"  aria-autocomplete="list" aria-expanded="false" aria-owns="typeahead-00H-7962"
+                                                   type="text"
+                                                   ng-model="users.role_name" placeholder="Role Name"
+                                                   typeahead="role as role.role_name for role in roleList | limitTo:10" >
+                                        </td>
+                                        <td><button type="button" ng-click="changeRole(users,$index)" class="btn btn-info" ng-show="users.flagOn">change role</button>
+                                            <button type="submit" ng-hide="users.flagOn" class="btn btn-primary">save role</button></td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="tabText=='roles'">
+                <div class="form-group">
+                    <div class="row col-md-12 " style="border-bottom-color: grey">
+                        <div class="bg_txt text-center margin-bottom-20" style="padding: 10px">
+                            <label class="text-primary"><i class="fa fa-info-circle"></i>
+                                user privilages</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="tabText=='profile'">
+                <form class="form-horizontal" data-ng-submit="updateUserProfile(profiles)">
+                   <div>
+                       <div class="box-body col-md-offset-1" >
+                           <div class="form-group">
+                               <div class="row col-md-12 margin-bottom-20" style="border-bottom-color: grey">
+                                   <div class="bg_txt" style="padding: 10px">
+                                       <label class="text-primary">User info</label>
+                                   </div>
+                               </div>
+                               <div class="row col-md-offset-1  margin-bottom-20">
+                                   <div class="col-md-2">
+                                       <label>Name Prefix</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <div class="btn-group">
+                                           <button type="button" btn-radio="'Mr'" ng-model="profiles.name_prefix" ng-click="changeSex(true)"
+                                                   ng-class="namePrefix?'btn btn-info':'btn btn-line-info'">Mr.</button>
+                                           <button type="button" btn-radio="'Mrs'" ng-model="profiles.name_prefix" ng-click="changeSex(false)"
+                                                   ng-class="namePrefix?'btn btn-line-info':'btn btn-info'">Mrs.</button>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-2">
+                                       <label>First Name</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" class="form-control" placeholder="Name" ng-model="profiles.name">
+                                   </div>
+                               </div>
+                               <div class="row col-md-offset-1  margin-bottom-20">
+                                   <div class="col-md-2">
+                                       <label>Last Name</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" class="form-control" placeholder="Name" ng-model="profiles.last_name">
+                                   </div>
+                                   <div class="col-md-2">
+                                       <label>Business Name</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" class="form-control" placeholder="Business Name" ng-model="profiles.business_name">
+                                   </div>
+                               </div>
+                               <div class="row col-md-offset-1  margin-bottom-20">
+                                   <div class="col-md-2">
+                                       <label>Contact Name</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" class="form-control" ng-model="profiles.contact_name"  placeholder="Contact Name">
+                                   </div>
+                                   <div class="col-md-2">
+                                       <label>Contact Number</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" class="form-control" ng-model="profiles.contact_number" placeholder="Contact Number">
+                                   </div>
+                               </div>
+                               <div class="row col-md-offset-1  margin-bottom-20">
+                                   <div class="col-md-2">
+                                       <label>Login ID</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input readonly type="text" class="form-control" ng-model="profiles.login_id" placeholder="Login ID">
+                                   </div>
+                                   <div class="col-md-2">
+                                       <label>Role Name</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input readonly  type="text" class="form-control"
+                                               ng-model="profiles.role_name" >
+                                       <!--<input   aria-autocomplete="list" aria-expanded="false" aria-owns="typeahead-00H-7962"-->
+                                                <!--type="text" class="form-control"-->
+                                                <!--ng-model="profiles.role_name" placeholder="Role Name"-->
+                                                <!--typeahead="role as role.role_name for role in roleList | limitTo:10" >-->
+                                       <!--<select required="" class="form-control" ng-model="profiles.role">-->
+                                           <!--<option value="">select role</option>-->
+                                           <!--<option ng-repeat="role in roleList" value="{{role.role_id}}">{{role.role_name}}</option>-->
+                                       <!--</select>-->
+                                   </div>
+                               </div>
+                               <div class="row col-md-offset-1  margin-bottom-20">
+                                   <div class="col-md-2">
+                                       <label>Business Email</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input readonly type="text" class="form-control" ng-model="profiles.business_email" placeholder="Business Email">
+                                   </div>
+                                   <div class="col-md-2">
+                                       <label>Business Fax</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" class="form-control" ng-model="profiles.business_fax" placeholder="Business Fax">
+                                   </div>
+                               </div>
+
+                           </div>
+                           <div class="form-group">
+                               <div class="row col-md-12 margin-bottom-20" style="border-bottom-color: grey">
+                                   <div class="bg_txt"  style="padding: 10px">
+                                       <label class="text-primary">Contact info</label>
+                                   </div>
+                               </div>
+
+                               <div class="row col-md-offset-1  margin-bottom-20">
+                                   <div class="col-md-2">
+                                       <label>Address 1</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" ng-model="profiles.address1" class="form-control" placeholder="Address 1">
+                                   </div>
+                                   <div class="col-md-2">
+                                       <label>Address 2</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" ng-model="profiles.address2" class="form-control" placeholder="Address 2">
+                                   </div>
+                               </div>
+                               <div class="row col-md-offset-1  margin-bottom-20">
+                                   <div class="col-md-2">
+                                       <label>Contact Email</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" ng-model="profiles.contact_email" class="form-control" placeholder="Contact Email">
+                                   </div>
+                                   <div class="col-md-2">
+                                       <label>Contact Fax</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" ng-model="profiles.contact_fax" class="form-control" placeholder="Contact Fax">
+                                   </div>
+                               </div>
+                               <div class="row col-md-offset-1  margin-bottom-20">
+                                   <div class="col-md-2">
+                                       <label>Contact Tel</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text"ng-model="profiles.contact_tel"  class="form-control" placeholder="Contact Tel">
+                                   </div>
+                                   <div class="col-md-2">
+                                       <label>Country</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" ng-model="profiles.country" class="form-control" placeholder="Country">
+                                   </div>
+                               </div>
+                               <div class="row col-md-offset-1  margin-bottom-20">
+                                   <div class="col-md-2">
+                                       <label>Location</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" ng-model="profiles.location" class="form-control" placeholder="Location">
+                                   </div>
+                                   <div class="col-md-2">
+                                       <label>GPS Coordinate</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" ng-model="profiles.gps_coords" class="form-control" placeholder="GPS Coordinate">
+                                   </div>
+                               </div>
+                               <div class="row col-md-offset-1  margin-bottom-20">
+                                   <div class="col-md-2">
+                                       <label>Social Type</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" ng-model="profiles.social_type" class="form-control" placeholder="Social Type">
+                                   </div>
+                                   <div class="col-md-2">
+                                       <label>Linked In</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" ng-model="profiles.linkedin" class="form-control" placeholder="Linked In">
+                                   </div>
+                               </div>
+                               <div class="row col-md-offset-1  margin-bottom-20">
+                                   <div class="col-md-2">
+                                       <label>Whats app</label>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <input type="text" ng-model="profiles.whatsapp" class="form-control" placeholder="Whats app">
+                                   </div>
+
+                               </div>
+
+                           </div>
+
+                       </div><!-- /.box-body -->
+                       <div class="form-group">
+                           <div class="col-md-5"></div>
+                           <div class="col-md-3">
+                               <button type="submit" class="btn btn-primary form-control">
+                                   <i class="fa fa-save"></i>&nbsp;&nbsp; Save</button>
+                           </div>
+                       </div>
+                   </div>
+
+                </form>
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

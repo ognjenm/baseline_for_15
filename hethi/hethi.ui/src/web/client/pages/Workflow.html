@@ -1,0 +1,98 @@
+<div data-ng-controller="appHomeController">
+
+
+    <div class="">
+        <!--<div class="row">-->
+            <!--<div class="col-sm-3 col-md-2">-->
+                <!--<div class="btn-group">-->
+                    <!--<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">-->
+                        <!--Mail <span class="caret"></span>-->
+                    <!--</button>-->
+                    <!--<ul class="dropdown-menu" role="menu">-->
+                        <!--<li><a href="#">Mail</a></li>-->
+                        <!--<li><a href="#">Contacts</a></li>-->
+                        <!--<li><a href="#">Tasks</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="row">
+            <div class="col-sm-3 col-md-2">
+                <!--<a href="#" class="btn btn-danger btn-sm btn-block" role="button"><i class="glyphicon glyphicon-edit"></i> </a>-->
+                <div class="leftNav_head">Queue</div>
+                <ul class="nav nav-boxed tabbable ver-vertical-menu">
+                    <li class="active"><a data-toggle="tab" href="#" data-ng-click="selectQueueTab(1)"><span class="badge pull-right">32</span> In </a>
+                    </li>
+
+                    <li><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(2)">Hold</a></li>
+                    <li><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(3)">Approved</a></li>
+                    <!--<li class="{{QueueDelegation}}"><a href="#" data-ng-click="selectQueueTab(4)"><span class="badge pull-right">3</span>Delegation</a></li>-->
+                <!--</ul>-->
+                <div class="leftNav_head">Tasks</div>
+                <!--<ul class="nav nav-boxed tabbable ver-vertical-menu">-->
+                    <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(4)">Split/Merge</a></li>
+                    <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(5)">Work Item</a></li>
+                    <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(6)">Role</a></li>
+
+                    <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(7)"><span class="badge pull-right">3</span>Delegation</a></li>
+                <div class="leftNav_head">Administrator</div>
+                    <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(8)">Dashboard</a></li>
+                    <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(9)">Reports</a></li>
+                    <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(10)">My Account</a></li>
+                <div class="leftNav_head">Search</div>
+                    <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(11)">Invoice</a></li>
+
+                </ul>
+
+            </div>
+            <div class="col-sm-9 col-md-10" data-ng-switch="QueueTab">
+                <div data-ng-switch-when="1">
+                    <div data-ng-include="'pages/work-flow-home.html'"></div>
+                </div>
+
+                <div data-ng-switch-when="2">
+                    <h2>Queue Hold</h2>
+                </div>
+                <div data-ng-switch-when="3">
+                    <h2>Queue Approval</h2>
+                </div>
+                <div data-ng-switch-when="4">
+                    <div data-ng-include="'pages/split_merge.html'"></div>
+
+                </div>
+
+                <div data-ng-switch-when="5">
+                    <div data-ng-include="'pages/work_item.html'"></div>
+
+                </div>
+                <div data-ng-switch-when="6">
+                    <div data-ng-include="'pages/role.html'"></div>
+
+                </div>
+                <div data-ng-switch-when="7">
+                    <div data-ng-include="'pages/delegation.html'"></div>
+
+                </div>
+                <div data-ng-switch-when="8">
+                    <div data-ng-include="'pages/dashboard.html'"></div>
+
+                </div>
+                <div data-ng-switch-when="9">
+                    <div data-ng-include="'pages/reports.html'"></div>
+
+                </div>
+                <div data-ng-switch-when="10">
+                    <div data-ng-include="'pages/my_account.html'"></div>
+                </div>
+
+                <div data-ng-switch-when="11">
+                    <div data-ng-include="'pages/invoice.html'"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

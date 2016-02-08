@@ -1,0 +1,522 @@
+<div class="" data-ng-controller="NewHomeController">
+
+
+
+    <nav class="navbar background_color_nav navbar-fixed-top margin-top-75">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                <div class="container">
+                    <div class="header_content pull-right">
+                        <span><a href="#">business process services</a></span>
+                        <span><a href="#">BPaaS platform services</a></span>
+                    </div>
+                </div>
+                <!--<ul class="nav navbar-nav navbar-right">-->
+                <!--<li class="active "><a href="#">business process services</a></li>-->
+                <!--<li><a href="#">BPaaS platform services</a></li>-->
+                <!--</ul>-->
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+
+
+
+    <div class="divider-lg"></div>
+    <div class="divider-md"></div>
+
+    <div class="container" >
+        <div class="row">
+            <div class="col-md-12">
+                            <span class="bg-text-center">
+                                business $implified, improve agility
+                            </span>
+            </div>
+        </div>
+        <div class="callbacks_container">
+            <ul class="rslides" id="slider4">
+                <li>
+                    <img src="images/banner1.jpg" alt="">
+                    <p class="caption-left">invoice process to pay</p>
+                </li>
+                <li>
+                    <img src="images/partnerProcess.jpg" alt="">
+                    <p class="caption-right">partner process to pay</p>
+                </li>
+                <li>
+                    <img src="images/enroll.jpg" alt="">
+                    <p class="caption-bottom">enroll process to pay</p>
+                </li>
+            </ul>
+        </div>
+        <script src="styles/responsive_slider/responsiveslides.min.js"></script>
+
+        <script>
+            // You can also use "$(window).load(function() {"
+            $(function () {
+
+
+                // Slideshow 4
+                $("#slider4").responsiveSlides({
+                    auto: true,
+                    pager: false,
+                    nav: false,
+                    speed: 1000,
+                    namespace: "callbacks",
+                    before: function () {
+                        $('.events').append("<li>before event fired.</li>");
+                    },
+                    after: function () {
+                        $('.events').append("<li>after event fired.</li>");
+                    }
+                });
+
+            });
+        </script>
+    </div>
+
+
+    <div class="container" id="navbar-main">
+        <div id="snav" class="hidden-xs" >
+            <div id="snav-labels">
+                <div class="row snav">
+                    <div class="col-xs-3 col-sm-2 col-md-3 col-lg-3 text-center"><a id="snav-label-1" data-ng-click="GotoNetwork()" class="snav-label {{networkActive}}"><img src="images/icon/hethinetwork.png">&nbsp;&nbsp;hethi business network</a></div>
+                    <div class="col-xs-3 col-sm-2 col-md-3 col-lg-3 text-center"><a id="snav-label-2" data-ng-click="GotoDesignStudio()" class="snav-label {{designStudioActive}}"><img src="images/icon/interact_design.png">&nbsp;&nbsp;interactive design studio</a></div>
+                    <div class="col-xs-3 col-sm-2 col-md-3 col-lg-3 text-center"><a id="snav-label-3" data-ng-click="GotoPremises()" class="snav-label {{premiseActive}}"><img src="images/icon/bpaasoncloud.png">&nbsp;&nbsp;BPaaS on cloud & on premises</a></div>
+                    <div class="col-xs-3 col-sm-2 col-md-3 col-lg-3 text-center"><a id="snav-label-4" data-ng-click="GotoDelivery()" class="snav-label {{deliveryActive}}"><img src="images/icon/workflowservice.png">&nbsp;&nbsp;self service workflow</a></div>
+
+                    <!--<div class="col-xs-3 col-sm-2 col-md-3 col-lg-3 text-center"><a id="snav-label-1" data-ng-click="selectHome(1)" class="snav-label {{networkActive}}"><img src="images/icon/hethinetwork.png">&nbsp;&nbsp;hethi business network</a></div>-->
+                    <!--<div class="col-xs-3 col-sm-2 col-md-3 col-lg-3 text-center"><a id="snav-label-2" data-ng-click="selectHome(2)" class="snav-label {{designStudioActive}}"><img src="images/icon/interact_design.png">&nbsp;&nbsp;interactive design studio</a></div>-->
+                    <!--<div class="col-xs-3 col-sm-2 col-md-3 col-lg-3 text-center"><a id="snav-label-3" data-ng-click="selectHome(3)" class="snav-label {{premiseActive}}"><img src="images/icon/bpaasoncloud.png">&nbsp;&nbsp;BPaaS on cloud & on premises</a></div>-->
+                    <!--<div class="col-xs-3 col-sm-2 col-md-3 col-lg-3 text-center"><a id="snav-label-4" data-ng-click="selectHome(4)" class="snav-label {{deliveryActive}}"><img src="images/icon/workflowservice.png">&nbsp;&nbsp;self service workflow</a></div>-->
+                </div>
+            </div>
+            <!--on cloud, on premise, on network, cloudplug , design studio, self service workflow-->
+            <div id="snav-caret">
+                <div class="row snav">
+                    <div id="snav-caret-1" class="col-xs-3 col-sm-2 col-md-3 col-lg-3 offset-2 text-center"><span class="{{onNetwork}}"></span></div>
+                    <div id="snav-caret-2" class="col-xs-3 col-sm-2 col-md-3 col-lg-3 offset-2 text-center"><span class="{{onDesignStudio}}"></span></div>
+                    <div id="snav-caret-3" class="col-xs-3 col-sm-2 col-md-3 col-lg-3 offset-2 text-center "><span class="{{onPremise}}"></span></div>
+                    <div id="snav-caret-4" class="col-xs-3 col-sm-2 col-md-3 col-lg-3 offset-2 text-center"><span class="{{onDelivery}}"></span></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+        </script>
+    </div>
+
+    <!--data-ng-click="selectHome(1)"-->
+
+<section ng-show="false" id="freemium_scroll_1">
+    <div data-ng-switch="homeTab" class="margin-top-10"  style="min-height: 500px;">
+        <div data-ng-switch-when="1">
+            <div data-ng-include="'pages/home_page/hethi_business_network.html'"></div>
+        </div>
+        <div data-ng-switch-when="2">
+            <div data-ng-include="'pages/home_page/interactive_design_studio.html'"></div>
+        </div>
+        <div data-ng-switch-when="3">
+            <div data-ng-include="'pages/home_page/bpaas_oncloud.html'"></div>
+        </div>
+        <div data-ng-switch-when="4">
+            <div data-ng-include="'pages/home_page/self_service_workflow.html"></div>
+        </div>
+    </div>
+<div class="divider-lg"></div>
+</section>
+
+
+    <section id="getNetworks" >
+        <div ng-show="showNetworks" data-ng-include="'pages/home_page/hethi_business_network.html'"></div>
+        <div ng-show="showDesignStudio" data-ng-include="'pages/home_page/interactive_design_studio.html'"></div>
+        <div ng-show="showBpaaS" data-ng-include="'pages/home_page/bpaas_oncloud.html'"></div>
+        <div ng-show="showSelfService" data-ng-include="'pages/home_page/self_service_workflow.html'"></div>
+    </section>
+
+    <!--<section id="getDesignStudio">-->
+        <!--<div ng-show="showDesignStudio" data-ng-include="'pages/home_page/interactive_design_studio.html'"></div>-->
+    <!--</section>-->
+
+    <!--<section id="getPremises">-->
+        <!--<div ng-show="showBpaaS" data-ng-include="'pages/home_page/bpaas_oncloud.html'"></div>-->
+    <!--</section>-->
+
+    <!--<section id="getDelivery" >-->
+        <!--<div ng-show="showSelfService" data-ng-include="'pages/home_page/self_service_workflow.html'"></div>-->
+    <!--</section>-->
+
+<div class="divider-lg"></div>
+    <!--<div class="container margin-top-30">-->
+
+        <!--<div id="getNetworks" class="section_div_hethi">-->
+            <!--<div style="color:#333E48;">-->
+                <!--&lt;!&ndash;<div class="divider-lg"></div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="divider-lg"></div>&ndash;&gt;-->
+                <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                        <!--<h1 class="clso-h1 text-center">-->
+                            <!--hethi business network <a name="snav-1"></a></h1>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+                <!--<div class="">-->
+                    <!--<div class="thanksMsg">-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-md-12 text-center ">-->
+                                <!--<div class="caption">-->
+                                    <!--<a href="/freemium" >-->
+                                        <!--<img alt="" src="images/hethi_icon/freemium.jpg" class="">-->
+                                    <!--</a>-->
+                                    <!--<a href="/freemium" >-->
+                                        <!--<h3 class="text-center"> Free + Premium</h3>-->
+                                    <!--</a>-->
+                                    <!--&lt;!&ndash;<ul class="list-style">&ndash;&gt;-->
+                                    <!--<div>Reduce outsourcing expense ,Error rate</div>-->
+                                    <!--<div>Reduce cost of vendor portals</div>-->
+                                    <!--<div>Onboard suppliers</div>-->
+                                    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+
+
+                                <!--</div>-->
+
+
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+
+
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash;I st&ndash;&gt;-->
+        <!--<div id="getDesignStudio" class="section_div_hethi">-->
+            <!--<div style="color: #333E48">-->
+                <!--&lt;!&ndash;<div class="divider-md"></div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="divider"></div>&ndash;&gt;-->
+                <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                        <!--<h1 class="clso-h1 text-center">-->
+                            <!--BPaaS design studio for business buying partner-->
+                            <!--<a name="snav-2"></a></h1>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="center-block hr-orange"></div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<div class="container-fluid">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-4 text-center">-->
+                            <!--<img src="images/hethi_icon/automate.jpg">-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4 text-center">-->
+                            <!--<img src="images/hethi_icon/unify.jpg">-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4 text-center">-->
+                            <!--<img src="images/hethi_icon/simplify.jpg">-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-6 col-sm-6">-->
+                            <!--<div class="service-wrapper">-->
+                                <!--&lt;!&ndash;<img src="images/cloudPlug.jpg" alt="Service 1">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<h3>&ndash;&gt;-->
+                                <!--&lt;!&ndash;service provider partner&ndash;&gt;-->
+                                <!--&lt;!&ndash;</h3>&ndash;&gt;-->
+                                <!--<p>-->
+                                    <!--compliance to vendor portal with error free data from service partners-->
+                                <!--</p>-->
+                                <!--<p>-->
+                                    <!--interactive definition request for interest (RFI), define your business process solution right the first time-->
+                                <!--</p>-->
+                                <!--<p>-->
+                                    <!--access to catalogs of service provider forms to eliminate mailroom expense-->
+                                <!--</p>-->
+                                <!--<p>-->
+                                    <!--design your output before business process is outsourced-->
+                                <!--</p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="col-md-6 col-sm-6">-->
+                            <!--<div class="service-wrapper">-->
+                                <!--&lt;!&ndash;<img src="images/cloudPlay.jpg" alt="Service 3">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<h3>business buying partner&ndash;&gt;-->
+                                <!--&lt;!&ndash;</h3>&ndash;&gt;-->
+                                <!--<p>-->
+                                    <!--selfservice workflow and access to standard operating procedures allowing customers to control delivery aspects and reduce cost of operations on rejects, exceptions and approvals-->
+                                    <!--more business and less Technology intensive design your ERP integration services-->
+                                <!--<p>-->
+                                    <!--self service design of dashboards & alerts-->
+                                <!--</p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+                <!--<div class="">-->
+                    <!--<div class="thanksMsg">-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-md-12 text-center ">-->
+                                <!--&lt;!&ndash;<div class="caption">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<a href="/free" >&ndash;&gt;-->
+                                <!--&lt;!&ndash;&lt;!&ndash;<span i18n="free image url"></span>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;<img src="images/free30days.jpg" >&ndash;&gt;-->
+                                <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<a href="/free" >&ndash;&gt;-->
+                                <!--&lt;!&ndash;<h3 class="text-center" >Free Trial for 30 days</h3>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</a>                                    &ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                                <!--<button type="button" class="btn_hethi btn_hethi-lg btn-info">freemium</button>-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash; II nd&ndash;&gt;-->
+        <!--<div id="getPremises" class="section_div_hethi">-->
+            <!--<div style="color:#333E48">-->
+                <!--&lt;!&ndash;<div class="divider-md"></div>&ndash;&gt;-->
+                <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                        <!--<h1 class="clso-h1 text-center">-->
+                            <!--on premises <a name="snav-3"></a></h1>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="center-block hr-orange"></div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<div class="container-fluid">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-6 col-sm-6">-->
+                            <!--<div class="service-wrapper">-->
+                                <!--<img src="images/hethi_icon/cloudPlug.jpg" alt="Service 1">-->
+                                <!--<h3>-->
+                                    <!--service provider partner-->
+                                <!--</h3>-->
+                                <!--<p>-->
+                                    <!--be indentified by potential buying business partners. enroll and get free seamless cloudplug datacapture and speedup your payment cycle-->
+                                <!--</p>-->
+                                <!--<p>-->
+                                    <!--hazel free from vendor and partner portals, while reducing pay cycle time-->
+                                <!--</p>-->
+                                <!--<p>-->
+                                    <!--be a part of global network, while you retain your current business operations-->
+
+                                <!--</p>-->
+                                <!--<button type="button" data-ng-click="free()" class="btn_hethi btn_hethi-lg btn-info">signup free</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="col-md-6 col-sm-6">-->
+                            <!--<div class="service-wrapper">-->
+                                <!--<img src="images/hethi_icon/cloudPlay.jpg" alt="Service 3">-->
+                                <!--<h3>business buying partner-->
+                                <!--</h3>-->
+                                <!--<p>-->
+                                    <!--cloudplay search and manage business process with service partners-->
+                                <!--</p>-->
+                                <!--<p>-->
+                                    <!--compliance to vendor portal with error free data from service partners-->
+                                <!--</p>-->
+                                <!--<p>-->
+                                    <!--selfservice workflows to reduce cost of operations on rejects, exceptions and approvals-->
+                                <!--</p>-->
+                                <!--<p>-->
+                                    <!--output and ERP integration services with BPaaS design studios-->
+                                <!--</p>-->
+                                <!--<div class="divider"></div>-->
+                                <!--<button type="button" class="btn_hethi btn_hethi-lg btn-info">freemium</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash;III rd&ndash;&gt;-->
+
+        <!--<div id="getDelivery" class="section_div_hethi">-->
+            <!--<div style="color:#333E48">-->
+                <!--&lt;!&ndash;<div class="divider-md"></div>&ndash;&gt;-->
+                <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                        <!--<h1 class="clso-h1 text-center">-->
+                            <!--cloudplug <a name="snav-4"></a></h1>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="center-block hr-blue"></div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                        <!--<div class="text-center center-block clso-section-text">-->
+                            <!--We enable a seamless, effortless journey for your customers with customized capabilities. </div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="margin-top-30">-->
+                    <!--<div class="thanksMsg">-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-md-12 text-center ">-->
+                                <!--<div class="download_provision">Download Virtual Print Driver</div>-->
+                                <!--<button type="button" class="btn_hethi blue">Download Driver</button>-->
+                                <!--<div class="margin-top-20" style="font-size: 13px;font-weight: 400;color: #777;">-->
+                                    <!--<span class="alt-platform">For Windows 10/8.1/8/7/Vista/XP 32-bit</span>-->
+                                    <!--<div class="divider"></div>-->
+                                    <!--<p class="show-dialog-options">-->
+                                        <!--<a data-g-event="cta" href="#">Download Virtual Driver-->
+                                            <!--for another platform</a>-->
+                                    <!--</p>-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash;IV th&ndash;&gt;-->
+
+
+
+
+        <!--&lt;!&ndash;V TH&ndash;&gt;-->
+
+
+    <!--</div>-->
+
+</div>
+
+
+
+
+<!--<div data-ng-controller="appHomeController">-->
+
+    <!--<div>-->
+        <!--<div class="banner" >-->
+            <!--<div class="">-->
+                <!--<div class="">-->
+                    <!--<img class="img-responsive" src="images/slide4.jpg">-->
+                <!--</div>-->
+                <!--<div class="carousal-counter-text">-->
+                   <!--<span i18n="Capture manage deliver solutions for enterprise"></span>.-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="container">-->
+
+           <!--<div class="media-sm">-->
+            <!--<div class="intro">-->
+                <!--<div class="row">-->
+
+                    <!--<div class="col-md-12 text-center">-->
+                        <!--<h2 class="">Capture manage deliver solutions for enterprise.</h2>-->
+                        <!--&lt;!&ndash;<h4>We help businesses of all sizes and our solutions are tailored to fit your company. Whether you are small, medium or large,&ndash;&gt;-->
+                            <!--&lt;!&ndash;if your business needs, we can get you started quickly.</h4>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<p>Our easy sign-up process makes it possible for you to have a Merchant Account at Hethi in just a few minutes</p>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<button class="btn_hethi btn-danger" href="#">SIGN UP NOW</button>&ndash;&gt;-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+           <!--</div>-->
+
+
+            <!--<div class="row margin-bottom-50">-->
+
+                <!--<div class="col-md-1">-->
+                <!--</div>-->
+                <!--<div class="col-md-4 col-sm-6 ">-->
+                    <!--<div class="thumbnail" style="min-height: 277px">-->
+                        <!--<div class="caption">-->
+                            <!--<a href="/free" >-->
+                                <!--&lt;!&ndash;<span i18n="free image url"></span>&ndash;&gt;-->
+                                <!--<img src="images/free/free30days.jpg" >-->
+                            <!--</a>-->
+                            <!--<a href="/free" >-->
+                                <!--<h3 class="text-center" >Free Trial for 30 days</h3>-->
+                            <!--</a>-->
+                            <!--<div>-->
+                                <!--<ul class="list-style">-->
+                                    <!--<li>Try paperless printing, Quick pay cycle</li>-->
+                                    <!--<li>Smart vendor portal ,True quality</li>-->
+                                    <!--<li>Lean cost of operation</li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+
+                    <!--</div>-->
+
+
+
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--</div>-->
+                <!--<div class="col-md-4 col-sm-6">-->
+                    <!--<div class="thumbnail" style="min-height: 277px">-->
+
+                            <!--<div class="caption">-->
+                                <!--<a href="/freemium" >-->
+                                    <!--<img alt="" src="images/freemium.jpg" class="">-->
+                                <!--</a>-->
+                                <!--<a href="/freemium" >-->
+                                    <!--<h3 class="text-center"> Free + Premium</h3>-->
+                                <!--</a>-->
+                                <!--<ul class="list-style">-->
+                                    <!--<li>Reduce outsourcing expense ,Error rate</li>-->
+                                    <!--<li>Reduce cost of vendor portals</li>-->
+                                    <!--<li>Onboard suppliers</li>-->
+                                <!--</ul>-->
+
+
+                            <!--</div>-->
+
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-1">-->
+                <!--</div>-->
+
+
+
+
+            <!--</div>-->
+
+
+        <!--</div>-->
+
+
+
+
+
+
+    <!--</div>-->
+
+<!--</div>-->
+
+<script src="styles/responsive_slider/responsiveslides.min.js"></script>

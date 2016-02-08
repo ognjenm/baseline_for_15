@@ -1,0 +1,70 @@
+
+<div class="panel panel-default table-dynamic" >
+    <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"> </span> DocumentID : {{previewContainer.documentid}} || FormID : {{previewContainer.formid}}  </strong></div>
+    <div class="panel-body text-center">
+        <h1 class="text-center"></h1>
+
+        <div class="row">
+
+            <div class="col-md-7">
+                <div class="panel panel-info">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="{{previewContainer.documentpath}}" class="thumbnail img-responsive">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+
+                <div class="invoice-bg panel panel-success " style="color: #000000 !important;">
+                    <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Extracted Metadata </strong></div>
+                    <div class="panel-body text-center">
+                        <div class="padding-top-5 text-left ">
+
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                                    <thead style="background-color: #000000;color: #ffffff">
+                                    <tr>
+
+                                        <th>
+                                            <div class="th">
+                                                #
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="th">
+                                                Field Name
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="th">
+                                                Field Value
+                                            </div>
+                                        </th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr data-ng-repeat="file in previewContainer.metadata" >
+                                        <td>{{$index+1}}</td>
+                                        <td>{{file.name}}</td>
+                                        <td>{{file.value}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>

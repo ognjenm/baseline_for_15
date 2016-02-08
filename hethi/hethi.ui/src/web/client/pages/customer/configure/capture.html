@@ -1,0 +1,79 @@
+<div class="panel-info panel-body panel" data-ng-controller="form_MapperController">
+
+
+
+    <div class="codrops-header">
+        <header class="codrops-header">
+            <!--<div class="codrops-links">-->
+            <!--<a class="codrops-icon codrops-icon--prev" href="http://tympanus.net/Tutorials/SVGRipples/" title="Previous Demo"><span>Previous Demo</span></a>-->
+            <!--<a class="codrops-icon codrops-icon--drop" href="http://tympanus.net/codrops/?p=24831" title="Back to the article"><span>Back to the Codrops article</span></a>-->
+            <!--</div>-->
+            <h1>Upload Your Invoice</h1>
+
+            <div class="divider"></div>
+
+        </header>
+        <div class="content">
+            <div class="box">
+                <form ng-submit="UploadImage(ImagePath)" class="form-horizontal" >
+                    <div class="divider-lg"></div>
+
+                    <div class="form-group ">
+                        <!--<div class="col-md-3 col-sm-3 text-left">Company</div>-->
+                        <div class="col-md-8 col-lg-offset-2">
+                            <!--<input type="text" class="form-control input-md input-hethi">-->
+
+                            <select class="form-control input-md input-round text-center">
+                                <option>-- Your Industry --</option>
+                                <option>Industry  </option>
+                                <option>Finance</option>
+                                <option>Health Care</option>
+                                <option>E-Publishing</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!--<div class="col-md-2"></div>-->
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="input-group mouse_point">
+                                  <span class="input-group-btn mouse_point">
+                                      <span class="btn-file-hethi btn-danger btn-file">
+
+                                            <span class="fa fa-upload"></span> Choose a file&hellip;
+                                          <input type="file" name="file" id="file" data-ng-file-model="ImagePath" >
+
+                                      </span>
+                                  </span>
+                                <input type="text" ng-model="pathfile" class="form-control input-hethi input-lg" readonly>
+                            </div>
+                        </div>
+                        <!--<div class="col-md-2"></div>-->
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8 col-lg-offset-2">
+                            <!--<div class="col-md-6">-->
+                            <img src="{{image}}" class="thumbnail img-responsive">
+                            <!--</div>-->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-8 col-lg-offset-2">
+                            <div class="pull-right">
+                                <button type="submit" class="btn_hethi btn-primary">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+

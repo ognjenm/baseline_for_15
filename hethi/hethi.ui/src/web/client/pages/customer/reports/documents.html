@@ -1,0 +1,456 @@
+<div data-ng-controller="reportsController">
+
+
+    <div class="panel panel-default table-dynamic">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Inventory Reports</strong></div>
+        <div class="panel-body">
+            <div class="table-filters">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-6">
+                        <form>
+                            <input type="text"
+                                   placeholder="search"
+                                   class="form-control"
+                                   data-ng-model="searchKeywordsIndexer"
+                                   data-ng-keyup="searchIndexer()">
+                        </form>
+                    </div>
+                    <div class="col-sm-3 col-xs-6 filter-result-info">
+                    <span>
+                        Showing {{filteredReportsIndexer.length}}/{{reportsIndexer.length}} entries
+                    </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row margin-bottom-5">
+                <div class="col-md-12">
+                    <!--<button type="button" class="btn_hethi btn-warning" >Export</button>-->
+                    <div class="btn-group">
+                        <button class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export Table Data</button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" data-ng-click="exportData()"> <img src="images/icon/xls.png" width="24px"> XLSX</a></li>
+                            <li><a href="#" data-ng-click="exportPDF()"> <img src="images/icon/pdf.png" width="24px"> PDF</a></li>
+                            <li><a href="#" data-ng-click="exportCSV()"> <img src="images/icon/csv.png" width="24px"> CSV</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" id="exportable">
+                <table class="table table-bordered table-stripped  hethi_content_table">
+                    <thead style="background-color: #000000; color: #ffffff">
+                    <tr>
+                        <!--<th class="text-center"><div class="th">action</div></th>-->
+                        <th class="text-center">
+                            <div class="th">Invoice No
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('InvoiceNumber') "
+                                  data-ng-class="{active: row == 'InvoiceNumber'}">
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-InvoiceNumber') "
+                                  data-ng-class="{active: row == '-InvoiceNumber'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                SupplierID
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('SupplierID') "
+                                  data-ng-class="{active: row == 'SupplierID'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-SupplierID') "
+                                  data-ng-class="{active: row == '-SupplierID'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                SupplierName
+                             <span class="glyphicon glyphicon-chevron-up"
+                                   data-ng-click=" orderIndexer('SupplierName') "
+                                   data-ng-class="{active: row == 'SupplierName'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-SupplierName') "
+                                  data-ng-class="{active: row == '-SupplierName'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                InvoceType
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('InvoceType') "
+                                  data-ng-class="{active: row == 'InvoceType'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-InvoceType') "
+                                  data-ng-class="{active: row == '-InvoceType'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Status
+                             <span class="glyphicon glyphicon-chevron-up"
+                                   data-ng-click=" orderIndexer('Status') "
+                                   data-ng-class="{active: row == 'Status'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-Status') "
+                                  data-ng-class="{active: row == '-Status'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Assigned to
+                              <span class="glyphicon glyphicon-chevron-up"
+                                    data-ng-click=" orderIndexer('AssignedTo') "
+                                    data-ng-class="{active: row == 'AssignedTo'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-AssignedTo') "
+                                  data-ng-class="{active: row == '-AssignedTo'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                PO Number
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('PONumber') "
+                                  data-ng-class="{active: row == 'PONumber'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-PONumber') "
+                                  data-ng-class="{active: row == '-PONumber'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Invoice date
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('InvoiceDate') "
+                                  data-ng-class="{active: row == 'InvoiceDate'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-InvoiceDate') "
+                                  data-ng-class="{active: row == '-InvoiceDate'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Payment Date
+                             <span class="glyphicon glyphicon-chevron-up"
+                                   data-ng-click=" orderIndexer('PaymentDate') "
+                                   data-ng-class="{active: row == 'PaymentDate'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-PaymentDate') "
+                                  data-ng-class="{active: row == '-PaymentDate'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Delivery Date
+                             <span class="glyphicon glyphicon-chevron-up"
+                                   data-ng-click=" orderIndexer('DeliveryDate') "
+                                   data-ng-class="{active: row == 'DeliveryDate'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-DeliveryDate') "
+                                  data-ng-class="{active: row == '-DeliveryDate'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Channel
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('Channel') "
+                                  data-ng-class="{active: row == 'Channel'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-Channel') "
+                                  data-ng-class="{active: row == '-Channel'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Curr
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('Curr') "
+                                  data-ng-class="{active: row == 'Curr'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-Curr') "
+                                  data-ng-class="{active: row == '-Curr'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                NetTotal
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('NetTotal') "
+                                  data-ng-class="{active: row == 'NetTotal'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-NetTotal') "
+                                  data-ng-class="{active: row == '-NetTotal'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Total Tax
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('TotalTaxAmount') "
+                                  data-ng-class="{active: row == 'TotalTaxAmount'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-TotalTaxAmount') "
+                                  data-ng-class="{active: row == '-TotalTaxAmount'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Grand Total
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('GrandTotal') "
+                                  data-ng-class="{active: row == 'GrandTotal'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-GrandTotal') "
+                                  data-ng-class="{active: row == '-GrandTotal'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                GL code
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('GlCode') "
+                                  data-ng-class="{active: row == 'GlCode'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-GlCode') "
+                                  data-ng-class="{active: row == '-GlCode'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                UID#
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('UID') "
+                                  data-ng-class="{active: row == 'UID'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-UID') "
+                                  data-ng-class="{active: row == '-UID'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Reference1
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('Reference1') "
+                                  data-ng-class="{active: row == 'Reference1'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-Reference1') "
+                                  data-ng-class="{active: row == '-Reference1'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Reference2
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('Reference2') "
+                                  data-ng-class="{active: row == 'Reference2'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-Reference2') "
+                                  data-ng-class="{active: row == '-Reference2'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Reference3
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('Reference3') "
+                                  data-ng-class="{active: row == 'Reference3'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-Reference3') "
+                                  data-ng-class="{active: row == '-Reference3'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Reference4
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('Reference4') "
+                                  data-ng-class="{active: row == 'Reference4'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-Reference4') "
+                                  data-ng-class="{active: row == '-Reference4'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Reference5
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('Reference5') "
+                                  data-ng-class="{active: row == 'Reference5'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-Reference5') "
+                                  data-ng-class="{active: row == '-Reference5'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Buyer ID
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('BuyerID') "
+                                  data-ng-class="{active: row == 'BuyerID'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-BuyerID') "
+                                  data-ng-class="{active: row == '-BuyerID'}">
+
+                            </span>
+                            </div>
+                        </th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr data-ng-repeat="indexer in currentPageReportsIndexer">
+                        <!--<td class="text-center"><span class="fa fa-check-circle mouse_point" style="color: green"></span> <span class="fa fa-trash-o mouse_point" style="color: red"></span> <span class="fa fa-clock-o mouse_point" style="color: #08b39c"></span> <span class="fa fa-edit mouse_point" style="color: #115eff"></span>  </td>-->
+
+                        <td class="text-center">{{indexer.InvoiceNumber}}</td>
+                        <td>{{indexer.SupplierID}}</td>
+                        <td>{{indexer.SupplierName}}</td>
+                        <td>{{indexer.InvoiceType}}</td>
+                        <td>{{indexer.Status}}</td>
+                        <td>{{indexer.AssignedTo}}</td>
+                        <td>{{indexer.PONumber}}</td>
+                        <td>{{indexer.InvoiceDate}}</td>
+                        <td>{{indexer.PaymentDate}}</td>
+                        <td>{{indexer.DeliveryDate}}</td>
+                        <td>{{indexer.Channel}}</td>
+                        <td>{{indexer.Curr}}</td>
+                        <td>{{indexer.NetTotal}}</td>
+                        <td>{{indexer.TotalTaxAmount}}</td>
+                        <td>{{indexer.GrandTotal}}</td>
+                        <td>{{indexer.GLCode}}</td>
+                        <td>{{indexer.UID}}</td>
+                        <td>{{indexer.Reference1}}</td>
+                        <td>{{indexer.Reference2}}</td>
+                        <td>{{indexer.Reference3}}</td>
+                        <td>{{indexer.Reference4}}</td>
+                        <td>{{indexer.Reference5}}</td>
+                        <td>{{indexer.BuyerID}}</td>
+
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <footer class="table-footer">
+                <div class="row">
+                    <div class="col-md-6 page-num-info">
+                    <span>
+                        Show
+                        <select data-ng-model="numPerPageIndexer"
+                                data-ng-options="num for num in numPerPageOptIndexer"
+                                data-ng-change="onNumPerPageChangeIndexer()">
+                        </select>
+                        entries per page
+                    </span>
+                    </div>
+                    <div class="col-md-6 text-right pagination-container">
+                        <pagination class="pagination-sm"
+                                    page="currentPageIndexer"
+                                    total-items="filteredReportsIndexer.length"
+                                    max-size="4"
+                                    ng-click="selectIndexer(currentPageIndexer)"
+                                    items-per-page="numPerPageIndexer"
+                                    rotate="false"
+                                    boundary-links="true"></pagination>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+
+</div>

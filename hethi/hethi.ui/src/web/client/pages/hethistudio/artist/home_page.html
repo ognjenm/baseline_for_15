@@ -1,0 +1,172 @@
+<div data-ng-controller="client_home_Controller" class="margin_top_60">
+
+    <!--JUSTIFIED NAVIGATION DROPDOWN MENU-->
+
+
+
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="wrap">
+                <ul class="goo-collapsible goo-coll-stacked">
+                    <li class="header">{{loginedUserData.businessname}}</li>
+
+                    <li class="">
+                        <a href='#'><span class='fa fa-quote-left'></span> Audit <span class='fa fa-angle-down pull-right'></span> </a>
+                        <ul>
+                            <li class="" ng-class="clientTabList.in"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('in')">In</a></li>
+                            <li class="" ng-class="clientTabList.hold"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('hold')">Hold</a></li>
+                            <li class="" ng-class="clientTabList.complete"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('complete')">Complete</a></li>
+
+                        </ul>
+                    </li>
+                    <!--<li  class='dropdown1'><a href='#'><span class='fa fa-tasks'></span> Configure</a>-->
+                    <!--<ul>-->
+                    <!--<li class="" ng-class="clientTabList.capture"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('capture')">Capture</a></li>-->
+                    <!--<li class="" ng-class="clientTabList.manage"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('manage')">Manage</a></li>-->
+                    <!--<li class="" ng-class="clientTabList.deliver"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('deliver')">Deliver</a></li>-->
+
+                    <!--</ul>-->
+                    <!--</li>-->
+                    <li class=""><a href='#'><span class='fa fa-user-secret'></span> Task <span class='fa fa-angle-down pull-right'></span> </a>
+                        <ul>
+                            <li class="" ng-class="clientTabList.extract"><a href="/free" data-toggle="tab" data-ng-click="selectClientTab('extract');">Extract</a></li>
+                            <li class="" ng-class="clientTabList.preview"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('preview')">Preview</a></li>
+                            <li class="" ng-class="clientTabList.bundling"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('bundling')">Form Bundling</a></li>
+                            <li class="" ng-class="clientTabList.upload"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('upload')">Upload</a></li>
+                            <li class="" ng-class="clientTabList.download"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('download')">Download</a></li>
+
+                        </ul>
+                    </li>
+                    <li class=''><a class='' href='#' data-ng-click="selectClientTab('search')"><span class='fa fa-search'></span> Search</a>
+
+                    </li>
+                    <li class=''><a class='' href='#' data-ng-click="selectClientTab('dashboard')"><span class='fa fa-user'></span> Dashboard</a>
+
+                    </li>
+                    <li class=''><a class='' href='#' data-ng-click="selectClientTab('mappers')"><span class='fa fa-arrows'></span> Mappers</a>
+
+                    </li>
+                    <li class=""><a href='#'><span class='fa fa-search'></span> Reports <span class='fa fa-angle-down pull-right'></span> </a>
+                        <ul>
+                            <li class="" ng-class="clientTabList.documents"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('documents')">Documents</a></li>
+                            <li class="" ng-class="clientTabList.registration"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('registration')">Registration</a></li>
+
+                        </ul>
+                    </li>
+
+
+                </ul>
+
+            </div>
+
+
+            <script>
+                $(".goo-collapsible > li > a").on("click", function(e){
+
+                    if(!$(this).hasClass("active")) {
+
+                        // hide any open menus and remove all other classes
+                        $(".goo-collapsible li ul").slideUp(350);
+                        $(".goo-collapsible li a").removeClass("active");
+
+                        // open our new menu and add the open class
+                        $(this).next("ul").slideDown(350);
+                        $(this).addClass("active");
+
+                    }else if($(this).hasClass("active")) {
+
+                        $(this).removeClass("active");
+                        $(this).next("ul").slideUp(350);
+                    }
+                });
+
+            </script>
+        </div>
+        <div class="col-sm-9  col-md-10" data-ng-switch="clientTab">
+
+            <!--queues-->
+
+            <div data-ng-switch-when="in">
+                <div data-ng-include="'pages/customer/queues/in.html'"></div>
+            </div>
+            <div data-ng-switch-when="hold">
+                <div data-ng-include="'pages/customer/queues/hold.html'"></div>
+            </div>
+            <div data-ng-switch-when="complete">
+                <div data-ng-include="'pages/customer/queues/complete.html'"></div>
+            </div>
+
+
+            <!--Configure-->
+
+            <!--<div data-ng-switch-when="capture">-->
+            <!--<div data-ng-include="'pages/customer/configure/capture.html'"></div>-->
+            <!--</div>-->
+            <!--<div data-ng-switch-when="manage">-->
+            <!--<div data-ng-include="'pages/customer/configure/manage.html'"></div>-->
+            <!--</div>-->
+            <!--<div data-ng-switch-when="deliver">-->
+            <!--<div data-ng-include="'pages/customer/configure/deliver.html'"></div>-->
+            <!--</div>-->
+
+            <!--Task-->
+
+            <div data-ng-switch-when="extract">
+                <div data-ng-include="'pages/hethistudio/artist/artist_home.html'"></div>
+                <!--<div data-ng-include="'pages/customer/task/extract.html'"></div>-->
+            </div>
+            <div data-ng-switch-when="preview">
+                <div data-ng-include="'pages/customer/task/preview.html'"></div>
+            </div>
+
+            <div data-ng-switch-when="bundling">
+                <div data-ng-include="'pages/customer/task/bundling.html'"></div>
+            </div>
+
+            <div data-ng-switch-when="upload">
+                <div data-ng-include="'pages/customer/task/upload.html'"></div>
+            </div>
+            <div data-ng-switch-when="download">
+                <div data-ng-include="'pages/customer/task/cloud_plug.html'"></div>
+            </div>
+
+            <!--Search-->
+            <div data-ng-switch-when="search">
+                <div data-ng-include="'pages/customer/search.html'"></div>
+            </div>
+
+            <!--dashboard-->
+
+            <div data-ng-switch-when="dashboard">
+                <div data-ng-include="'pages/customer/dashboard.html'"></div>
+            </div>
+
+            <div data-ng-switch-when="mappers">
+                <div data-ng-include="'pages/customer/mappers.html'"></div>
+            </div>
+            <!--reports-->
+
+            <div data-ng-switch-when="documents">
+                <div data-ng-include="'pages/customer/reports/documents.html'"></div>
+            </div>
+            <div data-ng-switch-when="registration">
+                <div data-ng-include="'pages/customer/reports/registration.html'"></div>
+            </div>
+            <div data-ng-switch-default>
+                <div data-ng-include="'pages/customer/dashboard.html'"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <!-- ############################################################################ -->
+
+
+
+
+</div>

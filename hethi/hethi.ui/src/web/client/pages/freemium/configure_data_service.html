@@ -1,0 +1,263 @@
+
+<div data-ng-controller="configure_data_serviceController" class="">
+
+    <div class="row hethiSummary_Caption">
+            <div class="col-md-4 text-left">
+                <span>Customer :</span>
+                <span></span>
+            </div>
+        <div class="col-md-4 text-center">
+            <span>BPS :</span>
+            <span></span>
+        </div>
+        <div class="col-md-4 text-right">
+            <span>Type :</span>
+            <span>New</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1" ng-repeat="menu in menuItems">
+            <div class="text-center margin-bottom-30">
+                <button type="button" class="btn_hethi btn-primary text-small minHeight85" ng-class="menu.isActive"> {{menu.menu_name}} </button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="panel panel-default table-dynamic">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Configure Data Service </strong></div>
+        <div class="panel-body">
+                <label>you have options to configure inout and out put channels</label>
+            <div class="table-filters">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-6">
+                        <form>
+                            <input type="text"
+                                   placeholder="search"
+                                   class="form-control"
+                                   data-ng-model="searchKeywordsIndexer"
+                                   data-ng-keyup="searchIndexer()">
+                        </form>
+                    </div>
+                    <div class="col-sm-3 col-xs-6 filter-result-info">
+                    <span>
+                        Showing {{filteredStoresIndexer.length}}/{{storesIndexer.length}} entries
+                    </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="table-responsive" id="exportable">
+                <table class="table table-bordered table-stripped  hethi_content_table">
+                    <thead style="background-color: #000000; color: #ffffff">
+                    <tr>
+
+                        <th class="text-center">
+                            <div class="th"><input type="checkbox"> Select All
+
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th" style="width: 200px">
+                                Service Bundle
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('ServiceBundle') "
+                                  data-ng-class="{active: row == 'ServiceBundle'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-ServiceBundle') "
+                                  data-ng-class="{active: row == '-ServiceBundle'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                DaaS
+                             <span class="glyphicon glyphicon-chevron-up"
+                                   data-ng-click=" orderIndexer('DaaS') "
+                                   data-ng-class="{active: row == 'DaaS'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-DaaS') "
+                                  data-ng-class="{active: row == '-DaaS'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                BaaS
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('BaaS') "
+                                  data-ng-class="{active: row == 'BaaS'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-BaaS') "
+                                  data-ng-class="{active: row == '-BaaS'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th" >
+                                OaaS
+                             <span class="glyphicon glyphicon-chevron-up"
+                                   data-ng-click=" orderIndexer('OaaS') "
+                                   data-ng-class="{active: row == 'OaaS'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-OaaS') "
+                                  data-ng-class="{active: row == '-OaaS'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                InaaS
+                              <span class="glyphicon glyphicon-chevron-up"
+                                    data-ng-click=" orderIndexer('InaaS') "
+                                    data-ng-class="{active: row == 'InaaS'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-InaaS') "
+                                  data-ng-class="{active: row == '-InaaS'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                AaaS
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('AaaS') "
+                                  data-ng-class="{active: row == 'AaaS'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-AaaS') "
+                                  data-ng-class="{active: row == '-AaaS'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                StaaS
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('StaaS') "
+                                  data-ng-class="{active: row == 'StaaS'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-StaaS') "
+                                  data-ng-class="{active: row == '-StaaS'}">
+
+                            </span>
+                            </div>
+                        </th>
+
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr data-ng-repeat="indexer in currentPageStoresIndexer">
+                        <td><input type="checkbox"> </td>
+                        <td>{{indexer.ServiceBundle}}</td>
+                        <td>{{indexer.DaaS}}</td>
+                        <td>{{indexer.BaaS}}</td>
+                        <td>{{indexer.OaaS}}</td>
+                        <td>{{indexer.InaaS}}</td>
+                        <td>{{indexer.AaaS}}</td>
+                        <td>{{indexer.StaaS}}</td>
+
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="row margin-bottom-50">
+            <div class="col-md-3 col-xs-6">
+                <div class="form-group">
+                    <label class="form-inline">
+                        Select incoming channel
+                    </label>
+                    <select class="form-control">
+                        <option value=""> content incoming channel</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-6">
+                <div class="form-group">
+                    <label class="form-inline">
+                        define input format
+                    </label>
+                    <select class="form-control">
+                        <option value="">  incoming content format</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-6">
+                <div class="form-group">
+                    <label class="form-inline">
+                        Select output content format
+                    </label>
+                    <select class="form-control">
+                        <option value=""> content output services</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 col-xs-6">
+                <div class="form-group">
+                    <label class="form-inline">
+                        Select  output channel
+                    </label>
+                    <select class="form-control">
+                        <option value=""> content outgoing channel</option>
+                    </select>
+                </div>
+            </div>
+            </div>
+            <div class="col-md-12">
+            <div class="col-md-6">
+                <div class="text-center margin-bottom-30">
+                  <a href="">
+                      <button type="button" class="btn_hethi-lg btn-danger" > save work </button>
+                  </a>
+
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="text-center margin-bottom-30">
+                    <a href="/define_storage">
+                        <button type="button" class="btn_hethi-lg btn-success" > complete definition </button>
+                    </a>
+
+                </div>
+
+            </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+</div>

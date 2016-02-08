@@ -1,0 +1,56 @@
+<div data-ng-controller="hethi_home_Controller">
+
+
+    <div class="">
+        <!--<div class="row">-->
+            <!--<div class="col-sm-3 col-md-2">-->
+                <!--<div class="btn-group">-->
+                    <!--<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">-->
+                        <!--Mail <span class="caret"></span>-->
+                    <!--</button>-->
+                    <!--<ul class="dropdown-menu" role="menu">-->
+                        <!--<li><a href="#">Mail</a></li>-->
+                        <!--<li><a href="#">Contacts</a></li>-->
+                        <!--<li><a href="#">Tasks</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="row">
+            <div class="col-sm-3 col-md-2">
+                <!--<a href="#" class="btn btn-danger btn-sm btn-block" role="button"><i class="glyphicon glyphicon-edit"></i> </a>-->
+                <div class="leftNav_head">{{loginedUserData.businessname}}</div>
+                <ul class="nav nav-boxed tabbable ver-vertical-menu">
+                    <div class="leftNav_head"></div>
+                    <li class=""><a href="#" data-toggle="tab" data-ng-click="selectHethiUserTab('dashboard')">Dashboard</a></li>
+                    <div class="leftNav_head"> Ques </div>
+                    <div class="leftNav_head"> </div>
+                    <li class=""><a href="#" data-toggle="tab" data-ng-click="selectHethiUserTab('stencil_list')">Stenciling Pending</a></li>
+                    <li class=""><a href="#" data-toggle="tab" data-ng-click="selectHethiUserTab('stencil_completed')">Stenciling Completed</a></li>
+                <div class="leftNav_head"></div>
+
+
+                </ul>
+
+            </div>
+            <div class="col-sm-9 col-md-10" data-ng-switch="hethiUserTab">
+                <div data-ng-switch-when="dashboard">
+                    <div data-ng-include="'pages/hethi/dashboard.html'"></div>
+                </div>
+
+                <div data-ng-switch-when="stencil_list">
+                    <div data-ng-include="'pages/hethi/stencil_list.html'"></div>
+                </div>
+                <div data-ng-switch-when="upload">
+                    <div data-ng-include="'pages/hethi/stencil_completed.html'"></div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

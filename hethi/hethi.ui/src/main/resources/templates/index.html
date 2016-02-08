@@ -1,0 +1,89 @@
+<html ng-app="taskManagerApp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Hethi Workflow Demo</title>
+<link href='./css/style.css' rel="stylesheet" type="text/css" />
+<link href='./css/css/font-awesome.css' rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+<script src="./js/angular.js"></script>
+<script src="./js/angular-animate.js"></script>
+<script type="text/javascript" src="./js/app.js"></script>
+</head>
+<body>
+
+<div ng-controller="taskManagerController">
+<h2 class="page-title">Hethi Workflow Demo</h2>
+<div id="task-panel" class="fadein fadeout showpanel panel"  ng-show="toggle">	
+		<div class="panel-heading">
+			<i class="panel-title-icon fa fa-tasks"></i>
+			<span class="panel-title">Recent Documents</span>
+			<div class="panel-heading-controls">
+				<button ng-click="toggle = !toggle" class="btn-panel">Add New Document</button>
+				<button class="btn-panel" confirmed-click="archiveTasks()" ng-confirm-click="Would you like to clear all documents ?">Clear all documents </button>
+			</div>
+		</div>
+		
+	</div>
+	<div id="add-task-panel" class="fadein fadeout addpanel panel" >
+		<div class="panel-heading">
+			<i class="panel-title-icon fa fa-plus"></i>
+			<span class="panel-title">Add Document</span>
+			<div class="panel-heading-controls">
+				
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="task" >
+				<table class="add-task">
+				<tr>
+				<td>
+				<img alt="" src="./css/image/doc11443605380629.png"/>
+				</td>
+				</tr>
+					<tr>
+						<td>Comapany ID:</td>
+						<td><input type="text" ng-model="data.CompanyID"/></td>
+					</tr>
+					<tr>
+						<td>Document ID:</td>
+						<td><input type="text" ng-model="data.DocumentID"/></td>
+					</tr>
+					<tr>
+						<td>First Name:</td>
+						<td><input type="text" ng-model="data.FirstName"/></td>
+					</tr>
+					<tr>
+						<td>Last Name:</td>
+						<td><input type="text" ng-model="data.LastName"/></td>
+					</tr>
+					<tr>
+						<td>Age:</td>
+						<td><input type="text" ng-model="data.Age"/></td>
+					</tr>
+					<tr>
+						<td>Email:</td>
+						<td><input type="text" ng-model="data.Email"/></td>
+					</tr>
+					<tr>
+						<td>Phone :</td>
+						<td><input type="text" ng-model="data.Phone"/></td>
+					</tr>
+			
+					<tr>
+						<td>Document Priority:</td>
+						<td>
+							<select ng-model="documentPriority" ng-options="priority as priority for priority in priorities">
+								<option value="">-- Select --</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td><br/><button  ng-click="addDocument()" class="btn-panel-big">Add New Document</button></td>
+					</tr>
+				</table>								
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

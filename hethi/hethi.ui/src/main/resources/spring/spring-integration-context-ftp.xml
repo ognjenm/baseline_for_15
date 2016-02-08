@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:int-ftp="http://www.springframework.org/schema/integration/ftp"
+       xmlns:task="http://www.springframework.org/schema/task" 
+	   xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+                http://www.springframework.org/schema/integration/ftp http://www.springframework.org/schema/integration/ftp/spring-integration-ftp-2.1.xsd
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+                http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+        >
+    
+    <context:property-placeholder location="classpath:ftpConfiguration.properties" ignore-unresolvable="true"/>
+    <bean id="ftpClientFactory" 
+    class="org.springframework.integration.ftp.session.DefaultFtpSessionFactory">
+    <property name="host" value="${host}"/>
+    <property name="port" value="${port}"/>
+    <property name="username" value="${username}"/>
+    <property name="password" value="${password}"/>
+    <property name="clientMode" value="0"/>
+    <property name="fileType" value="2"/>
+    <property name="bufferSize" value="100000"/>
+    </bean>
+
+  <int-ftp:inbound-channel-adapter id="channel1"
+           channel="ftpChannel"
+           session-factory="ftpClientFactory"
+           charset="UTF-8"
+           cache-sessions="true"
+           delete-remote-files="true"
+           filename-pattern="*.*"
+           remote-directory="${remote-directory}"
+           remote-file-separator="/"
+           local-directory="${local-directory}">
+      <int:poller  fixed-rate="10000" />
+     </int-ftp:inbound-channel-adapter>
+       
+    <int:service-activator ref="referedFTPBean"  input-channel="ftpChannel" output-channel="routerSelection"   method="handleFile">
+    </int:service-activator>
+     <!-- routes to the different services based on the header value -->
+    <int:header-value-router input-channel="routerSelection" header-name="fileType">
+        <int:mapping value="zip" channel="unzipChannel"/>
+        <int:mapping value="single" channel="fileStoreChannel"/>
+        <int:mapping value="correpted" channel="exceptionChannel"/>
+        <int:mapping value="folder" channel="waitingChannel"/>
+        <int:mapping value="rar" channel="extractChannel"/>
+    </int:header-value-router>
+    <int:service-activator ref="referedFTPBean" input-channel="extractChannel" output-channel="fileStoreChannel"  method="extractArchive">
+    </int:service-activator>
+    <int:service-activator ref="referedFTPBean" input-channel="unzipChannel" output-channel="fileStoreChannel"  method="unzipFile">
+    </int:service-activator>
+    <int:service-activator ref="referedFTPBean" input-channel="fileStoreChannel" output-channel="router2selection" method="saveFile">
+    </int:service-activator>
+     <!-- routes to the different services based on the header value -->
+    <int:header-value-router input-channel="router2selection" header-name="fileType">
+        <int:mapping value="zip" channel="listFolderChannel"/>
+        <int:mapping value="rar" channel="listFolderChannel"/>
+        <int:mapping value="single" channel="fileDetailsStoreChannel"/>
+    </int:header-value-router>
+    <int:service-activator ref="referedFTPBean" input-channel="listFolderChannel" output-channel="successChannel" method="listFolderContents">
+    </int:service-activator>
+    <int:service-activator ref="referedFTPBean" input-channel="fileDetailsStoreChannel" output-channel="successChannel" method="saveFileDetails">
+    </int:service-activator>
+    <int:service-activator ref="referedFTPBean" input-channel="successChannel"  method="successMethod">
+    </int:service-activator>
+    <int:service-activator ref="referedFTPBean" input-channel="exceptionChannel"  method="handleException">
+    </int:service-activator>
+     <int:service-activator ref="referedFTPBean" input-channel="waitingChannel"  method="waitForNewFile">
+    </int:service-activator>
+    <bean id="referedFTPBean" class="com.hethi.adapters.FTP">
+    </bean>
+ </beans>

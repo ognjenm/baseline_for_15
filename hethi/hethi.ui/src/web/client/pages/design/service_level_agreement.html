@@ -1,0 +1,392 @@
+<!--<div data-ng-controller="taskListController" class="prt">-->
+<div data-ng-controller="service_level_Controller" class="text-lowercase">
+
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center">
+                <!--<button type="button" class="btn_hethi btn-primary btn_wizard">Configure Data Service</button>-->
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(1)">{{configDataService}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(2)">{{customiseWorkflow}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(3)">{{DefineOutput}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(4)">{{ErpIntegration}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(5)">{{DefineAnalytics}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(6)">{{DefineStorage}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(7)">{{Businessdemography}}</button>
+
+                <button type="button" class="btn_hethi btn-success btn_wizard" data-ng-click="selectBusiness(8)">{{ServiceLevelAgrmnt}}</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-8 col-lg-offset-2">
+
+            <div class="summary_head">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="pull-left"> {{configDataService}} </span>
+                        <div class="pull-right">
+                            <span class="text-14 margin-right-10">
+                                (5/5 completed)
+                            </span>
+                            <a href="#" class="btn btn-xs btn-warning" data-ng-click="selectBusiness(1)">
+                                <span class="fa fa-edit"> </span> Edit
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="summary_head">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="pull-left"> {{customiseWorkflow}} </span>
+                        <div class="pull-right">
+                            <span class="text-14 margin-right-10">
+                                (5/5 completed)
+                            </span>
+                            <a href="#" class="btn btn-xs btn-warning" data-ng-click="selectBusiness(2)">
+                                <span class="fa fa-edit"> </span> Edit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="summary_head">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="pull-left"> {{DefineOutput}} </span>
+                        <div class="pull-right">
+                            <span class="text-14 margin-right-10">
+                                (5/5 completed)
+                            </span>
+                            <a href="#" class="btn btn-xs btn-warning" data-ng-click="selectBusiness(3)">
+                                <span class="fa fa-edit"> </span> Edit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="summary_head">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="pull-left"> {{ErpIntegration}}</span>
+                        <div class="pull-right">
+                            <span class="text-14 margin-right-10">
+                                (5/5 completed)
+                            </span>
+                            <a href="#" class="btn btn-xs btn-warning" data-ng-click="selectBusiness(4)">
+                                <span class="fa fa-edit"> </span> Edit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="summary_head">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="pull-left"> {{DefineAnalytics}} </span>
+                        <div class="pull-right">
+                            <span class="text-14 margin-right-10">
+                                (5/5 completed)
+                            </span>
+                            <a href="#" class="btn btn-xs btn-warning" data-ng-click="selectBusiness(5)">
+                                <span class="fa fa-edit"> </span> Edit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="summary_head">
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="pull-left">{{DefineStorage}}</span>
+                        <div class="pull-right">
+                            <span class="text-14 margin-right-10">
+                                (5/5 completed)
+                            </span>
+                            <a href="#" class="btn btn-xs btn-warning" data-ng-click="selectBusiness(6)">
+                                <span class="fa fa-edit"> </span> Edit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="summary_head">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-left"> {{Businessdemography}} </div>
+                        <div class="pull-right">
+                            <span class="text-14 margin-right-10">
+                                (5/5 completed)
+                            </span>
+                            <a href="#" class="btn btn-xs btn-warning" data-ng-click="selectBusiness(7)">
+                                <span class="fa fa-edit"> </span> Edit
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-lg-offset-2">
+            <div class="pull-right margin-top-10 margin-bottom-15">
+                <button type="button" class="text-lowercase btn_hethi btn-success" > Generate Service Level Agreement </button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <!--<div class="panel panel-default table-dynamic">-->
+        <!--<div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Service level agreement</strong></div>-->
+        <!--<div class="panel-body">-->
+            <!--<div class="table-filters">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-sm-4 col-xs-6">-->
+                        <!--<form>-->
+                            <!--<input type="text"-->
+                                   <!--placeholder="search"-->
+                                   <!--class="form-control"-->
+                                   <!--data-ng-model="searchKeywordsIndexer"-->
+                                   <!--data-ng-keyup="searchIndexer()">-->
+                        <!--</form>-->
+                    <!--</div>-->
+                    <!--<div class="col-sm-3 col-xs-6 filter-result-info">-->
+                    <!--<span>-->
+                        <!--Showing {{filteredStoresIndexer.length}}/{{storesIndexer.length}} entries-->
+                    <!--</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+            <!--</div>-->
+            <!--<div class="row margin-bottom-5">-->
+                <!--<div class="col-md-12">-->
+                    <!--&lt;!&ndash;<button type="button" class="btn_hethi btn-warning" >Export</button>&ndash;&gt;-->
+                    <!--<div class="btn-group">-->
+                        <!--<button class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export Table Data</button>-->
+                        <!--<ul class="dropdown-menu " role="menu">-->
+                            <!--<li><a href="#" data-ng-click="exportData()"> <img src="images/icon/xls.png" width="24px"> XLSX</a></li>-->
+                            <!--<li><a href="#" data-ng-click="exportPDF()"> <img src="images/icon/pdf.png" width="24px"> PDF</a></li>-->
+                            <!--<li><a href="#" data-ng-click="exportCSV()"> <img src="images/icon/csv.png" width="24px"> CSV</a></li>-->
+
+
+
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="table-responsive" id="exportable">-->
+                <!--<table class="table table-bordered table-stripped  hethi_content_table">-->
+                    <!--<thead style="background-color: #000000; color: #ffffff">-->
+                    <!--<tr>-->
+
+                        <!--<th class="text-center">-->
+                            <!--<div class="th">Data Process-->
+                            <!--<span class="glyphicon glyphicon-chevron-up"-->
+                                  <!--data-ng-click=" orderIndexer('data_process') "-->
+                                  <!--data-ng-class="{active: row == 'data_process'}">-->
+
+                            <!--</span>-->
+                            <!--<span class="glyphicon glyphicon-chevron-down"-->
+                                  <!--data-ng-click=" orderIndexer('-data_process') "-->
+                                  <!--data-ng-class="{active: row == '-data_process'}">-->
+
+                            <!--</span>-->
+                            <!--</div>-->
+                        <!--</th>-->
+                        <!--<th class="text-center">-->
+                            <!--<div class="th" style="width: 200px">-->
+                                <!--Incoming Channel-->
+                            <!--<span class="glyphicon glyphicon-chevron-up"-->
+                                  <!--data-ng-click=" orderIndexer('incoming_channel') "-->
+                                  <!--data-ng-class="{active: row == 'incoming_channel'}">-->
+
+                            <!--</span>-->
+                            <!--<span class="glyphicon glyphicon-chevron-down"-->
+                                  <!--data-ng-click=" orderIndexer('-incoming_channel') "-->
+                                  <!--data-ng-class="{active: row == '-incoming_channel'}">-->
+
+                            <!--</span>-->
+                            <!--</div>-->
+                        <!--</th>-->
+                        <!--<th class="text-center">-->
+                            <!--<div class="th">-->
+                                <!--Input Format-->
+                             <!--<span class="glyphicon glyphicon-chevron-up"-->
+                                   <!--data-ng-click=" orderIndexer('input_format') "-->
+                                   <!--data-ng-class="{active: row == 'input_format'}">-->
+
+                            <!--</span>-->
+                            <!--<span class="glyphicon glyphicon-chevron-down"-->
+                                  <!--data-ng-click=" orderIndexer('-input_format') "-->
+                                  <!--data-ng-class="{active: row == '-input_format'}">-->
+
+                            <!--</span>-->
+                            <!--</div>-->
+                        <!--</th>-->
+                        <!--<th class="text-center">-->
+                            <!--<div class="th">-->
+                                <!--Output Content-->
+                            <!--<span class="glyphicon glyphicon-chevron-up"-->
+                                  <!--data-ng-click=" orderIndexer('output_content') "-->
+                                  <!--data-ng-class="{active: row == 'output_content'}">-->
+
+                            <!--</span>-->
+                            <!--<span class="glyphicon glyphicon-chevron-down"-->
+                                  <!--data-ng-click=" orderIndexer('-output_content') "-->
+                                  <!--data-ng-class="{active: row == '-output_content'}">-->
+
+                            <!--</span>-->
+                            <!--</div>-->
+                        <!--</th>-->
+                        <!--<th class="text-center">-->
+                            <!--<div class="th" style="width: 200px">-->
+                                <!--Output Channel-->
+                             <!--<span class="glyphicon glyphicon-chevron-up"-->
+                                   <!--data-ng-click=" orderIndexer('output_channel') "-->
+                                   <!--data-ng-class="{active: row == 'output_channel'}">-->
+
+                            <!--</span>-->
+                            <!--<span class="glyphicon glyphicon-chevron-down"-->
+                                  <!--data-ng-click=" orderIndexer('-output_channel') "-->
+                                  <!--data-ng-class="{active: row == '-output_channel'}">-->
+
+                            <!--</span>-->
+                            <!--</div>-->
+                        <!--</th>-->
+                        <!--<th class="text-center">-->
+                            <!--<div class="th">-->
+                                <!--Volume/Day-->
+                              <!--<span class="glyphicon glyphicon-chevron-up"-->
+                                    <!--data-ng-click=" orderIndexer('volume') "-->
+                                    <!--data-ng-class="{active: row == 'volume'}">-->
+
+                            <!--</span>-->
+                            <!--<span class="glyphicon glyphicon-chevron-down"-->
+                                  <!--data-ng-click=" orderIndexer('-volume') "-->
+                                  <!--data-ng-class="{active: row == '-volume'}">-->
+
+                            <!--</span>-->
+                            <!--</div>-->
+                        <!--</th>-->
+                        <!--<th class="text-center">-->
+                            <!--<div class="th">-->
+                               <!--TAT-->
+                            <!--<span class="glyphicon glyphicon-chevron-up"-->
+                                  <!--data-ng-click=" orderIndexer('TAT') "-->
+                                  <!--data-ng-class="{active: row == 'TAT'}">-->
+
+                            <!--</span>-->
+                            <!--<span class="glyphicon glyphicon-chevron-down"-->
+                                  <!--data-ng-click=" orderIndexer('-TAT') "-->
+                                  <!--data-ng-class="{active: row == '-TAT'}">-->
+
+                            <!--</span>-->
+                            <!--</div>-->
+                        <!--</th>-->
+                        <!--<th class="text-center">-->
+                            <!--<div class="th">-->
+                                <!--QualityBase-->
+                            <!--<span class="glyphicon glyphicon-chevron-up"-->
+                                  <!--data-ng-click=" orderIndexer('quality_base') "-->
+                                  <!--data-ng-class="{active: row == 'quality_base'}">-->
+
+                            <!--</span>-->
+                            <!--<span class="glyphicon glyphicon-chevron-down"-->
+                                  <!--data-ng-click=" orderIndexer('-quality_base') "-->
+                                  <!--data-ng-class="{active: row == '-quality_base'}">-->
+
+                            <!--</span>-->
+                            <!--</div>-->
+                        <!--</th>-->
+                        <!--<th class="text-center">-->
+                            <!--<div class="th">-->
+                                <!--Permissible QA-->
+                             <!--<span class="glyphicon glyphicon-chevron-up"-->
+                                   <!--data-ng-click=" orderIndexer('permisible_QA') "-->
+                                   <!--data-ng-class="{active: row == 'permisible_QA'}">-->
+
+                            <!--</span>-->
+                            <!--<span class="glyphicon glyphicon-chevron-down"-->
+                                  <!--data-ng-click=" orderIndexer('-permisible_QA') "-->
+                                  <!--data-ng-class="{active: row == '-permisible_QA'}">-->
+
+                            <!--</span>-->
+                            <!--</div>-->
+                        <!--</th>-->
+
+
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+
+                    <!--<tr data-ng-repeat="indexer in currentPageStoresIndexer">-->
+
+                        <!--<td>{{indexer.data_process}}</td>-->
+                        <!--<td>{{indexer.incoming_channel}}</td>-->
+                        <!--<td>{{indexer.input_format}}</td>-->
+                        <!--<td>{{indexer.output_content}}</td>-->
+                        <!--<td>{{indexer.output_channel}}</td>-->
+                        <!--<td>{{indexer.volume}}</td>-->
+                        <!--<td>{{indexer.TAT}}</td>-->
+                        <!--<td>{{indexer.quality_base}}</td>-->
+                        <!--<td>{{indexer.permisible_QA}}</td>-->
+
+                    <!--</tr>-->
+
+
+                    <!--</tbody>-->
+                <!--</table>-->
+            <!--</div>-->
+            <!--<footer class="table-footer">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-md-6 page-num-info">-->
+                    <!--<span>-->
+                        <!--Show-->
+                        <!--<select data-ng-model="numPerPageIndexer"-->
+                                <!--data-ng-options="num for num in numPerPageOptIndexer"-->
+                                <!--data-ng-change="onNumPerPageChangeIndexer()">-->
+                        <!--</select>-->
+                        <!--entries per page-->
+                    <!--</span>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-6 text-right pagination-container">-->
+                        <!--<pagination class="pagination-sm"-->
+                                    <!--page="currentPageIndexer"-->
+                                    <!--total-items="filteredStoresIndexer.length"-->
+                                    <!--max-size="4"-->
+                                    <!--ng-click="selectIndexer(currentPageIndexer)"-->
+                                    <!--items-per-page="numPerPageIndexer"-->
+                                    <!--rotate="false"-->
+                                    <!--boundary-links="true"></pagination>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</footer>-->
+
+
+
+
+
+
+        <!--</div>-->
+
+    <!--</div>-->
+
+
+
+
+</div>

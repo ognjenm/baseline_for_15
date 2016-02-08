@@ -1,0 +1,149 @@
+
+<div data-ng-controller="define_storage_Controller" class="text-lowercase">
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center">
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(1)">{{configDataService}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(2)">{{customiseWorkflow}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(3)">{{DefineOutput}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(4)">{{ErpIntegration}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(5)">{{DefineAnalytics}}</button>
+                <button type="button" class="btn_hethi btn-success btn_wizard" data-ng-click="selectBusiness(6)">{{DefineStorage}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(7)">{{Businessdemography}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(8)">{{ServiceLevelAgrmnt}}</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+
+    <div class="row">
+        <div class="col-md-12" ng-init="showStorage='yes'">
+            <div class="text-center">
+                <div class="btn-group">
+                    <button type="button" class="text-lowercase btn btn-lg btn-line-info " data-ng-click="showStorage= 'yes'" data-ng-model="showStorage" btn-radio="'yes'" > Configure my {{DefineStorage}} Service</button>
+                    <button type="button" class="text-lowercase btn btn-lg btn-line-info " data-ng-click="showStorage= 'no'" data-ng-model="showStorage" btn-radio="'no'" > I don't want {{DefineStorage}} Service</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divider-md"></div>
+    <div ng-switch="showStorage">
+
+        <div ng-switch-when="yes">
+
+            <div class="row">
+                <div class="col-md-8 col-lg-offset-2">
+                    <div class="ui-tab-container" style="">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div style="border-right: 1px solid #000000" class="col-md-6">
+                                    <div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <label class="control-label">Storage Limits :</label>
+                                            </div>
+                                        </div>
+                                        <div class="divider"></div>
+
+                                        <div class="row ">
+                                            <div class="col-md-9">
+                                                <label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option1" ><span>Issue warning at [MB]:</span></label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <!--<label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option2" checked><span>Prohibit send at [MB]:</span></label>-->
+                                            <!--<label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option3"><span>Prohibit send and receive at [MB]:</span></label>-->
+                                        </div>
+                                        <div class="divider"></div>
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option2" checked><span>Prohibit send at [MB]:</span></label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="divider"></div>
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option3"><span>Prohibit send and receive at [MB]:</span></label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="divider"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div >
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <label class="control-label">Deleted item retention :</label>
+                                            </div>
+                                        </div>
+                                        <div class="divider"></div>
+
+                                        <div class="row ">
+                                            <div class="col-md-9">
+                                                <label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option1" ><span> Keep deleted items for [days]:</span></label>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <!--<label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option2" checked><span>Prohibit send at [MB]:</span></label>-->
+                                            <!--<label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option3"><span>Prohibit send and receive at [MB]:</span></label>-->
+                                        </div>
+                                        <div class="divider"></div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option2" checked><span>Do not permanently delete items until the store has been backed up</span></label>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="divider"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+<div class="divider"></div>
+            <div class="row">
+                <div class="col-md-8 col-lg-offset-2">
+                    <div class="pull-right">
+                        <button class="btn btn-info text-lowercase" data-ng-click="nextOutputChannel();selectBusiness(7)">Next <span class="fa fa-forward"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-switch-when="no">
+            <div class="you_have_not_select">
+                <div class="row">
+                    <div class="col-md-12">
+                        You have not Selected this Service
+                        <div class="divider"></div>
+                        <div>
+                            <button type="button" class="text-lowercase btn_hethi-lg btn-danger" data-ng-click="selectBusiness(7)">Proceed</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+</div>

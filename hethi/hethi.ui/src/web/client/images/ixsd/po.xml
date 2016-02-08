@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE po SYSTEM "http://xml.cxml.org/schemas/cXML/1.2.009/InvoiceDetail.dtd">
+<po payloadID="20061006.142647_447878_uscobrmfa-ap-20" timestamp="2006-10-06T23:59:59-07:00">
+	<Header>
+		<From>
+			<Credential domain="NetworkID">
+				<Identity>***hethi TO PROVIDE</Identity>
+			</Credential>
+		</From>
+		<To>
+			<Credential domain="NetworkID">
+				<Identity>hethi-CXML</Identity>
+			</Credential>
+		</To>
+		<Sender>
+			<Credential domain="NetworkID">
+			<Identity>***hethi TO PROVIDE TRADING PARTNER LOCATION CODE</Identity>
+			<SharedSecret>***hethi TO PROVIDE</SharedSecret>
+			</Credential>
+			<UserAgent>***hethi TO PROVIDE</UserAgent>
+		</Sender>
+	</Header>
+	<Request deploymentMode="test">
+		<InvoiceDetailRequest>
+			<InvoiceDetailRequestHeader purpose="standard" invoiceID="G01-05-16a-multichrgs" operation="new" invoiceDate="2006-11-16T23:59:59-07:00">
+				<InvoiceDetailHeaderIndicator/>
+				<InvoiceDetailLineIndicator isAccountingInLine="yes"/>
+				<InvoicePartner>
+					<Contact role="remitTo">
+						<Name xml:lang="en-US">COMPANY NAME</Name>
+						<PostalAddress>
+							<Street>123 Street Address</Street>
+							<City>Chicago</City>
+							<State>IL</State>
+							<PostalCode>60694-1217</PostalCode>
+							<Country isoCountryCode="US">United States</Country>
+						</PostalAddress>
+					</Contact>
+				</InvoicePartner>
+				<InvoicePartner>
+					<Contact role="soldTo">
+						<Name xml:lang="en-US">CITIGROUP</Name>
+						<PostalAddress>
+							<Street>3800 CITIGROUP CTR DR</Street>
+							<City>TAMPA</City>
+							<State>FL</State>
+							<PostalCode>33610</PostalCode>
+							<Country isoCountryCode="US">United States</Country>
+						</PostalAddress>
+					</Contact>
+				</InvoicePartner>
+				<InvoicePartner>
+					<Contact role="billTo" addressID="13150194">
+						<Name xml:lang="en">CITIGROUP</Name>
+						<PostalAddress name="default">
+							<Street>3800 CITIGROUP CTR DR</Street>
+							<City>TAMPA</City>
+							<State>FL</State>
+							<PostalCode>33610</PostalCode>
+							<Country isoCountryCode="US">United States</Country>
+						</PostalAddress>
+					</Contact>
+				</InvoicePartner>
+				<InvoicePartner>
+					<Contact role="from">
+						<Name xml:lang="en-US">COMPANY NAME</Name>
+						<PostalAddress name="default">
+							<Street>123 Street Address</Street>
+							<City>Chicago</City>
+							<State>IL</State>
+							<PostalCode>60694-1217</PostalCode>
+							<Country isoCountryCode="US">United States</Country>
+						</PostalAddress>
+					</Contact>
+				</InvoicePartner>
+				<InvoiceDetailShipping shippingDate="2006-10-04T16:17:26-07:00">
+					<Contact role="shipTo" addressID="US 24932">
+						<Name xml:lang="en">US 24932</Name>
+						<PostalAddress name="default">
+							<DeliverTo>SMITH, MARY  MailStop: Us 24932</DeliverTo>
+							<Street>702 MARSHALL STREET , </Street>
+							<City>REDWOOD CITY</City>
+							<State>CA</State>
+							<PostalCode>94063</PostalCode>
+							<Country isoCountryCode="US">UNITED STATES</Country>
+						</PostalAddress>
+						<Email>none@none.com</Email>
+					</Contact>
+					<Contact role="shipFrom">
+						<Name xml:lang="en-US">COMPANY NAME</Name>
+						<PostalAddress>
+							<Street>123 STREET ADDRESS</Street>
+							<City>LA MIRADA</City>
+							<State>CA</State>
+							<PostalCode>90638</PostalCode>
+							<Country isoCountryCode="US">United States</Country>
+						</PostalAddress>
+					</Contact>
+				</InvoiceDetailShipping>
+			<Comments xml:lang="en"  >INVOICE TEST</Comments>
+			</InvoiceDetailRequestHeader>
+			<InvoiceDetailOrder>
+				<InvoiceDetailOrderInfo>
+					<OrderReference orderID="2176654">
+						<DocumentReference payloadID="200601003T13:48:00-12345678901"/>
+					</OrderReference>
+				</InvoiceDetailOrderInfo>
+				<InvoiceDetailItem invoiceLineNumber="1" quantity="1">
+					<UnitOfMeasure>CARTON</UnitOfMeasure>
+					<UnitPrice>
+						<Money currency="USD">28.80</Money>
+					</UnitPrice>
+					<InvoiceDetailItemReference lineNumber="2">
+						<ItemID>
+							<SupplierPartID>CEB8511RCY</SupplierPartID>
+						</ItemID>
+						<Description xml:lang="en"  >Earthsaver Recycled Multi-Use Copy Paper, 92 Brigh</Description>
+						<SerialNumber>1</SerialNumber>
+					</InvoiceDetailItemReference>
+					<SubtotalAmount>
+						<Money currency="USD">28.80</Money>
+					</SubtotalAmount>
+					<GrossAmount>
+						<Money currency="USD">28.80</Money>
+					</GrossAmount>
+					<NetAmount>
+						<Money currency="USD">28.80</Money>
+					</NetAmount>
+				</InvoiceDetailItem>
+			</InvoiceDetailOrder>
+			<InvoiceDetailSummary>
+				<SubtotalAmount>
+					<Money currency="USD">28.80</Money>
+				</SubtotalAmount>
+				<Tax>
+					<Money currency="USD">2.41</Money>
+					<Description xml:lang="en" />
+					<TaxDetail category="US SALES TAX" percentageRate=".08375" purpose="tax">
+							<TaxableAmount> <Money currency="USD">28.80</Money> </TaxableAmount>
+							<TaxAmount> <Money currency="USD">2.41</Money> </TaxAmount>
+							<TaxLocation xml:lang="en" />
+							<Description xml:lang="en" />
+					</TaxDetail>
+				</Tax>
+				<ShippingAmount>
+					<Money currency="USD">2.22</Money>
+				</ShippingAmount>		
+      				<GrossAmount>
+					<Money currency="USD">42.02</Money>
+				</GrossAmount>
+				<NetAmount>
+					<Money currency="USD">42.02</Money>
+				</NetAmount>
+				<DueAmount>
+					<Money currency="USD">42.02</Money>
+				</DueAmount>
+			</InvoiceDetailSummary>
+		</InvoiceDetailRequest>
+	</Request>
+</po>

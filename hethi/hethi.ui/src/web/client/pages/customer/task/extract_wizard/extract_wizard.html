@@ -1,0 +1,196 @@
+<!--<div data-ng-controller="form_MapperController" style="min-height: 560px">-->
+    <div data-ng-controller="hethi_home_Controller" >
+
+        <!--<div class="col-md-2">-->
+            <!--<div class="text-center">-->
+                <!--<span class="number">2</span>-->
+                <!--<span class="desc">-->
+				<!--Classify-->
+				<!--</span>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-md-2">-->
+            <!--<div class="text-center">-->
+                <!--<span class="number">3</span>-->
+                <!--<span class="desc">-->
+				<!--Split & Merge-->
+				<!--</span>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-md-2">-->
+            <!--<div class="text-center">-->
+                <!--<span class="number">2</span>-->
+                <!--<span class="desc">-->
+				<!--Reject-->
+				<!--</span>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-md-2">-->
+            <!--<div class="text-center">-->
+                <!--<span class="number">5</span>-->
+                <!--<span class="desc">-->
+				<!--Meta Data-->
+				<!--</span>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <div data-ng-switch="StencilTab" class="margin-top-10">
+
+        <div data-ng-switch-when="1">
+          <div class="wizard-container">
+            <div class="row">
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-10">
+                   <div class="row">
+                       <div class="col-md-4 ">
+                           <div class="text-center">
+                               <span class="number number-active">1</span>
+                <span class="desc">
+				Form Mapper
+				</span>
+                           </div>
+                       </div>
+                       <div class="col-md-4">
+                           <div class="text-center">
+                               <span class="number">2</span>
+                <span class="desc">
+				Classify,Reject,Split & Merge
+				</span>
+                           </div>
+                       </div>
+                       <div class="col-md-4">
+                           <div class="text-center">
+                               <span class="number">3</span>
+                <span class="desc">
+				Meta Data
+				</span>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+
+          </div>
+            <div class="row margin-bottom-20">
+                <div class="wizard_head-1"></div>
+            </div>
+
+            <div data-ng-include="'pages/customer/task/extract_wizard/extract_wizard_1.html'"> </div>
+
+
+        </div>
+        <div data-ng-switch-when="2" class="col-md-12">
+            <div class="wizard-container">
+                <div class="row">
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-4 ">
+                                <div class="text-center">
+                                    <span class="number ">1</span>
+                <span class="desc">
+				Form Mapper
+				</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <span class="number number-active">2</span>
+                <span class="desc">
+				Classify,Reject,Split & Merge
+				</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <span class="number">3</span>
+                <span class="desc">
+				Meta Data
+				</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row margin-bottom-20">
+                <div class="wizard_head-2"></div>
+            </div>
+            <div data-ng-include="'pages/customer/task/extract_wizard/extract_wizard_2.html'"></div>
+
+
+
+
+
+        </div>
+        <div data-ng-switch-when="3" class="col-md-12">
+            <div class="wizard-container">
+                <div class="row">
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-4 ">
+                                <div class="text-center">
+                                    <span class="number ">1</span>
+                <span class="desc">
+				Form Mapper
+				</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <span class="number ">2</span>
+                <span class="desc">
+				Classify,Reject,Split & Merge
+				</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <span class="number number-active">3</span>
+                <span class="desc">
+				Meta Data
+				</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row margin-bottom-20">
+                <div class="wizard_head-3"></div>
+            </div>
+            <div data-ng-include="'pages/customer/task/extract_wizard/extract_wizard_3.html'"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center margin-bottom-30">
+                        <button type="button" data-ng-click="selectStencilTab(2)" class="btn_hethi-lg btn-warning">Previous</button>
+                        <button type="button"  data-ng-click="completedStenciling()" style="margin-left: 10px" class="btn_hethi-lg btn-danger">Successfully Completed Stenciling </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+</div>

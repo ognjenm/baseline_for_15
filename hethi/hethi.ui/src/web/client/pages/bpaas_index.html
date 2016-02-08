@@ -1,0 +1,128 @@
+<div data-ng-controller="appHomeController">
+   <div class = "col-sm-3 col-md-2"style="margin-top: 100px">
+       <ul class="nav nav-boxed tabbable ver-vertical-menu">
+           <div class="leftNav_head"> </div>
+           <li class="" ng-class="clientTabList.capture"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('capture')">Capture</a></li>
+           <li class="" ng-class="clientTabList.manage"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('manage')">Manage</a></li>
+           <li class="" ng-class="clientTabList.deliver"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('deliver')">Deliver</a></li>
+       </ul>
+       </div>
+    <div class="col-md-10">
+       <h3> <label>welcome customer</label></h3>
+     <div class="col-md-4">
+            <button class="btn_hethi btn-default btn-block active" type="button">all</button>
+     </div>
+        <div class="col-md-4">
+        <button class="btn_hethi btn-default btn-block" type="button">new</button>
+        </div>
+        <div class="col-md-4">
+      <a href="/selectbps" ><button class="btn_hethi btn-default btn-block" type="button">existing</button></a>
+         <div><label></label></div>
+        </div>
+    <div class="col-sm-9 col-md-10">
+        <div class = "row">
+         <div class="col-md-12">
+              <div class="input-group">
+                  <input type = "text" class = "form-control input-round" value = "Search Customer Name, BPS, Industry" />
+      <span class="input-group-btn">
+
+        <button class="btn btn-default"  style="border-top-right-radius: 48%;border-bottom-right-radius: 48%" type="button"><span class="fa fa-search"></span></button>
+      </span>
+              </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+      </div><!-- /.row -->
+        <div><label></label></div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                    <thead style="background-color: #000000;color: #ffffff">
+                    <tr>
+                        <th style="width: 10px">
+                            <div class="">
+                                #
+                            </div>
+                        </th>
+
+
+        <div class="col-md-3 " ng-repeat="BpaaS in BpaaS_Service_List  ">
+            <div class="thumbnail">
+                <img class="img-responsive" src="{{BpaaS.BpaaS_service_image_path}}">
+                <div class="title">
+                    <ul>
+                        BpaaS_service
+                        <li>{{BpaaS.BpaaS_service}}</li>
+                        <li>
+                            <ul>
+                               <b>Industries</b>
+                                <li ng-repeat="industry in BpaaS.BpaaS_service_industry_list">
+                                   {{industry.indus_service}}
+                                    <ul>
+                                        <b>Forms</b>
+                                        <li ng-repeat="forms in industry.industry_form_list">
+
+                                            <ul>{{forms.form_type}}
+
+                                                <li>{{forms.form_bclass}}</li>
+                                                <li>{{forms.form_bsource}}</li>
+                                                <li>{{forms.form_type_decription_short}}</li>
+                                                <li>{{forms.form_stencid}}</li>
+
+                                            </ul>
+
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+                        <th style="width:300px" class="text-center" >
+                            <div class="">
+                                Customer Name
+                            </div>
+                        </th>
+                        <th style="width:300px">
+                            <div class="th">
+                                BPS
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th">
+                                Industry
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="file in stencilingPendingList" >
+                        <td>{{$index+1}}</td>
+                        <td>{{file.documentid}}</td>
+                        <td>{{file.businessname}}_{{file.documentid}}</td>
+                        <td>{{file.businessname}}</td>
+                        <td>{{file.industryid}}</td>
+                        <td>
+                            {{file.firstname}}({{file.userid}})<br>
+                <span class="text-muted">
+                     on {{file.createddatetime}}
+                </span>
+                        </td>
+                        <td class="text-center">
+                            <div class="form-group">
+                            </div>
+                    </tr>
+                    </tbody>
+                </table>
+
+    </div>
+
+</div>
+</div>
+</div>

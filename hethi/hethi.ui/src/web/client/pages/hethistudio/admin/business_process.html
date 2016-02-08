@@ -1,0 +1,1291 @@
+<div class="text-lowercase" data-ng-controller="businessProcessController">
+    <div class="panel panel-primary">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> business rules</strong></div>
+        <div class="panel-body">
+            <div ng-switch="isRuleDiv">
+                <div ng-switch-when="true">
+
+                    <div class="divider"></div>
+
+                    <div class="row">
+                        <form data-ng-submit="showRuleList(rulesPack)">
+                            <div class="col-md-3">
+                                <label class="control-label">packages</label>
+
+                                <div class="input-group">
+                                    <select  ng-model="rulesPack.packageId" required="" class="firstDropDown form-control"  ng-change="selectWorkSet(rulesPack.packageId)">
+                                        <option value="">select packages</option>
+                                        <option ng-selected="$first" value="{{package.rule_package_id}}" ng-repeat="package in packageList">{{package.rule_package_name}}</option>
+                                    </select>
+                         <span class="mouse_point input-group-addon" data-toggle="tooltip" data-placement="bottom"
+                               title="Add New Package">
+                             <span class="fa fa-plus" data-toggle="modal" data-target="#newPackages"></span>
+                        </span>
+                                    <!--<span class="mouse_point fa fa-trash input-group-addon" data-toggle="tooltip" data-placement="bottom"-->
+                                    <!--title="Delete Package">-->
+                                    <!--</span>-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">workset</label>
+
+                                <div class="input-group">
+                                    <select ng-model="rulesPack.workSet" required="" class="secondDropDown form-control" ng-change="selectRuleSet(rulesPack.workSet)"  >
+                                        <option value="">select workSet</option>
+                                        <option ng-selected="$first" value="{{workset.workset_id}}" ng-repeat="workset in WorkSetLists">{{workset.workset_name}}</option>
+                                    </select>
+                        <span class="mouse_point input-group-addon" data-toggle="tooltip" data-placement="bottom"
+                              title="Add New WorkSet">
+                             <span class="fa fa-plus" data-toggle="modal" data-target="#newWorkSet"></span>
+                        </span>
+                                    <!--<span class="mouse_point  fa fa-trash input-group-addon" data-toggle="tooltip" data-placement="bottom"-->
+                                    <!--title="Delete WorkSet">-->
+                                    <!--</span>-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">ruleset</label>
+
+                                <div class="input-group">
+                                    <select required=""  class="thirdDropDown form-control" ng-model="rulesPack.ruleSet" >
+                                        <option value="">select ruleset</option>
+                                        <option ng-if="WorkSetLists.length > 0" ng-selected="$first" value="{{ruleset.cruleset_id}}" ng-repeat="ruleset in RuleSetLists">{{ruleset.crulesset_name}}</option>
+                                    </select>
+                        <span class="mouse_point input-group-addon" data-toggle="tooltip" data-placement="bottom"
+                              title="Add New RuleSet">
+                             <span class="fa fa-plus" data-toggle="modal" data-target="#newRuleSet"></span>
+                        </span>
+                                    <!--<span class="mouse_point  fa fa-trash input-group-addon" data-toggle="tooltip" data-placement="bottom"-->
+                                    <!--title="Delete Rule">-->
+                                    <!--</span>-->
+                                </div>
+
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label font_w">package white space</label>
+
+                                <button type="submit" class="btn_hethi btn-primary btn-w-md" >show rules</button>
+                                <button type="button" style="margin-left: 5px" class=" btn_hethi btn-danger " data-toggle="modal" data-target="#editPackage">edit package</button>
+
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div class="divider-md"></div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                           <div class="">
+                               <button class="btn_hethi btn-info" data-ng-click="setRuleDiv()" type="button">
+                                   <span class="fa fa-plus"> new rule</span>
+
+                               </button>
+                           </div>
+                        </div>
+                    </div>
+
+                    <div class="divider-md"></div>
+
+                    <div class="row margin-bottom-20">
+                        <div class="col-md-12">
+                            <div class="bg_txt text-center" style="padding-bottom: 20px">
+                                <span class="text-primary  h3"> Rules List</span>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="row margin-bottom-20">
+                            <div class="col-md-12">
+                                <div class="panel panel-info " ng-repeat="rule in ruleTemp" ng-if="rule.rule_status == 1">
+                                   <div class=" mouse_point panel-heading" >
+                                           <span class="panel-title" ng-click="hideOthers($index)">{{rule.rule_name}}</span>
+                                           <span class="pull-right">
+                                               <span class=" btn_hethi_square  btn-success mouse_point" >
+                                                   <i class="fa fa-edit"></i>
+                                               </span>
+                                               <!--<td><span class=" btn_hethi btn-info" ng-click="setRuleId(rule)" data-toggle="modal" data-target="#EditRule">-->
+                                               <!--<i class="fa fa-edit"></i>-->
+                                               <!--</span>-->
+                                               <span class="margin-left-5 btn_hethi_square  mouse_point btn-danger" data-ng-click="disableRule(rule)">
+                                                   <i class="fa fa-trash-o"></i>
+                                               </span>
+                                           </span>
+
+                                   </div>
+                                    <div class="panel-body" ng-if="rule.status">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div style="font-size: 26px;font-weight: 200;">When <span class="fa fa-level-down color-info"></span></div>
+                                                <div style="line-height: 1.855em;margin-left: 70px;margin-top: -10px;"> {{rule.rule_condition}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="divider-md"></div>
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-md-1"></div>-->
+                                            <!--<div class="col-md-11">-->
+                                                <!--<span style="line-height: 1.855em;">{{rule.rule_condition}}</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div style="font-size: 26px;font-weight: 200;">Then <span class="fa fa-level-down color-success"></span></div>
+                                                <div style="line-height: 1.855em;margin-left: 70px;margin-top: -10px;"> {{rule.rule_action}}</div>
+                                            </div>
+                                            <!--<div class="col-md-3">-->
+                                                <!--<h3>Then</h3>-->
+                                            <!--</div>-->
+                                        </div>
+                                        <div class="divider-md"></div>
+
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-md-1"></div>-->
+                                            <!--<div class="col-md-11">-->
+                                                <!--<span style="line-height: 1.855em;">{{rule.rule_action}}</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div style="font-size: 26px;font-weight: 200;">Otherwise <span class="fa fa-level-down color-danger"></span></div>
+                                                <div style="line-height: 1.855em;margin-left: 125px;margin-top: -10px;"> {{rule.rule_failure}}</div>
+                                            </div>
+                                            <!--<div class="col-md-3">-->
+                                                <!--<h3>Otherwise</h3>-->
+                                            <!--</div>-->
+                                        </div>
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-md-1"></div>-->
+                                            <!--<div class="col-md-11">-->
+                                                <!--<span style="line-height: 1.855em;">{{rule.rule_failure}}</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            <!--<div class="table-responsive">-->
+                                <!--<table class="table table-bordered table-striped">-->
+                                    <!--<thead style="background-color: #00304d;color: white;text-transform: lowercase" >-->
+                                    <!--<tr>-->
+                                        <!--<th  class="text-center" style="">Rule Name</th>-->
+                                        <!--<th class="text-center" style="">Condition</th>-->
+                                        <!--<th class="text-center" style="">Rule Success</th>-->
+                                        <!--<th class="text-center" style="">Rule Failure</th>-->
+                                        <!--<th class="text-center" style="">Action</th>-->
+
+                                    <!--</tr>-->
+                                    <!--</thead>-->
+                                    <!--<tbody>-->
+                                    <!--<tr ng-if="rule.rule_status == 1" ng-repeat="rule in ruleTemp">-->
+                                        <!--<td>{{rule.rule_name}}</td>-->
+                                        <!--<td>{{rule.rule_condition}}</td>-->
+                                        <!--<td>{{rule.rule_action}}</td>-->
+                                        <!--<td>{{rule.rule_failure}}</td>-->
+                                        <!--<td class="text-center">-->
+                                            <!--<span class=" btn_hethi btn_hethi-xs btn-info mouse_point" >-->
+                                                <!--<i class="fa fa-edit"></i>-->
+                                            <!--</span>-->
+                                            <!--&lt;!&ndash;<td><span class=" btn_hethi btn-info" ng-click="setRuleId(rule)" data-toggle="modal" data-target="#EditRule">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<i class="fa fa-edit"></i>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                                            <!--<span class="margin-left-5 btn_hethi btn_hethi-xs mouse_point btn-danger" data-ng-click="disableRule(rule)">-->
+                                                <!--<i class="fa fa-trash-o"></i>-->
+                                            <!--</span>-->
+                                        <!--</td>-->
+
+                                    <!--</tr>-->
+                                    <!--</tbody>-->
+                                <!--</table>-->
+                            <!--</div>-->
+
+
+
+                </div>
+
+                <div ng-switch-when="false">
+                    <div class="rule-head">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="text-center "><i class="fa fa-pencil"></i> create new rule
+                                    <span class="mouse_point pull-right" data-ng-click="setRuleDiv()"><i class="fa fa-remove ash-c"></i></span>
+                                </div>
+                                <div class="font_12" ng-if="rule_name!=undefined">[ {{rule_name}} ]</div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                     <div class="panel-body">
+
+                         <div ng-show="showRuleForm">
+                             <!--<div class="row">-->
+                                 <!--<div class="col-md-12 text-center">-->
+                                     <!--<label class="control-label">-->
+                                         <!--i want to create-->
+                                     <!--</label>-->
+                                 <!--</div>-->
+                             <!--</div>-->
+                             <div class="divider-lg"></div>
+                             <div class="divider-md"></div>
+                             <div class="row">
+                                 <!--<div class="col-md-3">-->
+                                    <!---->
+                                 <!--</div>-->
+                                 <div class="col-md-12">
+                                     <div class="text-center ">
+
+                                     <div>
+                                         <span class="mouse_point rule_box color-blue-1">
+                                                 data extraction rule
+                                             </span>&nbsp;
+                                         <!--</div>-->
+                                         <!--<div class="col-md-3">-->
+                                             <span class="mouse_point rule_box color-blue-1" ng-click="setRuleForm('bpaas')" >
+                                                 business process rule
+                                             </span>&nbsp;
+
+                                         <!--</div>-->
+                                         <!--<div class="col-md-4">-->
+                                             <span class="mouse_point rule_box color-blue-1">
+                                                 output service rule
+                                             </span>&nbsp;
+                                         <!--</div>-->
+                                     </div>
+
+                                     </div>
+
+                                 </div>
+                             </div>
+                             <div class="divider-lg"></div>
+                         </div>
+
+                         <div ng-hide="showRuleForm" ng-switch="formVariable">
+                             <div ng-switch-when="bpaas">
+                                 <form class="form-horizontal" data-ng-submit="addNewRule(r)">
+                                     <div class="wizard-container margin-top-10">
+
+                                         <div class="row">
+
+                                             <div class="col-md-3 ">
+                                                 <div class="text-center">
+                                                     <span class="number" ng-class="currentTab=='homePage'?'number-active':'';">1</span>
+                                                     <span class="desc">home</span>
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-3">
+                                                 <div class="text-center">
+                                                     <span class="number " ng-class="currentTab=='condition'?'number-active':''">2</span>
+                                                     <span class="desc">rule config</span>
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-3">
+                                                 <div class="text-center">
+                                                     <span class="number" ng-class="currentTab=='settings'?'number-active':''">3</span>
+                                                     <span class="desc">settings</span>
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-3">
+                                                 <div class="text-center">
+                                                     <span class="number" ng-class="currentTab=='summary'?'number-active':''">4</span>
+                                                     <span class="desc">summary</span>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+
+                                     <div ng-show="currentTab=='homePage'?true:false">
+                                         <div class="divider-lg"></div>
+                                        <div class="row">
+                                            <div class="col-md-offset-2 col-md-8">
+                                                <div class="row ">
+                                                    <div class="col-md-3">
+                                                        <label>name</label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <input type="text" ng-change="setRuleName(r.name)" focus="{{name}}" required class="form-control" ng-model="r.name">
+                                                    </div>
+                                                </div>
+                                                <div class="divider"></div>
+                                                <div class="row ">
+                                                    <div class="col-md-3">
+                                                        <label>description</label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                     <textarea class="form-control" required rows="2" ng-model="r.desc">
+
+                                     </textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="divider"></div>
+
+                                                <div class="row ">
+                                                    <div class="col-md-3">
+                                                        <label>industry</label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <select ng-change="selectEfs(r.industry)" required class="form-control" ng-model="r.industry">
+                                                            <option>-- Select Industry --</option>
+                                                            <option ng-repeat="(key,val) in formsOfIndustry" value="{{key}}">{{key}}</option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="divider"></div>
+
+                                                <div class="row ">
+                                                    <div class="col-md-3">
+                                                        <label>form</label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <select required="" ng-change="selectFormField(r.form_types)" ng-model="r.form_types" class="form-control">
+                                                            <option value="">-- select form --</option>
+                                                            <option value="{{form.efs_uin}}" ng-repeat="form in efsOfIndustry">{{form.form_type}}</option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="divider"></div>
+                                                <div class="row ">
+                                                    <div class="col-md-3">
+                                                        <label>rule type</label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="btn-group" >
+                                                            <button type="button" btn-radio="'simple'" ng-click="setRuleType('simple')"
+                                                                    ng-class="ruleType == 'simple'?'btn btn-primary':'btn btn-line-primary'">
+                                                                single statement</button>
+                                                            <button type="button" btn-radio="'lookup'" ng-click="setRuleType('lookup')"
+                                                                    ng-class="ruleType == 'lookup'?'btn btn-primary':'btn btn-line-primary'">
+                                                                lookup statement</button>
+                                                            <button type="button" btn-radio="'computation'" ng-click="setRuleType('computation')"
+                                                                    ng-class="ruleType == 'computation'?'btn btn-primary':'btn btn-line-primary'">
+                                                                computation statement</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                         <div class="row ">
+                                             <div class="col-md-12">
+                                                 <div class="pull-right">
+                                                     <button type="button" class="btn_hethi btn-w-md btn-info" data-ng-click="setCurrentTab('condition',r)">
+                                                         next&nbsp;
+                                                         <span class="fa fa-forward">  </span>
+                                                     </button>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+
+                                     <div ng-show="currentTab=='condition'?true:false" >
+                                         <div class="row">
+                                             <div class="col-md-12">
+                                                 <div ng-if="$index+1 == dynamicRule.length" class="panel panel-info margin-top-10" data-ng-repeat="rule in dynamicRule"  ng-init="outerIndex=$index">
+                                                     <div  class="panel-heading">
+                                                         <h3 class="panel-title">When </h3>
+                                                     </div>
+                                                     <div class="">
+                                                         <div style="width:auto" id="style-7">
+                                                             <div class="force-overflow">
+                                                                 <div class="panel-body text-lowercase">
+                                                                     <div class="divider-md"></div>
+                                                                     <div ng-show="ruleType == 'simple'">
+                                                                             <div class="row ">
+
+                                                                                 <div class="col-md-6">
+                                                                                     <div ng-repeat="fd in rule.fieldArray" class="margin-bottom-10">
+                                                                                         <div class="row">
+                                                                                             <div class="col-md-2">
+                                                                                                 <label>Field <span ng-if="rule.fieldArray.length>1">{{$index+1}}</span></label>
+                                                                                             </div>
+                                                                                             <div class="col-md-4">
+                                                                                                 <select ng-required="showSingle" ng-change="setFieldKey()"  ng-model="fd.field" class="form-control">
+                                                                                                     <option value="">select field</option>
+                                                                                                     <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                                                                 </select>
+                                                                                             </div>
+                                                                                             <div class="col-md-4">
+                                                                                                 <div class="btn-group">
+                                                                                                     <button ng-click="fd.tableIndex=true" ng-class="fd.tableIndex?'btn btn-success':'btn btn-line-success'" btn-radio="'table'"  ng-model="r.field_type">in table</button>
+                                                                                                     <button ng-click="fd.tableIndex=false" ng-class="fd.tableIndex?'btn btn-line-success':'btn btn-success'" btn-radio="'header'"  ng-model="r.field_type">in header</button>
+                                                                                                 </div>
+
+                                                                                             </div>
+                                                                                             <!--<div class="col-md-2">-->
+                                                                                                 <!--<span ng-if="rule.fieldArray.length>1" ng-click="rule.fieldArray.splice($index,1)" class="btn_hethi btn-danger"><i class="fa fa-remove"></i></span>-->
+                                                                                             <!--</div>-->
+                                                                                         </div>
+                                                                                     </div>
+
+
+                                                                                     <div class="divider-md"></div>
+
+                                                                                     <div class="row">
+                                                                                         <!--<div ng-show="isLookUp">-->
+                                                                                             <!--<div class="col-md-12 text-center">-->
+                                                                                                 <!--<button type="button" class="btn_hethi btn-info" data-ng-click="addNewField()">-->
+                                                                                                     <!--Add new field to list-->
+                                                                                                 <!--</button>-->
+                                                                                             <!--</div>-->
+                                                                                         <!--</div>-->
+                                                                                         <div ng-hide="isLookUp">
+                                                                                             <div class="col-md-1">
+                                                                                                 <label>Has</label>
+                                                                                             </div>
+                                                                                             <div class="col-md-5">
+                                                                                                 <div class="btn-group">
+                                                                                                     <button ng-class="isField=='custom'?'btn btn-success':'btn btn-line-success'" ng-click="isField='custom'">custom value</button>
+                                                                                                     <!--<button ng-class="isField=='lookup'?'btn btn-success':'btn btn-line-success'" ng-click="isField='lookup'">lookup value</button>-->
+                                                                                                     <button ng-class="isField=='field'?'btn btn-success':'btn btn-line-success'" ng-click="isField='field'">field value</button>
+                                                                                                 </div>
+                                                                                             </div>
+                                                                                             <div ng-if="isField=='custom'" class="col-md-6">
+                                                                                                 <!--<input ng-change="addCriteria(rules.condition)" type="text" ng-model="rules.condition" class="form-control">-->
+
+                                                                                                 <input  placeholder="criteria" type="text" ng-model="rule.condition" class="form-control">
+                                                                                             </div>
+                                                                                             <div ng-if="isField=='field'" class="col-md-6">
+                                                                                                 <select   ng-model="rule.condition" class="form-control">
+                                                                                                     <option value="">select field</option>
+                                                                                                     <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                                                                 </select>
+                                                                                             </div>
+
+                                                                                         </div>
+                                                                                     </div>
+                                                                                     <div class="divider-md"></div>
+
+                                                                                     <div class="row " ng-hide="isLookUp">
+                                                                                         <div class="col-md-3">
+                                                                                             <label>Default value</label>
+                                                                                         </div>
+                                                                                         <div class="col-md-5">
+                                                                                             <div class="btn-group">
+                                                                                                 <button ng-class="isRequired?'btn btn-success':'btn btn-line-success'" ng-click="isRequired=!isRequired">not required</button>
+                                                                                                 <button ng-class="isRequired?'btn btn-line-success':'btn btn-success'" ng-click="isRequired=!isRequired">required</button>
+                                                                                             </div>
+                                                                                         </div>
+                                                                                         <div ng-show="!isRequired" class="col-md-4">
+                                                                                             <!--<input ng-change="addCriteria(rules.condition)" type="text" ng-model="rules.condition" class="form-control">-->
+
+                                                                                             <input  type="text"  ng-model="rule.default" class="form-control">
+                                                                                         </div>
+
+                                                                                     </div>
+
+                                                                                 </div>
+
+                                                                                 <div class="col-md-6">
+                                                                                     <div class="row" ng-repeat="newOper in rule.functions">
+                                                                                         <div class="col-md-2">
+                                                                                             <label ng-if="$first">Operation</label>
+                                                                                         </div>
+                                                                                         <div class="col-md-4">
+                                                                                             <select ng-change="selectOperators(id)" ng-model="id"  class=" form-control " ng-required="showSingle">
+                                                                                                 <option value="">operations</option>
+                                                                                                 <option ng-if="key != 'Look Up'" ng-repeat="(key,value) in typeOfOperators" value="{{key}}">{{key}}</option>
+                                                                                             </select>
+                                                                                         </div>
+
+                                                                                         <div class="col-md-6">
+                                                                                             <div class="input-group margin-bottom-5">
+                                                                                                 <select  ng-model="newOper.operator" ng-change="setFunctionCall(newOper.operator)"  class=" form-control " >
+                                                                                                     <option value="">operator</option>
+                                                                                                     <option ng-repeat="opera in operators" value="{{opera}}">{{opera.operation_name}}</option>
+                                                                                                 </select>
+                                                                                                 <span ng-if="$last" ng-click="addNewOperations($index,outerIndex)" class="mouse_point input-group-addon"  data-placement="bottom"
+                                                                                                      title="Add New Operation">
+                                                                                                      <span class="fa fa-plus"></span>
+                                                                                                 </span>
+                                                                                                 <span ng-if="!$last" ng-click="rule.functions.splice($index,1)" class="mouse_point input-group-addon"  data-placement="bottom"
+                                                                                                       title="Remove this Operation">
+                                                                                                       <span class="fa fa-remove"></span>
+                                                                                                 </span>
+                                                                                             </div>
+
+                                                                                         </div>
+
+                                                                                     </div>
+
+                                                                                 </div>
+                                                                             </div>
+                                                                             <div class="row ">
+                                                                                 <div class="col-md-12">
+                                                                                     <div class="text-center">
+                                                                                         <button ng-if="$last" type="button" ng-click="addNewCondition($index,'&&')" class="btn-w-md btn_hethi btn-primary ">save condition</button>
+                                                                                         <!--<button ng-if="$last" type="button" ng-click="addNewCondition($index,'||')" class="btn_hethi btn-info"><i class="fa fa-plus-circle"></i> OR Condition</button>-->
+                                                                                     </div>
+                                                                                 </div>
+                                                                             </div>
+                                                                         </div>
+                                                                     <div ng-show="ruleType == 'lookup'">
+                                                                         <form >
+                                                                             <div class="row margin-bottom-20">
+                                                                                 <div class="col-md-2">
+                                                                                     <label>search lookup table</label>
+                                                                                 </div>
+                                                                                 <div class="col-md-2">
+                                                                                     <select required="" ng-model="lookUpForm.lookup" class="form-control">
+                                                                                         <option value="">table names</option>
+                                                                                         <option ng-repeat="tables in typeOfOperators['Look Up']" value="{{tables}}">{{tables.operation_name}}</option>
+                                                                                     </select>
+                                                                                 </div>
+                                                                             </div>
+                                                                             <div ng-repeat="fd in fieldArray">
+                                                                                 <div class="row margin-bottom-20">
+                                                                                     <div class="col-md-2">
+                                                                                         <label>for fields</label>
+                                                                                     </div>
+                                                                                     <div class="col-md-2">
+                                                                                         <select required="" ng-change="setFieldKey()"  ng-model="fd.field" class="form-control">
+                                                                                             <option value="">select field</option>
+                                                                                             <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                                                         </select>
+                                                                                     </div>
+                                                                                     <div class="col-md-2">
+                                                                                         <div class="btn-group">
+                                                                                             <button ng-click="fd.tableIndex=true" ng-class="fd.tableIndex?'btn btn-success':'btn btn-line-success'" btn-radio="'table'"  ng-model="r.field_type">in table</button>
+                                                                                             <button ng-click="fd.tableIndex=false" ng-class="fd.tableIndex?'btn btn-line-success':'btn btn-success'" btn-radio="'header'"  ng-model="r.field_type">not in table</button>
+                                                                                         </div>
+
+                                                                                     </div>
+                                                                                     <div class="col-md-2">
+                                                                                         <label>mapping with</label>
+                                                                                     </div>
+                                                                                     <div class="col-md-2">
+                                                                                         <select required="" ng-model="fd.field2" class="form-control">
+                                                                                             <option value="">select field</option>
+                                                                                             <option value="inv_num" >inv_num</option>
+                                                                                         </select>
+                                                                                     </div>
+                                                                                     <div class="col-md-2">
+                                                                                         <span ng-if="!$last && fieldArray.length > 1" ng-click="fieldArray.splice($index,1)" class="btn_hethi btn-danger mouse_point">remove field</span>
+                                                                                         <span ng-if="$last" ng-click="fieldArray.push({id:$scope.fieldArray+1,status:true,tableIndex:true})" class="btn_hethi btn-info mouse_point">add field</span>
+                                                                                     </div>
+
+                                                                                 </div>
+
+                                                                             </div>
+                                                                             <div class="row margin-bottom-20">
+                                                                                 <div class="col-md-12 text-center">
+                                                                                     <!--<button type="button" class="btn_hethi btn-danger">check condition syntax</button>-->
+                                                                                     <button type="button" data-ng-click="addNewLookupCall(lookUpForm)" class="btn_hethi btn-primary">save condition</button>
+                                                                                     <!--<button type="button" class="btn_hethi btn-info">finish process</button>-->
+                                                                                 </div>
+                                                                             </div>
+                                                                         </form>
+
+                                                                     </div>
+                                                                     <div ng-show="ruleType == 'computation'">
+                                                                         <div ng-repeat="input in inputFields">
+                                                                             <div class="row margin-bottom-20">
+                                                                                 <div class="col-md-2">
+                                                                                     <span ng-if="$first">input  as  fields</span>
+                                                                                 </div>
+                                                                                 <div class="col-md-3">
+                                                                                     <select   ng-model="condition" class="form-control">
+                                                                                         <option value="">select field</option>
+                                                                                         <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                                                     </select>
+                                                                                 </div>
+                                                                                 <div class="col-md-4">
+                                                                                     <span data-ng-click="inputFields.push({id:inputFields.length+1,status:false})" ng-if="$last" class="btn_hethi btn-info mouse_point">
+                                                                                         <i class="fa fa-plus"></i> new field
+                                                                                     </span>&nbsp;
+                                                                                     <span ng-click="inputFields.splice($index,1)" ng-if="inputFields.length > 1" class="btn_hethi btn-danger mouse_point">
+                                                                                          <i class="fa fa-remove"></i> this field
+                                                                                     </span>
+                                                                                 </div>
+                                                                             </div>
+                                                                         </div>
+
+                                                                         <div class="row margin-bottom-20">
+                                                                             <div class="col-md-2">
+                                                                                 <span>apply  to  operation</span>
+                                                                             </div>
+                                                                             <div class="col-md-10">
+                                                                                 <div class="btn-group" >
+                                                                                     <button btn-radio="'sum'" ng-click="selectOption('sum')" ng-class="btnType == 'sum'?'btn btn-success':'btn btn-line-success'">
+                                                                                         compute sum
+                                                                                     </button>
+                                                                                     <button btn-radio="'tax'" ng-click="selectOption('tax')" ng-class="btnType == 'tax'?'btn btn-success':'btn btn-line-success'">
+                                                                                         compute tax
+                                                                                     </button>
+                                                                                     <button btn-radio="'summary'" ng-click="selectOption('summary')" ng-class="btnType == 'summary'?'btn btn-success':'btn btn-line-success'">
+                                                                                         compute summary
+                                                                                     </button>
+                                                                                     <button btn-radio="'validity'" ng-click="selectOption('validity')" ng-class="btnType == 'validity'?'btn btn-success':'btn btn-line-success'">
+                                                                                         calculate invoice validity
+                                                                                     </button>
+                                                                                 </div>
+                                                                             </div>
+                                                                         </div>
+                                                                         <div class="row " ng-init="btnType1='field'">
+                                                                             <div class="col-md-2">
+                                                                                 <span>output as</span>
+                                                                             </div>
+                                                                             <div class="col-md-4">
+                                                                                 <div class="btn-group" >
+                                                                                     <button  ng-click="btnType1='field'" ng-class="btnType1 == 'field'?'btn btn-danger':'btn btn-line-danger'">
+                                                                                         field value
+                                                                                     </button>
+                                                                                     <button ng-click="btnType1='custom'" ng-class="btnType1 == 'custom'?'btn btn-danger':'btn btn-line-danger'">
+                                                                                         custom value
+                                                                                     </button>
+                                                                                     <button ng-click="btnType1='calendar'" ng-class="btnType1 == 'calendar'?'btn btn-danger':'btn btn-line-danger'">
+                                                                                         calendar value
+                                                                                     </button>
+
+                                                                                 </div>
+                                                                             </div>
+                                                                             <div class="col-md-3">
+                                                                                 <select ng-if="btnType1 == 'field'"  ng-model="condition" class="form-control">
+                                                                                     <option value="">select field</option>
+                                                                                     <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                                                 </select>
+                                                                                 <input ng-if="btnType1 == 'custom'" ng-change="setOutput(op)" ng-model="op.output" type="text" class="form-control" placeholder="{{message}}">
+
+                                                                                 <div ng-if="btnType1 == 'calendar'" class="input-group ui-datepicker">
+                                                                                     <input type="text"
+                                                                                            class="form-control"
+                                                                                            datepicker-popup="{{format}}"
+                                                                                            ng-model="r.startDate"
+                                                                                            is-open="opened"
+                                                                                            min="minDate"
+                                                                                            datepicker-options="dateOptions"
+                                                                                            ng-required="true"
+                                                                                            close-text="Close">
+                                                                                     <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
+                                                                                 </div>
+                                                                             </div>
+                                                                             <div class="col-md-1">
+                                                                                 <span ng-if="btnType1 == 'custom' && !messageFlag" ng-class="!messageFlag?'text-success':'text-danger'">
+                                                                                     {{message_text}}</span>
+                                                                             </div>
+
+                                                                         </div>
+                                                                         <div class="row margin-bottom-20">
+                                                                             <div class="col-md-6"></div>
+                                                                             <div class="col-md-3">
+                                                                                 <span ng-if="btnType1 == 'custom' && messageFlag" ng-class="!messageFlag?'text-success':'text-danger'">
+                                                                                     {{message_text}}</span>
+                                                                             </div>
+                                                                         </div>
+                                                                         <div class="row">
+                                                                             <div class="col-md-3"></div>
+                                                                             <div class="col-md-3 ">
+                                                                                 <button class="btn btn-primary form-control">save condition</button>
+                                                                             </div>
+
+                                                                         </div>
+
+                                                                     </div>
+
+
+
+                                                                     <div class="divider-lg"></div>
+
+
+
+
+                                                                     <div ng-show="created"  ng-click="showList=!showList" class="row margin-top-20 mouse_point">
+                                                                         <div class="col-md-12">
+                                                                             <span style="background-color: #00304d;padding: 10px;color: white"><i class="fa fa-list"></i> condition list</span>
+                                                                         </div>
+                                                                     </div>
+                                                                     <div ng-hide="showList" ng-show="created && rule1.condition_statement!=undefined" class="margin-bottom-20" data-ng-repeat="rule1 in dynamicRule">
+
+                                                                         <div class="row margin-top-10 margin-bottom-20 ">
+
+                                                                             <div class="col-md-10">
+                                                                                 <span>{{$index+1}} {{rule1.condition_statement}}</span>
+                                                                             </div>
+                                                                             <div class="col-md-2">
+                                                                                 <span ng-if="!$first" data-ng-click="removeCondition($index)" class="btn_hethi btn-danger"><i class="fa fa-remove"></i></span>
+                                                                             </div>
+                                                                         </div>
+                                                                     </div>
+                                                                 </div>
+                                                             </div>
+                                                         </div>
+
+
+                                                     </div>
+
+                                                 </div>
+
+                                             </div>
+                                         </div>
+                                         <div class="row">
+                                             <div class="col-md-6">
+                                                 <div class="panel panel-info">
+                                                     <div class="panel-heading">
+                                                         <h3 class="panel-title">Then</h3>
+                                                     </div>
+                                                     <div class="panel-body" style="height: 310px; width: auto; overflow-y: auto">
+                                                         <div class="row margin-top-10">
+                                                             <div class="col-md-4" style="border-right: 1px solid #dcdcdc; text-transform: lowercase">
+                                                                 <div class="wrap">
+                                                                     <ul >
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="exception?'btn-success mouse_point':'btn-line-success '"
+                                                                             ng-click="setSuccessTab('exception')" >Route to Exception</li>
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="mapping?'btn-success mouse_point':'btn-line-success mouse_point'"
+                                                                             ng-click="setSuccessTab('mapping')" >Map to Field</li>
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="queue?'btn-success mouse_point':'btn-line-success mouse_point'"
+                                                                             ng-click="setSuccessTab('queue')" >Map to Queue</li>
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="isReturn?'btn-success':'btn-line-success'"
+                                                                             ng-click="setSuccessTab('isReturn')" >Return</li>
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="rule?'btn-success':'btn-line-success'"
+                                                                             ng-click="setSuccessTab('rule')" >Rule</li>
+                                                                         <!--<li style="padding:10px;border:1px solid #dcdcdc" ng-class="default?'btn-success':'btn-line-success'"-->
+                                                                         <!--ng-click="setActionTab('default')" >Set Defalut Value</li>-->
+                                                                     </ul>
+                                                                 </div>
+
+                                                             </div>
+                                                             <div class="col-md-8">
+                                                                 <div  style="height: 250px; text-transform: lowercase" ng-switch="tabText">
+                                                                     <div ng-switch-when="exception">
+                                                                         <div  class="row margin-top-10">
+                                                                             <div class="col-md-5">
+                                                                                 <label >queue name</label>
+                                                                             </div>
+                                                                             <div class="col-md-7">
+                                                                                 <select  class="form-control" ng-model="exceptionField" ng-change="setException(exceptionField)">
+                                                                                     <option>Select Queue Name</option>
+                                                                                     <option ng-if="efs==exception.efs_uin" value="{{exception}}" ng-repeat="exception in exceptionList">{{exception.exception_name}}</option>
+                                                                                 </select>
+                                                                             </div>
+                                                                         </div>
+
+                                                                     </div>
+                                                                     <div ng-switch-when="mapping">
+                                                                         <div  class="row margin-top-10">
+                                                                             <div class="col-md-5">
+                                                                                 <label>Form Field</label>
+                                                                             </div>
+                                                                             <div class="col-md-7">
+                                                                                 <select ng-required="showSingle" ng-change="formActionStatement(field2)" ng-model="field2" class="form-control">
+                                                                                     <option value="">-- select form field--</option>
+                                                                                     <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                                                 </select>
+                                                                             </div>
+                                                                         </div>
+
+                                                                     </div>
+                                                                     <div ng-switch-when="queue">
+                                                                         <div  class="row margin-top-10">
+                                                                             <div class="col-md-5">
+                                                                                 <label >Queue Group</label>
+                                                                             </div>
+                                                                             <div class="col-md-7">
+                                                                                 <select ng-change="setQueueList(queue_group)" ng-model="queue_group"  class="form-control">
+                                                                                     <option>Select Queue code</option>
+                                                                                     <option ng-repeat="group in queueGroup" value="{{group.hethi_service_id}}">{{group.hethi_servicecode}}</option>
+                                                                                 </select>
+                                                                             </div>
+                                                                         </div>
+                                                                         <div  class="row margin-top-10">
+                                                                             <div class="col-md-5">
+                                                                                 <label >Queue Name</label>
+                                                                             </div>
+                                                                             <div class="col-md-7">
+                                                                                 <select ng-model="queue_name" data-ng-change="addProcessQueue(queue_name)" class="form-control">
+                                                                                     <option>Select Queue Name</option>
+                                                                                     <option ng-repeat="queue in tempQueueGroup" value="{{queue.hethi_subservicecode}}">{{queue.hethi_subservicecode}}</option>
+                                                                                 </select>
+                                                                             </div>
+                                                                         </div>
+                                                                         <div  class="row margin-top-10">
+                                                                             <div class="col-md-5">
+                                                                                 <label >Message</label>
+                                                                             </div>
+                                                                             <div class="col-md-7">
+                                                             <textarea ng-model="process_message" class="form-control" rows="2">
+                                                             </textarea>
+                                                                             </div>
+                                                                         </div>
+                                                                     </div>
+                                                                     <div ng-switch-when="isReturn">
+                                                                         <div class="row margin-top-10">
+                                                                             <div class="col-md-4">
+                                                                                 <label >Rule return </label>
+                                                                             </div>
+                                                                             <div class="col-md-8">
+                                                                                 <div class="btn-group">
+                                                                                     <button ng-click="setReturnValue(returnStatus)" ng-class="returnStatus?'btn btn-success':'btn btn-line-success'" btn-radio="true" ng-model="returnStatus">True</button>
+                                                                                     <button ng-click="setReturnValue(returnStatus)" ng-class="returnStatus?'btn btn-line-success':'btn btn-success'" btn-radio="false" ng-model="returnStatus">False</button>
+                                                                                 </div>
+                                                                                 <label>&nbsp; value</label>
+                                                                             </div>
+                                                                             <!--<div class="col-md-1">-->
+                                                                                 <!--<label >value</label>-->
+                                                                             <!--</div>-->
+                                                                         </div>
+                                                                     </div>
+                                                                     <div ng-switch-when="rule">
+                                                                         <div  class="row margin-top-10">
+                                                                             <div class="col-md-4">
+                                                                                 <label>Rule name</label>
+                                                                             </div>
+
+
+                                                                             <div class="col-md-8">
+                                                                                 <select   ng-model="field" class="form-control">
+                                                                                     <option ng-if="rule.ruleset_id==currentRuleSet" value="{{rule.rule_uin}}" ng-repeat="rule in rulesList">{{rule.rule_name}}</option>
+                                                                                 </select>
+                                                                             </div>
+                                                                         </div>
+
+                                                                     </div>
+                                                                     <div ng-switch-when="default">
+                                                                         <div  class="row margin-top-10">
+                                                                             <div class="col-md-6">
+                                                                                 <label>Default value</label>
+                                                                             </div>
+
+
+                                                                             <div class="col-md-6">
+                                                                                 <input type="text" class="form-control" ng-model="defaultV">
+                                                                             </div>
+                                                                         </div>
+
+                                                                     </div>
+                                                                 </div>
+
+                                                             </div>
+                                                         </div>
+                                                     </div>
+
+
+
+                                                 </div>
+
+                                             </div>
+                                             <div class="col-md-6">
+                                                 <div class="panel panel-info "  >
+                                                     <div  class="panel-heading">
+                                                         <h3 class="panel-title">Otherwise</h3>
+                                                     </div>
+                                                     <div class="panel-body" style="height: 310px; width: auto; overflow-y: auto; text-transform: lowercase">
+                                                         <div class="row margin-top-10">
+                                                             <div class="col-md-4" style="border-right: 1px solid #dcdcdc">
+                                                                 <div class="wrap">
+                                                                     <ul >
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fException?'btn-success mouse_point':'btn-line-success '"
+                                                                             ng-click="setFailureTab('fException')" >Route to Exception</li>
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fMapping?'btn-success mouse_point':'btn-line-success mouse_point'"
+                                                                             ng-click="setFailureTab('fMapping')" >Map to Field</li>
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fQueue?'btn-success mouse_point':'btn-line-success mouse_point'"
+                                                                             ng-click="setFailureTab('fQueue')" >Map to Queue</li>
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fIsReturn?'btn-success':'btn-line-success'"
+                                                                             ng-click="setFailureTab('fIsReturn')" >Return</li>
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fRule?'btn-success':'btn-line-success'"
+                                                                             ng-click="setFailureTab('fRule')" >Rule</li>
+                                                                         <!--<li style="padding:10px;border:1px solid #dcdcdc" ng-class="default?'btn-success':'btn-line-success'"-->
+                                                                         <!--ng-click="setActionTab('default')" >Set Defalut Value</li>-->
+                                                                     </ul>
+                                                                 </div>
+
+
+                                                             </div>
+                                                             <div class="col-md-8">
+                                                                 <div  style="height: 250px;" ng-switch="failureTab">
+                                                                     <div ng-switch-when="fException">
+                                                                         <div  class="row margin-top-10">
+                                                                             <div class="col-md-5">
+                                                                                 <label >Queue Name</label>
+                                                                             </div>
+                                                                             <div class="col-md-7">
+                                                                                 <select  class="form-control" ng-model="exceptionField2" ng-change="setFailureException(exceptionField2)">
+                                                                                     <option>Select Queue Name</option>
+                                                                                     <option ng-if="efs==exception.efs_uin" value="{{exception}}" ng-repeat="exception in exceptionList">{{exception.exception_name}}</option>
+                                                                                 </select>
+                                                                             </div>
+                                                                         </div>
+
+                                                                     </div>
+                                                                     <div ng-switch-when="fMapping">
+                                                                         <div  class="row margin-top-10">
+                                                                             <div class="col-md-5">
+                                                                                 <label>Form Field</label>
+                                                                             </div>
+                                                                             <div class="col-md-7">
+                                                                                 <select ng-required="showSingle" ng-change="formFailureStatement(failurefield)" ng-model="failurefield" class="form-control">
+                                                                                     <option value="">select form field</option>
+                                                                                     <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                                                 </select>
+                                                                             </div>
+                                                                         </div>
+
+                                                                     </div>
+                                                                     <div ng-switch-when="fQueue">
+                                                                         <div  class="row margin-top-10">
+                                                                             <div class="col-md-5">
+                                                                                 <label >Queue Group</label>
+                                                                             </div>
+                                                                             <div class="col-md-7">
+                                                                                 <select ng-change="setQueueList(queue_group)" ng-model="queue_group"  class="form-control">
+                                                                                     <option>Select Queue code</option>
+                                                                                     <option ng-repeat="group in queueGroup" value="{{group.hethi_service_id}}">{{group.hethi_servicecode}}</option>
+                                                                                 </select>
+                                                                             </div>
+                                                                         </div>
+                                                                         <div  class="row margin-top-10">
+                                                                             <div class="col-md-5">
+                                                                                 <label >Queue Name</label>
+                                                                             </div>
+                                                                             <div class="col-md-7">
+                                                                                 <select ng-model="queue_name1" data-ng-change="addFailureProcessQueue(queue_name1)" class="form-control">
+                                                                                     <option>Select Queue Name</option>
+                                                                                     <option ng-repeat="queue in tempQueueGroup" value="{{queue.hethi_subservicecode}}">{{queue.hethi_subservicecode}}</option>
+                                                                                 </select>
+                                                                             </div>
+                                                                         </div>
+                                                                         <div  class="row margin-top-10">
+                                                                             <div class="col-md-5">
+                                                                                 <label >Message</label>
+                                                                             </div>
+                                                                             <div class="col-md-7">
+                                                             <textarea ng-model="process_message" class="form-control" rows="2">
+                                                             </textarea>
+                                                                             </div>
+                                                                         </div>
+                                                                     </div>
+                                                                     <div ng-switch-when="fIsReturn">
+                                                                         <div class="row margin-top-10">
+                                                                             <div class="col-md-4">
+                                                                                 <label >Rule return </label>
+                                                                             </div>
+                                                                             <div class="col-md-8">
+                                                                                 <div class="btn-group">
+                                                                                     <button ng-click="setReturnValue(returnStatus1)" ng-class="returnStatus1?'btn btn-success':'btn btn-line-success'" btn-radio="true" ng-model="returnStatus1">True</button>
+                                                                                     <button ng-click="setReturnValue(returnStatus1)" ng-class="returnStatus1?'btn btn-line-success':'btn btn-success'" btn-radio="false" ng-model="returnStatus1">False</button>
+                                                                                 </div>
+                                                                                 <label> &nbsp; value</label>
+                                                                             </div>
+
+                                                                         </div>
+                                                                     </div>
+                                                                     <div ng-switch-when="fRule">
+                                                                         <div  class="row margin-top-10">
+                                                                             <div class="col-md-5">
+                                                                                 <label>Rule name</label>
+                                                                             </div>
+                                                                             <div class="col-md-7">
+                                                                                 <select   ng-model="field" class="form-control">
+                                                                                     <option ng-if="rule.ruleset_id==currentRuleSet" value="{{rule.rule_uin}}" ng-repeat="rule in rulesList">{{rule.rule_name}}</option>
+                                                                                 </select>
+                                                                             </div>
+                                                                         </div>
+
+                                                                     </div>
+                                                                     <div ng-switch-when="fDefault">
+                                                                         <div  class="row margin-top-10">
+                                                                             <div class="col-md-5">
+                                                                                 <label>Default value</label>
+                                                                             </div>
+
+
+                                                                             <div class="col-md-7">
+                                                                                 <input type="text" class="form-control" ng-model="defaultV">
+                                                                             </div>
+                                                                         </div>
+
+                                                                     </div>
+                                                                 </div>
+
+                                                             </div>
+                                                         </div>
+                                                     </div>
+
+
+
+                                                 </div>
+
+                                             </div>
+
+                                         </div>
+                                         <!--<div class="row">-->
+
+                                         <!--</div>-->
+                                         <!--<div class=" bg_txt margin-bottom-25 " style="padding: 20px">-->
+                                         <!--<div ng-show="created" class="row margin-top-10">-->
+                                         <!--<div class="col-md-12 text-center">-->
+                                         <!--<label> <span class="fa fa-list"></span> Condition List</label>-->
+                                         <!--</div>-->
+                                         <!--</div>-->
+                                         <!--<div ng-show="created && rule1.condition_statement!=undefined" class="margin-bottom-20" data-ng-repeat="rule1 in dynamicRule">-->
+
+                                         <!--<div class="row margin-top-10 margin-bottom-20 ">-->
+
+                                         <!--<div class="col-md-8">-->
+                                         <!--<span>{{$index+1}} {{rule1.condition_statement}}</span>-->
+                                         <!--</div>-->
+                                         <!--<div class="col-md-1">-->
+                                         <!--<span  data-ng-click="removeCondition($index)" class="btn_hethi btn-danger"><i class="fa fa-remove"></i></span>-->
+                                         <!--</div>-->
+                                         <!--</div>-->
+                                         <!--</div>-->
+                                         <!--</div>-->
+
+
+                                         <div class="divider"></div>
+                                         <div class="row">
+                                             <div class="col-md-12">
+                                                  <span class="pull-left margin-bottom-20">
+                                                      <button type="button" class="btn_hethi btn-w-md btn-info" data-ng-click="setCurrentTab('homePage',r)">
+                                                          <span class="fa fa-backward">  </span>
+                                                          &nbsp;previous
+                                                      </button>
+                                                  </span>
+                                                 <span class="pull-right margin-bottom-20">
+                                                     <button type="button" class="btn_hethi btn-w-md btn-info" data-ng-click="setCurrentTab('settings',r)">
+                                                         next&nbsp; <span class="fa fa-forward">  </span>
+                                                     </button>
+                                                 </span>
+
+                                             </div>
+                                         </div>
+                                     </div>
+
+                                     <div ng-show="currentTab=='settings'?true:false"  >
+                                         <div class="row">
+                                             <div class="col-md-offset-2 col-md-8 text-lowercase">
+
+                                                 <div class="divider-lg"></div>
+
+                                                 <div class="row margin-bottom-20">
+                                                     <div class="col-md-3">
+                                                         <label >Effective Start Date</label>
+                                                     </div>
+                                                     <div class="col-md-9">
+                                                         <div class="input-group ui-datepicker">
+                                                             <input type="text"
+                                                                    class="form-control"
+                                                                    datepicker-popup="{{format}}"
+                                                                    ng-model="r.startDate"
+                                                                    is-open="opened"
+                                                                    min="minDate"
+                                                                    datepicker-options="dateOptions"
+                                                                    ng-required="true"
+                                                                    close-text="Close">
+                                                             <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
+                                                         </div>
+                                                         <!--<input required type="text" ng-model="r.startDate" class="form-control">-->
+                                                     </div>
+                                                 </div>
+                                                 <div class="row margin-bottom-20">
+                                                     <div class="col-md-3">
+                                                         <label >Effective end Date</label>
+                                                     </div>
+                                                     <div class="col-md-9">
+                                                         <div class="input-group ui-datepicker">
+                                                             <input type="text"
+                                                                    class="form-control"
+                                                                    datepicker-popup="{{format}}"
+                                                                    ng-model="r.endDate"
+                                                                    is-open="opened1"
+                                                                    min="minDate"
+                                                                    datepicker-options="dateOptions"
+                                                                    ng-required="true"
+                                                                    close-text="Close">
+                                                             <span class="input-group-addon" ng-click="open1($event)"><i class="fa fa-calendar"></i></span>
+                                                         </div>
+                                                         <!--<input type="text" required  ng-model="r.endDate" class="form-control">-->
+                                                     </div>
+                                                 </div>
+                                                 <div class="row " ng-init="r.status=true">
+                                                     <div class="col-md-3">
+                                                         <label >status</label>
+                                                     </div>
+                                                     <div class="col-md-9">
+                                                         <div class="btn-group text-lowercase">
+                                                             <button type="button"  ng-class="r.status?'btn btn-success':'btn btn-line-success'" btn-radio="true" ng-model="r.status">enable</button>
+                                                             <button type="button"  ng-class="r.status?'btn btn-line-success':'btn btn-success'" btn-radio="false" ng-model="r.status">disable</button>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+
+                                                 <div class="divider-md"></div>
+
+                                             </div>
+                                         </div>
+                                         <div class="row">
+                                             <div class="col-md-12">
+                                                         <span class="pull-left">
+                                                                <button type="button" class="btn_hethi btn-w-md btn-info" data-ng-click="setCurrentTab('condition',r)">
+                                                                    <span class="fa fa-backward">  </span>
+                                                                    &nbsp;previous
+                                                                </button>
+                                                         </span>
+                                                         <span class="pull-right">
+                                                             <button type="button" class="btn_hethi btn-w-md btn-info" data-ng-click="setCurrentTab('summary',r)">
+                                                                 next&nbsp; <span class="fa fa-forward">  </span>
+
+                                                             </button>
+                                                         </span>
+                                             </div>
+
+                                         </div>
+
+                                     </div>
+
+                                     <div ng-show="currentTab=='summary'?true:false" >
+                                         <div class="row">
+                                             <div class="col-md-12">
+                                                 <div class="text-lowercase tab-content clearfix inner_box_shadow">
+
+                                                     <div ng-class="summaryTab?'tab-pane active':'tab-pane'"  >
+                                                         <div class="row">
+
+                                                             <div class="col-md-2">
+
+                                                                         <h3>When</h3>
+
+                                                             </div>
+                                                             <div class="col-md-10">
+                                                             </div>
+                                                             <div class="row">
+                                                                 <div class="col-md-offset-1 col-md-10">
+                                                                     <span style="padding-top: 5px;background-color: #009FFF;color: #ffffff;border-radius: 20px;padding-bottom: 5px; padding-left: 40px;padding-right: 40px;">If</span>
+                                                                     <span style="padding-top: 5px;background-color: #009FFF;color: #ffffff;border-radius: 20px;padding-bottom: 5px; padding-left: 40px;padding-right: 40px;">If</span>
+                                                                 </div>
+                                                             </div>
+                                                         </div>
+                                                         <div class="row">
+                                                             <div class="col-md-2">
+                                                                         <h3>Then</h3>
+                                                             </div>
+                                                             <div class="col-md-10">
+
+                                                             </div>
+
+
+                                                         </div>
+
+                                                         <div class="row">
+                                                             <div class="col-md-2">
+                                                                 <h3>Otherwise</h3>
+                                                             </div>
+                                                             <div class="col-md-10">
+
+                                                             </div>
+                                                         </div>
+                                                     </div>
+
+                                                     <div ng-class="summaryTab?'tab-pane':'tab-pane active'" >
+
+                                                         <div>
+                                                             <div class="row">
+                                                                 <div class="col-md-2">
+                                                                     <h3>When :</h3>
+                                                                 </div>
+                                                             </div>
+                                                             <div class="row">
+                                                                 <div class="col-md-1"></div>
+                                                                 <div class="col-md-10">
+                                                                     <span>{{conditionList}}</span>
+                                                                 </div>
+                                                             </div>
+                                                             <div class="row">
+                                                                 <div class="col-md-2">
+                                                                     <h3>Then :</h3>
+                                                                 </div>
+                                                             </div>
+                                                             <div class="row">
+                                                                 <div class="col-md-1"></div>
+                                                                 <div class="col-md-10">
+                                                                     <span>{{actionEvent}}</span>
+                                                                 </div>
+                                                             </div>
+
+                                                             <div class="row">
+                                                                 <div class="col-md-2">
+                                                                     <h3>Otherwise </h3>
+                                                                 </div>
+                                                             </div>
+                                                             <div class="row">
+                                                                 <div class="col-md-1"></div>
+                                                                 <div class="col-md-10">
+                                                                     <span>{{failureEvent}}</span>
+                                                                 </div>
+                                                             </div>
+
+                                                         </div>
+
+                                                     </div>
+
+                                                 </div>
+                                             </div>
+                                         </div>
+
+
+                                         <div class="row">
+                                             <div class="col-md-12">
+                                                 <ul  class="text-lowercase nav nav-pills" style="box-shadow: 1px 1px 1px 1px #d3d3d3;margin-bottom: 20px">
+                                                     <li ng-class="summaryTab?'active':''">
+                                                         <a href ng-click="changeTab(1)" data-toggle="tab">Design</a>
+                                                     </li>
+                                                     <li ng-class="summaryTab?'':'active'">
+                                                         <a href ng-click="changeTab(0)" data-toggle="tab">Source</a>
+                                                     </li>
+                                                 </ul>
+                                             </div>
+                                     </div>
+
+
+                                         <div class="row">
+                                             <div class="col-md-12">
+                                                   <span class="pull-left">
+                                                         <button type="button" class="btn_hethi btn-w-md btn-info" data-ng-click="setCurrentTab('settings',r)">
+                                                             <span class="fa fa-backward">  </span>
+                                                             &nbsp;previous
+                                                         </button>
+                                                   </span>
+                                                  <span class="pull-right">
+                                                      <button type="button" class="btn_hethi btn-w-md btn-danger" data-ng-click="setRuleDiv()">
+                                                          <span class="fa fa-trash-o">  </span>
+                                                          &nbsp;cancel
+                                                      </button>
+                                                       <button type="submit" class="btn_hethi btn-w-md btn-primary" >
+                                                           <span class="fa fa-save">  </span>
+                                                           &nbsp;save
+                                                       </button>
+                                                  </span>
+                                             </div>
+                                         </div>
+
+
+                                     </div>
+
+                                 </form>
+
+                             </div>
+                         </div>
+                     </div>
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <section data-ng-include="'pages/hethistudio/admin/businessProcess/newPackages.html'"></section>
+    <section data-ng-include="'pages/hethistudio/admin/businessProcess/EditPackage.html'"></section>
+    <section data-ng-include="'pages/hethistudio/admin/businessProcess/newBusinessRuleSet.html'"></section>
+    <section data-ng-include="'pages/hethistudio/admin/businessProcess/EditRuleSet.html'"></section>
+    <section data-ng-include="'pages/hethistudio/admin/businessProcess/newWorkSet.html'"></section>
+    <section data-ng-include="'pages/hethistudio/admin/businessProcess/EditWorkSet.html'"></section>
+    <section data-ng-include="'pages/hethistudio/admin/businessProcess/EditRule.html'"></section>
+    <section data-ng-include="'pages/hethistudio/admin/businessProcess/NewRule.html'"></section>
+
+
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        

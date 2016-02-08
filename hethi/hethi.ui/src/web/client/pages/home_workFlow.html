@@ -1,0 +1,221 @@
+<div class="" data-ng-controller="appHomeController">
+    <div class="">
+        <div class="masthead">
+            <nav>
+                <ul class="nav nav-justified">
+                    <li><a href="#" data-ng-click="selectMenuTab(1)" data-ng-class="abtcolor">Home</a></li>
+                    <li class=" dropdown user">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+
+					<span class="username {{taskColor}}">
+						 Tasks
+					</span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu with-arrow pull-right">
+                            <li>
+                                <a href="#" data-ng-click="selectMenuTab(2)">
+                                    <i class="fa fa-user"></i> Work Item
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-ng-click="selectMenuTab(3)">
+                                    <i class="fa fa-group"></i> Work Flow
+                                </a>
+                            </li>
+
+
+
+
+                        </ul>
+                    </li>
+                    <li class="dropdown user">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+
+					<span class="username {{AdminColor}}">
+						 Administrator
+					</span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="dropdown-menu with-arrow pull-right">
+                            <li>
+                                <a href="#" data-ng-click="selectMenuTab(4)">
+                                    <i class="fa fa-user"></i> Role
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-ng-click="selectMenuTab(5)">
+                                    <i class="fa fa-group"></i> Group
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" data-ng-click="selectMenuTab(6)">
+                                    <i class="fa fa-newspaper-o"></i> Delegations
+							<span class="badge badge-success">
+								3
+                            </span>
+                                </a>
+                            </li>
+
+
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-key"></i> Report
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Invoice</a></li>
+                    <li><a href="#">My Dashboard</a></li>
+                    <li><a href="#">Reports</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="divider-md"></div>
+
+  <div data-ng-switch="menuTab">
+      <div data-ng-switch-when="1">
+          <div data-ng-include="'pages/Workflow.html'"></div>
+          <!--<div data-ng-include="'pages/work-flow-home.html'"></div>-->
+
+      </div>
+      <div data-ng-switch-when="2">
+          <div data-ng-include="'pages/work_item.html'"></div>
+      </div>
+      <div data-ng-switch-when="3">
+          <div data-ng-include="'pages/work_flow.html'"></div>
+      </div>
+      <div data-ng-switch-when="4">
+          <div data-ng-include="'pages/role.html'"></div>
+      </div>
+      <div data-ng-switch-when="5">
+          <div data-ng-include="'pages/group.html'"></div>
+      </div>
+      <div data-ng-switch-when="6">
+          <div data-ng-include="'pages/delegation.html'"></div>
+      </div>
+
+
+  </div>
+
+
+
+
+   <!--<div class="row">-->
+      <!--<div class="col-md-12">-->
+          <!--<div class="table-responsive">-->
+              <!--<table class="table table-bordered hethi_content_table">-->
+                  <!--<thead style="background-color: rgba(255,175,194,0.20);">-->
+                  <!--<tr class="text-center">-->
+                      <!--<th class="text-center">Invoice No:</th>-->
+                      <!--<th class="text-center">SupplierID</th>-->
+                      <!--<th class="text-center">SupplierName</th>-->
+                      <!--<th class="text-center">InvoceType</th>-->
+                      <!--<th class="text-center">Status</th>-->
+                      <!--<th class="text-center">Assigned to</th>-->
+                      <!--<th class="text-center">PO Number</th>-->
+                      <!--<th class="text-center">Invoice data</th>-->
+                      <!--<th class="text-center">Payment Date</th>-->
+                      <!--<th class="text-center">Delivery Date</th>-->
+                      <!--<th class="text-center">Channel</th>-->
+                      <!--<th class="text-center">Curr</th>-->
+                      <!--<th class="text-center">NetTotal</th>-->
+                      <!--<th class="text-center">Total Tax</th>-->
+                      <!--<th class="text-center">Grand Total</th>-->
+                      <!--<th class="text-center">GL code</th>-->
+                      <!--<th class="text-center">UID#</th>-->
+                      <!--<th class="text-center">Reference1</th>-->
+                      <!--<th class="text-center">Reference2</th>-->
+                      <!--<th class="text-center">Reference3</th>-->
+                      <!--<th class="text-center">Reference4</th>-->
+                      <!--<th class="text-center">Reference5</th>-->
+                      <!--<th class="text-center">BuyerID</th>-->
+
+                  <!--</tr>-->
+                  <!--</thead>-->
+                  <!--<tbody>-->
+
+                  <!--<tr data-ng-click="contentRedirect()">-->
+                      <!--<td class="text-center">125</td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td>PO</td>-->
+                      <!--<td>Paid</td>-->
+                      <!--<td>ABC</td>-->
+                      <!--<td>660000131</td>-->
+                      <!--<td>3/17/2015</td>-->
+                      <!--<td>4/16/2015</td>-->
+                      <!--<td>3/17/2015</td>-->
+                      <!--<td>Fax</td>-->
+                      <!--<td>INR</td>-->
+                      <!--<td>64</td>-->
+                      <!--<td>0</td>-->
+                      <!--<td>64</td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+
+
+                  <!--</tr>-->
+                  <!--<tr data-ng-click="contentRedirect()">-->
+                      <!--<td class="text-center">125</td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td>PO</td>-->
+                      <!--<td>Paid</td>-->
+                      <!--<td>ABC</td>-->
+                      <!--<td>660000131</td>-->
+                      <!--<td>3/17/2015</td>-->
+                      <!--<td>4/16/2015</td>-->
+                      <!--<td>3/17/2015</td>-->
+                      <!--<td>Fax</td>-->
+                      <!--<td>INR</td>-->
+                      <!--<td>64</td>-->
+                      <!--<td>0</td>-->
+                      <!--<td>64</td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+
+
+                  <!--</tr>-->
+                  <!--<tr data-ng-click="contentRedirect()">-->
+                      <!--<td class="text-center">125</td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td>PO</td>-->
+                      <!--<td>Paid</td>-->
+                      <!--<td>ABC</td>-->
+                      <!--<td>660000131</td>-->
+                      <!--<td>3/17/2015</td>-->
+                      <!--<td>4/16/2015</td>-->
+                      <!--<td>3/17/2015</td>-->
+                      <!--<td>Fax</td>-->
+                      <!--<td>INR</td>-->
+                      <!--<td>64</td>-->
+                      <!--<td>0</td>-->
+                      <!--<td>64</td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+                      <!--<td></td>-->
+
+
+                  <!--</tr>-->
+
+                  <!--</tbody>-->
+              <!--</table>-->
+          <!--</div>-->
+      <!--</div>-->
+  <!--</div>-->
+
+</div>

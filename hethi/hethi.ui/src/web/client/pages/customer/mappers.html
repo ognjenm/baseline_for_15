@@ -1,0 +1,213 @@
+<!--<style type="text/css">-->
+    <!--${demo.css}-->
+<!--</style>-->
+<div class="panel panel-default table-dynamic" data-ng-controller="hethi_mapper_controller">
+
+<!--<div class="panel panel-default table-dynamic" data-ng-controller="form_MapperController">-->
+
+    <!--<div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Dashboard View</strong></div>-->
+
+    <div class="panel-body">
+        <div class="page-header">
+            <h1>
+               Mappers
+                <small>
+                    <i class="ace-icon fa fa-angle-double-right"></i>
+                    overview &amp; stats
+                </small>
+            </h1>
+        </div>
+
+        <div class="divider-md"></div>
+        <div class="row">
+            <div class="content">
+                <div class="box">
+                    <form ng-submit="uploadSampleInput(ImagePath)" class="form-horizontal" >
+                        <div class="divider-lg"></div>
+                        <div class="form-group">
+                            <div class="col-md-8 col-lg-offset-2">
+                                <div class="input-group">
+                                  <span class="input-group-btn">
+                                      <span class="btn-file-hethi btn-danger btn-file">
+
+                                            <span class="fa fa-upload"></span> Choose input file&hellip;
+                                          <input type="file" name="file" id="file" data-ng-file-model="ImagePath"  >
+
+                                      </span>
+                                  </span>
+                                    <input type="text" ng-model="pathfile" class="form-control input-hethi input-lg" readonly >
+                                         <span class="input-group-btn">
+                                    <button class="btn-file-hethi btn-primary" type="submit" ng-disabled="uploadStatus" ng-switch="uploadStatus" ><span data-ng-switch-when="true"  class=" fa fa-delicious fa-spin "></span> Upload</button>
+                                </span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-8 col-lg-offset-2">
+                                <div data-ng-switch="uploadStatus" >
+                                    <div data-ng-switch-when="true">
+                                        <span > <span class="fa-2x fa fa-spinner fa-spin "></span> uploading  your {{pathfile.substring(pathfile.lastIndexOf('.')+1,pathfile.length)|lowercase}} file </span>
+                                    </div>
+                                    <div data-ng-switch-when="false">
+                                        <h4 > <span class="fa-2x fa fa-check "></span>   your {{pathfile.substring(pathfile.lastIndexOf('.')+1,pathfile.length)|lowercase}} file has been uploaded succesfully </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+        <div class="col-md-12" ng-show="uploadedPath">
+            <div class="col-md-11"><h3>File Content</h3></div>
+            <div class="col-md-1"><button class="btn btn-success fa fa-2x fa-trash" data-ng-click="clearUploads()"> </button></div>
+            <div class="col-md-12">
+                <span class="cloudMsg ">{{uploadedPath.file_content}}</span>
+            </div>
+        </div>
+        </div>
+        <hr>
+        <div class="divider-md"></div>
+
+        <div class="row">
+            <div class="col-md-6 text-center">
+
+            </div>
+            <div class="col-md-6 text-center">
+                <button  class="btn btn-success btn-sm"  data-ng-click="load_input_ixml()">Load master ixml</button>
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div class="row">
+
+                <div  class="col-md-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Custom Form Data </h3>
+                        </div>
+                        <script type="text/ng-template"  id="tree_item_renderer1.html">
+
+
+                            <span ng-switch="isItratable(value)" class="thanksMsg mouse_point">
+
+                                            <span ng-switch-when="true"  >
+                                            <span class="text-14  font_b " ng-click="folderSelected1(key,value,$parent)" >
+                                            <span  >
+                                            <span class="fa fa-folder-open fa-lg">  </span>
+                                            </span>
+                                               <span>{{key}}</span>
+                                                <!--</span>-->
+                                                <!--<span ng-if="!isNumber(key)">{{key}}</span>-->
+                                            </span>
+                                            </span>
+                                            <span ng-switch-when="false">
+                                            <!--label label-info-->
+                                            <span data-ng-click="fileSelected1(key,value,$parent)" >
+                                            <span class="fa fa-file-image-o " > {{key}}  </span>
+                                            <span ng-show="value.added"  class="fa color-green fa- fa-check-circle" ></span>
+
+
+                                            </span>
+                                            </span>
+                                            </span>
+
+
+
+                            <span ng-switch="isItratable(value)">
+                                            <span ng-switch-when="true">
+                                                <!--<span ng-if="isObject(value)">-->
+                                            <ul style="list-style: none">
+                                                <!--dnd-moved="value.splice($index, 1)"-->
+                                                <li  ng-if="key!='show'" ng-repeat="(key,value) in value"
+                                                     ng-include="'tree_item_renderer1.html'">
+                                                </li>
+                                            </ul>
+
+
+                                            </span>
+                            </span>
+
+                        </script>
+                        <div class="panel-body">
+                            <div class="col-md-12">
+                                <ul class="breadcrumb">
+                                    <li ng-repeat="node in selectedNodeCrumb1" ng-class="{ active: $last }">{{ node }}</li>
+                                </ul>
+                            </div>
+                            <ul style="list-style: none" class="treeview">
+                                <!--dnd-moved="masterFormFields.splice($index, 1)"-->
+                                <li ng-if="key!='show'" ng-repeat="(key,value) in uploadedPath.xml_content_json"
+
+                                    ng-include="'tree_item_renderer1.html'"></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                <div  class="col-md-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Hethi Form Data </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="breadcrumb">
+                                        <li ng-repeat="node in selectedNodeCrumb" ng-class="{ active: $last }">{{ node }}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-12" ng-init="loadMasterFormStart()">
+                                    <script type="text/ng-template"  id="tree_item_renderer2.html">
+
+                                        <span ng-switch="isItratable(value)" class="thanksMsg mouse_point">
+                                                <span ng-switch-when="true">
+                                                        <span    class="text-14  font_b " ng-click="folderSelected(key,value,$parent)" >
+                                                            <span class="fa fa-folder-open fa-lg"> </span>
+                                                        </span>
+                                                    {{key}}
+                                                </span>
+                                                <span ng-switch-when="false">
+                                                    <span  class="fa fa-file-image-o " >
+                                                        {{key}}
+                                                    </span>
+                                                    <span ng-show="value.added"  class="fa color-green fa- fa-check-circle" ></span>
+                                                </span>
+                                         </span>
+                                        <span  ng-switch="isItratable(value)">
+                                            <span ng-switch-when="true">
+                                            <ul style="list-style: none" >
+                                                <li  ng-if="key!='show'" ng-repeat="(key,value) in value"
+                                                     ng-include="'tree_item_renderer2.html'">
+                                                </li>
+                                            </ul>
+                                            </span>
+                                        </span>
+
+                                    </script>
+
+                                    <ul style="list-style: none" class="treeview">
+                                        <li ng-if="key!='show'" ng-repeat="(key,value) in ixml"
+                                            ng-include="'tree_item_renderer2.html'">
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

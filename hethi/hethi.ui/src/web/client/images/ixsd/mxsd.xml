@@ -1,0 +1,38 @@
+<mxsd owner="Hethi" author="" version="1.0" created_date="25/11/2015" ixsdlocation="http://www.hethi.com/schema/meta/meta1.xsd" ixsdversion="1.0" >
+	<business>
+		<industry> </industry>
+		<bpaas> </bpaas>
+	</business>
+	<form>
+		<efsuin> </efsuin>
+		<header>
+			<group name="header">
+				<field>
+
+			</field>
+			</group>
+		</header>
+		<footer>
+			<group  name="summary">
+				<field>
+
+				</field>
+			</group>
+		</footer>
+		<body>
+			<group  name="lineitem">
+			<field>
+
+			</field>
+			<fieldlist>
+				<field>
+
+				</field>
+			</fieldlist>
+
+			</group>
+		</body>
+</form>
+</mxsd>
+
+

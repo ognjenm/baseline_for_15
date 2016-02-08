@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fieldset>
+	<field>
+		<name>company_name</name>
+		<form_coords>
+				<top>35</top>
+				<left>123</left>
+				<width>282</width>
+				<height>40</height>
+		</form_coords>
+		<field_data>company_name_DATA</field_data>
+  </field>
+
+  <field>
+  		<name>street</name>
+  		<form_coords>
+  				<top>93</top>
+  				<left>222</left>
+  				<width>75</width>
+  				<height>16</height>
+  		</form_coords>
+  		<field_data>street_DATA</field_data>
+ </field>
+</fieldset>

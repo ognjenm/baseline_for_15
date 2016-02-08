@@ -1,0 +1,315 @@
+<div class="row" >
+    <div id="editPackage" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-lg" >
+            <div class="modal-content">
+                <div>
+                    <div class="modal-header modal-head-bg-default">
+                        <span class="fa fa-close white-c pull-right mouse_point" data-dismiss="modal" aria-hidden="true"></span>
+
+                        <h4 class="modal-title text-center">Edit Package</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-body panel">
+
+                            <section >
+
+                                <div class="row ">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-info">
+                                            <div ng-click="package_seq=false;workset_seq=!workset_seq;ruleset_seq=false;rule_seq=false" class="mouse_point panel-heading">
+                                                <h3 class="panel-title"><i class="fa fa-tasks"></i> Workset Settings..</h3>
+                                            </div>
+                                            <div ng-show="workset_seq" class="panel-body" style="height: auto; width: auto; overflow-y: auto">
+                                                <!--<ul class="breadcrumb">-->
+                                                <!--<li ng-repeat="rule in workSetTemp" ng-class="{ active: $last }">Rule {{ $index+1 }}</li>-->
+                                                <!--</ul>-->
+                                                <ul dnd-list="rule" ng-repeat="rule in workSetSequence">
+                                                    <!-- The dnd-draggable directive makes an element draggable and will
+                                                         transfer the object that was assigned to it. If an element was
+                                                         dragged away, you have to remove it from the original list
+                                                         yourself using the dnd-moved attribute -->
+                                                    <li
+
+                                                            dnd-draggable="rule"
+
+                                                            dnd-effect-allowed="move"
+                                                            dnd-selected="models.selected = rule"
+                                                            ng-class="{'selected': models.selected === rule}"
+
+                                                            style="background-color: #008BCB;color: white;padding: 10px;"    >
+                                                        <span class="mouse_point" data-ng-click="openWorkset(rule,$index)">{{rule.workset_order}} {{rule.workset_name}}</span>
+                                             <span ng-if="$index+1 > 1" class="pull-right glyphicon glyphicon-chevron-up"
+                                                   data-ng-click=" upWorkSetOrder($index) "
+                                                   data-ng-class="{active: row == 'Task'}"></span>
+                                             <span ng-if="$index+1< workSetSequence.length" class="pull-right glyphicon glyphicon-chevron-down"
+                                                   data-ng-click="downWorkSetOrder($index)"
+                                                   data-ng-class="{active: row == '-Task'}"></span>
+                                                    </li>
+                                                    <div class="panel panel-body" style="border: 1px solid #1e90ff" ng-show="rule.isWorkSetOpen">
+                                                        <form ng-submit="updateWorkSet(workset,$index)">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Name</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" class="form-control" ng-model="workset.name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-top-10">
+                                                                <div class="col-md-6">
+                                                                    <label>Description</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <textarea class="form-control" ng-model="workset.description" ></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-top-10">
+                                                                <div class="col-md-6">
+                                                                    <label>Effective Start Date</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <!--<input type="text" class="form-control" ng-model="workset.startdate">-->
+                                                                    <div  class="input-group ui-datepicker">
+                                                                        <input type="text"
+                                                                               class="form-control"
+                                                                               datepicker-popup="{{format}}"
+                                                                               ng-model="workset.startdate"
+                                                                               is-open="opened"
+                                                                               min="minDate"
+                                                                               datepicker-options="dateOptions"
+                                                                               ng-required="true"
+                                                                               close-text="Close">
+                                                                        <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-top-10">
+                                                                <div class="col-md-6">
+                                                                    <label>Effective End Date</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <!--<input type="text" class="form-control" ng-model="workset.enddate">-->
+                                                                    <div class="input-group ui-datepicker">
+                                                                        <input type="text"
+                                                                               class="form-control"
+                                                                               datepicker-popup="{{format}}"
+                                                                               ng-model="workset.enddate"
+                                                                               is-open="opened1"
+                                                                               min="minDate"
+                                                                               datepicker-options="dateOptions"
+                                                                               ng-required="true"
+                                                                               close-text="Close">
+                                                                        <span class="input-group-addon" ng-click="open1($event)"><i class="fa fa-calendar"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-top-10 text-center">
+                                                                <div class="col-md-5"></div>
+                                                                <div class="col-md-3 ">
+                                                                    <button type="submit" class="form-control btn_hethi btn-info">Save</button>
+                                                                </div>
+
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </ul>
+                                                <!--<button type="button" class="btn_hethi btn-info" data-ng-click="saveWorkSetSequence()"><i class="fa fa-save"></i> Save Workset Sequence</button>-->
+
+                                                <!--<ul>-->
+                                                <!--<li style="list-style-type: none" ng-repeat="rule in ruleTemp"><span class="fa fa-check-square"></span> Rule{{$index+1}}</li>-->
+                                                <!--</ul>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-info ">
+                                            <div ng-click="package_seq=false;ruleset_seq=!ruleset_seq;workset_seq=false;rule_seq=false" class="mouse_point panel-heading">
+                                                <h3 class="panel-title"><i class="fa fa-tasks"></i> RuleSet Settings..</h3>
+                                            </div>
+                                            <div ng-show="ruleset_seq" class="panel-body" style="height: auto; width: auto; overflow-y: auto">
+                                                <!--<ul class="breadcrumb">-->
+                                                <!--<li ng-repeat="rule in ruleSetTemp" ng-class="{ active: $last }">Rule {{ $index+1 }}</li>-->
+                                                <!--</ul>-->
+                                                <ul dnd-list="rule" ng-repeat="rule in ruleSetSequence">
+                                                    <!-- The dnd-draggable directive makes an element draggable and will
+                                                         transfer the object that was assigned to it. If an element was
+                                                         dragged away, you have to remove it from the original list
+                                                         yourself using the dnd-moved attribute -->
+                                                    <li
+                                                            dnd-draggable="rule"
+
+                                                            dnd-effect-allowed="move"
+                                                            dnd-selected="models.selected = rule"
+                                                            ng-class="{'selected': models.selected === rule}"
+
+                                                            style="background-color: #008BCB;color: white;padding: 10px;"    >
+                                                        <span ng-click="openRuleSet(rule,$index)" class="mouse_point">{{rule.ruleset_order}}  {{rule.crulesset_name}}</span>
+                                             <span ng-if="$index+1 > 1" class="glyphicon glyphicon-chevron-up pull-right"
+                                                   data-ng-click=" upRuleSetOrder($index) "
+                                                   data-ng-class="{active: row == 'Task'}"></span>
+                                             <span ng-if="$index+1< ruleSetSequence.length" class="glyphicon glyphicon-chevron-down pull-right"
+                                                   data-ng-click="downRuleSetOrder($index)"
+                                                   data-ng-class="{active: row == '-Task'}"></span>
+                                                        <!--<a type="button" class="pull-right btn btn-info" ng-if="$index+1 > 1"-->
+                                                        <!--href ng-click="upRuleSetOrder($index)"><span class="fa fa-angle-up"></span></a>-->
+                                                        <!--<a type="button" class="pull-right btn btn-info" ng-if="$index+1< ruleSequence.length"-->
+                                                        <!--href ng-click="downRuleSetOrder($index)"><span class="fa fa-angle-down"></span></a>-->
+                                                    </li>
+                                                    <div class="panel panel-body" style="border: 1px solid #1e90ff" ng-show="rule.isRuleSetOpen">
+                                                        <form ng-submit="updateRuleSet(ruleset,$index)">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <label>Name</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" class="form-control" ng-model="ruleset.name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-top-10">
+                                                                <div class="col-md-6">
+                                                                    <label>Description</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <textarea class="form-control" ng-model="ruleset.description" ></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-top-10">
+                                                                <div class="col-md-6">
+                                                                    <label>Effective Start Date</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <!--<input type="text" class="form-control" ng-model="ruleset.startdate">-->
+                                                                    <div  class="input-group ui-datepicker">
+                                                                        <input type="text"
+                                                                               class="form-control"
+                                                                               datepicker-popup="{{format}}"
+                                                                               ng-model="ruleset.startdate"
+                                                                               is-open="opened"
+                                                                               min="minDate"
+                                                                               datepicker-options="dateOptions"
+                                                                               ng-required="true"
+                                                                               close-text="Close">
+                                                                        <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-top-10">
+                                                                <div class="col-md-6">
+                                                                    <label>Effective End Date</label>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <!--<input type="text" class="form-control" ng-model="ruleset.enddate">-->
+                                                                    <div class="input-group ui-datepicker">
+                                                                        <input type="text"
+                                                                               class="form-control"
+                                                                               datepicker-popup="{{format}}"
+                                                                               ng-model="ruleset.enddate"
+                                                                               is-open="opened1"
+                                                                               min="minDate"
+                                                                               datepicker-options="dateOptions"
+                                                                               ng-required="true"
+                                                                               close-text="Close">
+                                                                        <span class="input-group-addon" ng-click="open1($event)"><i class="fa fa-calendar"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row margin-top-10 text-center">
+                                                                <div class="col-md-5"></div>
+                                                                <div class="col-md-3">
+                                                                    <button type="submit" class="form-control btn_hethi btn-info">Save</button>
+                                                                </div>
+
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+                                                </ul>
+                                                <!--<button type="button" class="btn_hethi btn-info" data-ng-click="saveRuleSetSequence()"><i class="fa fa-save"></i> Save RuleSet Sequence</button>-->
+
+                                                <!--<ul>-->
+                                                <!--<li style="list-style-type: none" ng-repeat="rule in ruleTemp"><span class="fa fa-check-square"></span> Rule{{$index+1}}</li>-->
+                                                <!--</ul>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-md-12">
+                                        <div class="panel panel-info ">
+                                            <div ng-click="package_seq=false;rule_seq=!rule_seq;workset_seq=false;ruleset_seq=false" class="mouse_point panel-heading">
+                                                <h3 class="panel-title"><i class="fa fa-tasks"></i> Rule Settings..</h3>
+                                            </div>
+                                            <div ng-show="rule_seq" class="panel-body" style="height: auto; width: auto; overflow-y: auto">
+
+                                                <!--<div ng-repeat="rule in ruleSequence">-->
+                                                    <!--{{rule}}-->
+                                                <!--</div>-->
+                                                <div ng-repeat="rule1 in ruleSequence" class="margin-bottom-10">
+                                                    <div class="col-md-10 ">
+                                                        <ul dnd-list="rule1" >
+
+                                                            <!-- The dnd-draggable directive makes an element draggable and will
+                                                                 transfer the object that was assigned to it. If an element was
+                                                                 dragged away, you have to remove it from the original list
+                                                                 yourself using the dnd-moved attribute -->
+                                                            <!--<label>{{rule.rule_order}}</label> <buttuon type="button" class="btn_hethi btn-primary"-->
+                                                            <!--ng-click="changeOrder($index)"><span class="fa fa-plus-circle"></span></buttuon>-->
+                                                            <li dnd-draggable="rule"
+                                                                dnd-effect-allowed="move"
+                                                                dnd-selected="models.selected = rule"
+                                                                    ng-style="{{rule1.style}}">
+                                                                <!--style="background-color: #1FA1B7;color: white;padding: 10px;"    >-->
+                                                                <span ng-click="openRuleSet(rule,$index)" class="mouse_point">{{rule1.rule_order}}  {{rule1.rule_name}}</span>
+                                                          <!--<span ng-if="$index+1 > 1"-->
+                                                                <!--class="glyphicon glyphicon-chevron-up pull-right"-->
+                                                                <!--data-ng-click=" upOrder($index) "-->
+                                                                <!--data-ng-class="{active: row == 'Task'}">-->
+                                                          <!--</span>-->
+                                                          <!--<span ng-if="$index+1< ruleSequence.length"-->
+                                                                <!--class="glyphicon glyphicon-chevron-down pull-right"-->
+                                                                <!--data-ng-click="downOrder($index) "-->
+                                                                <!--data-ng-class="{active: row == '-Task'}">-->
+                                                          <!--</span>-->
+
+                                                            </li>
+
+
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button ng-click="enableStatus(rule1)" ng-if="rule1.rule_status == 0" class="btn_hethi btn-success">enable</button>
+                                                    </div>
+                                                </div>
+
+                                                <!--<button type="button" data-ng-click="saveRuleSequence()" class="btn_hethi btn-info"><i class="fa fa-save"></i> Save Rule Sequence</button>-->
+
+                                                <!--<ul>-->
+                                                <!--<li style="list-style-type: none" ng-repeat="rule in ruleTemp"><span class="fa fa-check-square"></span> Rule{{$index+1}}</li>-->
+                                                <!--</ul>-->
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-md-5"></div>
+                                    <div class="col-md-3">
+                                        <button data-ng-click="saveSequence()" class="form-control btn_hethi btn-primary">
+                                            <i class="fa fa-save"></i> save settings</button>
+                                    </div>
+                                </div>
+
+                            </section>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

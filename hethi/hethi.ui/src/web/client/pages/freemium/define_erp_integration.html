@@ -1,0 +1,19 @@
+<div>
+    <div class="row" ng-controller="erp_integration_serviceController">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-1" ng-repeat="menu in menuItems">
+                <div class="text-center margin-bottom-30">
+                    <button type="button" class="btn_hethi btn-primary text-small minHeight85" ng-class="menu.isActive"> {{menu.menu_name}} </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7 text-center">
+        <a href="/define_analytics">
+            <button class="btn btn-info" >Define analytics <span class="fa fa-forward"></span></button>
+        </a>
+    </div>
+
+</div>

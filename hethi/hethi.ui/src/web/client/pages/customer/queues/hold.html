@@ -1,0 +1,96 @@
+
+<div class="panel panel-default table-dynamic" ng-controller="roleController">
+    <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> HOLD </strong></div>
+    <div class="panel-body ">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                        <thead style="background-color: #000000;color: #ffffff">
+                        <tr>
+
+                            <th class="text-center">
+                                <div class="thSn">
+                                    #
+                                </div>
+                            </th>
+
+                            <th style="width:300px" class="text-center" >
+                                <div class="th">
+                                    Customer Name
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th">
+                                    BPS
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th">
+                                    Industry
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th">
+                                    Type
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th">
+                                    Assigned DT
+                                </div>
+                            </th>
+                            <th class="text-center">
+                                <div class="thSn">
+                                    #
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="row in hethi_role_task_list">
+                        <tr ng-init="row.lastupdtime= convertToDate(row.lastupdtm)">
+                            <td class="text-center">{{$index+1}}</td>
+                            <td>{{row.customer_name}}</td>
+                            <td>{{row.BPaaS_service}} 	</td>
+                            <td>{{row.indus_service}}</td>
+                            <td>{{row.form_type_decription_short}}</td>
+                            <td>{{row.lastupdtime| date:"MMM dd,yyyy 'at' h:mma"}}</td>
+                            <td>
+                                <a  ng-hide="row.showHistory" data-ng-click="assignNextJob(row)"><button class="btn_hethi btn-info fa fa-play" type="button">&nbsp;assign {{row.job_name}} </button></a>
+                                <a ng-show="row.showHistory"  data-ng-click="row.showHistory=false;load_hethi_role_task_list()"><button class="btn_hethi btn btn-sm btn-success   fa fa-times" type="button">&nbsp; Close </button></a>
+                            </td>
+                        </tr>
+                        <tr ng-show="row.showHistory">
+                            <td ></td>
+                            <td colspan="6">
+                                <table>
+                                    <tr>
+                                        <th>File History</th>
+
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+
+                                    </tr>
+                                    <tr ng-repeat="q in row.fileStatusHistory">
+                                        <td></td>
+                                        <td ng-init="q.lastupdtime= convertToDate(q.lastupdtm)"><b> {{q.lastupdtime| date:"h:mma  , MMM dd,yyyy "}} </b> </td>
+                                        <td>    {{q.user_name}} from {{q.job_name}} updated the file.</td>
+                                    </tr>
+                                </table>
+
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!--<div data-ng-include="'pages/roles/menu.html'"></div>-->
+</div>

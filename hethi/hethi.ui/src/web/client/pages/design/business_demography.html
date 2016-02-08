@@ -1,0 +1,501 @@
+<div class="text-lowercase">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center text-lowercase">
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(1)">{{configDataService}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(2)">{{customiseWorkflow}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(3)">{{DefineOutput}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(4)">{{ErpIntegration}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(5)">{{DefineAnalytics}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(6)">{{DefineStorage}}</button>
+                <button type="button" class="btn_hethi btn-success btn_wizard" data-ng-click="selectBusiness(7)">{{Businessdemography}}</button>
+
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(8)">{{ServiceLevelAgrmnt}}</button>
+            </div>
+        </div>
+    </div>
+<hr>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+
+                <div class="divider"></div>
+                <div class="ui-tab-container" style="">
+                    <tabset justified="true" class="ui-tab">
+                        <tab heading="Locale">
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-10">
+                                    <form class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Country</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control" ng-model="localeData.country" required="">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Time zone</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <select class="form-control text-lowercase "  ng-model="localeData.zone"  ng-change="fill_localeData_by_zone(localeData)" ng-options="row as row.zone_timezone for row in czones" required="">
+                                                    <option value=""> Select time zone</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Currency</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control"  placeholder="currency" ng-model="localeData.currency_type">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Primary document language</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <select class="form-control text-lowercase "  ng-model="localeData.primary_doc_lang" ng-options="row as row.language_name for row in clanguages" required="">
+                                                    <option value=""> Primary document language</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Expected document language</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <select class="form-control text-lowercase"  ng-model="localeData.expected_doc_lang" ng-options="row as row.language_name for row in clanguages" required="">
+                                                    <option value=""> Expected document language</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-12 ">
+                                                <div class="pull-right">
+                                                    <button class="btn btn-info" data-ng-click="save_locale_and_proceed(localeData);"> continue <span class="fa fa-forward"></span></button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </tab>
+
+                        <tab heading="Calender">
+
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-10">
+                                    <form class="form form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Weekday start</label>
+                                            </div>
+                                            <div class="col-md-8" >
+
+                                                <select class="form-control text-lowercase"  ng-model="calendarData.weekday_start" ng-options="row as row.dayname for row in weekdays" required="">
+                                                    <option value=""> Locale weekday start</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Weekday end</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <select class="form-control text-lowercase"  ng-model="calendarData.weekday_end" ng-options="row as row.dayname for row in weekdays" required="">
+                                                    <option value=""> Locale weekday end</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Holidays</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-12">
+                                                <div class="pull-right">
+                                                    <button class="btn btn-info" data-ng-click="save_calendar_and_proceed(calendarData);"> continue <span class="fa fa-forward"></span></button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                        </tab>
+
+                        <tab heading="e-Form">
+
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-10">
+                                    <form class="for form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Layout</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control" ng-model="imageData.layout">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Image size</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control" ng-model="imageData.image_size">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Standard DPI</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control"ng-model="imageData.standard_dpi">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Minimum acceptable DPI</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control"ng-model="imageData.min_acceptable_dpi">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Average pages per form</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control" ng-model="imageData.avg_pages_form">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Average pages per form bundle</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control" ng-model="imageData.avg_pageds_form_bundle">
+                                            </div>
+                                        </div>
+
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Total form field</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control" ng-model="imageData.total_form_fields">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Avg no of character per field</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control" ng-model="imageData.avg_character_fields">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Avg no of character per form</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control"ng-model="imageData.avg_character_form">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-12">
+                                                <div class="pull-right">
+                                                    <button class="btn btn-info" data-ng-click="save_imageaspect_and_proceed(imageData);"> continue <span class="fa fa-forward"></span></button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </tab>
+
+                        <tab heading="Volume">
+
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-10">
+                                    <form class="form form-horizontal">
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Daily volume</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control"ng-model="volumeData.daily_volume">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Weekly volume</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control" ng-model="volumeData.weekly_volume">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Monthly volume</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control"ng-model="volumeData.monthly_volume">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">High volume day is</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="input-group">
+                                                    <!--<span class="input-group-addon">High volume day is</span>-->
+                                                    <select class="form-control text-lowercase" aria-label="Amount (to the nearest dollar)">
+                                                        <option value="1">Monday</option>
+                                                        <option value="2">Tuesday</option>
+                                                        <option value="3">Wednesday</option>
+                                                        <option value="4">Thursday</option>
+                                                        <option value="5">Friday</option>
+                                                        <option value="6">Saturday</option>
+                                                        <option value="7">Sunday</option>
+                                                    </select>
+                                                    <span class="input-group-addon">with avg count</span>
+                                                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-12">
+                                                <div class="pull-right">
+                                                    <button class="btn btn-info" data-ng-click="save_volumeaspects_and_proceed(volumeData);"> continue <span class="fa fa-forward"></span></button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+
+                        </tab>
+
+                        <tab heading="Delivery">
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-4 ">
+                                            <label class="control-label">Max file size threshold</label>
+                                        </div>
+                                        <div class="col-md-8" >
+                                            <input type="text" class="form-control" ng-model="deliveryData.max_shipment_file_size">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-md-4 ">
+                                            <label class="control-label">Record size threshold</label>
+                                        </div>
+                                        <div class="col-md-8" >
+                                            <input type="text" class="form-control" ng-model="deliveryData.max_shipment_file_record_nos">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-md-4 ">
+                                            <label class="control-label">Minimum record threshold</label>
+                                        </div>
+                                        <div class="col-md-8" >
+                                            <input type="text" class="form-control" ng-model="deliveryData.min_shipment_record_size_nos">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-md-4">
+                                            <label class="control-label">Image size threshold</label>
+                                        </div>
+                                        <div class="col-md-8" >
+                                            <input type="text" class="form-control" ng-model="deliveryData.max_shipment_image_size">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-md-4">
+                                            <label class="control-label">Image record size threshold</label>
+                                        </div>
+                                        <div class="col-md-8" >
+                                            <input type="text" class="form-control" ng-model="deliveryData.max_shipment_image_record_nos">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-md-4">
+                                            <label class="control-label">Customer shipment cut off</label>
+                                        </div>
+                                        <div class="col-md-8" >
+                                            <input type="text" class="form-control" ng-model="deliveryData.customer_shipment_cutoff">
+                                        </div>
+                                    </div>
+
+                                    <div class="row margin-top-10">
+                                        <div class="col-md-4">
+                                            <label class="control-label">Shipment frequency</label>
+                                        </div>
+                                        <div class="col-md-8" >
+                                            <input type="text" class="form-control" ng-model="deliveryData.shipment_freq">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-md-4">
+                                            <label class="control-label">Shipment begin time</label>
+                                        </div>
+                                        <div class="col-md-8" >
+                                            <input type="datetime" class="form-control" ng-model="deliveryData.shipment_start_time">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-md-4">
+                                            <label class="control-label">Shipment end time</label>
+                                        </div>
+                                        <div class="col-md-8" >
+                                            <input type="datetime" class="form-control" ng-model="deliveryData.shipment_end_time">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-md-12">
+                                            <div class="pull-right">
+                                                <button class="btn btn-info" data-ng-click="save_deliveryaspects_and_proceed(deliveryData);"> continue <span class="fa fa-forward"></span></button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </tab>
+
+                        <tab heading="Complaince">
+
+                            <div class="row">
+                                <div class="col-md-offset-1 col-md-10">
+                                    <form data-ng-submit="save_complianceaspects_and_proceed(cD)">
+                                        <div class="row">
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Industry compliance</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control" ng-model="cD.industry_compliance">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Information security</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control" ng-model="cD.information_security">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Data shipment file name</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" placeholder="naming convention" class="form-control"ng-model="cD.data_shipment_file_name">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Customer DIN format</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control"ng-model="cD.customer_din_format">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Hethi DIN format</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control"ng-model="cD.hethi_din_format">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Data archival period</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control"ng-model="cD.data_archival_period">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Image archival period</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control"ng-model="cD.image_archival_period">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Data retention period</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control"ng-model="cD.data_retention_period">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-4">
+                                                <label class="control-label">Image retention period</label>
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <input type="text" class="form-control"ng-model="cD.image_retention_period">
+                                            </div>
+                                        </div>
+                                        <div class="row margin-top-10">
+                                            <div class="col-md-12">
+                                                <div class="pull-right">
+                                                    <button class="btn btn-info" data-ng-click="selectBusiness(8)">Next <span class="fa fa-forward"></span></button>
+                                                </div>
+                                                <!--<a href="/Select_your_data_services" class="btn btn-primary">Complete</a>-->
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+
+                        </tab>
+
+                    </tabset>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider-md"></div>
+
+
+
+
+
+    </div>
+
+</div>
+
+<!--data-ng-click="selectWizard(2)"-->

@@ -1,0 +1,181 @@
+<div class="text-lowercase">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center">
+                <!--<button type="button" class="btn_hethi btn-primary btn_wizard">Configure Data Service</button>-->
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(1)">{{configDataService}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(2)">{{customiseWorkflow}}</button>
+                <button type="button" class="btn_hethi btn-success btn_wizard" data-ng-click="selectBusiness(3)">{{DefineOutput}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(4)">{{ErpIntegration}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(5)">{{DefineAnalytics}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(6)">{{DefineStorage}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(7)">{{Businessdemography}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(8)">{{ServiceLevelAgrmnt}}</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row">
+                    <div class="col-md-12" ng-init="showDefineOutput='yes'">
+                        <div class="text-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-lg btn-line-info text-lowercase " data-ng-click="showDefineOutput= 'yes'" data-ng-model="showDefineOutput" btn-radio="'yes'" > Configure my {{DefineOutput}} Service</button>
+                                <button type="button" class="btn btn-lg btn-line-info text-lowercase " data-ng-click="showDefineOutput= 'no'" data-ng-model="showDefineOutput" btn-radio="'no'" > I don't want {{DefineOutput}} Service</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider-md"></div>
+                <div ng-switch="showDefineOutput">
+
+                    <div ng-switch-when="yes">
+                        <div class="ui-tab-container" style="">
+                            <tabset justified="true" class="ui-tab">
+
+                                <tab heading="Output Channel">
+                                    <div class="divider"></div>
+
+                                    <div class="row">
+                                        <div class="col-md-offset-1 col-md-10">
+                                            <div class="row">
+                                                <div class="col-md-2" ng-repeat="btn in OutPutChannel">
+                                                    <div class="form-group">
+                                                        <label class="control-label">{{btn.name}}</label>
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-line-info " data-ng-click="btn.value= 'yes';OutputChannelFieldContainer($index)" data-ng-model="btn.value" btn-radio="'yes'" style="font-size: 12px"> Yes</button>
+                                                            <button type="button" class="btn btn-line-info " data-ng-click="btn.value= 'no';OutputChannelFieldContainer('false')" data-ng-model="btn.value" btn-radio="'no'" style="font-size: 12px"> No </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row" data-ng-show="OutputChannelContainer">
+                                                <div class="col-md-10">
+                                                    <div class="form_container_load">
+                                                        <div class="form-group row" data-ng-repeat="rows in OutPutChannel[OutputChannelContainerIndex].fields">
+                                                            <div>{{rows.heading}}</div>
+                                                            <label class="control-label col-md-4">{{rows.label}}</label>
+                                                            <div class="col-md-8">
+                                                                <input type="{{rows.type}}" ng-model="rows.value" class="form-control">
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="pull-right">
+                                                                    <button type="button" class="btn_hethi btn-w-md btn-danger" data-ng-click="">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="divider"></div>
+
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <label class="control-label">I need a different channel</label>
+                                                    <div class="input-group"><input type="text" class="form-control" placeholder="enter new file type"><span class="input-group-addon fa fa-plus"></span> </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <!--<div class="row margin-top-10">-->
+                                                <!--<div class="col-md-12">-->
+                                                    <!--<div class="pull-right">-->
+                                                        <!--<button class="btn btn-info" data-ng-click="nextOutputChannel();selectBusiness(4)">Next <span class="fa fa-forward"></span></button>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+
+                                            <!--</div>-->
+                                        </div>
+                                    </div>
+                                </tab>
+
+                                <tab heading="Output Format">
+                                    <div class="divider"></div>
+
+                                    <div class="row">
+                                        <div class="col-md-offset-1 col-md-10">
+                                            <div class="row">
+                                                <div class="col-md-2" ng-repeat="btn in OutPutFormat">
+                                                    <div class="form-group">
+                                                        <label class="control-label">{{btn.name}}</label>
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-line-info " data-ng-click="btn.value= 'yes'" data-ng-model="btn.value" btn-radio="'yes'" style="font-size: 12px"> Yes</button>
+                                                            <button type="button" class="btn btn-line-info " data-ng-click="btn.value= 'no'" data-ng-model="btn.value" btn-radio="'no'" style="font-size: 12px"> No </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <label class="control-label">I need a different one</label>
+                                                    <div class="input-group"><input type="text" class="form-control" placeholder="enter new file type"><span class="input-group-addon fa fa-plus"></span> </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <!--<div class="row margin-top-10">-->
+                                                <!--<div class="col-md-12">-->
+                                                    <!--<div class="pull-right">-->
+                                                        <!--<button class="btn btn-info" data-ng-click="nextOutputChannel()">Next <span class="fa fa-forward"></span></button>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+
+                                            <!--</div>-->
+                                        </div>
+                                    </div>
+                                </tab>
+
+                            </tabset>
+                        </div>
+
+                    </div>
+
+                    <div ng-switch-when="no">
+                        <div class="you_have_not_select">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    You have not Selected this Service
+                                    <div class="divider"></div>
+                                    <div>
+                                        <button type="button" class="text-lowercase btn_hethi-lg btn-danger" data-ng-click="selectBusiness(4)">Proceed</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-10">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button class="text-lowercase btn btn-info" data-ng-click="nextOutputChannel();selectBusiness(4)">Next <span class="fa fa-forward"></span></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>

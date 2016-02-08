@@ -1,0 +1,402 @@
+<div>
+<div class="row">
+
+    <div class="col-md-2">
+        <label class="pull-left">Customer Name</label>
+    </div>
+    <div class="col-md-offset-3 col-md-2">
+        <label class="text-center">invoice process to pay</label>
+    </div>
+    <div class="col-md-offset-3 col-md-2">
+        <label class="pull-right">Type: New</label>
+    </div>
+
+</div>
+<div class="row" ng-controller="configure_data_serviceController">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1" ng-repeat="menu in menuItems">
+            <div class="text-center margin-bottom-30">
+                <button type="button" class="btn_hethi btn-primary text-small minHeight85" ng-class="menu.isActive"> {{menu.menu_name}} </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="panel panel-default table-dynamic">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Configure Data Service </strong></div>
+        <div class="panel-body">
+<div class="row">
+    <div class="col-md-4">
+        <span class="pull-right">you have options to configure inout and out put channels</span>
+    </div>
+</div>
+
+<div class="row  col-lg-12">
+    <div class="table-responsive" id="exportable">
+        <table class="table table-bordered table-stripped  hethi_content_table">
+            <thead style="background-color: #000000; color: #ffffff">
+            <tr>
+
+                <th class="text-center">
+                    <div class="th">select all
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('InvoiceNumber') "
+                                  data-ng-class="{active: row == 'InvoiceNumber'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-InvoiceNumber') "
+                                  data-ng-class="{active: row == '-InvoiceNumber'}">
+
+                            </span>
+                    </div>
+                </th>
+                <th class="text-center">
+                    <div class="th">
+                        service bundle
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('SupplierID') "
+                                  data-ng-class="{active: row == 'SupplierID'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-SupplierID') "
+                                  data-ng-class="{active: row == '-SupplierID'}">
+
+                            </span>
+                    </div>
+                </th>
+                <th class="text-center">
+                    <div class="th">
+                       DaaS
+                             <span class="glyphicon glyphicon-chevron-up"
+                                   data-ng-click=" orderIndexer('SupplierName') "
+                                   data-ng-class="{active: row == 'SupplierName'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-SupplierName') "
+                                  data-ng-class="{active: row == '-SupplierName'}">
+
+                            </span>
+                    </div>
+                </th>
+                <th class="text-center">
+                    <div class="th">
+                        BaaS
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('InvoceType') "
+                                  data-ng-class="{active: row == 'InvoceType'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-InvoceType') "
+                                  data-ng-class="{active: row == '-InvoceType'}">
+
+                            </span>
+                    </div>
+                </th>
+                <th class="text-center">
+                    <div class="th">
+                        Oaas
+                             <span class="glyphicon glyphicon-chevron-up"
+                                   data-ng-click=" orderIndexer('Status') "
+                                   data-ng-class="{active: row == 'Status'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-Status') "
+                                  data-ng-class="{active: row == '-Status'}">
+
+                            </span>
+                    </div>
+                </th>
+                <th class="text-center">
+                    <div class="th">
+                        Inaas
+                              <span class="glyphicon glyphicon-chevron-up"
+                                    data-ng-click=" orderIndexer('AssignedTo') "
+                                    data-ng-class="{active: row == 'AssignedTo'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-AssignedTo') "
+                                  data-ng-class="{active: row == '-AssignedTo'}">
+
+                            </span>
+                    </div>
+                </th>
+                <th class="text-center">
+                    <div class="th">
+                        Aaas
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('PONumber') "
+                                  data-ng-class="{active: row == 'PONumber'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-PONumber') "
+                                  data-ng-class="{active: row == '-PONumber'}">
+
+                            </span>
+                    </div>
+                </th>
+                <th class="text-center">
+                    <div class="th">
+                        StaaS
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('InvoiceDate') "
+                                  data-ng-class="{active: row == 'InvoiceDate'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-InvoiceDate') "
+                                  data-ng-class="{active: row == '-InvoiceDate'}">
+
+                            </span>
+                    </div>
+                </th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td class="text-center"><span data-ng-click="status1=!status1" ng-class="status1 ? 'fa fa-check-square-o mouse_point':'fa fa-square-o mouse_point'" ></span>  </td>
+                <td class="text-center">HCFA S</td>
+                <td>y</td>
+                <td>y</td>
+                <td>n</td>
+                <td>y</td>
+                <td>y</td>
+                <td>y</td>
+            </tr>
+            <tr>
+                <td class="text-center"><span data-ng-click="status2=!status2" ng-class="status2 ? 'fa fa-check-square-o mouse_point':'fa fa-square-o mouse_point'" ></span>  </td>
+                <td class="text-center">HCFA S + EOB</td>
+                <td>y</td>
+                <td>y</td>
+                <td>n</td>
+                <td>y</td>
+                <td>y</td>
+                <td>y</td>
+            </tr>
+            <tr>
+                <td class="text-center"><span data-ng-click="status3=!status3" ng-class="status3 ? 'fa fa-check-square-o mouse_point':'fa fa-square-o mouse_point'"></span>  </td>
+                <td class="text-center">UBM + EOB</td>
+                <td>y</td>
+                <td>y</td>
+                <td>n</td>
+                <td>y</td>
+                <td>y</td>
+                <td>y</td>
+            </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+    <div class="row">
+    <div class="col-md-3"><label>select incoming channel</label></div>
+    <div class="col-md-3"><label>define input format</label></div>
+    <div class="col-md-3"><label>output content format</label></div>
+    <div class="col-md-3"><label>select output channel</label></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="multiselect">
+                <div class="selectBox" onclick="showCheckboxes('checkboxes')">
+                    <select class="form-control">
+                        <option>content incoming channel</option>
+                    </select>
+                    <div class="overSelect" ></div>
+                </div>
+                <div id="checkboxes">
+                    <label ><input type="checkbox" id="email"/>email</label>
+                    <label ><input type="checkbox" id="fax"/>fax </label>
+                    <label ><input type="checkbox" id="efax"/>efax</label>
+                    <label ><input type="checkbox" id="ftp"/>ftp</label>
+                    <label ><input type="checkbox" id="sftp"/>sftp </label>
+                    <label><input type="checkbox" id="webupload"/>webupload</label>
+                    <label ><input type="checkbox" id="webservice"/>webservice</label>
+                    <label ><input type="checkbox" id="json"/>json </label>
+                    <label ><input type="checkbox" id="cloudplug"/>cloudplug</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="multiselect">
+                <div class="selectBox" onclick="showCheckboxes('checkboxes2')">
+                    <select class="form-control">
+                        <option>incoming content format</option>
+                    </select>
+                    <div class="overSelect"></div>
+                </div>
+                <div id="checkboxes2">
+                    <label ><input type="checkbox" id="pdfeditable"/>pdf editable</label>
+                    <label ><input type="checkbox" id="pdfscanned"/>pdf scanned </label>
+                    <label ><input type="checkbox" id="jpeg"/>jpeg</label>
+                    <label ><input type="checkbox" id="gif"/>gif</label>
+                    <label ><input type="checkbox" id="tiff"/>tiff </label>
+                    <label ><input type="checkbox" id="png"/>png</label>
+                    <label ><input type="checkbox" id="docx"/>docx / doc</label>
+                    <label ><input type="checkbox" id="xlsx"/>xlsx / xls</label>
+                    <label ><input type="checkbox" id="xml"/>xml</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="multiselect">
+                <div class="selectBox" onclick="showCheckboxes('checkboxes3')">
+                    <select class="form-control">
+                        <option>content output services</option>
+                    </select>
+                    <div class="overSelect"></div>
+                </div>
+                <div id="checkboxes3">
+                    <label ><input type="checkbox" id="837"/>ANSI 837</label>
+                    <label ><input type="checkbox" id="835"/>ANSI  835</label>
+                    <label ><input type="checkbox" id="810"/>ANSI 810</label>
+                    <label ><input type="checkbox" id="EDIFACT"/>EDIFACT </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="multiselect">
+                <div class="selectBox" onclick="showCheckboxes('checkboxes4')">
+                    <select class="form-control">
+                        <option>content outgoing channel</option>
+                    </select>
+                    <div class="overSelect"></div>
+                </div>
+                <div id="checkboxes4">
+                    <label ><input type="checkbox" id="SFTP1"/>SFTP </label>
+                    <label ><input type="checkbox" id="FTP1"/>FTP  </label>
+                    <label ><input type="checkbox" id="ERP1"/>ERP (Integration) </label>
+                    <label ><input type="checkbox" id="webservice1"/>webservice / JSON </label>
+                    <label ><input type="checkbox" id="email1"/>email </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divider-xl"></div>
+
+
+    <div class="row">
+        <div class="col-md-3"><label>we dont use these</label></div>
+        <div class="col-md-3"><label>I don't find my file type</label></div>
+        <div class="col-md-3"><label>I need a different one</label></div>
+        <div class="col-md-3"><label>I need a different channel</label></div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="input-group"><input type="text" class="form-control" placeholder="enter new file type"><span class="input-group-addon fa fa-plus"></span> </div>
+        </div>
+        <div class="col-md-3">
+            <div class="input-group"><input type="text" class="form-control" placeholder="enter new file type"><span class="input-group-addon fa fa-plus"></span> </div>
+        </div>
+        <div class="col-md-3">
+            <div class="input-group"><input type="text" class="form-control" placeholder="enter new file type"><span class="input-group-addon fa fa-plus"></span> </div>
+        </div>
+        <div class="col-md-3">
+            <div class="input-group"><input type="text" class="form-control" placeholder="enter new file type"><span class="input-group-addon fa fa-plus"></span> </div>
+        </div>
+    </div>
+
+    <div class="divider-xl"></div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="text-center margin-bottom-30">
+                <a href="">
+                    <button type="button" class="btn_hethi-lg btn-danger"> save work </button>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="col-md-offset-4 col-md-4">
+            <div class="text-center margin-bottom-30">
+                <a href="/customize_workflows">
+                    <button type="button" class="btn_hethi-lg btn-success"> complete definition </button>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+</div>
+<style>
+    .multiselect {
+        width: 100%;
+    }
+    .selectBox {
+        position: relative;
+    }
+    .selectBox select {
+        width: 100%;
+        font-weight: bold;
+    }
+    .overSelect {
+        position: absolute;
+        left: 0; right: 0; top: 0; bottom: 0;
+    }
+    #checkboxes {
+        display: none;
+        border: 1px #dadada solid;
+    }
+    #checkboxes label {
+        display: block;
+    }
+    #checkboxes label:hover {
+        background-color: #1e90ff;
+    }
+    #checkboxes2 {
+        display: none;
+        border: 1px #dadada solid;
+    }
+    #checkboxes2 label {
+        display: block;
+    }
+    #checkboxes2 label:hover {
+        background-color: #1e90ff;
+    }
+    #checkboxes3 {
+        display: none;
+        border: 1px #dadada solid;
+    }
+    #checkboxes3 label {
+        display: block;
+    }
+    #checkboxes3 label:hover {
+        background-color: #1e90ff;
+    }
+    #checkboxes4 {
+        display: none;
+        border: 1px #dadada solid;
+    }
+    #checkboxes4 label {
+        display: block;
+    }
+    #checkboxes4 label:hover {
+        background-color: #1e90ff;
+    }
+</style>
+<script>
+    var expanded = false;
+    function showCheckboxes(id) {
+        var checkboxes = document.getElementById(id);
+        if (!expanded) {
+            checkboxes.style.display = "block";
+            expanded = true;
+        } else {
+            checkboxes.style.display = "none";
+            expanded = false;
+        }
+    }
+</script>

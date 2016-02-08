@@ -1,0 +1,1084 @@
+<div data-ng-controller="hethi_artist_home_Controller">
+    <div class="row" data-ng-switch="hethi_artist_home">
+        <div class="row" data-ng-switch-default="">
+
+            <div class="col-md-12">
+                <div class="col-md-1"></div>
+
+                <div class="col-md-10">
+
+                    <div class="input-group">
+                        <input type = "text" class = "form-control input-round" ng-model="sVal" placeholder="Search Customer Name, BPS, Industry" typeahead="user as user.customer_name + ' ('+user.form_type +',' +user.indus_service +','+ user.BPaaS_service + ')'    for user in hethi_artist_task_list|filter:$viewValue" />
+                    <span class="input-group-btn">
+                        <button data-ng-click="startFormPlay(sVal)"class="btn btn-default"  style="border-top-right-radius: 48%;border-bottom-right-radius: 48%" type="button"><span class="fa fa-search"></span></button>
+                    </span>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="divider divider-lg"></div>
+                <div class="divider divider-lg"></div>
+                <div class="divider divider-lg"></div>
+            </div>
+            <!--<div class="col-md-12">-->
+            <!--<div class="col-md-1"></div>-->
+
+            <!--<div class="col-md-9">-->
+
+            <!--<select class="form-control" ng-model="searchVal" ng-options="user as user.customer_name + ' ('+user.form_type +',' +user.indus_service +','+ user.BPaaS_service + ')'    for user in hethi_artist_task_list">-->
+            <!--<option value="">Customer Name,BPS,Industry,Type</option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--<div class="col-md-1">-->
+            <!--<button class="btn_hethi  btn btn-primary fa fa-play" type="button" data-ng-click="startFormPlay(searchVal)">&nbsp;Start</button>-->
+            <!--</div>-->
+            <!--<div class="col-md-1"></div>-->
+            <!--<div class="divider divider-lg"></div>-->
+            <!--<div class="divider divider-lg"></div>-->
+            <!--<div class="divider divider-lg"></div>-->
+            <!--</div>-->
+            <div class="col-md-12">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                            <thead style="background-color: #000000;color: #ffffff">
+                            <tr>
+                                <th style="width: 10px">
+                                    <div class="">
+                                        #
+                                    </div>
+                                </th>
+
+                                <th style="width:300px" class="text-center" >
+                                    <div class="">
+                                        Customer Name
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th">
+                                        BPS
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th">
+                                        Industry
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th">
+                                        Type
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th">
+                                        Assigned DT
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th">
+                                        #
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-click="selectbps($index);" ng-repeat="row in hethi_artist_task_list">
+                                <td>{{$index+1}}</td>
+                                <td>{{row.customer_name}}</td>
+                                <td>{{row.BPaaS_service}} 	</td>
+                                <td>{{row.indus_service}}</td>
+                                <td>{{row.form_type}}</td>
+                                <td>{{row.assigneddtm}}</td>
+                                <td>
+                                    <a data-ng-click="startFormPlay(row)"><button class="btn_hethi btn-info fa fa-play" type="button">&nbsp;Start</button></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+
+
+
+            </div>
+
+        </div>
+        <div class="row" data-ng-switch-when="viewServices">
+            <div class="col-md-12">
+                <div class="leftNav_head">
+                </div>
+                <div class = "col-md-1"></div>
+                <div class = "col-md-4">
+                    <img src ="" height="150" width="150"><br>
+                    <H4> {{artist_job_container.customer_name |uppercase}}</H4>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                            <thead style="background-color: #000000;color: #ffffff">
+                            <tr>
+                                <th colspan="2">
+                                    <div class="">
+                                        BPS
+                                    </div>
+                                </th>
+                                <th colspan="2">
+                                    <div class="">
+                                        {{artist_job_container.BPaaS_service}}
+
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">
+                                    <div class="">
+                                        Industry
+                                    </div>
+                                </th>
+                                <th colspan="2">
+                                    <div class="">
+                                        {{artist_job_container.indus_service}}
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">
+                                    <div class="">
+                                        Form
+                                    </div>
+                                </th>
+                                <th colspan="2">
+                                    <div class="">
+                                        {{artist_job_container.form_type}}
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4" ng-show="artist_job_container.serviceplays | filter:{'master_service':'capture'} ">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                                <thead style="background-color: #cbcbcb;color: #020202">
+                                <tr style="background-color: #000000;color: #ffffff">
+                                    <th colspan="5">
+                                        <div class="text-center">
+                                            <p>Capture</p>
+                                        <span class="text-small ">
+                                            (define form factory/electronic interface)
+                                        </span>
+                                        </div>
+                                    </th>
+                                </tr>
+
+                                <tr ng-repeat="user in artist_job_container.serviceplays | filter:{'master_service':'capture'} ">
+
+                                    <th>
+                                        <div class="th">
+                                            {{user.serviceplay_decription_short}}
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="th">
+                                            <span class="fa fa fa-check"></span>
+                                        </div>
+                                    </th>
+
+                                </tr>
+                                <!--<tr>-->
+
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--Classify media to customer-->
+                                <!--</div>-->
+                                <!--</th>-->
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--<span  class="fa fa-times"></span>-->
+                                <!--</div>-->
+                                <!--</th>-->
+
+                                <!--</tr>-->
+                                <!--<tr>-->
+
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--Classify form bundle-->
+                                <!--</div>-->
+                                <!--</th>-->
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--<span  class="fa fa-check"></span>-->
+                                <!--</div>-->
+                                <!--</th>-->
+
+                                <!--</tr>-->
+                                <!--<tr>-->
+
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--Classify hethi services-->
+                                <!--</div>-->
+                                <!--</th>-->
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--<span  class="fa fa-times"></span>-->
+                                <!--</div>-->
+                                <!--</th>-->
+
+                                <!--</tr>-->
+                                <!--<tr>-->
+
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--Classify content and transport-->
+                                <!--</div>-->
+                                <!--</th>-->
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--<span  class="fa fa-check"></span>-->
+                                <!--</div>-->
+                                <!--</th>-->
+
+                                <!--</tr>-->
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4" ng-show="artist_job_container.serviceplays | filter:{'master_service':'manage'} ">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                                <thead style="background-color: #cbcbcb;color: #020202">
+                                <tr style="background-color: #000000;color: #ffffff">
+                                    <th colspan="5">
+                                        <div class="text-center">
+                                            <p>Manage</p>
+                                        <span class="text-small ">
+                                             (workflow orchestration)
+                                        </span>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr ng-repeat="user in artist_job_container.serviceplays | filter:{'master_service':'manage'}">
+
+                                    <th>
+                                        <div class="th">
+                                            {{user.serviceplay_decription_short}}
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="th">
+                                            <span class="fa fa fa-check"></span>
+                                        </div>
+                                    </th>
+
+                                </tr>
+                                <!--<tr>-->
+
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--Business as a service Baas Workflow-->
+                                <!--</div>-->
+                                <!--</th>-->
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--<span  class="fa fa-check"></span>-->
+                                <!--</div>-->
+                                <!--</th>-->
+
+                                <!--</tr>-->
+                                <!--<tr>-->
+
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--Integration as service Inaas Workflow-->
+                                <!--</div>-->
+                                <!--</th>-->
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--<span  class="fa fa-times"></span>-->
+                                <!--</div>-->
+                                <!--</th>-->
+
+                                <!--</tr>-->
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4" ng-show="artist_job_container.serviceplays | filter:{'master_service':'deliver'} ">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                                <thead style="background-color: #cbcbcb;color: #020202">
+                                <tr style="background-color: #000000;color: #ffffff">
+                                    <th colspan="5">
+                                        <div class="text-center">
+                                            <p>Deliver</p>
+                                        <span class="text-small ">
+                                             (define industry or proprietary outcome)
+                                        </span>
+                                        </div>
+                                    </th>
+
+                                </tr>
+                                <tr ng-repeat="user in artist_job_container.serviceplays | filter:{'master_service':'deliver'}">
+
+                                    <th>
+                                        <div class="th">
+                                            {{user.serviceplay_decription_short}}
+
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="th">
+                                            <span class="fa fa fa-check"></span>
+                                        </div>
+                                    </th>
+
+                                </tr>
+                                <!--<tr>-->
+
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--Analytics as a service(Aaas workflow)-->
+                                <!--</div>-->
+                                <!--</th>-->
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--<span  class="fa fa-times"></span>-->
+                                <!--</div>-->
+                                <!--</th>-->
+
+                                <!--</tr>-->
+                                <!--<tr>-->
+
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--Storage as a sevice(Staas)-->
+                                <!--</div>-->
+                                <!--</th>-->
+                                <!--<th>-->
+                                <!--<div class="th">-->
+                                <!--<span  class="fa fa-times"></span>-->
+                                <!--</div>-->
+                                <!--</th>-->
+
+                                <!--</tr>-->
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4" ng-show="artist_job_container.serviceplays | filter:{'master_service':'integrate'} ">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                                <thead style="background-color: #cbcbcb;color: #020202">
+                                <tr style="background-color: #000000;color: #ffffff">
+                                    <th colspan="5">
+                                        <div class="text-center">
+                                            <p>Integrate</p>
+                                        <span class="text-small ">
+                                             (define output integration services)
+                                        </span>
+                                        </div>
+                                    </th>
+
+                                </tr>
+                                <tr ng-repeat="user in artist_job_container.serviceplays | filter:{'master_service':'integrate'}">
+
+                                    <th>
+                                        <div class="th">
+                                            {{user.serviceplay_decription_short}}
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="th">
+                                            <span class="fa fa fa-check"></span>
+                                        </div>
+                                    </th>
+
+                                </tr>
+
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-2 col-md-offset-7" >
+                <button class="btn_hethi-lg btn-success btn-block fa fa-play" type="button" data-ng-click="formPlay_1(artist_job_container)"> Proceed </button>
+            </div>
+
+        </div>
+        <div class="row" data-ng-switch-when="viewForms">
+            <div class="leftNav_head">
+            </div>
+            <div class = "col-md-1"></div>
+            <div class = "col-md-4">
+                <img src ="" height="150" width="150"><br>
+                <H4> {{artist_job_container.customer_name |uppercase}}</H4>
+            </div>
+
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                        <thead style="background-color: #000000;color: #ffffff">
+                        <tr>
+                            <th colspan="2">
+                                <div class="">
+                                    BPS
+                                </div>
+                            </th>
+                            <th colspan="2">
+                                <div class="">
+                                    {{artist_job_container.BPaaS_service}}
+
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                <div class="">
+                                    Industry
+                                </div>
+                            </th>
+                            <th colspan="2">
+                                <div class="">
+                                    {{artist_job_container.indus_service}}
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                <div class="">
+                                    Form
+                                </div>
+                            </th>
+                            <th colspan="2">
+                                <div class="">
+                                    {{artist_job_container.form_type}}
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class = "col-md-6 TEXT-LEFT">
+                <label>Customer :{{artist_job_container.customer_name |uppercase}}</label>
+            </div>
+            <div class="col-md-6 text-right" >
+                <a href=/newbinbox> <button class="btn_hethi btn-default btn-block" type="button"style="padding-top: -20px">INBOX</button></a>
+            </div >
+            <div class="col-md-6 text-left">
+                <label>BPS : {{artist_job_container.BPaaS_service}}</label>
+            </div>
+
+            <div class="col-md-6 text-right">
+                <label>Type :{{artist_job_container.form_type}}</label>
+            </div>
+
+            <div class ="col-md-12">
+                <div class="leftNav_head"></div>
+
+            </div>
+            <div class="col-md-10 col-md-offset-2">
+                <label>Imported forms</label>
+            </div>
+            <div class="col-md-2 margin-left-10" style="padding-top: 5%;">
+                <img src="{{artist_job_container.selectedForm.file_location}}" height="200" width="180"style="margin-bottom: 30px">
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-12"style="background-color: #e5e5e5">
+                    <div class="col-md-3 margin-top-5" ng-repeat="user in artist_job_container.uploaded_files">
+                        <div>
+                            <a href="" data-ng-click="selectImportedForm(user)" >
+                                <img class="thumbnail"  src="{{user.file_location}}" height="125" width="125" style="margin-right: 20px">
+
+                            </a>
+                            <div class="text-center " ng-class="user.class ? 'tile_active':'tile'" >
+                                <a href="" data-ng-click="selectImportedForm(user)">
+                                    <h5>{{artist_job_container.form_type}}</h5>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <img src="{{artist_job_container.selectedForm.file_location}}"  height="600" width ="500"style="margin-top: 20px">
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <select class="form-control" ng-model="searchVal" ng-options="user as  user.form_type + ' (' +user.indus_service +','+ user.BpaaS_service + ')'   for user in hethi_efs_list">
+                        <option value="">select form</option>
+                    </select>
+
+
+                </div>
+            </div>
+
+
+            <div class="col-md-12 col-md-offset-4"style="padding-top: 1%">
+                <div class="row">
+                    <div class="col-md-3">
+                        <!--<button data-ng-click="formPlay_2(artist_job_container)" class="btn_hethi btn-default btn-block" type="button">Index form type</button>-->
+                        <button class="btn_hethi-lg btn-success btn-block fa fa-tasks " type="button" data-ng-click="formPlay_2(artist_job_container)"> Index Form Type </button>
+                    </div>
+                    <!--<div class="col-md-1">-->
+                    <!--<label>(or)</label>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-3">-->
+                    <!--<a href=""> <button class="btn_hethi btn-default btn-block" type="button">Create a new owner or form</button></a>-->
+                    <!--</div>-->
+                </div>
+            </div>
+
+        </div>
+        <div class="row" data-ng-switch-when="viewStecil">
+            <div class="panel-info panel-body panel" >
+                <div class="container-fluid" ng-switch="ShowStencilCompleted">
+                    <div class="row" ng-switch-when="false">
+                        <div class="col-md-9 col-sm-12" >
+
+
+                            <div id="pc">
+                                <img src="{{fileStencilingData.file_location}}"
+                                     class=" img-responsive"
+                                     id="stencilingImage"
+                                     alt="stenciling image not found"
+                                     style="">
+                            </div>
+
+
+
+                            <div class="divider-md"></div>
+                            <div class="col-md-4" id="interface"> </div>
+                            <div class="col-md-8 ">
+                                <div class="divider-md"></div>
+                                <div class="divider-md"></div>
+                                <form id="coords"
+                                      class="coords ">
+
+                                    <div class="inline-labels form-group ">
+                                        <label >X1 <input type="text" size="4" id="x1" name="x1" /></label>
+                                        <label>Y1 <input type="text" size="4" id="y1" name="y1" /></label>
+                                        <label>X2 <input type="text" size="4" id="x2" name="x2" /></label>
+                                        <label>Y2 <input type="text" size="4" id="y2" name="y2" /></label>
+                                        <label>W <input type="text" size="4" id="w" name="w" /></label>
+                                        <label>H <input type="text" size="4" id="h" name="h" /></label>
+                                    </div>
+                                </form>
+
+
+
+                            </div>
+
+                            <script type="text/javascript">
+                                jQuery(function($){
+                                    var jcrop_api, boundx,boundy;
+                                    $preview = $('#preview-pane'),
+                                            $pcnt = $('#preview-pane .preview-container'),
+                                            $pimg = $('#preview-pane .preview-container img'),
+
+
+                                            xsize = $pcnt.width(),
+                                            ysize = $pcnt.height();
+
+                                    function showCoords(c)
+                                    {
+                                        $('#x1').val(c.x);
+                                        $('#y1').val(c.y);
+                                        $('#x2').val(c.x2);
+                                        $('#y2').val(c.y2);
+                                        $('#w').val(c.w);
+                                        $('#h').val(c.h);
+
+
+                                        if (parseInt(c.w) > 0)
+                                        {
+                                            var rx = xsize / c.w;
+                                            var ry = ysize / c.h;
+
+                                            $pimg.css({
+                                                width: Math.round(rx * boundx) + 'px',
+                                                height: Math.round(ry * boundy) + 'px',
+                                                marginLeft: '-' + Math.round(rx * c.x) + 'px',
+                                                marginTop: '-' + Math.round(ry * c.y) + 'px'
+                                            });
+
+//                              $("#preview-pane").css( {position:"absolute", top:c.y+40, left: c.x , display:"block"});
+                                        }
+
+                                    };
+
+                                    function clearCoords()
+                                    {
+                                        $('#coords input').val('');
+//                          $("#preview-pane").css( {display:"none"});
+
+                                    };
+                                    destroySelection=function(){
+                                        jcrop_api.release();
+//                          $("#preview-pane").css( {display:"none"});
+//
+                                    };
+                                    function loadDiv(event)
+                                    {
+//                          $("#preview-pane").css( {position:"absolute", top:event.y+40, left: event.x , display:"block"});
+
+                                    };
+//
+                                    $('#stencilingImage').Jcrop({
+                                        bgFade:     true,
+                                        bgOpacity: .2,
+                                        onChange:   showCoords,
+                                        onRelease:  clearCoords,
+                                        onSelect:   loadDiv
+
+                                    },function(){
+
+                                        // Use the API to get the real image size
+                                        var bounds = this.getBounds();
+                                        boundx = bounds[0];
+                                        boundy = bounds[1];
+                                        jcrop_api = this;
+                                        // Move the preview into the jcrop container for css positioning
+                                        $preview.appendTo(jcrop_api.ui.holder);
+                                    });
+                                    $('#coords').on('change','input',function(e){
+                                        var x1 = $('#x1').val(),
+                                                x2 = $('#x2').val(),
+                                                y1 = $('#y1').val(),
+                                                y2 = $('#y2').val();
+                                        jcrop_api.setSelect([x1,y1,x2,y2]);
+                                    });
+
+                                    $('#fadetog').change(function(){
+                                        jcrop_api.setOptions({
+                                            bgFade: this.checked
+                                        });
+                                    }).attr('checked','checked');
+
+                                    $('#shadetog').change(function(){
+                                        if (this.checked) $('#shadetxt').slideDown();
+                                        else $('#shadetxt').slideUp();
+                                        jcrop_api.setOptions({
+                                            shade: this.checked
+                                        });
+                                    }).attr('checked',false);
+
+                                    // Define page sections
+                                    var sections = {
+                                        bgc_buttons: 'Change Color',
+                                        bgo_buttons: 'Change Opacity'
+                                    };
+                                    // Define animation buttons
+                                    var ac = {
+                                        anim1: [217,122,382,284],
+                                        anim2: [20,20,580,380],
+                                        anim3: [24,24,176,376],
+                                        anim4: [347,165,550,355],
+                                        anim5: [136,55,472,183]
+                                    };
+                                    // Define bgOpacity buttons
+                                    var bgo = {
+                                        Low: .2,
+                                        Mid: .5,
+                                        High: .8,
+                                        Full: 1
+                                    };
+                                    // Define bgColor buttons
+                                    var bgc = {
+                                        R: '#900',
+                                        B: '#4BB6F0',
+                                        Y: '#F0B207',
+                                        G: '#46B81C',
+                                        W: 'white',
+                                        K: 'black'
+                                    };
+                                    // Create fieldset targets for buttons
+//                      for(i in sections)
+//                          insertSection(i,sections[i]);
+
+                                    function create_btn(c) {
+                                        var $o = $('<button />').addClass('btn btn-small');
+                                        if (c) $o.append(c);
+                                        return $o;
+                                    }
+
+                                    var a_count = 1;
+                                    // Create animation buttons
+                                    for(i in ac) {
+                                        $('#anim_buttons .btn-group')
+                                                .append(
+                                                create_btn(a_count++).click(animHandler(ac[i])),
+                                                ' '
+                                        );
+                                    }
+
+                                    $('#anim_buttons .btn-group').append(
+                                            create_btn('Bye!').click(function(e){
+                                                $(e.target).addClass('active');
+                                                jcrop_api.animateTo(
+                                                        [300,200,300,200],
+                                                        function(){
+                                                            this.release();
+                                                            $(e.target).closest('.btn-group').find('.active').removeClass('active');
+                                                        }
+                                                );
+                                                return false;
+                                            })
+                                    );
+
+                                    // Create bgOpacity buttons
+                                    for(i in bgo) {
+                                        $('#bgo_buttons .btn-group').append(
+                                                create_btn(i).click(setoptHandler('bgOpacity',bgo[i])),
+                                                ' '
+                                        );
+                                    }
+                                    // Create bgColor buttons
+                                    for(i in bgc) {
+                                        $('#bgc_buttons .btn-group').append(
+                                                create_btn(i).css({
+                                                    background: bgc[i],
+                                                    color: ((i == 'K') || (i == 'R'))?'white':'black'
+                                                }).click(setoptHandler('bgColor',bgc[i])), ' '
+                                        );
+                                    }
+                                    // Function to insert named sections into interface
+                                    function insertSection(k,v) {
+                                        $('#interface').prepend(
+                                                $('<fieldset></fieldset>').attr('id',k).append(
+                                                        $('<legend></legend>').append(v),
+                                                        '<div class="btn-toolbar"><div class="btn-group"></div></div>'
+                                                )
+                                        );
+                                    };
+                                    // Handler for option-setting buttons
+                                    function setoptHandler(k,v) {
+                                        return function(e) {
+                                            $(e.target).closest('.btn-group').find('.active').removeClass('active');
+                                            $(e.target).addClass('active');
+                                            var opt = { };
+                                            opt[k] = v;
+                                            jcrop_api.setOptions(opt);
+                                            return false;
+                                        };
+                                    };
+                                    // Handler for animation buttons
+                                    function animHandler(v) {
+                                        return function(e) {
+                                            $(e.target).addClass('active');
+                                            jcrop_api.animateTo(v,function(){
+                                                $(e.target).closest('.btn-group').find('.active').removeClass('active');
+                                            });
+                                            return false;
+                                        };
+                                    };
+
+                                    $('#bgo_buttons .btn:first,#bgc_buttons .btn:last').addClass('active');
+                                    $('#interface').show();
+
+                                });
+
+
+                            </script>
+                        </div>
+                        <div class="col-md-3 col-sm-12" >
+                            <div id="preview-pane">
+                                <div class="preview-container">
+                                    <img src="{{fileStencilingData.file_location}}"   class="jcrop-preview"  alt="stenciling image not found" >
+                                </div>
+
+                                <div class="row" >
+
+                                    <div >
+                                        <div class="divider-md"></div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <select class="form-control"  ng-model="fieldData"  ng-options="user as user.fielddisplayname for user in formDatakeys ">
+                                                    <option value=""> select field </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                    <span class="text-small">
+                                            Tag to Classify?
+                                    </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="btn-group">
+                                                    <button type="button" class=" btn btn-line-success " data-ng-click="field_attributes.classify= 'yes'" data-ng-model="field_attributes.classify" btn-radio="'yes'" style="font-size: 12px"> Yes</button>
+                                                    <button type="button" class=" btn btn-line-success " data-ng-click="field_attributes.classify= 'no'" data-ng-model="field_attributes.classify" btn-radio="'no'" style="font-size: 12px"> No </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                    <span class="text-small">
+                                            Tag to Split?
+                                    </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-line-info " data-ng-click="field_attributes.split= 'yes'" data-ng-model="field_attributes.split" btn-radio="'yes'" style="font-size: 12px"> Yes</button>
+                                                    <button type="button" class="btn btn-line-info " data-ng-click="field_attributes.split= 'no'" data-ng-model="field_attributes.split" btn-radio="'no'" style="font-size: 12px"> No </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                    <span class="text-small">
+                                            Tag to Merge?
+                                    </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-line-danger " data-ng-click="field_attributes.merge= 'yes'" data-ng-model="field_attributes.merge" btn-radio="'yes'" style="font-size: 12px"> Yes</button>
+                                                    <button type="button" class="btn btn-line-danger " data-ng-click="field_attributes.merge= 'no'" data-ng-model="field_attributes.merge" btn-radio="'no'" style="font-size: 12px"> No </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                    <span class="text-small">
+                                            Tag to Reject?
+                                    </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-line-primary " data-ng-click="field_attributes.reject= 'yes'" data-ng-model="field_attributes.reject" btn-radio="'yes'" style="font-size: 12px"> Yes</button>
+                                                    <button type="button" class="btn btn-line-primary " data-ng-click="field_attributes.reject= 'no'" data-ng-model="field_attributes.reject" btn-radio="'no'" style="font-size: 12px"> No </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group text-center">
+                                            <div class="divider-md"></div>
+                                            <div class="col-md-8">
+                                                <button type="button" data-ng-click="addFieldCoord(fieldData)" class="btn_hethi btn-success btn-block">  Add  </button>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="button" class="btn_hethi btn-danger btn-block" onclick="destroySelection()" >  Back  </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="divider-md"></div>
+
+                                <div class="table-responsive ">
+                                    <table class="table table-bordered hethi_tableStyle"  ng-show="stenciledFieldList.length">
+                                        <tr style="background: #b4b857">
+                                            <th>
+                                                Added Fields
+                                            </th>
+                                            <th class="text-center">
+                                                Classify
+                                            </th>
+                                            <th class="text-center">
+                                                Split
+                                            </th>
+                                            <th class="text-center">
+                                                Merge
+                                            </th>
+                                            <th class="text-center">
+                                                Reject
+                                            </th>
+                                            <th class="text-center">
+
+                                            </th>
+                                        </tr>
+                                        <tr ng-repeat="list in stenciledFieldList">
+                                            <td>{{list.name}} </td>
+                                            <td class="text-center">
+                                                <div ng-switch="list.classify">
+                                                    <span data-ng-switch-when="yes" class="fa fa-check"></span>
+                                                    <span data-ng-switch-when="no" class="fa fa-times"></span>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div ng-switch="list.split">
+                                                    <span data-ng-switch-when="yes" class="fa fa-check"></span>
+                                                    <span data-ng-switch-when="no" class="fa fa-times"></span>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div ng-switch="list.merge">
+                                                    <span data-ng-switch-when="yes" class="fa fa-check"></span>
+                                                    <span data-ng-switch-when="no" class="fa fa-times"></span>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div ng-switch="list.reject">
+                                                    <span data-ng-switch-when="yes" class="fa fa-check"></span>
+                                                    <span data-ng-switch-when="no" class="fa fa-times"></span>
+                                                </div>
+                                            </td>
+                                            <td style="width: 15px">
+                                                <span data-ng-click="removeFieldCoords($index)"  class="fa fa-trash"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center margin-bottom-30">
+                                    <button type="button"  class="btn_hethi-lg btn-warning"><a href="" data-ng-click="setTab('viewForms')"> Back </a> </button>
+                                    <button type="button" data-ng-click="completeStenciling()" style="margin-left: 10px" class="btn_hethi-lg btn-warning">Complete stenciling</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider-md" ng-switch-when="true">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="panel panel-info">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <img src="{{fileStencilingData.file_location}}" class="thumbnail img-responsive">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+
+                                <div class="invoice-bg panel panel-success " style="color: #000000 !important;">
+                                    <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Extracted Metadata </strong></div>
+                                    <div class="panel-body text-center">
+                                        <div class="padding-top-5 text-left " id="previewData">
+
+
+
+
+
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                                                    <thead style="background-color: #000000;color: #ffffff">
+                                                    <tr>
+
+                                                        <th>
+                                                            <div class="th">
+                                                                #
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="th">
+                                                                Field Name
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="th">
+                                                                Field Value
+                                                            </div>
+                                                        </th>
+
+
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr data-ng-repeat="file in efs_data" >
+                                                        <td>{{$index+1}} </td>
+                                                        <td>{{file.name}}</td>
+                                                        <td>{{file.field_data}}</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center margin-bottom-30">
+                                    <button type="button"  class="btn_hethi-lg btn-danger"><a href="" data-ng-click="backToStencil();"> Stencil Again </a> </button>
+                                    <button type="button" data-ng-click="completedStenciling()" style="margin-left: 10px" class="btn_hethi-lg btn-success">Save stenciling</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" data-ng-switch-when="thankyou">
+
+            <div class="col-md-6 col-lg-offset-4"><h1>Thank you {{loginedUserData.customer_name}}</h1> </div>
+            <div class ="col-md-2">
+                <div><label></label></div>
+            </div>
+            <div class ="col-md-12"style="padding-top: 20px">
+                <div class="leftNav_head"> </div>
+            </div>
+            <!--<div class="row">-->
+            <div class="col-md-3 col-lg-offset-1" style="padding-top: 10%">
+                <img src_="" height="150" width="150"style="margin-left: 50px"><BR>
+                <label style="font-size:20px;margin-left: 30px"></label>
+            </div>
+
+            <div class="col-md-6"style="padding-top: 12%">
+                <div class="row">
+                    <label style="font-size:24px">Has been successfully allocated to business QA</label>
+                </div>
+                <div class="col-md-5">
+                    <label style="margin-top: 25px">You may select to next customer form classification</label>
+                    <a href="" data-ng-click="setTab('')" > <button class="btn_hethi btn-default btn-block" type="button">INBOX</button></a>
+                </div>
+                <div class="col-md-5">
+                    <label style="margin-top: 25px;margin-left:30px ">Proceed to customer form bundle</label>
+
+                    <button data-ng-click="setTab('viewForms')" class="btn_hethi btn-default btn-block" type="button">Classify form bundle</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

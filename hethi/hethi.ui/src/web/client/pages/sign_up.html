@@ -1,0 +1,113 @@
+<div class="container margin_top_60">
+<div class="divider-md"></div>
+    <div class="row">
+        <div class="col-md-7 col-sm-6">
+
+            <div class="form-2">
+                <h1><span class="log-in">Log in</span>
+                    <!--or <span class="sign-up">sign up</span>-->
+                </h1>
+                <div class="divider-md"></div>
+                <form class="form-horizontal" role="form" data-ng-submit="SignInToHethi(signin)">
+
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label for="login"><i class="fa fa-user"></i> Email</label>
+                            <input type="email" id="signInEmail" ng-model="signin.username" class="form-control"  placeholder="Email">
+                        </div>
+                        <div class="col-md-6">
+                            <!--<div class="form-group">-->
+                            <label for="password"><i class="fa fa-lock"></i> Password</label>
+                            <input type="password" ng-model="signin.password" id="signInPassword" class="form-control" placeholder="Password">
+                            <!--</div>-->
+                        </div>
+                    </div>
+
+                    <div class="form-group margin-bottom-10">
+                        <div class="col-sm-12 ">
+                            <label class="ui-checkbox">
+                                <input name="checkbox1"
+                                       ng-model="signin.remember"
+                                       type="checkbox"  >
+                                <span>Stay signed in</span></label>
+                            <a href="#" class="pull-right" style="color: #008BCB;font-size: 12px">Forgot password?</a>
+                        </div>
+
+                    </div>
+                    <!--<div class="row">-->
+                    <div class="form-group last">
+                        <div class="col-sm-12">
+                            <div class="pull-right">
+                                <button type="submit" class="btn_hethi green">Sign in</button>
+                                <button type="reset" class="btn_hethi btn-warning">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--</div>-->
+                </form>
+
+
+            </div>
+
+        </div>
+        <div class="col-xs-12 col-md-5 col-sm-6 signup-box">
+            <div class="">
+                <form  data-ng-submit="RegisterToHethi(register);">
+                    <h3 class="text-center">New Members Sign Up Now..<br>
+
+                        <!--It's FREE..!!! </h3>-->
+                    </h3>
+                    <p>&nbsp;</p>
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input class="form-control " ng-model="register.customer_name" placeholder="Customer Name" tabindex="1" type="text">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input class="form-control " ng-model="register.business_name" placeholder="Business Name" tabindex="2" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " ng-model="register.contact_name" placeholder="Contact Name" tabindex="3"  type="text">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " ng-model="register.contact_number"placeholder="Contact Number"  tabindex="4" type="text">
+                    </div>
+                    <div class="form-group">
+                        <input name="email" id="email" class="form-control " ng-model="register.business_email"placeholder="Business Email" tabindex="5" type="email">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control " id="userLogin" ng-model="register.user_login_id" placeholder="User Login ID" tabindex="6" type="text">
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input ng-model="register.password" id="userPassword" class="form-control " placeholder="Password" tabindex="7" type="password">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <input class="form-control " ng-model="register.verify_password" placeholder="Confirm Password" tabindex="8" type="password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12"> By clicking Join Now, you agree to the <a href="http://www.hethi.com/terms">Terms and Conditions</a> you have read including our <a href="http://www.hethi.com/terms">Cookie Use.</a> </div>
+                    </div>
+                    <p>&nbsp;</p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <input value="JOIN NOW.!" class="btn_hethi btn_hethi-lg btn-primary btn-block " tabindex="7" type="submit">
+                        </div>
+                    </div>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

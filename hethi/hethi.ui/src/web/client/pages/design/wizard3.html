@@ -1,0 +1,104 @@
+<div>
+
+
+        <!--<div class="row">-->
+            <!--<div class="col-md-4">-->
+                <!--<span class="pull-left" style="font-size: 20px;color: #880000;font-weight: bold">Customer : Hethi</span>-->
+
+            <!--</div>-->
+            <!--<div class="col-md-4 text-center">-->
+                <!--<span style="font-size: 20px;font-weight: bold">BPS : invoice process to pay</span>-->
+            <!--</div>-->
+            <!--<div class="col-md-4 ">-->
+                <!--<span class="pull-right" style="font-size: 20px;font-weight: bold">Type :<i style="color: #0184ff"> Existing</i></span>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--<hr>-->
+
+    <div class="row">
+        <!--<div class="col-md-2">-->
+        <!--<h1>-->
+
+        <!--{{selectedCustomer.customer_name}}-->
+
+        <!--</h1>-->
+        <!--</div>-->
+        <div class="col-md-7">
+            <div class="font_25 hethi-font" style="color: #c7254e">customer : hethi</div>
+            <div class="font_14_grey">Service : Invoice process to pay</div>
+            <div class="font_14_grey">Industry : {{selectedCustomer.indus_service}}</div>
+            <div class="font_14_grey">Form : {{artist_job_container.form_type}}</div>
+
+        </div>
+        <div class="col-md-5">
+            <div class="pull-right">
+                   <button class="btn_hethi btn-default" data-ng-click="selectWizard(1)"><span class="fa fa-backward"></span> back</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- / end client details section -->
+
+    <hr>
+
+
+<!--<div class="row">-->
+    <!--<div class="col-md-12">-->
+        <!--<div class="text-center">-->
+            <!--<button type="button" class="btn_hethi btn-success btn_wizard" data-ng-click="selectWizard(1)">Business Demography</button>-->
+            <!--&lt;!&ndash;<button type="button" class="btn_hethi btn-primary btn_wizard">Configure Data Service</button>&ndash;&gt;-->
+            <!--<button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectWizard(2)">Configure Data Service</button>-->
+            <!--<button type="button" class="btn_hethi btn-primary btn_wizard">Customise Workflows</button>-->
+            <!--<button type="button" class="btn_hethi btn-primary btn_wizard">Define Output</button>-->
+            <!--<button type="button" class="btn_hethi btn-primary btn_wizard">Define ERP Integration</button>-->
+            <!--<button type="button" class="btn_hethi btn-primary btn_wizard">Define Analytics</button>-->
+            <!--<button type="button" class="btn_hethi btn-primary btn_wizard">Define Storage</button>-->
+            <!--<button type="button" class="btn_hethi btn-primary btn_wizard">Service level agreement</button>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+    <div data-ng-switch="businessTab" class="margin-top-10">
+
+
+        <div data-ng-switch-when="1">
+            <div data-ng-include="'pages/design/config_data_service.html'"></div>
+
+        </div>
+        <div data-ng-switch-when="2">
+            <div data-ng-include="'pages/design/customize_workflows.html'"></div>
+
+        </div>
+        <div data-ng-switch-when="3">
+            <div data-ng-include="'pages/design/define_output.html'"></div>
+
+        </div>
+        <div data-ng-switch-when="4">
+            <div data-ng-include="'pages/design/define_erp_integration.html'"></div>
+
+        </div>
+        <div data-ng-switch-when="5">
+            <div data-ng-include="'pages/design/define_analytics.html'"></div>
+
+        </div>
+        <div data-ng-switch-when="6">
+            <div data-ng-include="'pages/design/define_storage.html'"></div>
+
+        </div>
+        <div data-ng-switch-when="7">
+            <div data-ng-include="'pages/design/business_demography.html'"></div>
+        </div>
+        <div data-ng-switch-when="8">
+            <div data-ng-include="'pages/design/service_level_agreement.html'"></div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+</div>

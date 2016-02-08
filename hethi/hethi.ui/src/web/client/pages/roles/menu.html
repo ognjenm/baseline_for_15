@@ -1,0 +1,449 @@
+<div data-ng-controller="roleController">
+
+
+
+<div class="counter_head">
+        <div class="row">
+            <div class="col-md-12">
+                WELCOME {{loginedUserData.user_name}}
+            </div>
+        </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="wrap">
+            <ul class="goo-collapsible goo-coll-stacked">
+                <li class="header"></li>
+
+                <li class="dropdown1">
+                    <a href='#'><span class='fa fa-quote-left'></span> Queue   <label ng-show="hethi_role_task_list" class="margin-left-10 label label-danger">{{hethi_role_task_list.length}}</label> </a>
+                    <ul>
+                        <li>
+                            <a data-toggle="tab" href="#" data-ng-click="selectRoleQueueTab(1);">
+                                <span class="badge pull-right"></span> In  <span ng-show="hethi_role_task_list" class="badge badge-info pull-right">{{hethi_role_task_list.length}}</span>
+                            </a>
+
+                        </li>
+
+                        <li><a href="#" data-toggle="tab" data-ng-click="selectRoleQueueTab(2)">Hold</a></li>
+                        <li><a href="#" data-toggle="tab" data-ng-click="selectRoleQueueTab(3)">Approved</a></li>
+
+                    </ul>
+                </li>
+                <li  class='dropdown1'><a href='#'><span class='fa fa-tasks'></span> Tasks</a>
+                    <ul>
+                        <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(7)">Split/Merge</a></li>
+                        <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(8)">Work Item</a></li>
+                        <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(9)">Role</a></li>
+                        <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(10)"><span class="badge pull-right">3</span>Delegation</a></li>
+
+                    </ul>
+                </li>
+                <li class="dropdown1"><a href='#'><span class='fa fa-user-secret'></span> Administrator</a>
+                <ul>
+                    <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(11)">Dashboard</a></li>
+                    <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(12)">Reports</a></li>
+                    <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(13)">My Account</a></li>
+                </ul>
+                </li>
+                <li class="dropdown1"><a href='#'><span class='fa fa-search'></span> Search</a>
+                    <ul>
+                        <li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(14)">Invoice</a></li>
+
+                    </ul>
+                </li>
+
+
+            </ul>
+
+        </div>
+
+
+        <script>
+            $(".goo-collapsible > li > a").on("click", function(e){
+
+                if(!$(this).hasClass("active")) {
+
+                    // hide any open menus and remove all other classes
+                    $(".goo-collapsible li ul").slideUp(350);
+                    $(".goo-collapsible li a").removeClass("active");
+
+                    // open our new menu and add the open class
+                    $(this).next("ul").slideDown(350);
+                    $(this).addClass("active");
+
+                }else if($(this).hasClass("active")) {
+
+                    $(this).removeClass("active");
+                    $(this).next("ul").slideUp(350);
+                }
+            });
+
+        </script>
+    </div>
+    <div class="col-sm-9 col-md-10" data-ng-switch="RoleQueueTab">
+        <div data-ng-switch-when="1">
+
+            <div class="row">
+                <div class="row margin-bottom-5">
+                    <div class="col-md-12">
+                        <!--<button type="button" class="btn_hethi btn-warning" >Export</button>-->
+                        <div class="btn-group">
+                            <button class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export Table Data</button>
+                            <ul class="dropdown-menu " role="menu">
+                                <li><a href="#" data-ng-click="exportData()"> <img src="images/icon/xls.png" width="24px"> XLSX</a></li>
+                                <li><a href="#" data-ng-click="exportPDF()"> <img src="images/icon/pdf.png" width="24px"> PDF</a></li>
+                                <li><a href="#" data-ng-click="exportCSV()"> <img src="images/icon/csv.png" width="24px"> CSV</a></li>
+
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive" id="taskList">
+                        <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                            <thead style="background-color: #000000;color: #ffffff">
+                            <tr>
+                                <th style="width: 10px">
+                                    <div class="">
+                                        #
+                                    </div>
+                                </th>
+
+                                <th style="width:300px" class="text-center" >
+                                    <div class="">
+                                        Customer Name
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th">
+                                        BPS
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th">
+                                        Industry
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th">
+                                        Type
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th">
+                                        Assigned DT
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th">
+                                        #
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody ng-repeat="row in hethi_role_task_list">
+                            <tr ng-init="row.lastupdtime= convertToDate(row.lastupdtm)">
+                                <td>{{$index+1}}</td>
+                                <td>{{row.customer_name}}</td>
+                                <td>{{row.BPaaS_service}} 	</td>
+                                <td>{{row.indus_service}}</td>
+                                <td>{{row.form_type_decription_short}}</td>
+                                <td>{{row.lastupdtime| date:"MMM dd,yyyy 'at' h:mma"}}</td>
+                                <td>
+                                    <a  ng-hide="row.showHistory" data-ng-click="assignNextJob(row)"><button class="btn_hethi btn-info fa fa-play" type="button">&nbsp;assign {{row.job_name}} </button></a>
+                                    <a ng-show="row.showHistory"  data-ng-click="row.showHistory=false;load_hethi_role_task_list()"><button class="btn_hethi btn btn-sm btn-success   fa fa-times" type="button">&nbsp; Close </button></a>
+                                </td>
+                            </tr>
+                            <tr ng-show="row.showHistory">
+                                <td ></td>
+                                <td colspan="6">
+                                    <table>
+                                        <tr>
+                                            <th>File History</th>
+
+                                        </tr>
+                                        <tr>
+                                            <th></th>
+
+                                        </tr>
+                                        <tr ng-repeat="q in row.fileStatusHistory">
+                                            <td></td>
+                                            <td ng-init="q.lastupdtime= convertToDate(q.lastupdtm)"><b> {{q.lastupdtime| date:"h:mma  , MMM dd,yyyy "}} </b> </td>
+                                            <td>    {{q.user_name}} from {{q.job_name}} updated the file.</td>
+                                        </tr>
+                                    </table>
+
+
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div data-ng-switch-when="2">
+            <h2>Hold</h2>
+        </div>
+        <div data-ng-switch-when="3">
+            <h2>Completed</h2>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+
+<!--Old main-->
+    <div>
+        <!--<div class="row">-->
+            <!--<div class="col-sm-3 col-md-2">-->
+                <!--&lt;!&ndash;<a href="#" class="btn btn-danger btn-sm btn-block" role="button"><i class="glyphicon glyphicon-edit"></i> </a>&ndash;&gt;-->
+
+                <!--<ul class="mainmenu nav nav-boxed tabbable ver-vertical-menu">-->
+                    <!--&lt;!&ndash;<div data-ng-click="show = !show;" class="leftNav_head_menu mouse_point">Customers</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<li ><a href="#" data-ng-click="show = !show;">News</a>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<ul ng-show="show" class="nav nav-boxed tabbable ver-vertical-menu">&ndash;&gt;-->
+                    <!--<li class="active">-->
+
+                        <!--<a href="#" style="margin-bottom: 5px">Customers</a>-->
+                        <!--<ul class="submenu">-->
+                            <!--<li ><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(1)">All Customers</a></li>-->
+
+                            <!--<li ><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(2)">New Customers</a></li>-->
+                            <!--<li ><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(3)">Existing Customers</a></li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+
+
+                    <!--&lt;!&ndash;<li ng-show="show" class="active"><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(1)">All Customers</a></li>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<li ng-show="show"><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(2)">New Customers</a></li>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<li ng-show="show"><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(3)">Existing Customers</a></li>&ndash;&gt;-->
+
+
+                    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</li>&ndash;&gt;-->
+
+                    <!--<div class="leftNav_head">Queue</div>-->
+                    <!--<li>-->
+                        <!--<a data-toggle="tab" href="#" data-ng-click="selectQueueTab(4);">-->
+                            <!--<span class="badge pull-right">32</span> In-->
+                        <!--</a>-->
+
+                    <!--</li>-->
+
+                    <!--<li><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(5)">Hold</a></li>-->
+                    <!--<li><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(6)">Approved</a></li>-->
+                    <!--&lt;!&ndash;<li class="{{QueueDelegation}}"><a href="#" data-ng-click="selectQueueTab(4)"><span class="badge pull-right">3</span>Delegation</a></li>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                    <!--<div class="leftNav_head">Tasks</div>-->
+                    <!--&lt;!&ndash;<ul class="nav nav-boxed tabbable ver-vertical-menu">&ndash;&gt;-->
+                    <!--<li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(7)">Split/Merge</a></li>-->
+                    <!--<li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(8)">Work Item</a></li>-->
+                    <!--<li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(9)">Role</a></li>-->
+
+                    <!--<li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(10)"><span class="badge pull-right">3</span>Delegation</a></li>-->
+                    <!--<div class="leftNav_head">Administrator</div>-->
+                    <!--<li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(11)">Dashboard</a></li>-->
+                    <!--<li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(12)">Reports</a></li>-->
+                    <!--<li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(13)">My Account</a></li>-->
+                    <!--<div class="leftNav_head">Search</div>-->
+                    <!--<li class=""><a href="#" data-toggle="tab" data-ng-click="selectQueueTab(14)">Invoice</a></li>-->
+
+                <!--</ul>-->
+
+            <!--</div>-->
+            <!--<div class="col-sm-9 col-md-10" data-ng-switch="QueueTab">-->
+                <!--<div data-ng-switch-when="1">-->
+                    <!--<div data-ng-include="'pages/hethistudio/admin/admin_view.html'"></div>-->
+                <!--</div>-->
+                <!--<div data-ng-switch-when="2">-->
+                    <!--<h2>New Customer</h2>-->
+                <!--</div>-->
+                <!--<div data-ng-switch-when="3">-->
+                    <!--<h2>Existing Customer</h2>-->
+                <!--</div>-->
+
+
+                <!--<div data-ng-switch-when="4">-->
+                    <!--<div data-ng-include="'pages/work-flow-home.html'"></div>-->
+                <!--</div>-->
+
+                <!--<div data-ng-switch-when="5">-->
+                    <!--<h2>Queue Hold</h2>-->
+                <!--</div>-->
+                <!--<div data-ng-switch-when="6">-->
+                    <!--<h2>Queue Approval</h2>-->
+                <!--</div>-->
+                <!--<div data-ng-switch-when="7">-->
+                    <!--<div data-ng-include="'pages/split_merge.html'"></div>-->
+
+                <!--</div>-->
+
+                <!--<div data-ng-switch-when="8">-->
+                    <!--<div data-ng-include="'pages/work_item.html'"></div>-->
+
+                <!--</div>-->
+                <!--<div data-ng-switch-when="9">-->
+                    <!--<div data-ng-include="'pages/role.html'"></div>-->
+
+                <!--</div>-->
+                <!--<div data-ng-switch-when="10">-->
+                    <!--<div data-ng-include="'pages/delegation.html'"></div>-->
+
+                <!--</div>-->
+                <!--<div data-ng-switch-when="11">-->
+                    <!--<div data-ng-include="'pages/dashboard.html'"></div>-->
+
+                <!--</div>-->
+                <!--<div data-ng-switch-when="12">-->
+                    <!--<div data-ng-include="'pages/reports.html'"></div>-->
+
+                <!--</div>-->
+                <!--<div data-ng-switch-when="13">-->
+                    <!--<div data-ng-include="'pages/my_account.html'"></div>-->
+                <!--</div>-->
+
+                <!--<div data-ng-switch-when="14">-->
+                    <!--<div data-ng-include="'pages/invoice.html'"></div>-->
+                <!--</div>-->
+
+            <!--</div>-->
+
+
+        <!--</div>-->
+
+    </div>
+
+<!--OLD Code-->
+    <div>
+
+        <!--<div class="col-md-2">-->
+            <!--<ul class="nav nav-boxed tabbable admin-ver-vertical-menu">-->
+                <!--<li ng-repeat="row in services">-->
+                    <!--<a href="#" data-toggle="tab" data-ng-click="row.status=!row.status"><span ng-class="row.status ? 'fa fa-check-square-o':'fa fa-square-o'" class="fa fa-square-o"></span>  {{row.master_service}}</a>-->
+
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <!--<div class="col-md-10">-->
+            <!--&lt;!&ndash;Old Code&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<h3> <label>WELCOME {{loginedUserData.customer_name}}</label></h3>&ndash;&gt;&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<div ng-click="" class="col-md-3 mouse_point text-center"&ndash;&gt;-->
+            <!--&lt;!&ndash;style="color: #ffffff;font-size: 12px;font-weight: bold;&ndash;&gt;-->
+            <!--&lt;!&ndash;border-radius:10px;padding-top:20px;&ndash;&gt;-->
+            <!--&lt;!&ndash;background-color: #ff8750;height: 50px;&ndash;&gt;-->
+            <!--&lt;!&ndash;margin-left: 20px;&ndash;&gt;-->
+            <!--&lt;!&ndash;margin-bottom: 20px" data-toggle="tooltip"&ndash;&gt;-->
+            <!--&lt;!&ndash;title=""> All Customers&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<div ng-click="" class="col-md-3 mouse_point text-center"&ndash;&gt;-->
+            <!--&lt;!&ndash;style="color: #ffffff;font-size: 12px;font-weight: bold;&ndash;&gt;-->
+            <!--&lt;!&ndash;border-radius:10px;padding-top:20px;&ndash;&gt;-->
+            <!--&lt;!&ndash;background-color: #ff7fb1;height: 50px;margin-left: 20px"&ndash;&gt;-->
+            <!--&lt;!&ndash;data-toggle="tooltip" title="">&ndash;&gt;-->
+
+            <!--&lt;!&ndash;New Customers&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<div ng-click="status2=!status2" class="col-md-3 mouse_point text-center"&ndash;&gt;-->
+            <!--&lt;!&ndash;style="color: #ffffff;font-size: 12px;font-weight: bold;&ndash;&gt;-->
+            <!--&lt;!&ndash;border-radius:10px;padding-top:20px;&ndash;&gt;-->
+            <!--&lt;!&ndash;background-color: #a8ff4d;height: 50px;&ndash;&gt;-->
+            <!--&lt;!&ndash;margin-left: 20px" data-toggle="tooltip" title="">&ndash;&gt;-->
+            <!--&lt;!&ndash;Existing Customers&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+            <!--<div class="row">-->
+                <!--<div class="col-md-12">-->
+                    <!--<div class = "table-filters row">-->
+                        <!--<div class="col-md-12">-->
+                            <!--<div class="input-group">-->
+                                <!--<input type = "text" class = "form-control input-round" data-ng-model="searchKeywordsIndexer"-->
+                                       <!--data-ng-keyup="searchIndexer()" placeholder="search" />-->
+      <!--<span class="input-group-btn">-->
+
+        <!--<button class="btn btn-default"  style="border-top-right-radius: 48%;border-bottom-right-radius: 48%" type="button"><span class="fa fa-search"></span></button>-->
+      <!--</span>-->
+
+                            <!--</div>&lt;!&ndash; /input-group &ndash;&gt;-->
+                        <!--</div>&lt;!&ndash; /.col-lg-6 &ndash;&gt;-->
+                    <!--</div>&lt;!&ndash; /.row &ndash;&gt;-->
+
+                    <!--<div class="divider-md"></div>-->
+                    <!--<div class="table-responsive">-->
+                        <!--<table class="table table-bordered table-striped table-responsive hethi_content_table">-->
+                            <!--<thead style="background-color: #000000;color: #ffffff">-->
+                            <!--<tr>-->
+                                <!--<th style="width: 10px">-->
+                                    <!--<div class="">-->
+                                        <!--#-->
+                                    <!--</div>-->
+                                <!--</th>-->
+
+                                <!--<th style="width:300px" class="text-center" >-->
+                                    <!--<div class="">-->
+                                        <!--Customer Name-->
+                                    <!--</div>-->
+                                <!--</th>-->
+                                <!--<th style="width:300px">-->
+                                    <!--<div class="th">-->
+                                        <!--BPS-->
+                                    <!--</div>-->
+                                <!--</th>-->
+                                <!--&lt;!&ndash;<th>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div class="th">&ndash;&gt;-->
+                                <!--&lt;!&ndash;Industry&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</th>&ndash;&gt;-->
+                                <!--<th>-->
+                                    <!--<div class="th">-->
+                                        <!--Form-->
+                                    <!--</div>-->
+                                <!--</th>-->
+                                <!--<th style="width:200px" >-->
+                                    <!--<div class="th">-->
+                                        <!--Received_Time-->
+                                    <!--</div>-->
+                                <!--</th>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                            <!--<tr ng-click="selectbps($index);" ng-repeat="row in currentPageCustomerList">-->
+                                <!--<td>{{$index+1}}</td>-->
+                                <!--<td>{{row.customer_name}}</td>-->
+                                <!--<td>{{row.indus_service}} - {{row.BPaaS_service}} 	</td>-->
+                                <!--&lt;!&ndash;<td>{{row.indus_service}}</td>&ndash;&gt;-->
+                                <!--<td>{{row.form_type}}</td>-->
+                                <!--<td class="text-11">-->
+                                    <!--{{row.lastupdtm | date:'medium'}}-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    </div>
+
+</div>

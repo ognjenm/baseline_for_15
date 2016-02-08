@@ -1,0 +1,106 @@
+
+<div class="panel panel-default table-dynamic">
+    <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> My Uploads</strong></div>
+    <div class="panel-body ">
+
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                <thead style="background-color: #000000;color: #ffffff">
+                <tr>
+
+                    <th class="text-center">
+                        <div class="thSn">
+                            #
+                        </div>
+                    </th>
+                    <th>
+                        <div class="th">
+                            Created Date
+                        </div>
+                    </th>
+
+                    <th class="" >
+                        <div class="th">
+                            File Name
+                        </div>
+                    </th>
+
+                    <th>
+                        <div class="th">
+                            Type
+                        </div>
+                    </th>
+
+                    <th>
+                        <div class="th">
+                            File Source
+                        </div>
+                    </th>
+
+                    <th class="text-center">
+                        <div class="thSn">
+                            #
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="file in stencilingCompletedList" >
+
+
+                    <td class="text-center">{{$index+1}}</td>
+                    <td>{{file.startreaddtm}}</td>
+                    <td>{{file.file_name}}</td>
+                    <td>{{file.upload_type}}</td>
+                    <td>
+                        {{file.upload_name}}
+                    </td>
+
+                    <td class="text-center">
+                        <!--<div class="form-group">-->
+                <!--<span class="col-md-8">-->
+                    <button type="button" class="btn_hethi btn_hethi-sm btn-success" data-ng-click="showDocumentPreview(file)"> <span class="fa fa-desktop"> </span> Preview</button>
+                <!--</span>-->
+                            &nbsp;&nbsp;
+                            &nbsp;
+                            <!--<span class="col-md-4">-->
+                    <button type="button" class="btn_hethi btn_hethi-sm btn-danger"> <span class="fa fa-trash"> </span> </button>
+                <!--</span>-->
+                        <!--</div>-->
+
+                    </td>
+
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="table-footer">
+        <div class="row">
+        <div class="col-md-6 page-num-info">
+        <span>
+        Show
+        <select data-ng-model="numPerPage"
+        data-ng-options="num for num in numPerPageOpt"
+        data-ng-change="onNumPerPageChange()">
+        </select>
+        entries per page
+        </span>
+        </div>
+        <div class="col-md-6 text-right pagination-container">
+        <pagination class="pagination-sm"
+        page="currentPage"
+        total-items="filteredStores.length"
+        max-size="4"
+        ng-click="select(currentPage)"
+        items-per-page="numPerPage"
+        rotate="false"
+        boundary-links="true"></pagination>
+        </div>
+        </div>
+        </footer>
+        </div>
+        </div>
+    </div>
+</div>

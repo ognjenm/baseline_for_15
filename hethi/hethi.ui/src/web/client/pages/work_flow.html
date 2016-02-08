@@ -1,0 +1,224 @@
+<div data-ng-controller="workFlowController">
+
+
+    <div class="heading_arrow">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="">
+                        Work Flow
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+  <div class="divider-md"></div>
+
+    <div class="shortListDiv hidden-xs">
+        <a class="shortListButton btn" href="#" data-ng-hide="hideCareer" data-ng-click="showCareer(row)">
+            <span>Contact</span>
+        </a>
+    </div>
+
+   <div class="sideDiv" data-ng-show="hideCareer">
+                <i class="fa fa-close" data-ng-show="hideCareer" data-ng-click="careerHide(row)"></i>
+              <h3>Address</h3>
+             <address>
+                 some address<br>
+                 Second Line<br>
+                 Dist
+             </address>
+
+
+
+   </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <accordion close-others="oneAtATime"  class="ui-accordion ">
+
+
+                <accordion-group is-open="status.isFirstOpen">
+                    <accordion-heading>
+                        <div class="row mouse_point">
+                        <span class="col-md-12">
+                             <span class="">
+                                <i class="pull-right fa" data-ng-class="{'fa-chevron-down':status.isFirstOpen,'fa-chevron-right':!status.isFirstOpen}"></i>
+                             </span>
+                             <span>Add Workflow</span>
+                        </span>
+                        </div>
+
+                    </accordion-heading>
+                    <form class="form-horizontal"  method="post" action="">
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Title</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" data-ng-model="workFlowTitle">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Name</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" data-ng-model="workFlowName">
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Description
+
+                            </label>
+                            <div class="col-md-9">
+                                <textarea class="form-control" rows="2"></textarea>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<div class="row">-->
+                                <div class="col-md-11">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn_hethi btn-primary">Add</button>
+                                        <button type="button" class="btn_hethi btn-warning">Cancel</button>
+                                    </div>
+                                </div>
+                            <!--</div>-->
+                        </div>
+                       </form>
+                </accordion-group>
+
+                <div class="divider"></div>
+
+                <accordion-group is-open="status.isFirstOpen1">
+                    <accordion-heading>
+                        <div class="row mouse_point">
+                        <span class="col-md-12">
+                             <span class="">
+                                <i class="pull-right fa" data-ng-class="{'fa-chevron-down':status.isFirstOpen1,'fa-chevron-right':!status.isFirstOpen1}"></i>
+                             </span>
+                             <span>Configure Workflow</span>
+                        </span>
+                        </div>
+                    </accordion-heading>
+
+
+                    <form class="form-horizontal"  method="post" action="">
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Product</label>
+                            <div class="col-md-9">
+                                <select class="form-control">
+                                    <option>--- Select Product ---</option>
+                                    <option>Public Workstations</option>
+                                    <option>Finance</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Ticket Type</label>
+                            <div class="col-md-9">
+                               <select class="form-control">
+                                   <option>--- Select Type ---</option>
+                                   <option>Type 1</option>
+                                   <option>Type 2</option>
+                               </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Initial State
+
+                            </label>
+                            <div class="col-md-9">
+                                <select class="form-control">
+                                    <option>New</option>
+                                    <option>Expired</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Assign To</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" data-ng-model="workflowAssignTo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">CC</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" data-ng-model="workFlowCC">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Estimated Hours</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" data-ng-model="workFlowEstimatedHours">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Dead Line</label>
+                            <div class="col-md-9">
+                                <div class="ui-datepicker">
+                                    <input type="text" class="form-control" name="from" datepicker-popup="{{format}}"
+                                           ng-model="workflow.deadLine"
+                                           is-open="deadLineOpen"
+                                           datepicker-options="dateOptions"
+                                           ng-required="true"
+                                           close-text="Close"
+                                           placeholder="DD/MM/YYYY">
+                                    <span class="btn-arrow mouse_point " ng-click="$event.preventDefault();$event.stopPropagation();deadLineOpen = true;"><i class="fa fa-calendar"></i> </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">
+                                URL
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" data-ng-model="workFlowUrl">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Summary</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" data-ng-model="workflowSummary">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Description</label>
+                            <div class="col-md-9">
+                                <textarea class="form-control" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Attachments</label>
+                            <div class="col-md-9">
+                                <input type="file" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<div class="row">-->
+                            <div class="col-md-11">
+                                <div class="pull-right">
+                                    <button type="button" class="btn_hethi btn-primary">Add</button>
+                                    <button type="button" class="btn_hethi btn-warning">Cancel</button>
+                                </div>
+                            </div>
+                            <!--</div>-->
+                        </div>
+
+                    </form>
+
+
+
+                </accordion-group>
+
+            </accordion>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,100 @@
+<div data-ng-controller="appHomeController">
+    <div class = "col-md-2">
+        <img src ="" height="150" width="150"><br>
+       <H4> CUSTOMER NAME</H4>
+    </div>
+         <div class="col-md-8">
+             <select class="form-control"><option>Customer Name,BPS,Industry,Type</option></select>
+             <div class="col-md-2">
+             </div>
+         </div>
+
+    <div class="col-md-2">
+             </div>
+         </div>
+
+        <div class="col-md-2">
+        <a href="/newsingle">    <button class="btn_hethi btn-default btn-block btn-info" type="button">START</button></a>
+            <div><label></label></div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="leftNav_head">
+        </div>
+    </div>
+<div class="col-md-6">
+    <label style="margin-left: 280px">Cloud plug</label>
+</div>
+<div class="col-md-6">
+    <label style="margin-left: 100px">Capture (define form factory/electronic interface)</label>
+</div>
+<div class="col-md-12" style="margin-top: 20px">
+
+</div>
+<div ng-click="status1=!status1" class="col-md-1 col-md-offset-1 mouse_point text-center" style="color: #ffffff;font-size: 12px;font-weight: bold;
+                border-radius:10px;padding-top:20px; background-color: #59acff;height: 100px;margin-left: 200px" data-toggle="tooltip" title="industry:media">
+    <span ng-class="status1 ? 'fa fa-check-square-o':'fa fa-square-o'" class="fa fa-square-o"></span>
+    Classify customer to EFS Owner
+</div>
+<div ng-click="status2=!status2" class="col-md-1 mouse_point text-center" style="color: #ffffff;font-size: 12px;font-weight: bold;
+                border-radius:10px;padding-top:20px;background-color: #91f3ff;height: 100px;margin-left: 50px" data-toggle="tooltip" title="">
+    <span ng-class="status2 ? 'fa fa-check-square-o':'fa fa-square-o'" class="fa fa-square-o"></span>
+    Classify media to customer
+</div>
+<div ng-click="status3=!status3" class="col-md-1 mouse_point text-center" style="color: #ffffff;font-size: 12px;font-weight: bold;
+                border-radius:10px;padding-top:20px;background-color: #ff86a7;height: 100px;margin-left: 270px" data-toggle="tooltip" title="">
+    <span ng-class="status3 ? 'fa fa-check-square-o':'fa fa-square-o'" class="fa fa-square-o"></span>
+    Classify form bundle
+</div>
+<div ng-click="status4=!status4" class="col-md-1 mouse_point text-center" style="color: #ffffff;font-size: 12px;font-weight: bold;
+                border-radius:10px;padding-top:20px;background-color: #ffa963;height: 100px;margin-left: 50px" data-toggle="tooltip" title="">
+    <span ng-class="status4 ? 'fa fa-check-square-o':'fa fa-square-o'" class="fa fa-square-o"></span>
+    Classify hethi services
+</div>
+<div ng-click="status5=!status5" class="col-md-1 mouse_point text-center" style="color: #ffffff;font-size: 12px;font-weight: bold;
+                border-radius:10px;padding-top:20px;background-color: #99ffa3;height: 100px;margin-left: 50px" data-toggle="tooltip" title="">
+    <span ng-class="status5 ? 'fa fa-check-square-o':'fa fa-square-o'" class="fa fa-square-o"></span>
+    Classify content and transport
+</div>
+<div class="col-md-12" style="margin-top: 50px">
+</div>
+<div class ="col-md-6"><label style="margin-left: 200px">Manage (workflow orchestration)</label>
+</div>
+<div class ="col-md-6"><label style="margin-left: 100px">Deliver (define industry or proprietory outcome)</label>
+</div>
+<div class="col-md-12" style="margin-top: 10px">
+</div>
+<div ng-click="status7=!status7" class="col-md-1 mouse_point text-center" style="color: #ffffff;font-size: 12px;font-weight: bold;
+                border-radius:10px;padding-top:20px;background-color: #d9baff;height: 100px;margin-left:120px" data-toggle="tooltip" title="">
+    <span ng-class="status7 ? 'fa fa-check-square-o':'fa fa-square-o'" class="fa fa-square-o"></span>
+    Data as a service(Daas workflow)
+</div>
+<div ng-click="status8=!status8" class="col-md-1 mouse_point text-center" style="color: #ffffff;font-size: 12px;font-weight: bold;
+                border-radius:10px;padding-top:20px;background-color: #afc1ff;height: 100px;margin-left: 50px" data-toggle="tooltip" title="industry:media">
+    <span ng-class="status8 ? 'fa fa-check-square-o':'fa fa-square-o'" class="fa fa-square-o"></span>
+    Business as a service Baas Workflow
+</div>
+<div ng-click="status9=!status9" class="col-md-1 mouse_point text-center" style="color: #ffffff;font-size: 12px;font-weight: bold;
+                border-radius:10px;padding-top:20px;background-color: #ffa54d;height: 100px;margin-left: 50px" data-toggle="tooltip" title="">
+    <span ng-class="status9 ? 'fa fa-check-square-o':'fa fa-square-o'" class="fa fa-square-o"></span>
+    Integration as service Inaas Workflow
+</div>
+</div>
+<div class ="col-md-6" style="margin-left: 100px">
+    <div ng-click="status10=!status10" class="col-md-2 mouse_point text-center" style="color: #ffffff;font-size: 12px;font-weight: bold;
+                border-radius:10px;padding-top:20px;background-color: #d4baff;height: 100px;margin-left: 80px" data-toggle="tooltip" title="">
+        <span ng-class="status10 ? 'fa fa-check-square-o':'fa fa-square-o'" class="fa fa-square-o"></span>
+        Output as a service (Oaas Workflow)
+    </div>
+    <div ng-click="status11=!status11" class="col-md-2 mouse_point text-center" style="color: #ffffff;font-size: 12px;font-weight: bold;
+                border-radius:10px;padding-top:20px;background-color: #ff75af;height: 100px;margin-left: 60px" data-toggle="tooltip" title="">
+        <span ng-class="status11 ? 'fa fa-check-square-o':'fa fa-square-o'" class="fa fa-square-o"></span>
+        Analytics as a service(Aaas workflow)
+    </div>
+    <div ng-click="status12=!status12" class="col-md-2 mouse_point text-center" style="color: #ffffff;font-size: 12px;font-weight: bold;
+                border-radius:10px;padding-top:20px;background-color: #ffae88;height: 100px;margin-left: 55px" data-toggle="tooltip" title="">
+        <span ng-class="status12 ? 'fa fa-check-square-o':'fa fa-square-o'" class="fa fa-square-o"></span>
+        Storage as a sevice(Staas)
+    </div>
+</div>
+</div>

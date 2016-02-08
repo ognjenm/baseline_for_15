@@ -1,0 +1,114 @@
+<div ng-controller="hethi_freemium_customer_cloud_play_controller" class="margin_top_60">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12">
+                <span style="color: #c7254e;font-size: 20px;font-weight: bold">Customer : {{selectedCustomerData.customer_name}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <span style="font-size: 20px;font-weight: bold">BPS : {{selectedBPS.BPaaS_service}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <span style="font-size: 20px;font-weight: bold">Type : {{selectedBPS.Type}}</span>
+                <!--<a class="pull-right" href="showinvoiceform">Previous</a>-->
+                <!--<a class="pull-right" href="indexdemography">Next</a>-->
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="row col-md-12">
+                    <span style="font-size: 20px;font-weight: bold">Please select data process type</span>
+                </div>
+                <div class="row col-md-6">
+                    <select class="form-control " ng-model="dataProcessType" ng-change="dataProcessTypeChanged(dataProcessType);" ng-options="row as row.form_type_decription_short for row in currentForms">
+
+                    </select>
+                </div>
+
+            </div>
+            <div class="col-md-8">
+                <div class="row col-md-12">
+                    <span style="font-weight: bold;font-size: 20px;color: dodgerblue">
+                        Please select your capture , manage and deliver solutions</span>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="col-md-2 text-center margin-left-0"   ng-repeat="row in hethiServices">
+
+                        <div class="thumbnail" >
+                            <a href="" data-ng-click="serviceBundle[selecteddataProcessTypeIndex][row.hethi_servicecode]=!serviceBundle[selecteddataProcessTypeIndex][row.hethi_servicecode];">
+                                <!--select_business_process($index);" >-->
+                                <img class="img-responsive"  style="width: 100px;height: 100px;" alt="{{row.image_alt_text}}" src="{{row.image_path}}" >
+                            </a>
+                            <div class="caption text-center " ng-class="serviceBundle[selecteddataProcessTypeIndex][row.hethi_servicecode] ? 'tile_active':'tile'" >
+                                <a href="" data-ng-click="serviceBundle[selecteddataProcessTypeIndex][row.hethi_servicecode]=!serviceBundle[selecteddataProcessTypeIndex][row.hethi_servicecode];">
+                                    <!--select_business_process($index);">-->
+                                    <h5>{{row.hethiservices_decription_short}} </h5>
+                                </a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive table-bordered">
+                    <table class="table">
+                        <thead style="background-color: #00304d;color: white">
+                        <tr>
+                            <th ng-repeat="K in keys(serviceBundle[0])">{{K}}</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr ng-repeat="row in serviceBundle" >
+                            <td ng-repeat="K in keys(serviceBundle[0])" >
+                                <div ng-switch="$index">
+                                    <div ng-switch-when="0" class="th">
+                                           <h4>{{row[K]}}</h4>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <div class="form-group">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-line-primary " data-ng-click="row[K]= 'true'" data-ng-model="row[K]" btn-radio="true" style="font-size: 12px"> Yes</button>
+                                                <button type="button" class="btn btn-line-primary " data-ng-click="row[K]= 'false'" data-ng-model="row[K]" btn-radio="false" style="font-size: 12px"> No </button>
+                                            </div>
+                                        </div>
+
+                                        <!--<div ng-switch="row[K]">-->
+                                         <!--<span data-ng-switch-default="" ><h4>{{row[K]}}</h4></span>-->
+                                            <!--<span data-ng-switch-when="true" class="fa fa-check"></span>-->
+                                            <!--<span data-ng-switch-when="false" class="fa fa-times"></span>-->
+                                         <!--</div>   -->
+                                    </div>
+
+                                </div>
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group">
+        <div class="row pull-right">
+            <!--indexdemography-->
+            <a href="" data-ng-click="startCustomizeBusinessProcess()" class="btn btn-primary">customize business process</a>
+        </div>
+
+    </div>
+</div>

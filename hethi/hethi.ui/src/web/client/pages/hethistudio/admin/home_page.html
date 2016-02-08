@@ -1,0 +1,117 @@
+<div data-ng-controller="client_home_Controller">
+
+
+    <div class="" data-ng-controller="hethi_home_Controller">
+        <!--<div class="row">-->
+        <!--<div class="col-sm-3 col-md-2">-->
+        <!--<div class="btn-group">-->
+        <!--<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">-->
+        <!--Mail <span class="caret"></span>-->
+        <!--</button>-->
+        <!--<ul class="dropdown-menu" role="menu">-->
+        <!--<li><a href="#">Mail</a></li>-->
+        <!--<li><a href="#">Contacts</a></li>-->
+        <!--<li><a href="#">Tasks</a></li>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <div class="row">
+            <div class="col-sm-3 col-md-2">
+                <!--<a href="#" class="btn btn-danger btn-sm btn-block" role="button"><i class="glyphicon glyphicon-edit"></i> </a>-->
+                <div class="leftNav_head">{{loginedUserData.businessname}}</div>
+                <ul class="nav nav-boxed tabbable ver-vertical-menu">
+                    <div class="leftNav_head"></div>
+                    <li class="" ng-class="clientTabList.dashboard"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('dashboard')">Dashboard</a></li>
+                    <div class="leftNav_head"> Queues </div>
+                    <div class="leftNav_head"> </div>
+                    <li class="" ng-class="clientTabList.in"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('in')">In</a></li>
+                    <li class="" ng-class="clientTabList.hold"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('hold')">Hold</a></li>
+                    <li class="" ng-class="clientTabList.complete"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('complete')">Complete</a></li>
+                    <div class="leftNav_head"> Configure </div>
+                    <div class="leftNav_head"> </div>
+                    <li class="" ng-class="clientTabList.capture"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('capture')">Capture</a></li>
+                    <li class="" ng-class="clientTabList.manage"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('manage')">Manage</a></li>
+                    <li class="" ng-class="clientTabList.deliver"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('deliver')">Deliver</a></li>
+                    <div class="leftNav_head"> Task </div>
+                    <div class="leftNav_head"> </div>
+                    <li class="" ng-class="clientTabList.extract"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('extract')">Extract</a></li>
+                    <li class="" ng-class="clientTabList.preview"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('preview')">Preview</a></li>
+                    <li class="" ng-class="clientTabList.upload"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('upload')">Upload</a></li>
+                    <div class="leftNav_head"> Reports </div>
+                    <div class="leftNav_head"> </div>
+                    <li class="" ng-class="clientTabList.documents"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('documents')">Documents</a></li>
+                    <li class="" ng-class="clientTabList.registration"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('registration')">Registration</a></li>
+                    <div class="leftNav_head"></div>
+
+
+                </ul>
+
+            </div>
+            <div class="col-sm-9 col-md-10" data-ng-switch="clientTab">
+
+                <!--dashboard-->
+
+                <div data-ng-switch-when="dashboard">
+                    <div data-ng-include="'pages/customer/dashboard.html'"></div>
+                </div>
+
+
+                <!--queues-->
+
+
+                <div data-ng-switch-when="in">
+                    <div data-ng-include="'pages/customer/queues/in.html'"></div>
+                </div>
+                <div data-ng-switch-when="hold">
+                    <div data-ng-include="'pages/customer/queues/hold.html'"></div>
+                </div>
+                <div data-ng-switch-when="complete">
+                    <div data-ng-include="'pages/customer/queues/complete.html'"></div>
+                </div>
+
+
+                <!--Configure-->
+
+                <div data-ng-switch-when="capture">
+                    <div data-ng-include="'pages/customer/configure/capture.html'"></div>
+                </div>
+                <div data-ng-switch-when="manage">
+                    <div data-ng-include="'pages/customer/configure/manage.html'"></div>
+                </div>
+                <div data-ng-switch-when="deliver">
+                    <div data-ng-include="'pages/customer/configure/deliver.html'"></div>
+                </div>
+
+                <!--Task-->
+
+                <div data-ng-switch-when="extract">
+                    <div data-ng-include="'pages/customer/task/extract.html'"></div>
+                </div>
+                <div data-ng-switch-when="preview">
+                    <div data-ng-include="'pages/customer/task/preview.html'"></div>
+                </div>
+                <div data-ng-switch-when="upload">
+                    <div data-ng-include="'pages/customer/task/upload.html'"></div>
+                </div>
+
+
+                <!--reports-->
+
+                <div data-ng-switch-when="documents">
+                    <div data-ng-include="'pages/customer/reports/documents.html'"></div>
+                </div>
+                <div data-ng-switch-when="registration">
+                    <div data-ng-include="'pages/customer/reports/registration.html'"></div>
+                </div>
+                <div data-ng-switch-default>
+                    <div data-ng-include="'pages/customer/dashboard.html'"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

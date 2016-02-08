@@ -1,0 +1,94 @@
+<div>
+<div class="row" >
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1" ng-repeat="menu in menuItems">
+            <div class="text-center margin-bottom-30">
+                <a href=""> <button type="button" class="btn_hethi btn-primary text-small minHeight85" ng-class="menu.isActive"> {{menu.menu_name}} </button>
+                </a></div>
+        </div>
+    </div>
+</div>
+<!--<div class="col-md-2">-->
+
+        <!--<div class="col-md-12" style="font-size: 16px;background-color: rgba(8, 160, 255, 0.13);border-radius: 10px;padding-top:5px;padding-bottom:5px;margin-bottom: 10px"; ><a href="#" data-ng-click="process=!process">PROCESS</a>-->
+        <!--<div style="background-color: rgba(0, 219, 255, 0.12);margin-bottom: 5px;border-radius: 3px"><a href="#" data-toggle="" ng-show="process" data-ng-click="">Process1</a></div>-->
+        <!--<div style="background-color: rgba(0, 219, 255, 0.12);margin-bottom: 5px;border-radius: 3px"><a href="#" data-toggle="" ng-show="process"data-ng-click="">Process2</a></div>-->
+        <!--<div style="background-color: rgba(0, 219, 255, 0.12);margin-bottom: 5px;border-radius: 3px"><a href="#" data-toggle="" ng-show="process"data-ng-click="">Process3</a></div></div>-->
+        <!--<div class="col-md-12" style="font-size: 16px;background-color: rgba(8, 160, 255, 0.13);border-radius: 10px;margin-bottom: 10px" ><a href="#" data-toggle="" data-ng-click="rules=!rules">RULES</a>-->
+        <!--<div style="background-color: rgba(0, 219, 255, 0.12);margin-bottom: 5px;border-radius: 3px"><a href="#" data-toggle="" ng-show="rules" data-ng-click="">Rule1</a></div>-->
+        <!--<div style="background-color: rgba(0, 219, 255, 0.12);margin-bottom: 5px;border-radius: 3px"><a href="#" data-toggle="" ng-show="rules"data-ng-click="">Rule2</a></div>-->
+        <!--<div style="background-color: rgba(0, 219, 255, 0.12);margin-bottom: 5px;border-radius: 3px"><a href="#" data-toggle="" ng-show="rules"data-ng-click="">Rule3</a></div></div>-->
+    <!--</div>-->
+
+<!--</div>-->
+<!--<div class="col-md-8">-->
+
+<!--</div>-->
+
+
+
+    <div class="col-md-12">
+        <div>
+
+
+            <div id="sample" >
+                <div style="width:100%; white-space:nowrap;">
+    <!--<span style="display: inline-block; vertical-align: top; padding: 5px; width:100px">-->
+      <!--<div id="myPalette" style="border: solid 1px gray; height: 720px"></div>-->
+    <!--</span>-->
+                    <span style="display: inline-block; vertical-align: top; padding: 5px;">
+      <div id="palettezone" class="palettezone" ng-init="palette();">
+          <div class="draggable" id="draggableProcess{{$index}}" drag-value="{{item}}" ng-repeat="item in processes" draggable="true">
+              {{item.name}}
+          </div>
+          <div class="draggable" id="draggableRule{{$index}}" drag-value="{{item}}" ng-repeat="item in Rules" draggable="true">
+              {{item.name}}
+          </div>
+      </div>
+    </span>
+
+    <span style="display: inline-block; vertical-align: top; padding: 5px; width:80%">
+      <div class="dropzone" id="myDiagram" style="border: solid 1px gray; height: 720px"></div>
+    </span>
+                </div>
+                <input id="remove" type="checkbox"><label for="remove">Remove HTML item after drag</label>
+
+                <button id="SaveButton" data-ng-click="save()">Save</button>
+                <button data-ng-click="load()">Load</button>
+  <textarea ng-model="mySavedModel" style="width:100%;height:300px">
+
+  </textarea>
+
+                <button data-ng-click="makeSVG()">Render as SVG</button>
+                <div id="SVGArea"></div>
+            </div>
+
+        </div>
+        <a href="/define_output">
+        <button class="btn btn-info" >Define output <span class="fa fa-forward"></span></button>
+        </a>
+    </div>
+    <!--<canvas id="canvas1" width="500" height="500"></canvas>-->
+
+    <!--<script>-->
+        <!--var can = document.getElementById('canvas1');-->
+        <!--var ctx = can.getContext('2d');-->
+
+
+        <!--var img = new Image();-->
+        <!--img.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOsAAABQAQMAAADCyRAgAAAABlBMVEUAAADT09OfZycUAAAAAXRSTlMAQObYZgAAAjtJREFUSMft1DFv00AUB/DnYBFbLGe3IkFKLZ+pRAcELWOUSlfX1GajIyNMsKXCg1mqS3QotmQFe0BigYGRiY8QxNKRTiwMbjqxIaZucHdxSaU6jVSQkApv8ZN+ku/uf6cH8BerPgJ/xL8UjCrWbAhsyaiKkVEEdqcfZS/WrVsVXEMBuH2WZTleq2QfXE/NaI5xBX9HpNj1Otmgmk1EbLLiZfEMXgw4y7UrWHM4uyjN80qufzgcjDooHA5fWxj+1x8pVQEURdGljyNKN0CRL4rAETwurwToKmNMXcY9+vCYFRXikrv0vmSnT7et25+dG4OBr6jPfhidBwW/75ggzrBsU7qN15pvV4JgrwcsMdxH/FeIEpSmkeR7GKOXAS8oWPyu5pYchgy8E+xDi7O1+W3Cqvq8YJzvlkyoytlx4ZiZop7knmBXMt9aHLOa4E3OcSy2xtnbkmt3Cep2o/qhiMXCn+IBPxgcRUOvvVHIWM4KdQ7zzP/JQkS7DFAjSC9fkshi2jaJpnEGpMCvgNRpu+i/saL3bX/9yc6V/XFh3WxcjUL2lLe41eEcBBobbQV5kujmAsKrzVcsZYloxXswBVM3MHRdN02EbZTxl9mT7ZT9Cm7tAhgTJvlprpG5jPYE863pyTXJzYylacLb62JryB9qEW37S3r36/4YWXYDRWG4w9slcbDTMc5J+bf4QhU5LzfkIIOD8ZdKLgeZuXCnOmI5yJSa6cxm/2wmvfPyZJCZM1kMMu1g7Fysm/4JnKzTuTHtBGAAAAAASUVORK5CYII%3D";-->
+
+        <!--img.onload = function() {-->
+            <!--ctx.drawImage(img, 0, 0);-->
+        <!--}-->
+<!--//        var canvas = document.getElementById("myDiagram");-->
+        <!--var ctx = can.getContext("2d");-->
+        <!--ctx.moveTo(0, 0);-->
+        <!--ctx.lineTo(200, 100);-->
+        <!--ctx.stroke();-->
+        <!--ctx.fill();-->
+    <!--</script>-->
+
+</div>
+

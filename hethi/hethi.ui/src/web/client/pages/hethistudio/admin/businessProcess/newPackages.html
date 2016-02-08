@@ -1,0 +1,102 @@
+<div class="row">
+    <div id="newPackages" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <div>
+                    <div class="modal-header modal-head-bg-default">
+                        <span class="fa fa-close white-c pull-right mouse_point" data-dismiss="modal" aria-hidden="true"></span>
+
+                        <h4 class="modal-title text-center">New Packages</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-body panel">
+
+                            <section >
+                                <form data-ng-submit="savePackage(package)" class="form-horizontal text-center form-validation" name="form_constraints" >
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label" id="label1"> Package Name * </label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control" type="text" data-ng-model="package.name">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label">Description
+                        <span class="required">
+														 *
+													</span>
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <textarea class="form-control" rows="2" ng-model="package.description"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-5 control-label">Package By Cloning</label>
+                                                <div class="col-md-3">
+                                                    <label class="radio-inline"><input type="radio" data-ng-click="changeRadioStatus(1)"  name="optradio">Yes</label>
+                                                    <label class="radio-inline"><input type="radio" data-ng-click="changeRadioStatus(0)" checked name="optradio">No</label>
+                                                    <!--<input type="radio" class="" name="option" ng-model="package.option"> Yes &nbsp;&nbsp;-->
+                                                    <!--<input type="radio" name="option" ng-model="package.option"> No-->
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-show="showPackage">
+                                                <label class="col-md-5 control-label">Cloning Package * </label>
+                                                <div class="col-md-7">
+                                                    <select class="form-control" ng-model="package.cloning">
+                                                        <option value="">--select any package--</option>
+                                                        <option ng-repeat="packages in packageList" value="{{packages.rule_package_id}}">{{packages.rule_package_name}}</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!--<div class="form-group">-->
+                                                <!--<label class="col-md-5 control-label">Type</label>-->
+                                                <!--<div class="col-md-7">-->
+                                                    <!--<select class="form-control" ng-model="package.type">-->
+                                                        <!--<option>Single Hit</option>-->
+                                                        <!--<option>Multi Hit</option>-->
+                                                    <!--</select>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="form-group">-->
+                                                <!--<label class="col-md-5 control-label">Process * </label>-->
+                                                <!--<div class="col-md-7">-->
+                                                    <!--<select class="form-control" ng-model="package.process">-->
+                                                        <!--<option>Customer credit application process</option>-->
+                                                        <!--<option>Customer Application Process</option>-->
+                                                    <!--</select>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+
+
+                                            <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <div class="pull-right">
+                                                        <button type="submit" class="btn-primary btn_hethi">Save</button>
+                                                        <button type="button" data-dismiss="modal" aria-hidden="true" class="btn_hethi btn-warning" data-ng-click="clearTest()">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+
+                                    </div>
+
+                                </form>
+                            </section>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,169 @@
+<div class="text-lowercase">
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center">
+
+                <button type="button" class="btn_hethi btn-success btn_wizard" data-ng-click="selectRFI(1)">{{BPaasService}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectRFI(2)">{{localeMangement}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectRFI(3)">{{OrganisationStructure}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectRFI(4)">{{serviceLevelAgreement}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectRFI(5)">{{complaince}}</button>
+
+            </div>
+        </div>
+    </div>
+    <hr>
+
+   <div class="panel-body">
+       <div class="row" >
+           <div class="col-md-3" >
+               <select class="select_center form-control input-hethi input-md">
+                   <option value="0"> form type </option>
+                   <option>option 1</option>
+                   <option>option 2</option>
+               </select>
+           </div>
+           <div class="col-md-9">
+               <div class="row">
+                   <div class="col-md-2">
+                       <div class="btn_wizard_2">
+                           capture
+
+                       </div>
+                       <div class="form-group text-center">
+                           <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" checked type="checkbox" id="remember" ><span></span></label>
+
+                       </div>
+
+                   </div>
+                   <div class="col-md-2">
+                       <div class="btn_wizard_2">
+                           workflow
+                       </div>
+                       <div class="form-group text-center">
+                           <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+
+                       </div>
+                   </div>
+                   <div class="col-md-2">
+                       <div class="btn_wizard_2">
+                           output
+                       </div>
+                       <div class="form-group text-center">
+                           <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+
+                       </div>
+                   </div>
+                   <div class="col-md-2">
+                       <div class="btn_wizard_2">
+                           integrate
+                       </div>
+                       <div class="form-group text-center">
+                           <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+
+                       </div>
+                   </div>
+                   <div class="col-md-2">
+                       <div class="btn_wizard_2">
+                           storage
+                       </div>
+                       <div class="form-group text-center">
+                           <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+
+                       </div>
+                   </div>
+                   <div class="col-md-2">
+                       <div class="btn_wizard_2">
+                           analytics
+                       </div>
+                       <div class="form-group text-center">
+                           <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+
+                       </div>
+                   </div>
+               </div>
+
+           </div>
+       </div>
+
+       <div class="row" style="border-top: 1px solid #2A6497;padding-top: 20px;">
+           <div class="col-md-offset-1 col-md-10">
+               <div class="panel panel-info ng-scope">
+                   <div class="panel-heading text-center">
+                       capture services
+                   </div>
+                   <div class="panel-body">
+                       <div class="table-responsive">
+                           <table class="table table-bordered table-striped">
+                               <thead class="thead-bg">
+                               <tr>
+                                   <td class="text-center">
+                                       form type
+                                   </td>
+
+                                   <td class="text-center">
+                                       capture
+                                   </td>
+                                   <td class="text-center">
+                                       manage
+                                   </td>
+                                   <td class="text-center">
+                                       deliver
+                                   </td>
+                                   <td class="text-center">
+                                       integrate
+                                   </td>
+                                   <td class="text-center">
+                                       storage
+                                   </td>
+                                   <td class="text-center">
+                                       analytics
+                                   </td>
+                               </tr>
+                               </thead>
+                               <tbody>
+                               <tr data-ng-repeat="form in bpaasData">
+                                   <td>
+                                       {{form.name}}
+                                   </td>
+                                   <td class="text-center">
+                                       <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                   </td>
+                                   <td class="text-center">
+                                       <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                   </td>
+                                   <td class="text-center">
+                                       <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                   </td>
+                                   <td class="text-center">
+                                       <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                   </td>
+                                   <td class="text-center">
+                                       <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                   </td>
+                                   <td class="text-center">
+                                       <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                   </td>
+
+                               </tr>
+                               </tbody>
+                           </table>
+                       </div>
+
+                       <div class="divider"></div>
+                       <div class="row">
+                           <div class="col-md-12">
+                               <div class="pull-right">
+                                   <button type="button" class="btn_hethi btn-w-md blue">save</button>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+
+</div>

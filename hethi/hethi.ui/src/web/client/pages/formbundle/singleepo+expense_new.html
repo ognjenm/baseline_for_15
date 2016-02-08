@@ -1,0 +1,141 @@
+<script>
+        function allowDrop(ev) {
+            angular.element(document.querySelector('[ng-controller="uploadedfile_path_controller"]')).scope().allowDrop(ev);
+//        ev.preventDefault();
+        }
+        function drag(ev,index) {
+            angular.element(document.querySelector('[ng-controller="uploadedfile_path_controller"]')).scope().drag(ev,index);
+
+//           ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            angular.element(document.querySelector('[ng-controller="uploadedfile_path_controller"]')).scope().drop(ev);
+
+//            ev.preventDefault();
+//            var data = ev.dataTransfer.getData("text");
+
+//            ev.target.appendChild(document.getElementById(data));
+        }
+
+        var container = document.getElementById("wrapper");
+
+        for (var i=1; i <= 6; i++)
+        {
+            // var newImage = '<img src="loop.gif" alt="" />';
+            var newImage = ' <div id="drag1" class="col-md-12"  draggable="true" ondragstart="drag(event)"><img src="{{pathList['+i+'].image_path}}"draggable="false" height="75" width="75"style="margin-top: 10px"> <br> <label style="margin-bottom: 0px">Inventory</label> </div>';
+            container.innerHTML += newImage;
+        }
+    </script>
+<div ng-controller="uploadedfile_path_controller">
+    <div class="col-md-10">
+        <label>Customers:test </label>
+    </div>
+    <div class="col-md-2">
+        <a class="btn btn-danger" href="/artisthome" >INBOX</a>
+    </div>
+    <div class="col-md-6">
+        <label>BPS:</label>
+    </div>
+    <div class="col-md-6">
+        <label>Type:</label>
+    </div>
+    <div class="col-md-12">
+        <div class="leftNav_head"></div>
+    </div>
+    <hr>
+
+    <hr>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-3" style="border-right: 1px solid lightgray">
+                <ul class="nav nav-boxed tabbable ver-vertical-menu">
+                    <li ng-class="inventory ? 'active':''"><a href="#" data-toggle="invtab" data-ng-click="selectTab('inventory')">PO+Inventory</a></li>
+                    <li ng-class="expense ? 'active':''"><a href="#" data-toggle="invtab" data-ng-click="selectTab('expense')">PO+Expense</a></li>
+                    <li ng-class="aspects ? 'active':''"><a href="#" data-toggle="invtab" data-ng-click="selectTab('aspecs')">NPO+NPO</a></li>
+                    <li ng-class="volume ? 'active':''"><a href="#" data-toggle="invtab" data-ng-click="selectTab('volume')">NPO+Travel&Expenses</a></li>
+                    <li ng-class="delivery ? 'active':''"><a href="#" data-toggle="invtab" data-ng-click="selectTab('delivery')">NPO+Travel&Reimbursement</a></li>
+                    <li ng-class="compliance ? 'active':''"><a href="#" data-toggle="invtab" data-ng-click="selectTab('compliance')">NPO+Utility Bills</a></li>
+                    <li ng-class="checkreq ? 'active':''"><a href="#" data-toggle="invtab" data-ng-click="selectTab('checkreq')">NPO+CheckRequest</a></li>
+
+                    <!--<li><a href="#" data-toggle="tab" data-ng-click="selectTab('custome')">Add any custome</a></li>-->
+
+                </ul>
+            </div>
+            <!--{{pathList}}-->
+            {{lst}}
+            <div class="col-md-9 panel-body">
+                <div ng-switch="invtab">
+                    <div ng-switch-when="inventory">
+                        <div id="wrapper" class="col-md-4"style="border: solid">
+                            <div  class="col-md-12" ondrop="drop(event)" draggable="false">
+                                <label style="margin-bottom: 20px">Forms Uploaded</label>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4"style="margin-left: 10px;border: solid;height: 610px">
+                            <div class="col-md-12">
+                                <label style="margin-bottom: 20px">Drag here to regroup</label>
+                            </div>
+                            <div id="drag0" class="col-md-12"style="background-color: #e6e6e6;height: 105px;margin-top: 0px"ng-repeat="row in lst" ondragover="allowDrop(event)" ondragstart="drag(event)" ondrop="drop(event)"></div>
+                            <div class="col-md-12"style="background-color: #e6e6e6;height: 105px;margin-top: 7px" ondragover="allowDrop(event)" ondragstart="drag(event)" ondrop="drop(event)"></div>
+
+                            <div class="col-md-4"style="margin-top: 30px;margin-left: 10px">
+                                <a href="/formbundle_thankyoubartist" > <button class="btn_hethi btn-default btn-block" type="button">Group</button></a>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="col-md-12">
+                                <label>PO+Inventory</label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>PO+Inventory+attachment</label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>NPO+Travel&Reimb</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-switch-when="expense">
+
+                        <div class="col-md-4"style="border: solid">
+                            <div  class="col-md-12" ondrop="drop(event)" draggable="false">
+                                <label style="margin-bottom: 20px">Forms Uploaded</label>
+                            </div>
+                            <div id="drag{{$index}}" class="col-md-12"  ng-repeat="row in pathList" draggable="true" ondragstart="drag(event,{{$index}});">
+                                <img src="{{row.file_location}}"height="75" width="75"style="margin-top: 10px">
+                                <br>
+                                <label style="margin-bottom: 0px">{{row}}</label>
+                            </div>
+                         </div>
+                        <div class="col-md-4"style="border: solid;margin-left: 10px">
+                            <div class="col-md-12">
+                                <label style="margin-bottom: 20px">Drag here to regroup</label>
+                            </div>
+                            <div id="drag1s" class="col-md-12"style="background-color: #e6e6e6;height: 105px;margin-top: 0px" ondragover="allowDrop(event)" ondragstart="drag(event)" ondrop="drop(event)"></div>
+                            <div class="col-md-12"style="background-color: #e6e6e6;height: 105px;margin-top: 7px" ondragover="allowDrop(event)" ondragstart="drag(event)" ondrop="drop(event)"></div>
+                            <div class="col-md-12"style="background-color: #e6e6e6;height: 105px;margin-top: 7px" ondragover="allowDrop(event)" ondragstart="drag(event)" ondrop="drop(event)"></div>
+                            <div class="col-md-12"style="background-color: #e6e6e6;height: 105px;margin-top: 7px" ondragover="allowDrop(event)" ondragstart="drag(event)" ondrop="drop(event)"></div>
+                            <div class="col-md-12"style="background-color: #e6e6e6;height: 105px;margin-top: 7px" ondragover="allowDrop(event)" ondragstart="drag(event)" ondrop="drop(event)"></div>
+
+                            <div class="col-md-4"style="margin-top: 10px;margin-left: 10px">
+                                <a href="/formbundle_thankyoubartist" > <button class="btn_hethi btn-default btn-block" type="button">Group</button></a>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="col-md-12">
+                                <label>PO+Expense</label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>PO+Expense+attachment</label>
+                            </div>
+                            <div class="col-md-12">
+                                <label>NPO+Travel&Reimb</label>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

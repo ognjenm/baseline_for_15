@@ -1,0 +1,96 @@
+<div class="" data-ng-controller="generateRFI_Controller">
+
+
+
+
+    <section class="freemium_section">
+        <div id="demo" style="margin-top: 7%">
+        <!--<div id="demo" class="center_div">-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div id="owl-demo" class="owl-carousel">
+                            <div class="item owlbox-main dodgerBlue" data-ng-click="showRFIscreen();">
+                                <div class="">
+                                    services & delivery
+                                </div>
+                            </div>
+                            <div class="item dodgerBlue owlbox-main">
+                                <div class="">
+                                    platform as a service
+                                </div>
+                            </div>
+                            <div class="item dodgerBlue owlbox-main">
+                                <div class="">
+                                    infrastructure as a service
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+<section  id="freemium_scroll_1" >
+
+
+    <div style="min-height: 475px" ng-show="platform_as_services" data-ng-switch="rfiTab" class="margin-top-10 ">
+
+
+        <div data-ng-switch-when="1">
+            <div data-ng-include="'pages/roles/user/freemium/rfi_form/capture.html'"></div>
+        </div>
+        <div data-ng-switch-when="2">
+            <div data-ng-include="'pages/roles/user/freemium/rfi_form/workflow.html'"></div>
+        </div>
+        <div data-ng-switch-when="3">
+            <div data-ng-include="'pages/roles/user/freemium/rfi_form/output.html'"></div>
+        </div>
+        <div data-ng-switch-when="4">
+            <div data-ng-include="'pages/roles/user/freemium/rfi_form/integrate.html'"></div>
+        </div>
+        <div data-ng-switch-when="5">
+            <div data-ng-include="'pages/roles/user/freemium/rfi_form/storage.html'"></div>
+        </div>
+        <div data-ng-switch-when="6">
+            <div data-ng-include="'pages/roles/user/freemium/rfi_form/analytics.html'"></div>
+        </div>
+
+    </div>
+
+    <!---->
+
+    <div style="min-height: 475px" ng-show="services_and_delivery" data-ng-switch="rfiTab" class="margin-top-10 ">
+
+
+        <div data-ng-switch-when="1">
+            <div data-ng-include="'pages/roles/user/freemium/rfi_form/BPaaS_Service.html'"></div>
+        </div>
+        <div data-ng-switch-when="2">
+            <div data-ng-include="'pages/roles/user/freemium/rfi_form/locale_management.html'"></div>
+        </div>
+        <div data-ng-switch-when="3">
+            <div data-ng-include="'pages/roles/user/freemium/rfi_form/organization_structure.html'"></div>
+        </div>
+        <div data-ng-switch-when="4">
+            <div data-ng-include="'pages/roles/user/freemium/rfi_form/service_level_agreement.html'"></div>
+        </div>
+        <div data-ng-switch-when="5">
+            <div data-ng-include="'pages/roles/user/freemium/rfi_form/complaince.html'"></div>
+        </div>
+
+
+    </div>
+</section>
+
+
+
+
+</div>

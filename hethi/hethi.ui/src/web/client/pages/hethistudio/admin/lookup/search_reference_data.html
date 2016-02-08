@@ -1,0 +1,171 @@
+<div data-ng-controller="admin_lookup_controller">
+
+    <div class="panel panel-default table-dynamic">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Search Reference Data</strong></div>
+        <div class="panel-body">
+            <div class="divider"></div>
+
+            <form data-ng-submit="showTable()">
+
+                <div class="row">
+
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <select required="" ng-model="customer" class="form-control input-hethi">
+                                <option value="">--Select a Customer--</option>
+                                <option ng-repeat="customers in loadCustomerName" value="{{customers.customer_id}}">{{customers.customer_name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <select required="" ng-model="lookup" class="form-control input-hethi">
+                                <option value="">--Select Lookup Type--</option>
+                                <option>VendorMaster</option>
+                                <option>LawsonPO</option>
+                                <option>GL</option>
+                                <option>Employee</option>
+                                <option>ApprovalGrid</option>
+                                <option>InvoiceHistory</option>
+                                <option>MA540_H_Record_PO</option>
+
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <button type="submit" class="btn_hethi btn-primary"><i class="fa fa-table"></i> Show Table</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </form>
+
+            <div class="divider-md"></div>
+
+            <div class="row" ng-show="tableExists">
+
+                <div class="col-md-12 text-center">
+                    <span class="h4" id="choicesDisplay"><i class="fa fa-info-circle"></i> Select any column(s) to add criteria for searching reference data</span>
+                </div>
+
+            </div>
+
+            <div class="row" ng-hide="tableExists">
+
+                <div class="col-md-12 text-center">
+                    <span class="h4 messageDisplay"><i class="fa fa-info-circle"></i> No table is exist for your request</span>
+                </div>
+
+            </div>
+
+            <div class="divider-lg"></div>
+
+               <form ng-show="tableExists" data-ng-submit="showReferenceData()">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-responsive">
+                                    <thead style="background-color: #000000;color: #ffffff">
+                                    <tr>
+
+                                        <th class="text-center" ng-repeat="meta in metaData">
+                                            <div class="th">
+                                               Column {{$index+1}}
+                                            </div>
+                                        </th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="text-center" >
+
+                                        <td class="h5" ng-repeat="meta in metaData">{{meta.column}}</td>
+                                    </tr>
+                                    <tr class="text-center">
+
+                                        <td class="h5" ng-repeat="meta in metaData">
+                                            <label class="control-label ui-checkbox">
+                                                <input name="checkbox1" ng-click="showText($index)" type="checkbox">
+                                                <span>
+                                                    Criteria {{$index+1}}
+                                                </span>
+                                            </label>
+                                            <!--<input type="checkbox" ng-click="showText($index)"> -->
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="inputBoxes.length > 0" class="text-center">
+
+                                        <td  ng-repeat="meta in metaData">
+                                            <input ng-if="meta.hideText" class="control-label" ng-model="meta.textData"  type="text">
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button class="btn_hethi btn-primary" type="submit"><i class="fa fa-search"></i> Search Data</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            <div ng-show="result" class="margin-top-50">
+
+                <div class="row" ng-hide="isExist">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr style="background-color: #2498BA;color: #ffffff">
+                                    <th class="text-center" ng-repeat="data in metaData">
+                                        <div class="th">
+                                            {{data.column}}
+                                        </div>
+                                    </th>
+                                </tr>
+
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="rows in referenceData">
+                                    <td class="text-center" ng-repeat="data in rows">{{data.column}}</td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-show="isExist">
+                    <div class="col-md-12">
+                        <div class="messageDisplay">
+                            <span class="h4"><i class="fa fa-info-circle"></i> No Data is available..</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>

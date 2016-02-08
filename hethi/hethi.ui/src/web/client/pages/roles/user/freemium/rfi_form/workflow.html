@@ -1,0 +1,167 @@
+<div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center">
+                <!--<button type="button" class="btn_hethi btn-primary btn_wizard">Configure Data Service</button>-->
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectRFI(1)">{{configDataService}}</button>
+                <button type="button" class="btn_hethi btn-success btn_wizard" data-ng-click="selectRFI(2)">{{customiseWorkflow}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectRFI(3)">{{DefineOutput}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectRFI(4)">{{ErpIntegration}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectRFI(5)">{{DefineStorage}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectRFI(6)">{{DefineAnalytics}}</button>
+
+
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-control input-hethi input-md">
+                                <option value="0">-- form type --</option>
+                                <option>form 1</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="divider-md"></div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-info ng-scope">
+                        <div class="panel-heading text-center">
+
+                          workflow services
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-3 col-md-3">
+
+                                    <div class="leftNav_head_menu_process_head mouse_point" data-ng-click="showRules()">
+                                        <span class="text-center">rules</span><span class="pull-right " ng-class="rules ? 'fa fa-chevron-up': 'fa fa-chevron-down'"></span>
+                                    </div>
+                                    <div class="leftNav_head_menu_process" ng-show="rules">
+                                        <span class="text-center">dfgdg</span>
+                                    </div>
+                                    <div class="leftNav_head_menu_process_head mouse_point" data-ng-click="showQueues()">
+                                        <span class="text-center">queues</span><span class="pull-right " ng-class="queues ? 'fa fa-chevron-up': 'fa fa-chevron-down'"></span>
+                                    </div>
+
+                                    <div class="draggable leftNav_head_menu_rules" ng-show="queues">
+                                       dfgdg
+                                    </div>
+                                </div>
+
+                                <div class="col-md-9 col-sm-9">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="thead-bg">
+                                                <tr>
+                                                    <td class="">
+                                                        sl#
+                                                    </td>
+                                                    <td>
+                                                        classification
+                                                    </td>
+                                                    <td>
+                                                        action
+                                                    </td>
+                                                    <td>
+                                                        role
+                                                    </td>
+                                                    <td class="text-center">
+                                                        approve
+                                                    </td>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="">
+                                                    1
+                                                </td>
+                                                <td>
+                                                    PO # not found
+                                                </td>
+                                                <td>
+                                                    reject to business owner
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                                <td class="text-center">
+                                                    <!--<label class=" ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" >-->
+                                                        <!--<span></span>-->
+                                                    <!--</label>-->
+                                                    <button type="button" class="btn btn-info btn-xs">approve</button>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="">
+                                                    2
+                                                </td>
+                                                <td>
+                                                    no exception
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="">
+                                                    3
+                                                </td>
+                                                <td>
+                                                    exceptions & routing
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

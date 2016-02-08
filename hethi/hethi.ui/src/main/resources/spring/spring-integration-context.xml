@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/mail http://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:util="http://www.springframework.org/schema/util">
+    
+    <context:property-placeholder location="classpath:emailConfiguration.properties" ignore-unresolvable="true"/>
+	<int:channel id="receiveChannel">  
+    </int:channel>
+    
+	<!-- replace 'userid and 'password' wit the real values -->
+	<int-mail:inbound-channel-adapter id="inboundChannel"
+	                    store-uri="pop3://${email}@pop.gmail.com/INBOX"
+			            channel="receiveChannel"
+			            should-delete-messages="false"
+			            java-mail-properties="javaMailProperties">
+			<!-- Will poll every 10 seconds -->
+			<int:poller max-messages-per-poll="1"  fixed-delay="10000" />
+
+	</int-mail:inbound-channel-adapter>
+	
+    <int:service-activator ref="referedBean" input-channel="receiveChannel" output-channel="handleFileChannel" method="downloadEmailAttachments">
+    </int:service-activator>
+    
+    <int:service-activator ref="referedBean" input-channel="handleFileChannel" output-channel="routerSelection" method="handleFile">
+        
+    </int:service-activator>
+    
+    <!-- routes to the different services based on the header value -->
+    <int:header-value-router input-channel="routerSelection" header-name="fileType">
+        <int:mapping value="zip" channel="unzipChannel"/>
+        <int:mapping value="single" channel="fileStoreChannel"/>
+        <int:mapping value="correpted" channel="exceptionChannel"/>
+        <int:mapping value="rar" channel="extractChannel"/>
+    </int:header-value-router>
+    <int:service-activator ref="referedFTPBean" input-channel="extractChannel" output-channel="fileStoreChannel"  method="extractArchive">
+    </int:service-activator>
+    <int:service-activator ref="referedFTPBean" input-channel="unzipChannel" output-channel="fileStoreChannel"  method="unzipFile">
+    </int:service-activator>
+    <int:service-activator ref="referedFTPBean" input-channel="fileStoreChannel" output-channel="router2selection" method="saveFile">
+    </int:service-activator>
+     <!-- routes to the different services based on the header value -->
+    <int:header-value-router input-channel="router2selection" header-name="fileType">
+        <int:mapping value="zip" channel="listFolderChannel"/>
+        <int:mapping value="single" channel="fileDetailsStoreChannel"/>
+        <int:mapping value="rar" channel="listFolderChannel"/>
+    </int:header-value-router>
+    <int:service-activator ref="referedFTPBean" input-channel="listFolderChannel" output-channel="successChannel" method="listFolderContents">
+    </int:service-activator>
+    <int:service-activator ref="referedFTPBean" input-channel="fileDetailsStoreChannel" output-channel="successChannel" method="saveFileDetails">
+    </int:service-activator>
+    <int:service-activator ref="referedFTPBean" input-channel="successChannel"  method="successMethod">
+    </int:service-activator>
+    <int:service-activator ref="referedFTPBean" input-channel="exceptionChannel"  method="handleException">
+    </int:service-activator>
+     <int:service-activator ref="referedFTPBean" input-channel="waitingChannel"  method="waitForNewFile">
+    </int:service-activator>
+    <bean id="referedBean" class="com.hethi.adapters.EMAIL">
+    </bean>
+    <bean id="referedFTPBean" class="com.hethi.adapters.FTP">
+    </bean>
+   
+    	
+
+	<util:properties id="javaMailProperties">
+		<prop key="mail.pop3.socketFactory.fallback">false</prop>
+		<prop key="mail.debug">true</prop>
+		<prop key="mail.pop3.port">995</prop>
+		<prop key="mail.pop3.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+		<prop key="mail.pop3.socketFactory.port">995</prop>
+	</util:properties>
+</beans>

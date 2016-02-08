@@ -1,0 +1,108 @@
+<div data-ng-controller="delegationController">
+
+
+    <!--<div class="heading_arrow">-->
+        <!--<div class="container">-->
+            <!--<div class="row">-->
+                <!--<div class="col-md-12">-->
+                    <!--<h2 class="">-->
+                        <!--Delegation-->
+                    <!--</h2>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<div class="traingle_heading"></div>-->
+    <!--</div>-->
+
+    <div class="panel panel-default table-dynamic text-lowercase">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Out of Office Delegation</strong></div>
+        <div class="panel-body">
+
+            <section >
+                <form class="form-horizontal text-center form-validation" name="form_constraints" >
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Name</label>
+                                <div class="col-md-7">
+                                    <input class="form-control" type="text" data-ng-model="name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Delegation Role</label>
+                                <div class="col-md-7">
+                                    <select class="form-control" >
+                                        <option data-ng-repeat="delegates in DelegationRole" value="">{{delegates.items}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Comments
+                        <span class="required">
+														 *
+													</span>
+                                </label>
+                                <div class="col-md-7">
+                                    <textarea class="form-control" rows="2"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">Start Date</label>
+                                <div class="col-md-7">
+                                    <div class="ui-datepicker">
+                                        <input type="text" class="form-control" name="from" datepicker-popup="{{format}}"
+                                               ng-model="delagation.startDate"
+                                               is-open="delegationOpen"
+                                               datepicker-options="dateOptions"
+                                               ng-required="true"
+                                               close-text="Close"
+                                               placeholder="DD/MM/YYYY">
+                                        <span class="btn-arrow mouse_point " ng-click="$event.preventDefault();$event.stopPropagation();delegationOpen = true;"><i class="fa fa-calendar"></i> </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">End Date</label>
+                                <div class="col-md-7">
+                                    <div class="ui-datepicker">
+                                        <input type="text" class="form-control" name="from" datepicker-popup="{{format}}"
+                                               ng-model="delagation.EndDate"
+                                               is-open="delegationOpenEndDate"
+                                               datepicker-options="dateOptions"
+                                               ng-required="true"
+                                               close-text="Close"
+                                               placeholder="DD/MM/YYYY">
+                                        <span class="btn-arrow mouse_point " ng-click="$event.preventDefault();$event.stopPropagation();delegationOpenEndDate = true;"><i class="fa fa-calendar"></i> </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-md-3 control-label">Scope</label>-->
+                                <!--<div class="col-md-7">-->
+                                    <!--<label style="margin-left: -100px" class="control-label ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span>For this Team Only</span></label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <div class="pull-right">
+                                        <button type="button" class="text-lowercase btn-primary btn_hethi" data-ng-click="saveAction()">Delegate</button>
+                                        <button type="button" data-dismiss="modal" aria-hidden="true" class="text-lowercase btn_hethi btn-warning" data-ng-click="clearTest()">Clear</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </form>
+            </section>
+
+        </div>
+    </div>
+
+</div>

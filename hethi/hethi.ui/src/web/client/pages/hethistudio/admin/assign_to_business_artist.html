@@ -1,0 +1,66 @@
+<div data-ng-controller="admin_select_bps" class="margin_top_60">
+
+
+    <div class="row">
+        <div class="col-xs-6">
+            <h1>
+
+                {{selectedCustomer.customer_name}}
+
+            </h1>
+        </div>
+        <div class="col-xs-6 text-right">
+            <div class="font_20">BPS : {{selectedCustomer.BPaaS_service}}</div>
+            <div class="font_14_grey">Industry : {{selectedCustomer.indus_service}}</div>
+            <div class="font_14_grey">Form : {{artist_job_container.form_type}}</div>
+        </div>
+    </div>
+
+    <!-- / end client details section -->
+
+
+    <hr>
+
+
+
+    <!--<div class="row">-->
+        <!--<div class="col-md-10">-->
+            <!--<img src ="" height = "150" width = "150">-->
+            <!--<br>-->
+            <!--<h4>{{selectedCustomer.customer_name}}</h4>-->
+
+        <!--</div>-->
+
+        <!--<div class="col-md-2">-->
+            <!--<button class="btn_hethi btn-default btn-info btn-block" data-ng-click="goToInbox();" type="button">INBOX</button>-->
+            <!--<div><label></label></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+
+
+
+<div class="row">
+    <div class="col-md-6"  style="padding-top: 20px">
+        <select class="form-control"  >
+            <option value="{{selectedCustomer}}">{{selectedCustomer.customer_name}} ,   {{selectedCustomer.BPaaS_service}} , 	{{selectedCustomer.indus_service}}</option>
+        </select>
+    </div>
+    <div class="col-md-3" style="padding-top: 20px">
+
+        <div class="table-responsive">
+            <select class="form-control" ng-model="selectedArtist" ng-options="data as data.user_name for data in artistData">
+                <option value="">select business artist</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class = "col-md-3">
+        <button class="btn_hethi btn-success btn-block" type="button" data-ng-click="assignClick();">ASSIGN</button>
+
+    </div>
+</div>
+
+    </div>

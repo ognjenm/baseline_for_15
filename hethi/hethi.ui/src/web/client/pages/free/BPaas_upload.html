@@ -1,0 +1,502 @@
+
+
+
+<div class="container" ng-show="uploadHide">
+    <div class="counter_head">
+        <div class="row">
+            <div class="col-md-12">
+                Search your Form
+            </div>
+        </div>
+    </div>
+    <div class="bpaasSearch">
+        <div class=" row">
+            <div class="col-md-12">
+                <div class="input-group trim-search">
+                    <script type="text/ng-template" id="customTemplate2.html">
+                        <a>
+                            <img ng-src="{{match.model.form_image_path}}" width="150">
+                            <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+                        </a>
+                    </script>
+                    <input type="text" ng-model="SearchKey" placeholder="Search anything here" required="" typeahead="user as  user.form_type + ' (' +user.indus_service +','+ user.BpaaS_service + ')'  for user in business_process_list | filter:$viewValue "  typeahead-template-url="customTemplate2.html"  class="form-control "  >
+         <span class="input-group-btn">
+                <button class="btn btn-info " type="submit"><span class="fa fa-search"> </span></button>
+         </span>
+                </div>
+
+
+                <!--<div class="ui pointing menu">-->
+                <!--<a class="item" ng-repeat="BpaaS in BpaaS_Service_List" ng-class="BpaaS.class ? 'tile_active active':'tile'"  data-ng-click="select_business_process($index);" >-->
+                <!--<h6> {{BpaaS.BpaaS_service}}</h6>-->
+                <!--</a>-->
+
+
+                <!--</div>-->
+
+                <!--<div class="ui pointing menu">-->
+                <!--<a class="item" ng-repeat="BpaaS in BpaaS_Service_List" ng-class="BpaaS.class ? 'tile_active active':'tile'"  data-ng-click="select_business_process($index);" >-->
+                <!--<h6> {{BpaaS.BpaaS_service}}</h6>-->
+                <!--</a>-->
+            </div>
+        </div>
+
+    </div>
+
+    <div class="or">
+
+    </div>
+    <div class="sm">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-center">Or</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="searchContainer margin-top-10">
+
+
+        <div class="counter_head ">
+            <div class="row">
+                <div class="col-md-12">
+                    Select your Business Process
+                </div>
+            </div>
+        </div>
+
+
+        <div class="features-grids text-center">
+            <div class="col-md-2 colmdfet features-grid" ng-class="BpaaS.class ? 'activeHover':''" ng-repeat="BpaaS in BpaaS_Service_List">
+            <span class="fea-icon1"  data-ng-click="select_business_process($index);">
+                <!--<i class="fa fa-star"> </i>-->
+                <h5>{{BpaaS.BpaaS_service}}</h5>
+            </span>
+                <!--<h3 ng-class="BpaaS.class ? 'tile_active':'tile'">-->
+                <!--<a href="#" data-ng-click="select_business_process($index);">{{BpaaS.BpaaS_service}}</a>-->
+                <!--</h3>-->
+            </div>
+
+            <div class="clearfix"> </div>
+        </div>
+<div class="divider-md"></div>
+        <div class="ui segment " id="selectform">
+            <!--<div class="ui segment " id="selectform">-->
+            <div class="counter_head-1">
+                <div class="row">
+                    <div class="col-md-12">
+                        Select Your Industry
+                    </div>
+                </div>
+            </div>
+            <div class="row" >
+                <div class="col-md-2 col-sm-2" ng-repeat="list in selectedBpaaS.BpaaS_service_industry_list | filter: IndustrySearchKey">
+                    <div class="thumbnail">
+                        <img class="img-responsive mouse_point" data-ng-click="showFormsOfIndustry(list,$index);showI()" src="{{list.industry_image_path}}">
+                        <div class="caption text-center" ng-class="list.class ? 'tile_active':'tile'">
+                            <span data-ng-click="showFormsOfIndustry(list,$index);showI()" class="mouse_point"><h5 class="text-caption">{{list.indus_service}}</h5></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="industry_form">
+
+
+
+        <div class="ui segment-1" ng-show="shoI" >
+            <div class="counter_head-1">
+                <div class="row">
+                    <div class="col-md-12">
+                        Select Your Form Type
+                    </div>
+                </div>
+            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 col-sm-2" ng-repeat="list in selectedIndustryList.industry_form_list ">
+                                    <div class="thumbnail">
+                                        <img data-ng-click="selectForms(list,$index)" class="img-responsive mouse_point" alt="{{list.form_image_alt_text}}" src="{{list.form_image_path}}">
+                                        <div class="caption text-center" ng-class="list.class ? 'tile_active':'tile'">
+                                            <span data-ng-click="selectForms(list,$index)" class="mouse_point"><h5 class="text-caption">{{list.form_type}}</h5></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+             </div>
+    </div>
+
+             <div class="row margin-top-10" data-ng-hide="continueHide">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <!--<button type="button"  my-focus id="input1" data-ng-click="continueClick();" class="btn_hethi btn-danger">Continue</button>-->
+                <button type="button"   data-ng-click="continueClick();" class="btn_hethi btn-danger">Continue</button>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+ </div>
+
+
+
+
+        <!--<span>{{selectedForms}}</span>-->
+
+
+<!---->
+    <!--<script src="../../scripts/lib/owl-carousel/owl.carousel.min.js"></script>-->
+
+    <!-- Custom styles for this template -->
+    <!--<link href="../scripts/lib/carousel/css/demo.css" rel="stylesheet">-->
+
+
+<div ng-hide="uploadHide">
+
+    <div ng-hide="homepage_chooser" >
+        <!--<ol class="breadcrumb" style="display:block;background-color: rgba(212, 227, 235, 0.51)">-->
+            <!--<li><a href="#">BPS</a></li>-->
+            <!--<li><a href="#">Industry</a></li>-->
+            <!--<li><a href="#">Formtype</a></li>-->
+            <!--<li class="active">Industry</li>-->
+        <!--</ol>-->
+
+        <div class="container" >
+
+            <div class="row">
+                <div class="col-md-7 col-sm-6">
+
+                    <div class="form-2">
+                        <h1><span class="log-in">Log in</span>
+                            <!--or <span class="sign-up">sign up</span>-->
+                        </h1>
+                        <div class="divider-md"></div>
+                        <form class="form-horizontal" role="form" data-ng-submit="SignInToHethi(signin)">
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label for="signInEmail"><i class="fa fa-user"></i> Email</label>
+                                    <input type="email" id="signInEmail" ng-model="signin.username" class="form-control"  placeholder="Email">
+                                </div>
+                                <div class="col-md-6">
+                                    <!--<div class="form-group">-->
+                                    <label for="signInPassword"><i class="fa fa-lock"></i> Password</label>
+                                    <input type="password" ng-model="signin.password" id="signInPassword" class="form-control" placeholder="Password">
+                                    <!--</div>-->
+                                </div>
+                            </div>
+
+                            <div class="form-group margin-bottom-10">
+                                <div class="col-sm-12 ">
+                                    <label class="ui-checkbox">
+                                        <input name="checkbox1"
+                                               ng-model="signin.remember"
+                                               type="checkbox"  >
+                                        <span>Stay signed in</span></label>
+                                    <a data-ng-click="forgot()" href="#" class="pull-right" style="color: #008BCB;font-size: 12px">Forgot password?</a>
+                                </div>
+
+                            </div>
+                            <!--<div class="row">-->
+                            <div class="form-group last">
+                                <div class="col-sm-12">
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn_hethi green">Sign in</button>
+                                        <button type="reset" class="btn_hethi btn-warning">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--</div>-->
+                        </form>
+
+
+                    </div>
+
+                </div>
+                <div class="col-xs-12 col-md-5 col-sm-6 ">
+                    <div  ng-switch="signup_btn_stats" class="form-2">
+                        <div ng-switch-default="">
+                            <form data-ng-submit="registerNewUSer(register)">
+
+                                    <h1><span class="log-in">New user ? Register here</span>
+                                    </h1>
+                                    <div class="divider-md"></div>
+                                <div class="form-group">
+
+                                    <input placeholder="Email address"
+                                           ng-model="register.business_email"
+                                           required=""
+                                           class="form-control  text-center"
+                                           type="email"
+                                           minlength="6"
+                                           maxlength="50">
+                                </div>
+                                <div class="form-group">
+
+                                    <input placeholder="Company name"
+                                           class="form-control  text-center"
+                                           type="text"
+                                           ng-model="register.business_name"
+                                           required=""
+                                            >
+                                </div>
+
+                                <div class="form-group">
+
+                                    <input placeholder="Country"
+                                           class="form-control  text-center"
+                                           type="text"
+                                           ng-model="register.country"
+                                           required=""
+                                            >
+                                </div>
+
+
+
+                                <button type="submit" ng-disabled="signup_btn_stats" class="btn btn-info btn-block " ng-switch="signup_btn_stats"><i class="fa fa-user-plus"></i> Sign Up  <span data-ng-switch-when="true"  class=" fa fa-cog fa-spin"></span> </button>
+
+
+                                <div class="divider-sm"></div>
+
+                            </form>
+                        </div>
+                        <div ng-switch-when="false">
+                            <h1><span class="log-in">New user ? Register here</span>
+                            </h1>
+                            <div class="divider-md"></div>
+                            <div class="form-group">
+                            </div>
+                            <div class="form-group">
+                                <span class="font_w text-normal cloudMsg" style="text-transform: none">  <span class="fa fa-info-circle"></span> A confirmation email has been send to {{custmer_email}} , Please follow the email to complete the registration process </span>
+
+                                <br> <br>
+                            </div>
+                            <div class="form-group">
+                                <a  data-ng-click="change_signup_btn_stats('')" >back</a>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div ng-show="homepage_chooser" id="uploadform">
+
+        <!--Choose Cloud Plug OR Upload DIV Starts Here-->
+
+        <div data-ng-hide="GoToHome" class="containerlg">
+            <div class="thanksMsg">
+                <div class="row">
+                    <div class="col-md-12 text-center ">
+                        <img src="images/icon/cloud_plug.png" class="mouse_point" data-ng-click="showCloudplug()">
+                        <div class="or_cloud">
+
+                        </div>
+                        <div class="cloud-sm">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4 class="text-center">Or</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <button type="button" class="btn_hethi-lg btn-info" data-ng-click="showUpload()"><span class="fa fa-upload"></span> Upload Form</button>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Choose Cloud Plug OR Upload DIV Ends Here-->
+
+        <!--Cloud Plug Download Div Starts Here-->
+
+        <div data-ng-show="showCloud" class="containerlg">
+            <div class="thanksMsg">
+                <div class="row">
+                    <div class="col-md-12 text-center ">
+                        <div class="download_provision">Download Virtual Print Driver</div>
+                        <button type="button" class="btn_hethi blue">Download Driver</button>
+                        <div class="margin-top-20" style="font-size: 13px;font-weight: 400;color: #777;">
+                            <span class="alt-platform">For Windows 10/8.1/8/7/Vista/XP 32-bit</span>
+                            <div class="divider"></div>
+                            <p class="show-dialog-options">
+                                <a data-g-event="cta" href="#">Download Virtual Driver
+                                    for another platform</a>
+                            </p>
+                        </div>
+
+                        <button type="button" data-toggle="tooltip" title="Back to Menu" data-placement="bottom" data-ng-click="chooseOpt()" class="hethi-tooltip btn btn-default btn-circle btn-lg"><i class="fa fa-arrow-left"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Cloud Plug Download Div Ends Here-->
+
+
+        <div data-ng-show="ShowUpload">
+
+          <div class="container">
+              <!--<ol class="breadcrumb">-->
+                  <!--<li><a href="#">Home</a>-->
+                  <!--</li>-->
+                  <!--<li><a href="#">Inventory</a>-->
+                  <!--</li>-->
+                  <!--<li class="active">expense PO</li>-->
+              <!--</ol>-->
+
+            <div class="margin-top-2 codrops-header">
+                <header class="codrops-header">
+                    <!--<div class="codrops-links">-->
+                    <!--<a class="codrops-icon codrops-icon--prev" href="http://tympanus.net/Tutorials/SVGRipples/" title="Previous Demo"><span>Previous Demo</span></a>-->
+                    <!--<a class="codrops-icon codrops-icon--drop" href="http://tympanus.net/codrops/?p=24831" title="Back to the article"><span>Back to the Codrops article</span></a>-->
+                    <!--</div>-->
+                    <h1>You have selected inventory, expense PO, please upload sample forms (at least 5, can be a zip file)</h1>
+
+                        <div class="divider"></div>
+                    <p>please click to upload your file or (you can zip and upload as well)
+                        <!--<strong>-->
+                            <!--<a href="http://tympanus.net/codrops/?p=24831">Styling and Customizing File Inputs the Smart Way</a>-->
+                        <!--</strong>-->
+                    </p>
+                </header>
+                <div class="content">
+                    <div class="box">
+                        <form ng-submit="UploadImage(ImagePath)" class="form-horizontal" >
+                            <div class="divider-lg"></div>
+                            <div class="form-group">
+                                <div class="col-md-8 col-lg-offset-2">
+                                    <div class="input-group">
+                                  <span class="input-group-btn">
+                                      <span class="btn-file-hethi btn-danger btn-file">
+
+                                            <span class="fa fa-upload"></span> Choose a file&hellip;
+                                          <input type="file" name="file" id="file" data-ng-file-model="ImagePath"  >
+
+                                      </span>
+                                  </span>
+                                        <input type="text" ng-model="pathfile" class="form-control input-hethi input-lg" readonly  >
+                                         <span class="input-group-btn">
+                                    <button class="btn-file-hethi btn-primary" type="submit">Upload</button>
+                                </span>
+                                    </div>
+                                    <p></p>
+                                    <p>(Upload EDI, zip, jpeg, TIFF, PDF, DOCX, XLSX, DOC, XLS)</p>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-8 col-lg-offset-2">
+
+                                    <!--{{pathfile.substring(pathfile.lastIndexOf('.')+1,pathfile.length)|lowercase}}-->
+                                    <div ng-switch="pathfile.substring(pathfile.lastIndexOf('.')+1,pathfile.length)|lowercase">
+                                        <div ng-switch-default="">
+                                            <img src="{{image}}" class="thumbnail img-responsive">
+                                        </div>
+
+                                        <div ng-switch-when="zip">
+                                            <div class="col-lg-offset-2 col-md-4">
+                                                <img src="\images\icon\zip.png" class="thumbnail">
+                                            </div>
+                                        </div>
+                                        <div ng-switch-when="rar">
+                                            <div class="col-lg-offset-2 col-md-4">
+                                                <img src="\images\icon\rar.png" class="thumbnail">
+                                            </div>
+                                        </div>
+                                        <div ng-switch-when="pdf">
+                                            <div class="col-lg-offset-2 col-md-4">
+                                                <img src="\images\icon\pdf.png" class="thumbnail">
+                                            </div>
+                                        </div>
+                                        <div ng-switch-when="xls">
+                                            <div class="col-lg-offset-2 col-md-4">
+                                                <img src="\images\icon\xls.png" class="thumbnail">
+                                            </div>
+                                        </div>
+                                        <div ng-switch-when="csv">
+                                            <div class="col-lg-offset-2 col-md-4">
+                                                <img src="\images\icon\csv.png" class="thumbnail">
+                                            </div>
+                                        </div>
+                                        <div ng-switch-when="tif">
+                                            <div class="col-lg-offset-2 col-md-4">
+                                                <img src="\images\icon\tif.png" class="thumbnail">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+                <button type="button" data-toggle="tooltip" data-placement="bottom" title="Back to Menu" data-ng-click="chooseOpt()" class="hethi-tooltip btn btn-default btn-circle btn-lg"><i class="fa fa-arrow-left"></i>
+                </button>
+            </div>
+          </div>
+        </div>
+
+            <!--<div>-->
+
+        <div data-ng-show="GoToHomeThanks">
+
+                <div class="containerlg">
+                    <div class="thanksMsg">
+                        <h1>
+                            Thank You for uploading your sample documents. hethi will reach you in 24 ~ 48 hours with an alert to use
+                        </h1>
+                        <div class="divider-md"></div>
+
+                        <p>
+                            Incase of any queries, please contact 1800dontcall or reachus@hethi.com
+                        </p>
+                        <div class="form-group margin-top-20">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button data-ng-click="goToHomeClick()" class="btn_hethi btn-success">Go Back</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+

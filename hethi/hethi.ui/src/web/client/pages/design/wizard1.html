@@ -1,0 +1,212 @@
+<div>
+
+
+    <div class="container" ng-hide="isSigned">
+<div class="divider"></div>
+        <div class="row">
+            <div class="col-md-7 col-sm-6">
+
+                <div class="form-2">
+                    <h1><span class="log-in">Log in</span>
+                        <!--or <span class="sign-up">sign up</span>-->
+                    </h1>
+                    <div class="divider-md"></div>
+                    <form class="form-horizontal" role="form" data-ng-submit="SignInToHethi(signin)">
+
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label for="login"><i class="fa fa-user"></i> Email</label>
+                                <input type="email" id="signInEmail" ng-model="signin.username" class="form-control"  placeholder="Email">
+                            </div>
+                            <div class="col-md-6">
+                                <!--<div class="form-group">-->
+                                <label for="password"><i class="fa fa-lock"></i> Password</label>
+                                <input type="password" ng-model="signin.password" id="signInPassword" class="form-control" placeholder="Password">
+                                <!--</div>-->
+                            </div>
+                        </div>
+
+                        <div class="form-group margin-bottom-10">
+                            <div class="col-sm-12 ">
+                                <label class="ui-checkbox">
+                                    <input name="checkbox1"
+                                           ng-model="signin.remember"
+                                           type="checkbox"  >
+                                    <span>Stay signed in</span></label>
+                                <a href="#" class="pull-right" style="color: #008BCB;font-size: 12px">Forgot password?</a>
+                            </div>
+
+                        </div>
+                        <!--<div class="row">-->
+                        <div class="form-group last">
+                            <div class="col-sm-12">
+                                <div class="pull-right">
+                                    <button type="submit" class="btn_hethi green">Sign in</button>
+                                    <button type="reset" class="btn_hethi btn-warning">Reset</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--</div>-->
+                    </form>
+
+
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-md-5 col-sm-6">
+                <div  ng-switch="signup_btn_stats" class="form-2">
+                    <div ng-switch-default="">
+                        <form data-ng-submit="registerNewUSer(register)">
+
+                            <h1><span class="log-in">New user ? Register here</span>
+                            </h1>
+                            <div class="divider-md"></div>
+                            <div class="form-group">
+
+                                <input placeholder="Email address"
+                                       ng-model="register.business_email"
+                                       required=""
+                                       class="form-control  text-center"
+                                       type="email"
+                                       minlength="6"
+                                       maxlength="50">
+                            </div>
+                            <div class="form-group">
+
+                                <input placeholder="Company name"
+                                       class="form-control  text-center"
+                                       type="text"
+                                       ng-model="register.business_name"
+                                       required=""
+                                        >
+                            </div>
+
+                            <div class="form-group">
+
+                                <input placeholder="Country"
+                                       class="form-control  text-center"
+                                       type="text"
+                                       ng-model="register.country"
+                                       required=""
+                                        >
+                            </div>
+
+
+
+                            <button type="submit" ng-disabled="signup_btn_stats" class="btn btn-info btn-block " ng-switch="signup_btn_stats"><i class="fa fa-user-plus"></i> Sign Up  <span data-ng-switch-when="true"  class=" fa fa-cog fa-spin"></span> </button>
+
+
+                            <div class="divider-sm"></div>
+
+                        </form>
+                    </div>
+                    <div ng-switch-when="false">
+                        <h1><span class="log-in">New user ? Register here</span>
+                        </h1>
+                        <div class="divider-md"></div>
+                        <div class="form-group">
+                        </div>
+                        <div class="form-group">
+                            <span class="font_w text-normal cloudMsg" style="text-transform: none">  <span class="fa fa-info-circle"></span> A confirmation email has been send to {{custmer_email}} , Please follow the email to complete the registration process </span>
+
+                            <br> <br>
+                        </div>
+                        <div class="form-group">
+                            <a  data-ng-click="change_signup_btn_stats('')" >back</a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="isSigned">
+
+
+        <div class="row">
+            <div class="col-md-12 text-center hethi-font">
+                 <span style="font-weight: bolder;font-size: 30px">welcome
+                 <span style="color: #c7254e" class="ng-binding">hethi</span></span>
+
+            </div>
+        </div>
+
+        <hr>
+
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="side_content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            if you want to try additional business process
+                            <div class="divider"></div>
+                            <div class="hidden-xs">
+                                <button type="button" class="text-lowercase btn_hethi-lg btn-danger" data-ng-click="goToFree()">Go to Free</button>
+                            </div>
+                            <div class="visible-xs">
+                                <button type="button" class="text-lowercase btn_hethi btn_hethi-sm btn-danger" data-ng-click="goToFree()">Go to Free</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-lowercase col-md-6 border-left">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                <span style="font-size: 20px;font-weight: bold">
+                    you have tried following services
+                </span>
+
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="row">
+
+                    <div class="col-md-4 col-sm-4 col-xs-6 font_12" data-ng-repeat="image in formImage">
+
+                        <div class="thumbnail">
+                            <a href="">
+                                <img class="img-responsive" src="{{image.images}}">
+
+                            </a>
+                            <div class="caption tile " ng-class="image.class ? 'bg_active_blue':'bg_active_grey'">
+                                <a href="" data-ng-click="image.class=!image.class;" class="">
+                                    <!--<h5 class="ng-binding">-->
+                                    <div>Service : {{image.service}}</div>
+                                    <div>Industry : {{image.industry}}</div>
+                                    <div>Form : {{image.form}}</div>
+
+                                    <!--</h5>-->
+                                </a>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+
+                </div>
+                <!--<div class="divider-xl"></div>-->
+
+                <div class="row ">
+                    <div class="col-md-12">
+                        <div class="text-center margin-bottom-30">
+                            <button type="button" class="text-lowercase btn_hethi-lg btn-primary" data-ng-click="selectWizard(2)">Proceed to Freemium</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

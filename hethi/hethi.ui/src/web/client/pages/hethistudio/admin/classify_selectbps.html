@@ -1,0 +1,183 @@
+<div data-ng-controller="admin_select_bps" class="margin_top_60 text-lowercase">
+
+    <div class="divider"></div>
+
+    <div class="row">
+        <div class="col-md-3 col-md-offset-9">
+            <div class="pull-right">
+                <div class="input-group">
+
+                    <input type="text"   placeholder="Select Offer Name" required="" typeahead="users as users.offer_name for users in offerlist | filter:$viewValue | limitTo:10" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="offerName" aria-autocomplete="list" aria-expanded="false" aria-owns="typeahead-00H-7962">
+
+                       <span class="mouse_point input-group-addon" data-toggle="tooltip" data-placement="bottom"
+                             title="Search Offer">
+                            <span class="fa fa-search"></span>
+
+                       </span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-top-5">
+        <div class="col-md-8">
+            <div class="divider"></div>
+            <div class="panel panel-default  ng-scope">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> SELECT CORE SERVICE </strong></div>
+                <div class="panel-body ">
+                    <div class="ui-tab-container" style="">
+                        <tabset justified="true" class="ui-tab">
+                            <tab ng-repeat="(key, value) in servicePlays_grouped" heading="{{key|uppercase}}" active="servicePlays_tabs[$index]"
+                                    >
+
+
+                                <div class="scrollbar-325" id="style-7">
+                                    <div class="force-overflow">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="thead-bg">
+                                                <tr>
+                                                    <th>
+                                                        HethiCoreService
+                                                    </th>
+                                                    <th>
+                                                        Process
+                                                    </th>
+                                                    <th>
+                                                        Select
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="data in value">
+                                                    <td ng-if="$index==0">
+                                                        {{key}}
+                                                    </td>
+                                                    <td ng-if="$index!=0">
+
+                                                    </td>
+                                                    <td>
+                                                        {{data.hethi_subservicecode}}
+                                                    </td>
+                                                    <td>
+                                                        <!--<div class="form-group">-->
+                                                        <!---->
+                                                        <!--</div>-->
+                                                        <div class="btn-group margin-left-10" ng-init="btn.status=false">
+
+                                                            <button type="button" ng-class="data.status?'text-lowercase btn btn-info':'text-lowercase btn btn-line-info' " ng-click="data.status= true" data-ng-model="btn.status" btn-radio="true" style="font-size: 12px"> Yes</button>
+                                                            <button type="button" ng-class="data.status?'text-lowercase btn btn-line-info':'text-lowercase btn btn-info'" ng-click="data.status= false" data-ng-model="btn.status" btn-radio="false" style="font-size: 12px"> No </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--<div class="scroll">-->
+
+
+                                <!--</div>-->
+
+                                <div class="row margin-top-10" style="border-top: 2px solid #e96351; padding-top: 10px;">
+                                    <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <button type="button" class="btn_hethi btn-primary text-lowercase" data-ng-click="findNextTab($index)">&nbsp;&nbsp;Next&nbsp;&nbsp;</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+
+
+
+                        </tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+
+            <div class="divider"></div>
+            <div class="panel panel-default ng-scope">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>  SERVICE SUMMARY </strong></div>
+                <div class="panel-body ">
+                    <div class="ui-tab-container" style="">
+                        <tabset justified="true" class="ui-tab">
+
+                            <tab heading="Summary"  >
+
+                                <div class="table-responsive">
+                                    <div class="scroll">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="thead-bg">
+                                            <tr class="" >
+                                                <td class="text-center">
+                                                    HethiCoreService
+                                                </td>
+                                                <td class="text-center">
+                                                    Process
+                                                </td>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody ng-repeat="(key, value) in tempOffers">
+                                            <tr ng-repeat="data in value|filter:{'status': true}" class="text-small" >
+                                                <td ng-if="$index==0">
+                                                    {{key}}
+                                                </td>
+                                                <td ng-if="$index!=0">
+
+                                                </td>
+                                                <td>
+                                                    {{data.hethi_subservicecode}}
+                                                </td>
+                                            </tr>
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <label class="control-label">
+                                                Assign to Business Artist :
+                                            </label>
+                                            <button type="button" class="btn_hethi btn-info dropdown-toggle" data-toggle="dropdown">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;{{selectedArtist.user_name}}&nbsp;&nbsp;<span class="caret">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            </button>
+                                            <ul class="dropdown-menu with-arrow" role="menu">
+                                                <!--<li><a href="#">select business artist</a></li>-->
+                                                <li ng-repeat="data in artistData"><a ng-click="setSelectedArtist(data)" class="mouse_point">{{data.user_name}}</a></li>
+                                                <!--<li ng-repeat="data in selectArtist"><a href="#" data-ng-click="showArtist()">{{data.name}}</a></li>-->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row margin-top-10" style="border-top: 2px solid #e96351; padding-top: 10px;">
+                                    <div class="col-md-12">
+                                        <div class="text-center">
+                                            <button type="button" data-ng-click="assignClick()" class="text-lowercase btn_hethi btn-info">&nbsp;&nbsp;Preview RFI&nbsp;&nbsp;</button>
+                                            <button type="button" data-ng-click="assignClick()" class="text-lowercase btn_hethi btn-success">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </tab>
+
+                        </tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,72 @@
+<div class="margin_top_60 panel panel-default table-dynamic" >
+    <section ng-include="'pages/customer/show_preview.html'"></section>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center">
+                <a href="/"> <button type="button"  data-ng-click="selectClientTab('dashboard')" class="btn_hethi-lg btn-warning">Back </button></a>
+                <button type="button" data-ng-click="ProceedToWorkflow()" style="margin-left: 10px" class="btn_hethi-lg btn-warning">Proceed To Workflow</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+
+            <h3>or</h3>
+
+        </div>
+    </div>
+
+    <div class="bg_txt">
+        <div class="row">
+
+            <div class="col-md-12">
+                <form class="form-horizontal" data-ng-submit="jumpToWorkflow(selectedQue)">
+                    <div class="form-group form-group">
+                        <label class="col-sm-4 control-label">Direct Entry To Channel</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" ng-model="selectedQue" ng-options="q.hethi_subservicecode for q in servicePlaysQue" required="">
+                                <option value="">Select next que</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn_hethi btn_hethi-sm btn-success  "  ng-disabled="!getWorkflowLog" >&nbsp;&nbsp;Jump To Workflow Que&nbsp;&nbsp; <span ng-hide="getWorkflowLog" class="fa    fa-spinner fa-spin"></span></button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" ng-hide="getWorkflowLog">
+           <br><br><br>
+            <div class="col-md-offset-5 col-md-1">
+
+                <span class="fa  fa-5x  fa-spinner fa-spin "></span>
+
+            </div>
+
+        </div>
+        <div class="col-md-12">
+            <div class="text-left">
+
+                <table class="table table-bordered table-striped table-responsive hethi_content_table">
+
+                    <tr ng-click="selectbps($index);" ng-repeat="row in getWorkflowLog">
+                        <td class="text-center">{{$index+1}}</td>
+                        <td>{{row.time}}</td>
+                        <td>{{row.log}}</td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

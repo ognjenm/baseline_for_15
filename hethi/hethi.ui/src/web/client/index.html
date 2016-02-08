@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="hethi">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Hethi</title>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:100,200,300,400,600,700&amp;subset=latin" rel="stylesheet">
+    <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>-->
+    <!--<link href=' http://fonts.googleapis.com/css?family=Droid+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>-->
+
+
+    <link rel="stylesheet" href="fonts/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="styles/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="styles/css/bootstrap-theme.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="styles/navbarDropDownBootstrapExtension.css">
+    <link href="styles/theme.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/hethi-styles.css">
+    <!--<link rel="stylesheet" href="styles/_styles.css">-->
+    <link rel="stylesheet" href="styles/content.css">
+    <link rel="stylesheet" href="styles/honeyComb.css">
+    <link rel="stylesheet" href="styles/justified-nav.css">
+    <link rel="stylesheet" href="styles/menu.min.css">
+    <link rel="stylesheet" href="styles/toaster.css">
+    <link rel="stylesheet" href="styles/css/jcrop/jquery.Jcrop.min.css" type="text/css" />
+    <!--<link href="scripts/lib/owl-carousel/owl.carousel.css" rel="stylesheet">-->
+    <!--<link href="scripts/lib/owl-carousel/owl.theme.css" rel="stylesheet">-->
+
+
+    <!--Tree-->
+    <link href="styles/tree.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/responsive_slider/responsive_slider.css">
+    <link href="styles/contact-buttons.css" rel="stylesheet">
+    <!-- Owl Carousel Assets -->
+    <link href="styles/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="styles/owl-carousel/owl.theme.css" rel="stylesheet">
+    <link href="styles/owl-carousel/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/animate.css">
+
+
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body role="document" data-ng-controller="appHomeController">
+<!--<FONT FACE="modern">-->
+    <!--bookman  algerian arial courier desdemona garamond modern symbol wingdings-->
+<div id="wrapper1">
+    <!-- Fixed navbar -->
+
+
+
+    <div id="header1">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="" style="margin-top: 5px;margin-bottom: 5px">
+                        <div class="hethi_logo">
+                            <a class="hethi_logo-text" href="/">hethi</a>
+                        </div>
+                        <div style="margin-left: 20px; color: #ffffff;font-family: 'Philosopher-Regular';">business $implified</div>
+                    </div>
+                    <!--<a class="navbar-brand" href="/">Hethi</a>-->
+                </div>
+                <div id="navbar" class="navbar-collapse collapse navbar-right">
+                    <div class="divider"> </div>
+
+                    <ul class="nav navbar-nav">
+                        <!--<li class="{{HomeActive}}"><a href="/">Home </a></li>-->
+                        <!--<li  ng-show="isSigned" ><a href="/">-->
+                            <!--&lt;!&ndash;<span ng-hide="isSigned" >Home</span> &ndash;&gt;-->
+                            <!--<span ng-show="isSigned" >{{loginedUserData.customer_name}}</span>   </a></li>-->
+                        <li class="dropdown" ng-show="isSigned">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+
+					<span class="">
+
+                        {{loginedUserData.user_firstname}}  {{loginedUserData.user_lastname}}
+					</span>
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu with-arrow pull-right">
+                                <li>
+                                    <a >
+                                        <i class="fa fa-user"></i> {{loginedUserData.role_name}}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a >
+                                        <i class="fa fa-envelope"></i> {{loginedUserData.user_login_id}}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a >
+                                        <i class="fa fa-phone"></i> {{loginedUserData.contact_number}}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href ng-click="signOutFromHethi()" >
+                                        <i class="fa fa-sign-out"></i> Sign out
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" ng-hide="isSigned" >
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sign In <span class="caret"></span></a>
+                            <div class="dropdown-menu with-arrow pull-right form-login stop-propagation" role="menu">
+                                <form data-ng-submit="SignInToHethi(signin)">
+                                    <div class="panel-heading-sign_up text-center  " style="background-color: #d2e2e8;">
+                                        <span class="font_w text-normal" style="text-transform: none">Already user ? sign in</span>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <input placeholder="Email address"
+                                               id="userLogin"
+                                               ng-model="signin.username"
+                                               required=""
+                                               class="form-control input-round"
+                                               type="email"
+                                               minlength="6"
+                                               maxlength="50">
+                                    </div>
+                                    <div class="form-group">
+
+                                        <input placeholder="Password" id="pwd"
+                                               class="form-control input-round"
+                                               type="password"
+                                               ng-model="signin.password"
+                                               required=""
+                                                >
+                                    </div>
+
+                                    <div class="form-group margin-bottom-10">
+                                        <label class="ui-checkbox">
+                                            <input name="checkbox1"
+                                                   ng-model="signin.remember"
+                                                   type="checkbox"  >
+                                            <span>Stay signed in</span></label>
+                                        <a ng-click="forgot()" href="#" class="float-right" style="color: #008BCB;font-size: 12px"><span i18n="forgot password"></span> ?</a>
+
+                                    </div>
+
+
+                                    <button type="submit" class="btn btn-success btn-block input-round"><i class="fa fa-sign-in"></i> Login</button>
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <div style="font-weight: bold;padding-bottom: 5px;padding-top: 5px">Or</div>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" data-ng-click="signUpUser()" class="btn btn-info btn-block input-round"><i class="fa fa-user-plus"></i> Sign Up</button>
+
+
+                                    <div class="divider-sm"></div>
+
+                                </form>
+
+
+                            </div>
+
+                        </li>
+                        <li class="dropdown" ng-hide="isSigned" >
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">join hethi network <span class="caret"></span></a>
+                            <!--<div class="dropdown-menu with-arrow pull-right form-login stop-propagation" role="menu" ng-switch="signup_btn_stats">-->
+                                <!--<div ng-switch-default="">-->
+                                    <!--<form data-ng-submit="registerNewUSer(register)">-->
+                                        <!--<div class="panel-heading-sign_up text-center  " style="background-color: #d2e2e8;">-->
+                                            <!--<span class="font_w text-normal" style="text-transform: none">New user ? Register here</span>-->
+                                        <!--</div>-->
+                                        <!--<div class="form-group">-->
+
+                                            <!--<input placeholder="Email address"-->
+                                                   <!--ng-model="register.business_email"-->
+                                                   <!--required=""-->
+                                                   <!--class="form-control input-round text-center"-->
+                                                   <!--type="email"-->
+                                                   <!--minlength="6"-->
+                                                   <!--maxlength="50">-->
+                                        <!--</div>-->
+                                        <!--<div class="form-group">-->
+
+                                            <!--<input placeholder="Company name"-->
+                                                   <!--class="form-control input-round text-center"-->
+                                                   <!--type="text"-->
+                                                   <!--ng-model="register.business_name"-->
+                                                   <!--required=""-->
+                                                    <!-->-->
+                                        <!--</div>-->
+
+                                        <!--<div class="form-group">-->
+
+                                            <!--<input placeholder="Country"-->
+                                                   <!--class="form-control input-round text-center"-->
+                                                   <!--type="text"-->
+                                                   <!--ng-model="register.country"-->
+                                                   <!--required=""-->
+                                                    <!-->-->
+                                        <!--</div>-->
+
+
+
+                                        <!--<button type="submit" ng-disabled="signup_btn_stats" class="btn btn-info btn-block input-round" ng-switch="signup_btn_stats"><i class="fa fa-user-plus"></i> Sign Up  <span data-ng-switch-when="true"  class=" fa fa-cog fa-spin"></span> </button>-->
+
+
+                                        <!--<div class="divider-sm"></div>-->
+
+                                    <!--</form>-->
+                                <!--</div>-->
+                                <!--<div ng-switch-when="false">-->
+                                    <!--<div class="panel-heading-sign_up text-center  " style="background-color: #d2e2e8;">-->
+                                        <!--<span class="font_w text-normal" style="text-transform: none">New user ? Register here</span>-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group">-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<span class="font_w text-normal cloudMsg" style="text-transform: none">  <span class="fa fa-info-circle"></span> A confirmation email has been send to {{custmer_email}} , Please follow the email to complete the registration process </span>-->
+
+                                        <!--<br> <br>-->
+                                    <!--</div>-->
+                                    <!--<div class="form-group">-->
+                                        <!--<a  data-ng-click="change_signup_btn_stats('')" >back</a>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+
+
+                            <!--</div>-->
+
+                        </li>
+
+
+
+                        <li class="dropdown langs text-normal" data-ng-controller="LangCtrl">
+                            <a href="javascript:;" class="dropdown-toggle active-flag" id="step2" data-toggle="dropdown">
+                                <div class="flag {{ getFlag() }}"></div>
+                            </a>
+                            <ul class="dropdown-menu with-arrow pull-right list-langs" role="menu">
+
+                                <li data-ng-show="lang !== 'English' ">
+                                    <a href="javascript:;" data-ng-click="setLang('English')"><div class="flag flags-american"></div> English</a></li>
+                                <li data-ng-show="lang !== 'Español' ">
+                                    <a href="javascript:;" data-ng-click="setLang('Español')"><div class="flag flags-spain"></div> Español</a></li>
+                                <li data-ng-show="lang !== '日本語' ">
+                                    <a href="javascript:;" data-ng-click="setLang('日本語')"><div class="flag flags-japan"></div> 日本語</a></li>
+                                <li data-ng-show="lang !== '中文' ">
+                                    <a href="javascript:;" data-ng-click="setLang('中文')"><div class="flag flags-china"></div> 中文</a></li>
+                                <li data-ng-show="lang !== 'Deutsch' ">
+                                    <a href="javascript:;" data-ng-click="setLang('Deutsch')"><div class="flag flags-germany"></div> Deutsch</a></li>
+                                <li data-ng-show="lang !== 'français' ">
+                                    <a href="javascript:;" data-ng-click="setLang('français')"><div class="flag flags-france"></div> français</a></li>
+                                <li data-ng-show="lang !== 'Italiano' ">
+                                    <a href="javascript:;" data-ng-click="setLang('Italiano')"><div class="flag flags-italy"></div> Italiano</a></li>
+                                <li data-ng-show="lang !== 'Portugal' ">
+                                    <a href="javascript:;" data-ng-click="setLang('Portugal')"><div class="flag flags-portugal"></div> Portugal</a></li>
+                                <li data-ng-show="lang !== 'Русский язык' ">
+                                    <a href="javascript:;" data-ng-click="setLang('Русский язык')"><div class="flag flags-russia"></div> Русский язык</a></li>
+                                <li data-ng-show="lang !== '한국어' ">
+                                    <a href="javascript:;" data-ng-click="setLang('한국어')"><div class="flag flags-korea"></div> 한국어</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+    </div>
+
+
+
+
+    <div id="content1">
+        <div class="page-row page-row-expanded container-fluid">
+            <!--<div class="page-row page-row-expanded container-fluid" style="margin-top: 70px">-->
+
+            <div data-ng-view="">
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!--<footer class="text-center footer ">-->
+    <!--<p class="small copyright-text">Copyright &copy; 2015 hethi</p>-->
+    <!--</footer>-->
+    <div id="footer1">
+        <div class="">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div style="border-bottom: 1px solid #ffffff;padding-top: 5px;padding-bottom: 5px;color: #ffffff">
+                            hethi BPaaS
+                        </div>
+                    </div>
+                </div>
+                <div class="footer_content ">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <span><a href="#">robotic process automation</a></span>
+                        </div>
+                        <div class="col-md-3">
+                            <span><a href="#">convergence to industry SOP</a></span>
+                        </div>
+                        <div class="col-md-3">
+                            <span><a href="#">cloudplug network</a></span>
+                        </div>
+                        <div class="col-md-3">
+                            <span><a href="#">cloudplug integration</a></span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-md-4 text-uppercase">
+
+                <h3>Follow Us &nbsp;&nbsp; <img style="width: 115px" src="images/icon/linkedin.png"></h3>
+
+            </div>
+
+        </div>
+        <div class="">
+            <!--<span class="small text-center copyright-text">Copyright &copy; <script>document.write(new Date().getFullYear())</script> hethi</span>-->
+            <div class="copyright-text small text-center">
+                <span>Terms of Use </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>Privacy Policy </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>Copyright </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>About Us </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>Contact Us</span>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!--</FONT>-->
+
+<!-- JavaScripts -->
+<script src="scripts/js/jquery.min.js"></script>
+<script src="scripts/lib/angular_1.2.7.js"></script>
+
+<script src="scripts/lib/ngRoute.js"></script>
+<script src="scripts/js/treeView.js"></script>
+<script src="scripts/lib/dragDrop/angular-drag-and-drop-lists.js"></script>
+
+
+<script src="scripts/js/ui-bootstrap-tpls-0.10.0.js"></script>
+<script src="scripts/lib/angular-animate.min.js"></script>
+<script src="styles/js/bootstrap.min.js"></script>
+<script src="scripts/router.js"></script>
+<!--<script src="scripts/js/FileSaver.js"></script>-->
+<script src="scripts/js/alasql.min.js"></script>
+<script src="scripts/js/xlsx.core.min.js"></script>
+
+
+<script src="scripts/js/jquery.Jcrop.js"></script>
+<script src="scripts/js/jquery.color.js"></script>
+
+
+
+
+<script src="scripts/js/x2js.js"></script>
+<script src="scripts/js/underscore-min.js"></script>
+
+<script src="scripts/lib/logger_toaster.js"></script>
+<script src="scripts/lib/base64.js"></script>
+<script src="scripts/lib/jspdf.debug.js"></script>
+
+<script src="scripts/lib/gojs/go.js"></script>
+
+<!--HighChart-->
+<script src="scripts/lib/highCharts/highcharts.js"></script>
+<script src="scripts/lib/highCharts/highcharts-3d.js"></script>
+<script src="scripts/lib/highCharts/modules/exporting.js"></script>
+<script src="scripts/lib/highCharts/modules/drilldown.js"></script>
+
+<script src="scripts/lib/zoom/jquery.guillotine.js"></script>
+<script src="styles/responsive_slider/jquery.contact-buttons.js"></script>
+<!--Cronyco JS Files-->
+<script src="styles/owl-carousel/owl.carousel.js"></script>
+
+
+<script src="scripts/hethi/controllers/localisation.js"></script>
+<script src="scripts/hethi/controllers/appHomeController.js"></script>
+<script src="scripts/hethi/controllers/signUpController.js"></script>
+<script src="scripts/hethi/controllers/detailsController.js"></script>
+<script src="scripts/hethi/controllers/form_MapperController.js"></script>
+<script src="scripts/hethi/controllers/registrationController.js"></script>
+<script src="scripts/hethi/controllers/contentController.js"></script>
+<script src="scripts/hethi/controllers/taskListController.js"></script>
+<script src="scripts/hethi/controllers/roleController.js"></script>
+<script src="scripts/hethi/controllers/delegationController.js"></script>
+<script src="scripts/hethi/controllers/groupController.js"></script>
+<script src="scripts/hethi/controllers/workItemController.js"></script>
+<script src="scripts/hethi/controllers/workFlowController.js"></script>
+<script src="scripts/hethi/controllers/reportsController.js"></script>
+<script src="scripts/hethi/controllers/split_mergeController.js"></script>
+<script src="scripts/hethi/controllers/client_home_Controller.js"></script>
+<script src="scripts/hethi/controllers/hethi_home_Controller.js"></script>
+<script src="scripts/hethi/controllers/BPaas_upload_controller.js"></script>
+<script src="scripts/hethi/controllers/task_home_Controller.js"></script>
+<script src="scripts/hethi/controllers/admin_home_controller.js"></script>
+<script src="scripts/hethi/controllers/admin_select_bps.js"></script>
+
+<script src="scripts/hethi/controllers/artist_data_controller.js"></script>
+<script src="scripts/hethi/controllers/uploadedfile_path_controller.js"></script>
+
+
+<script src="scripts/hethi/controllers/hethi_artist_home_Controller.js"></script>
+<script src="scripts/hethi/controllers/hethi_freemium_select_bps_controller.js"></script>
+<script src="scripts/hethi/controllers/hethi_freemium_show_invoice_form_controller.js"></script>
+<script src="scripts/hethi/controllers/hethi_freemium_customer_cloud_play_controller.js"></script>
+<script src="scripts/hethi/controllers/design_Controller.js"></script>
+<script src="scripts/hethi/controllers/image_Controller.js"></script>
+<script src="scripts/hethi/controllers/rule_config_controller.js"></script>
+<script src="scripts/hethi/controllers/admin_lookup_controller.js"></script>
+<script src="scripts/hethi/controllers/treeController.js"></script>
+
+<script src="scripts/hethi/controllers/artist_dashboard_controller.js"></script>
+<script src="scripts/hethi/controllers/admin_dashboard_controller.js"></script>
+<script src="scripts/hethi/controllers/businessProcessController.js"></script>
+<script src="scripts/hethi/controllers/hethi_mapper_controller.js"></script>
+<script src="scripts/hethi/controllers/forgotPasswordController.js"></script>
+
+<script src="scripts/hethi/controllers/NewHomeController.js"></script>
+</body>
+</html>

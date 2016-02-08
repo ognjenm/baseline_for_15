@@ -1,0 +1,72 @@
+<div ng-controller="hethi_freemium_select_bps_controller" class="margin_top_60">
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+                 <span style="font-weight: bolder;font-size: 30px">welcome
+                 <span style="color: #c7254e">{{loginedUserData.customer_name}}</span></span>
+            <!--<a class="pull-right" href="/freemium">Previous</a>-->
+            <!--<a class="pull-right" href="/customer_cloud">Next</a>-->
+        </div>
+    </div>
+
+
+        <div class="row">
+                <div class="col-md-12 text-center">
+                <span style="font-size: 20px;font-weight: bold">
+                    You have tried cloud plug services for the following business process</span>
+                    <!--<a class="pull-right" href="/showinvoiceform">Next</a>-->
+                </div>
+        </div>
+<hr>
+
+        <div class="form-group margin-top-50">
+            <div class="row">
+                <div class="col-md-3 margin-left-10 mouse_point" style="border: dashed;background-color: #2b542c" ng-repeat="row in existingBPS" >
+                    <div class="col-md-12" style="color: #ffffff;font-size: 20px;font-weight: bold;
+                border-radius:20px;padding:2%;background-color: #009fff"
+                         data-toggle="tooltip" title="industry:media">
+                    <label class="label">{{row.BPaaS_service}}</label>
+                    </div>
+                    <div class="divider-xl"></div>
+                    <div class="col-md-10 col-md-offset-1">
+                        <!--<div class="col-md-10">-->
+                            <a class="btn btn-info" data-ng-click="proceedExisting(row);"  >proceed to additional hethi services</a>
+                        <!--</div>-->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+      <hr>
+    <div class="row">
+        <div class="col-md-12 text-center">
+                <span style="font-size: 20px;font-weight: bold">
+                   you may want to try us for additional processes</span>
+        </div>
+    </div>
+
+
+    <div class="divider-xl"></div>
+    <div class="form-group margin-top-50">
+        <div class="row">
+            <div class="col-md-3 margin-left-10 mouse_point" style="border: dashed;background-color: #2b542c" ng-repeat="row in allBPS" >
+                <div class="col-md-12" style="color: #ffffff;font-size: 20px;font-weight: bold;
+                border-radius:20px;padding:2%;background-color: #009fff"
+                     data-toggle="tooltip" title="industry:media">
+                    <label class="label">{{row.BPaaS_service}}</label>
+                </div>
+                <div class="divider-xl"></div>
+                <div class="col-md-10 col-md-offset-1">
+                    <!--<div class="col-md-10">-->
+                    <a class="btn btn-info" >proceed to additional hethi services </a>
+                    <!--</div>-->
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

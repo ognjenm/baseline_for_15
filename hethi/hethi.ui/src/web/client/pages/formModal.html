@@ -1,0 +1,189 @@
+<div class="row" >
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <div>
+                    <div class="modal-header">
+                        <span class="fa fa-close ash-c pull-right mouse_point" data-dismiss="modal" aria-hidden="true"></span>
+
+                        <h4 class="modal-title text-center">Properties</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-body panel">
+
+                            <section >
+                                <form class="form-horizontal text-center form-validation" name="form_constraints" >
+                                    <div class="row" ng-if="rulesList.length!=0;">
+                                        <!--<div class="col-md-offset-6 col-md-6 " >-->
+                                        <!--<input class="form-control" type="text" ng-model="row.rule_condition">-->
+                                        <!--<input class="form-control" type="text" ng-model="row.rule_action">-->
+                                        <!--</div>-->
+                                        <div class="col-md-offset-3 col-md-6" >
+                                            <div class="row margin-top-10" >
+                                                <div class="col-md-4 ">
+                                                    <label class="control-label">Rule Workset Name</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <input type="text" ng-change="ruleChanged(0,ruleWorksetName[0],'Workset');" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="ruleWorksetName[0]" >
+                                                </div>
+                                            </div>
+
+                                            <!--<div class="row margin-top-10" >-->
+                                            <!--<div class="col-md-4 ">-->
+                                            <!--<label class="control-label">Process Name</label>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-8">-->
+                                            <!--&lt;!&ndash;{{selectedProcessName}}&ndash;&gt;-->
+                                            <!--<select class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="selectedProcessName" data-ng-options="row.sfs_uin as row.hethi_subservicecode for row in processes"></select>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+
+                                            <div class="form-horizontal ng-pristine ng-invalid ng-invalid-required" ng-repeat="row in rulesList">
+                                                <div class="row margin-top-10" >
+                                                    <div class="col-md-4 ">
+                                                        <label class="control-label">Rule Name</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input type="text" ng-change="ruleChanged($index,ruleName[$index],'Rule');" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="ruleName[$index]" >
+                                                    </div>
+                                                </div>
+
+                                                <div class="row margin-top-10" >
+                                                    <div class="col-md-4 ">
+                                                        <label class="control-label">Condition</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input type="text" ng-change="ruleChanged($index,ruleCondition[$index],'Condition');" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="ruleCondition[$index]" >
+                                                    </div>
+                                                </div>
+
+                                                <div class="row margin-top-10">
+                                                    <div class="col-md-4 ">
+                                                        <label class="control-label">Action</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <textarea ng-change="ruleChanged($index,row.ruleAction[$index],'Action');" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="ruleAction[$index]"></textarea>
+                                                        <!--<input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="row.rule_action" required="">-->
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </section>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="myModal1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <div>
+                    <div class="modal-header">
+                        <span class="fa fa-close ash-c pull-right mouse_point" data-dismiss="modal" aria-hidden="true"></span>
+
+                        <h4 class="modal-title text-center">Settings</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-body panel">
+
+                            <section >
+                                <form class="form-horizontal text-center form-validation" name="form_constraints" >
+                                    <div class="row">
+                                        <div class="col-md-12">
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Name</label>
+                                                <div class="col-md-7">
+                                                    <input class="form-control" type="text" data-ng-model="name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Delegation Role</label>
+                                                <div class="col-md-7">
+                                                    <select class="form-control" >
+                                                        <option data-ng-repeat="delegates in DelegationRole" value="">{{delegates.items}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Comments
+                        <span class="required">
+														 *
+													</span>
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <textarea class="form-control" rows="2"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Start Date</label>
+                                                <div class="col-md-7">
+                                                    <div class="ui-datepicker">
+                                                        <input type="text" class="form-control" name="from" datepicker-popup="{{format}}"
+                                                               ng-model="delagation.startDate"
+                                                               is-open="delegationOpen"
+                                                               datepicker-options="dateOptions"
+                                                               ng-required="true"
+                                                               close-text="Close"
+                                                               placeholder="DD/MM/YYYY">
+                                                        <span class="btn-arrow mouse_point " ng-click="$event.preventDefault();$event.stopPropagation();delegationOpen = true;"><i class="fa fa-calendar"></i> </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">End Date</label>
+                                                <div class="col-md-7">
+                                                    <div class="ui-datepicker">
+                                                        <input type="text" class="form-control" name="from" datepicker-popup="{{format}}"
+                                                               ng-model="delagation.EndDate"
+                                                               is-open="delegationOpenEndDate"
+                                                               datepicker-options="dateOptions"
+                                                               ng-required="true"
+                                                               close-text="Close"
+                                                               placeholder="DD/MM/YYYY">
+                                                        <span class="btn-arrow mouse_point " ng-click="$event.preventDefault();$event.stopPropagation();delegationOpenEndDate = true;"><i class="fa fa-calendar"></i> </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Scope</label>
+                                                <div class="col-md-7">
+                                                    <label style="margin-left: -100px" class="control-label ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span>For this Team Only</span></label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <div class="pull-right">
+                                                        <button type="button" class="btn-primary btn_hethi" data-ng-click="saveAction()">Delegate</button>
+                                                        <button type="button" data-dismiss="modal" aria-hidden="true" class="btn_hethi btn-warning" data-ng-click="clearTest()">Clear</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </form>
+                            </section>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

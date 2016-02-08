@@ -1,0 +1,69 @@
+<div data-ng-controller="split_mergeController">
+
+
+        <div class="hethiSummary_Caption">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="pull-left">Split / Merge Inventory</span>
+                    <!--<span class="pull-right">Assignment : 2 / Total : 3</span>-->
+                </div>
+            </div>
+
+
+        </div>
+
+    <div class="row search" style="margin-top: -25px">
+            <form class="" role="form">
+                <div class="form-group ">
+                    <div class="col-md-6 col-sm-7">
+                        <div class="ui-datepicker">
+                            <input type="text" class="form-control input-hethi" name="from" datepicker-popup="{{format}}"
+                                   ng-model="delagation.startDate"
+                                   is-open="delegationOpen"
+                                   datepicker-options="dateOptions"
+                                   ng-required="true"
+                                   close-text="Close"
+                                   placeholder="DD/MM/YYYY">
+                            <span class="btn-arrow mouse_point " ng-click="$event.preventDefault();$event.stopPropagation();delegationOpen = true;"><i class="fa fa-calendar"></i> </span>
+                        </div>
+                    </div>
+                    <div class="col-md-1 col-sm-1">
+                        <button type="submit" id="s" class="btn_hethi btn-primary">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+
+                </div>
+
+                <!--<a href="#">Search Help</a>-->
+            </form>
+    </div>
+
+   <div class="search_result">
+       <div class="row">
+           <div class="col-md-2 col-sm-2 col-xs-2">
+               <img src="images/icon/zip_folder_256.png" class="img-responsive">
+           </div>
+           <div class="col-md-4 col-sm-4 col-xs-4">
+              <div class="file_name">Invoice RAR</div>
+               <div class="invoice-date">12/05/2015</div>
+           </div>
+           <div class="col-md-6 col-sm-6 col-xs-6">
+               <div class="pull-right preview">
+                  <span class="search_preview">
+                      <span class="fa fa-search"></span> Preview
+                  </span>
+                   <span>
+                       <span class="fa fa-trash-o"> </span> Delete
+                   </span>
+
+
+               </div>
+
+
+           </div>
+       </div>
+   </div>
+
+
+</div>

@@ -1,0 +1,31 @@
+<div data-ng-switch="homepage_chooser" class="margin_top_60">
+
+    <div data-ng-switch-when="1">
+        <div data-ng-include="'pages/hethistudio/admin/admin_home.html'"></div>
+    </div>
+
+    <div data-ng-switch-when="2">
+        <div data-ng-include="'pages/hethistudio/artist/artist_home.html'"></div>
+    </div>
+
+    <div data-ng-switch-when="3">
+        <div data-ng-include="'pages/roles/user/free/free.html'"></div>
+    </div>
+
+    <div data-ng-switch-default>
+        <div data-ng-include="'pages/roles/user/free/free.html'"></div>
+    </div>
+
+
+</div>
+<!--<div>-->
+    <!--<button data-ng-click="clickme()">click me</button>-->
+<!--</div>-->
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(window).scrollTop(0);
+        return false;
+
+    });
+</script>

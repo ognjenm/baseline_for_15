@@ -1,0 +1,125 @@
+<div class="row">
+    <div id="newLob" class="modal fade" tabindex="-1." role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-lg" >
+            <div class="modal-content">
+                <div>
+                    <div class="modal-header modal-head-bg-default">
+                        <span class="fa fa-close white-c pull-right mouse_point" data-dismiss="modal" aria-hidden="true"></span>
+
+                        <h4 class="modal-title text-center">Create a New Owner or Form Missing </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-body panel">
+
+                            <section >
+                                <form data-ng-submit="savePackage(package)" class="form-horizontal text-center form-validation" name="form_constraints" >
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <!--<span class="h3 text-primary">Select a Business Process </span>-->
+                                            <select class="form-control" ng-model="offering">
+                                                <option  value="">Select a Business Process</option>
+                                                <option>invoice process to pay</option>
+                                                <option>Claims process to pay</option>
+                                                <option>loans to classify</option>
+                                            </select>
+
+                                        </div>
+                                        <div class="col-md-5">
+                                            <!--<span class="h3 text-primary">Select an Industry</span>-->
+                                            <select class="form-control" ng-model="industry">
+                                                <option  value="">Select an Industry</option>
+                                                <option>Retail1</option>
+                                                <option>Healthcare </option>
+                                                <option>Banking</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn_hethi btn-info form-control">Go</button>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="divider-md"></div>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+
+                                            <div class="panel panel-info">
+                                                <div class="panel-heading">LOB</div>
+                                                <div class="panel-body">
+                                                    <div data-slim-scroll class="table-responsive">
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead style="background-color: #00304d;color: #ffffff">
+                                                            <tr>
+                                                                <th class="">Type</th>
+                                                                <th class="">Owner Name</th>
+                                                                <th class="">BSource</th>
+                                                                <th class="">Action</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>2</td>
+                                                                <td>col 3</td>
+                                                                <td><button class="btn-xs btn-round btn btn-info " type="button">Select</button></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <button class="btn_hethi btn-primary pull-right" type="button"><span class="fa fa-plus"></span> Add New Lob</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <div class="panel panel-info">
+                                                <div class="panel-heading">Owner</div>
+                                                <div class="panel-body">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead style="background-color: #00304d;color: #ffffff">
+                                                            <tr>
+                                                                <th class="">Type</th>
+                                                                <th class="">Owner Name</th>
+                                                                <th class="">BSource</th>
+                                                                <!--<th class="">Action</th>-->
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>2</td>
+                                                                <td>col 3</td>
+                                                                <!--<td><button class="btn_hethi-sm btn_hethi btn-info" type="button">Select</button></td>-->
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <button class="btn_hethi btn-primary pull-right" type="button"><span class="fa fa-plus"></span> Add New Owner</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </section>
+
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn_hethi btn-default btn-w-md" data-dismiss="modal">Close</button>
+                        <!--<button type="reset" class="btn_hethi btn-warning btn-w-md" onclick="destroySelection()">  Back  </button>-->
+                        <!--<button type="submit" class="btn_hethi btn-success btn-w-md">Add</button>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

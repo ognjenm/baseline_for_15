@@ -1,0 +1,120 @@
+<div data-ng-controller="roleController">
+
+
+    <!--<div class="heading_arrow">-->
+        <!--<div class="container">-->
+            <!--<div class="row">-->
+                <!--<div class="col-md-12">-->
+                    <!--<h2 class="">-->
+                        <!--Role-->
+                    <!--</h2>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+        <!--<div class="traingle_heading"></div>-->
+    <!--</div>-->
+
+    <div class="text-lowercase hethi_registration_container margin-top-20">
+
+        <div class="row">
+
+            <div class="col-md-12" >
+                <div class="panel panel-default">
+                    <div class="panel-heading">New Role Creation</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal"  method="post" action="">
+
+                            <div class="col-md-12">
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Customer</label>
+                                    <div class="col-md-6">
+                                        <select required="" ng-model="customer" ng-change="selectUsers()" class="text-lowercase form-control input-hethi">
+                                            <option value="">--Select a Customer--</option>
+                                            <option ng-repeat="customers in loadCustomerName" value="{{customers.customer_id}}">{{customers.customer_name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Users</label>
+                                    <div class="col-md-6">
+                                        <select required="" ng-model="user"  class="text-lowercase form-control input-hethi">
+                                            <option value="">--Select a user--</option>
+                                            <option ng-repeat="users in loadCustomerUsers" value="{{users.user_id}}">{{users.user_name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Email
+                        <span class="required">
+														 *
+													</span>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <input type="email" data-ng-model="RoleEmail" class="form-control" >
+                                        <!--<span class="help-block">Please enter a valid email</span>-->
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3"></label>
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <label class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span>IsActive</span></label>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-9">
+                                        <div class="pull-right">
+                                            <button type="button" class="btn-primary btn_hethi text-lowercase">Save</button>
+                                            <button type="button" class="btn_hethi btn-warning text-lowercase" data-ng-click="clearTest()">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider-md"></div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-stripped table-bordered">
+                        <thead style="background-color: #000000; color: #ffffff">
+                        <tr>
+                            <th>Name</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th class="text-center">Active</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="roles in RoleData">
+                            <td>{{roles.RoleName}}</td>
+                            <td>{{roles.RoleFullName}}</td>
+                            <td>{{roles.RoleEmail}}</td>
+                            <td class="text-center">{{roles.IsActive}}</td>
+                            <td class="text-center"><span class="fa fa-check-circle mouse_point" style="color: green"></span> <span class="fa fa-trash-o mouse_point" style="color: red"></span> <span class="fa fa-clock-o mouse_point" style="color: #08b39c"></span> <span class="fa fa-edit mouse_point" style="color: #115eff"></span>  </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,109 @@
+<div data-ng-controller="image_Controller" class="margin_top_60">
+
+
+    <script type="text/javascript" src="../../scripts/js/jquery.min.js" ></script>
+    <script type="text/javascript" src="../../styles/imageControls/jqueryui.js" ></script>
+    <script type="text/javascript" src="../../styles/imageControls/jquery.mousewheel.min.js" ></script>
+    <script type="text/javascript" src="../../styles/imageControls/jquery.iviewer.js" ></script>
+    <script type="text/javascript">
+        var $ = jQuery;
+        jQuery.browser = {};
+        (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0;
+            if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true;
+                jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        $(document).ready(function(){
+            var iv1 = $("#viewer").iviewer({
+                src: "scripts/lib/crop/picture.jpg",
+                update_on_resize: true,
+                zoom_animation: true,
+                mousewheel: true,
+                onMouseMove: function(ev, coords) { },
+                onStartDrag: function(ev, coords) { return false; }, //this image will not be dragged
+                onDrag: function(ev, coords) { }
+            });
+
+            $("#in").click(function(){ iv1.iviewer('zoom_by', 1); });
+            $("#out").click(function(){ iv1.iviewer('zoom_by', -1); });
+            $("#fit").click(function(){ iv1.iviewer('fit'); });
+            $("#orig").click(function(){ iv1.iviewer('set_zoom', 100); });
+            $("#update").click(function(){ iv1.iviewer('update_container_info'); });
+
+            var iv2 = $("#viewer2").iviewer(
+                    {
+                        src: "scripts/lib/crop/picture.jpg"
+                    });
+
+            $("#chimg").click(function()
+            {
+                iv2.iviewer('loadImage', "scripts/lib/crop/picture.jpg");
+                return false;
+            });
+
+            var fill = false;
+            $("#fill").click(function()
+            {
+                fill = !fill;
+                iv2.iviewer('fill_container', fill);
+                return false;
+            });
+        });
+    </script>
+    <link rel="stylesheet" href="../../styles/imageControls/jquery.iviewer.css" />
+    <style>
+        .viewer
+        {
+            width: 50%;
+            height: 500px;
+            border: 1px solid black;
+            position: relative;
+        }
+
+        .wrapper
+        {
+            overflow: hidden;
+        }
+
+        /*sgfsdg*/
+
+
+    </style>
+
+
+
+    <div class="wrapper">
+            <span>
+                <a id="in" href="#">+</a>
+                <a id="out" href="#">-</a>
+                <a id="fit" href="#">fit</a>
+                <a id="orig" href="#">orig</a>
+                <a id="update" href="#">update</a>
+            </span>
+        <div id="viewer" class="viewer" style="width: 80%;"></div>
+
+        <!--<div id="viewer2" class="viewer" style="width: 80%;"></div>-->
+        <br />
+        <p>
+            <a href="#" id="chimg">Change Image</a>
+            <a href="#" id="fill">Fill container</a>
+        </p>
+
+    </div>
+<!--<div class="row">-->
+    <!--<div class="col-md-12">-->
+        <!--<div class="iviewer_zoom_in iviewer_common iviewer_button" ></div>-->
+        <!--<div class="iviewer_zoom_out iviewer_common iviewer_button"></div>-->
+        <!--<div class="iviewer_zoom_zero iviewer_common iviewer_button"></div>-->
+        <!--<div class="iviewer_zoom_fit iviewer_common iviewer_button"></div>-->
+        <!--<div class="iviewer_zoom_status iviewer_common">100%</div>-->
+        <!--<div class="iviewer_rotate_left iviewer_common iviewer_button"></div>-->
+        <!--<div class="iviewer_rotate_right iviewer_common iviewer_button"></div>-->
+
+    <!--</div>-->
+<!--</div>-->
+    <!--iviewer_zoom_in iviewer_common iviewer_button-->
+</div>

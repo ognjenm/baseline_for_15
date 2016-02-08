@@ -1,0 +1,119 @@
+
+<div class="panel panel-default table-dynamic">
+    <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> IN </strong></div>
+    <div class="panel-body ">
+
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                <thead style="background-color: #000000;color: #ffffff">
+                <tr>
+
+                    <th style="width: 10px">
+                        <div class="th">
+                            #
+                        </div>
+                    </th>
+
+                    <th class="text-center" >
+                        <div class="th">
+                           Created Date
+                        </div>
+                    </th>
+                    <th class="text-center" >
+                        <div class="th">
+                            Doc Name
+                        </div>
+                    </th>
+
+                    <th>
+                        <div class="th">
+                            Customer
+                        </div>
+                    </th>
+                    <th>
+                        <div class="th">
+                            Created By
+                        </div>
+                    </th>
+                    <th>
+                        <div class="th">
+                           #
+                        </div>
+                    </th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="file in stencilingCompletedList" >
+                    <td>{{$index+1}}</td>
+                    <td>{{file.documentid}}</td>
+                    <td>{{file.businessname}}_{{file.documentid}}</td>
+                    <td>{{file.businessname}}</td>
+                    <td>{{file.industryid}}</td>
+                    <td>
+                        {{file.firstname}}({{file.userid}})<br>
+                <span class="text-muted">
+                     on {{file.createddatetime}}
+                </span>
+
+                    </td>
+
+                <tr>
+                    <td>1</td>
+                    <td>Hethi</td>
+                    <td>hethi</td>
+                    <td>customer</td>
+                    <td>customer</td>
+
+
+
+
+                <td class="text-center">
+                        <div class="form-group">
+                <span class="col-md-8">
+                    <div class="row">
+                    <button type="button" class="btn_hethi btn-success" data-ng-click="showDocumentPreview(file)">Assign</button>
+                    <button type="button" class="btn_hethi btn-success" data-ng-click="showDocumentPreview(file)"> <span class="fa fa-desktop"> </span> Preview</button></div>
+                </span>
+
+                        </div>
+
+                    </td>
+
+
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+        <footer class="table-footer">
+            <div class="row">
+                <div class="col-md-6 page-num-info">
+        <span>
+        Show
+        <select data-ng-model="numPerPage"
+                data-ng-options="num for num in numPerPageOpt"
+                data-ng-change="onNumPerPageChange()">
+        </select>
+        entries per page
+        </span>
+                </div>
+                <div class="col-md-6 text-right pagination-container">
+                    <pagination class="pagination-sm"
+                                page="currentPage"
+                                total-items="filteredStores.length"
+                                max-size="4"
+                                ng-click="select(currentPage)"
+                                items-per-page="numPerPage"
+                                rotate="false"
+                                boundary-links="true"></pagination>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+</div>
+</div>

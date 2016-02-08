@@ -1,0 +1,6 @@
+givenName,initials,sn,description,title,department,pwdLastSet,userAccountControl,manager
+John,Mathew,Smith,normal user,Sr. Analyst,Sales,0,512,"CN=Lisa Sthalekar,OU=Sales,DC=contoso,DC=com"
+David,J,Samuel,normal user,Jr. Analyst,Sales,0,512,"CN=Lisa Sthalekar,OU=Sales,DC=contoso,DC=com"
+Chris,Simon,Williams,normal user,Analyst,Sales,0,512,"CN=Lisa Sthalekar,OU=Sales,DC=contoso,DC=com"
+Juan,Matt,Carlos,normal user,Analyst,Accounting,-1,66048,"CN=Lisa Sthalekar,OU=Sales,DC=contoso,DC=com"
+Ahmed,Abubakar,Siddiq,normal user,Analyst,Accounting,0,514,"CN=Lisa Sthalekar,OU=Sales,DC=contoso,DC=com"

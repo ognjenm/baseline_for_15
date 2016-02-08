@@ -1,0 +1,200 @@
+<!--contact-starts-->
+<script>
+    $(document).ready(function(){
+        $(this).scrollTop(0);
+    });
+</script>
+<div class="contact" ng-switch="isSigned" >
+    <div  ng-switch-when="false">
+        <div class="contact-top heading">
+            <h2>User Verification</h2>
+        </div>
+        <div class="">
+
+            <div class="row">
+                <div class="col-xs-12 col-md-4 col-sm-4  col-md-offset-4 signup-box">
+                    <div class="">
+                        <form  data-ng-submit="completeRegistrationProcess(hethi_user_reg_data);">
+                            <div class="row">
+
+                                <p>&nbsp;</p>
+
+                                <div class="col-md-4 ">
+                                    <label>Role Name</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <h3 class="text-left">
+                                        {{hethi_user_reg_data.role_name}}
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="row">
+                                <div class="col-md-4 ">
+                                    <label>Business Name</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <h3 class="text-left">
+                                        {{hethi_user_reg_data.business_name}}
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="row">
+                                <div class="col-md-4 ">
+                                    <label>Email</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5>
+                                       {{hethi_user_reg_data.userName}}
+                                    </h5>
+                                </div>
+                            </div>
+
+                            <div class="divider"></div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Name prefix</label>
+                                </div>
+                                <div class="col-xs-12 col-sm-8 col-md-8">
+                                    <div class="form-group">
+                                        <div class="">
+                                           <!--<span class="mouse_point input-group-addon" data-toggle="tooltip" data-placement="bottom" title="Provide your first name">-->
+                                              <!--<span class="fa fa-user"></span>-->
+                                           <!--</span>-->
+                                            <div class="btn-group">
+                                                <button btn-radion="'Mr'" ng-model="hethi_user_reg_data.name_prefix"
+                                                        ng-class="prefix?'btn btn-danger':'btn btn-line-danger'" ng-click="prefix=true">Mr.</button>
+                                                <button btn-radion="'Mrs'" ng-model="hethi_user_reg_data.name_prefix"
+                                                        ng-class="prefix?'btn btn-line-danger':'btn btn-danger'" ng-click="prefix=false">Mrs.</button>
+                                            </div>                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>First name</label>
+                                </div>
+                                <div class="col-xs-12 col-sm-8 col-md-8">
+                                    <div class="form-group">
+                                        <div class="">
+                                           <!--<span class="mouse_point input-group-addon" data-toggle="tooltip" data-placement="bottom" title="Provide your first name">-->
+                                              <!--<span class="fa fa-user"></span>-->
+                                           <!--</span>-->
+                                            <input class="form-control " ng-model="hethi_user_reg_data.customer_fname" placeholder="Enter First Name" tabindex="1" type="text" required="">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                    <label>Last name</label>
+                                </div>
+                                <div class="col-xs-12 col-sm-8 col-md-8">
+                                    <div class="form-group">
+                                        <div class="">
+                                           <!--<span class="mouse_point input-group-addon" data-toggle="tooltip" data-placement="bottom" title="Provide your last name">-->
+                                              <!--<span class="fa fa-user"></span>-->
+                                           <!--</span>-->
+                                            <input class="form-control " ng-model="hethi_user_reg_data.customer_lname" placeholder="Enter Last Name" tabindex="2" type="text" required="">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--<div class="form-group">-->
+                                <!--<div class="input-group">-->
+                                    <!--<span class="mouse_point input-group-addon" data-toggle="tooltip" data-placement="bottom" title="Provide your contact number">-->
+                                        <!--<span class="fa fa-whatsapp"></span>-->
+                                    <!--</span>-->
+                                    <!--<input class="form-control " ng-model="hethi_reg_data.contact_number" placeholder="Contact Number"  tabindex="3" type="text" required="">-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                            <!--<div class="form-group">-->
+                                <!--<div class="input-group">-->
+                                    <!--<span class="mouse_point input-group-addon" data-toggle="tooltip" data-placement="bottom" title="This is your login id">-->
+                                        <!--<span class="fa fa-envelope-o"></span>-->
+                                    <!--</span>-->
+                                    <!--<input class="form-control " id="userLogin" ng-model="hethi_reg_data.email" placeholder="User Login ID" tabindex="4" type="email" required="" readonly>-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Password</label>
+                                </div>
+                                <div class="col-xs-12 col-sm-8 col-md-8">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                           <!--<span class="mouse_point input-group-addon" data-toggle="tooltip" data-placement="bottom" title="Provide your password">-->
+                                              <!--<span class="fa fa-lock"></span>-->
+                                           <!--</span>-->
+                                            <input ng-model="hethi_user_reg_data.password" id="pass" ng-change="checkPassword(hethi_user_reg_data)" class="form-control " placeholder="Password" tabindex="5" type="password" required="">
+                                            <span ng-show="showFlag" ng-class="colorFlag?'h4 text-danger':'h4 text-success'">{{message1}}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Re-password</label>
+                                </div>
+                                <div class="col-xs-12 col-sm-8 col-md-8">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                           <!--<span class="mouse_point input-group-addon" data-toggle="tooltip" data-placement="bottom" title="Repeat your password">-->
+                                              <!--<span class="fa fa-lock"></span>-->
+                                           <!--</span>-->
+                                            <input class="form-control " ng-change="checkRePassword(hethi_user_reg_data)" ng-model="hethi_user_reg_data.re_password" placeholder="Confirm Password" tabindex="6" type="password" required="">
+                                            <span ng-show="showFlag1" ng-class="colorFlag1?'h4 text-danger':'h4 text-success'">{{message2}}</span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="row">-->
+                                <!--<div class="col-xs-12 col-sm-6 col-md-6">-->
+                                    <!--<div class="form-group">-->
+                                        <!--<span ng-show="showFlag" ng-class="colorFlag?'h4 text-danger':'h4 text-success'">{{message1}}</span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-12 col-sm-6 col-md-6">-->
+                                    <!--<div class="form-group">-->
+                                        <!--<span ng-show="showFlag1" ng-class="colorFlag1?'h4 text-danger':'h4 text-success'">{{message2}}</span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12"> By clicking Join Now, you agree to the <a href="http://www.hethi.com/terms">Terms and Conditions</a> you have read including our <a href="http://www.hethi.com/terms">Cookie Use.</a> </div>
+                            </div>
+                            <p>&nbsp;</p>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12">
+                                    <input value="Complete Registration" class="btn_hethi btn_hethi-lg btn-primary btn-block " tabindex="7" type="submit">
+                                </div>
+                            </div>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div  ng-switch-when="true">
+        <br> <br> <br> <br> <br> <br> <br> <br> <br>
+        <div class="contact-top heading text-center">
+            <h2>  <span class="color-red fa fa-2x fa fa-warning"></span> Please sign out to continue..</h2>
+            <!--<h4><a href="/">back to homepage</a></h4>-->
+        </div>
+    </div>
+</div>
+<!--contact-end-->

@@ -1,0 +1,299 @@
+<div class="" data-ng-controller="design_Controller">
+
+
+    <div class="hethiSummary_Caption">
+        <div class="row">
+            <div class="col-md-12 te">
+                <span class="pull-left text-lowercase">Users :  <button type="button" class="btn_hethi btn-default" data-ng-click="ShowHide()"> <span class="text-lowercase" style="font-weight: bold;color: #1EA6D3;">Add New</span></button> <button type="button" class="btn_hethi btn-default" data-ng-click="ShowHideBulkUser()"> <span class="text-lowercase" style="font-weight: bold;color: #1EA6D3;">Add Bulk</span></button> </span>
+                <!--<span class="pull-right">Assignment : 2 / Total : 3</span>-->
+            </div>
+        </div>
+        <!--<div class="divider"></div>-->
+    </div>
+
+    <div ng-show = "IsVisible">
+
+        <div class="row">
+    <div class="col-md-12">
+        <div class="box-form box-info" id="editScreen">
+            <div class="box-header with-border text-lowercase">
+                <h3 class="box-title" data-ng-hide="editBtn">User Registration</h3>
+                <h3 class="box-title" data-ng-show="editBtn">Update User</h3>
+            </div><!-- /.box-header -->
+            <!-- form start -->
+            <form class="form-horizontal">
+                <div class="box-body text-lowercase">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">User Name</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder="User Name">
+                        </div>
+                        <label class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder="Full Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" placeholder="Password">
+                        </div>
+                        <label class="col-sm-2 control-label">Re-Password</label>
+                        <div class="col-sm-4">
+                            <input type="password" class="form-control" placeholder="Re-Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-4">
+                            <input type="email" class="form-control" placeholder="Email">
+                        </div>
+                        <label class="col-sm-2 control-label">Role</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder="Role">
+                        </div>
+                    </div>
+
+
+                </div><!-- /.box-body -->
+                <div class="box-footer">
+                    <button type="submit" data-ng-click="ShowHide()" class="btn btn-default text-lowercase">Cancel</button>
+                    <button type="submit" ng-hide="editBtn" class="btn btn-info pull-right text-lowercase">Save</button>
+                    <button type="submit" ng-show="editBtn" class="btn btn-info pull-right text-lowercase">Update</button>
+                </div><!-- /.box-footer -->
+            </form>
+        </div>
+    </div>
+
+</div>
+
+    </div>
+
+    <div ng-show="IsVisibleBulkUser">
+        <div class="row">
+            <div class="col-md-12 text-center ">
+                <div class="csv_provision">import CSV file</div>
+                <form class="form-horizontal" >
+                    <div class="divider"></div>
+                    <div class="form-group">
+                        <div class="col-md-8 col-lg-offset-2">
+                            <div class="input-group">
+                                  <span class="input-group-btn">
+                                      <span class="btn-file-hethi btn-danger btn-file">
+
+                                            <span class="fa fa-upload"></span> choose a CSV file&hellip;
+                                          <input type="file" name="file" id="file1" data-ng-file-model="ImagePath" >
+
+                                      </span>
+                                  </span>
+                                <input type="text" ng-model="pathfile" class="form-control input-hethi input-lg" readonly>
+                                                    <span class="input-group-btn">
+                                    <button class="btn-file-hethi btn-primary" type="submit">upload</button>
+                                </span>
+                            </div>
+                        </div>                    </div>
+                </form>
+
+                <div class="" style="font-size: 13px;font-weight: 400;color: #777;">
+                    <p class="show-dialog-options">
+                        <a target="_blank" href="images/sam.csv" download="sample.csv" >download sample CSV file</a>
+                    </p>
+                    <div class="divider-lg"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default table-dynamic text-lowercase">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> User Management</strong></div>
+        <div class="panel-body">
+            <div class="table-filters">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-6">
+                        <form>
+                            <input type="text"
+                                   placeholder="Search users"
+                                   class="form-control"
+                                   data-ng-model="searchKeywordsIndexer"
+                                   data-ng-keyup="searchIndexer()">
+                        </form>
+                    </div>
+                    <div class="col-sm-3 col-xs-6 filter-result-info">
+                    <span>
+                        Showing {{filteredStoresIndexer.length}}/{{storesIndexer.length}} entries
+                    </span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row margin-bottom-5">
+                <div class="col-md-12">
+                    <!--<button type="button" class="btn_hethi btn-warning" >Export</button>-->
+                    <div class="btn-group">
+                        <button class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export Table Data</button>
+                        <ul class="dropdown-menu " role="menu">
+                            <li><a href="#" data-ng-click="exportData()"> <img src="images/icon/xls.png" width="24px"> XLSX</a></li>
+                            <li><a href="#" data-ng-click="exportPDF()"> <img src="images/icon/pdf.png" width="24px"> PDF</a></li>
+                            <li><a href="#" data-ng-click="exportCSV()"> <img src="images/icon/csv.png" width="24px"> CSV</a></li>
+
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" id="exportable">
+                <table class="table table-bordered table-stripped  hethi_content_table">
+                    <thead style="background-color: #000000; color: #ffffff">
+                    <tr>
+                        <th class="text-center"><div class="th">action</div></th>
+                        <th class="text-center">
+                            <div class="th">User Name
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('UserName') "
+                                  data-ng-class="{active: row == 'UserName'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-UserName') "
+                                  data-ng-class="{active: row == '-UserName'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Name
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('Name') "
+                                  data-ng-class="{active: row == 'Name'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-Name') "
+                                  data-ng-class="{active: row == '-Name'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Email
+                             <span class="glyphicon glyphicon-chevron-up"
+                                   data-ng-click=" orderIndexer('Email') "
+                                   data-ng-class="{active: row == 'Email'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-Email') "
+                                  data-ng-class="{active: row == '-Email'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Role
+                            <span class="glyphicon glyphicon-chevron-up"
+                                  data-ng-click=" orderIndexer('Role') "
+                                  data-ng-class="{active: row == 'Role'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-Role') "
+                                  data-ng-class="{active: row == '-Role'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Status
+                             <span class="glyphicon glyphicon-chevron-up"
+                                   data-ng-click=" orderIndexer('Status') "
+                                   data-ng-class="{active: row == 'Status'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-Status') "
+                                  data-ng-class="{active: row == '-Status'}">
+
+                            </span>
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Posts
+                              <span class="glyphicon glyphicon-chevron-up"
+                                    data-ng-click=" orderIndexer('Posts') "
+                                    data-ng-class="{active: row == 'Posts'}">
+
+                            </span>
+                            <span class="glyphicon glyphicon-chevron-down"
+                                  data-ng-click=" orderIndexer('-Posts') "
+                                  data-ng-class="{active: row == '-Posts'}">
+
+                            </span>
+                            </div>
+                        </th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr data-ng-repeat="indexer in currentPageStoresIndexer">
+                        <td class="text-center">
+                            <!--<span class="fa fa-check-circle mouse_point" data-ng-click="contentRedirect()" style="color: green"></span>-->
+                            <span class="fa fa-trash-o mouse_point" style="color: red"></span>&nbsp;&nbsp;
+                            <!--<span class="fa fa-clock-o mouse_point" style="color: #08b39c"></span>-->
+                            <span class="fa fa-edit mouse_point" style="color: #115eff" data-ng-click="edit()"></span>  </td>
+
+                        <td class="text-center">{{indexer.UserName}}</td>
+                        <td>{{indexer.Name}}</td>
+                        <td>{{indexer.Email}}</td>
+                        <td>{{indexer.Role}}</td>
+                        <td>{{indexer.Status}}</td>
+                        <td>{{indexer.Posts}}</td>
+
+
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <footer class="table-footer">
+                <div class="row">
+                    <div class="col-md-6 page-num-info">
+                    <span>
+                        Show
+                        <select data-ng-model="numPerPageIndexer"
+                                data-ng-options="num for num in numPerPageOptIndexer"
+                                data-ng-change="onNumPerPageChangeIndexer()">
+                        </select>
+                        entries per page
+                    </span>
+                    </div>
+                    <div class="col-md-6 text-right pagination-container">
+                        <pagination class="pagination-sm"
+                                    page="currentPageIndexer"
+                                    total-items="filteredStoresIndexer.length"
+                                    max-size="4"
+                                    ng-click="selectIndexer(currentPageIndexer)"
+                                    items-per-page="numPerPageIndexer"
+                                    rotate="false"
+                                    boundary-links="true"></pagination>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+
+
+</div>

@@ -1,0 +1,108 @@
+<div class="panel-info panel-body panel" data-ng-controller="form_MapperController">
+
+
+
+        <div class="row">
+
+
+            <div class="col-md-4">
+                <div class="upload-hethi-doc">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form ng-submit="UploadImage(ImagePath)" class="form-horizontal" >
+                                <div class="form-group ">
+                                    <!--<div class="col-md-3 col-sm-3 text-left">Company</div>-->
+                                    <div class="col-md-12 col-sm-12">
+                                        <!--<input type="text" class="form-control input-md input-hethi">-->
+                                        <select class="form-control input-md input-round text-center">
+                                            <option>Industry  </option>
+                                            <option>Finance</option>
+                                            <option>Health Care</option>
+                                            <option>E-Publishing</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <h4>Upload your invoice</h4>
+                                <div class="input-group">
+                <span class="input-group-btn">
+                    <span class="btn-file-hethi btn-primary btn-file">
+                        Browse&hellip; <input type="file" name="file" id="file" data-ng-file-model="ImagePath" >
+                    </span>
+                </span>
+                                    <input type="text" class="form-control input-hethi input-md" readonly>
+                                </div>
+            <!--<span class="help-block">-->
+                <!--Try selecting one or more files and watch the feedback-->
+            <!--</span>-->
+                                <div class="form-group margin-top-20">
+                                    <div class="col-md-12">
+                                        <div class="pull-right">
+                                            <button type="submit" class="btn_hethi btn-danger">Upload</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img src="{{image}}" class="thumbnail img-responsive">
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+
+        <div class="divider-md"></div>
+
+        <!--<div class="row">-->
+            <!--<div class="col-md-12">-->
+                <!--<div class="text-center margin-bottom-30">-->
+                    <!--<button type="button" class="btn_hethi btn-primary" data-ng-click="stencil()">create mxsd</button>-->
+
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+
+
+
+
+
+
+    <!--<div class="row">-->
+        <!--<div class="col-md-3">-->
+
+            <!--<div class="xsdBtn">-->
+                <!--<div class="fa-btn">-->
+                    <!--<span class="fa fa-file"></span>-->
+                <!--</div>-->
+                <!--<div>-->
+<!--<span class="btn_hethi btn-primary btn-file">-->
+    <!--upload your file <input type="file" class="input-md">-->
+<!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-md-3">-->
+
+            <!--<div class="xsdBtn">-->
+
+                <!--<div>-->
+                    <!--<button type="button" class="btn_hethi btn-primary" data-ng-click="stencil()">create mxsd</button>-->
+
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+</div>
+
+

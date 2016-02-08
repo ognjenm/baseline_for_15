@@ -1,0 +1,13 @@
+{
+  "configuration":{
+    "driver":"mysql",
+    "host":"127.0.0.1",
+    "user":"fvKCU/79BEVrwZbivkpgAA==",
+    "database":"hethi",
+    "password":"USfW3zBaK1ciJaWxKCEL/g==",
+    "portno":"5050",
+    "logger":"on",
+    "domain":"http://localhost:",
+    "filepath":"src/web/client/images/uploads"
+  }
+}

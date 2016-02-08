@@ -1,0 +1,54 @@
+
+<div data-ng-controller="define_storage_Controller" class="">
+
+    <div class="row hethiSummary_Caption">
+            <div class="col-md-4 text-left">
+                <span>Customer :</span>
+                <span></span>
+            </div>
+        <div class="col-md-4 text-center">
+            <span>BPS :</span>
+            <span></span>
+        </div>
+        <div class="col-md-4 text-right">
+            <span>Type :</span>
+            <span>New</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-1" ng-repeat="menu in menuItems">
+            <div class="text-center margin-bottom-30">
+                <button type="button" class="btn_hethi btn-primary text-small minHeight85" ng-class="menu.isActive"> {{menu.menu_name}} </button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="panel panel-default table-dynamic">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Define Storage </strong></div>
+        <div class="panel-body">
+
+
+            <div class="col-md-12">
+                <div class="text-center margin-bottom-30">
+                  <a href="/service_level_agreement">
+                      <button type="button" class="btn_hethi-lg btn-success" > Complete The Task </button>
+                  </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+</div>

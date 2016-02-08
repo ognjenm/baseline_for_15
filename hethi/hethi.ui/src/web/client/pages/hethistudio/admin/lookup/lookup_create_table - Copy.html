@@ -1,0 +1,124 @@
+<div data-ng-controller="admin_lookup_controller">
+
+    <div class="panel panel-default table-dynamic">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Create Lookup Table</strong></div>
+        <div class="panel-body">
+            <div class="divider"></div>
+
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <select class="form-control input-hethi">
+                            <option>--Select Customer--</option>
+                            <option>Customer 1</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <select class="form-control input-hethi">
+                            <option>--Lookup Type--</option>
+                            <option>Type 1</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <button type="button" class="btn_hethi btn-primary">Go</button>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!--Dynamically Create Input Boxes-->
+
+            <!--<div>-->
+                <!--<fieldset class="" ng-repeat="item in items">-->
+                  <!--<div class="col-md-3">-->
+                      <!--<label class="control-label">Column Name</label>-->
+                      <!--<input type="text" class="form-control" ng-model="item.columnName">-->
+                  <!--</div>-->
+                    <!--<div class="col-md-3">-->
+                        <!--<label class="control-label">Type</label>-->
+                        <!--<input type="text" class="form-control" ng-model="item.type">-->
+                    <!--</div>-->
+                    <!--<div class="col-md-3">-->
+                        <!--<label class="control-label">Size</label>-->
+                        <!--<input type="text" class="form-control" ng-model="item.size">-->
+                    <!--</div>-->
+                    <!--<div class="col-md-2">-->
+                        <!--<label class="control-label">Primary Key</label>-->
+                        <!--&lt;!&ndash;<input type="text" class="form-control" ng-model="item.inlineChecked">&ndash;&gt;-->
+                        <!--<div class="form-group">-->
+                            <!--<div class="btn-group">-->
+                                <!--<button type="button" class="btn btn-line-info " data-ng-click="item.inlineChecked= 'yes'" data-ng-model="item.inlineChecked" btn-radio="'yes'" style="font-size: 12px"> Yes</button>-->
+                                <!--<button type="button" class="btn btn-line-info " data-ng-click="item.inlineChecked= 'no'" data-ng-model="item.inlineChecked" btn-radio="'no'" style="font-size: 12px"> No </button>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+
+                    <!--</div>-->
+
+
+                    <!--&lt;!&ndash;<input type="text" placeholder="{{item.questionPlaceholder}}" ng-model="item.question">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<input ng-class="{'blockInput': !item.inlineChecked}" type="text" placeholder="enter text..." ng-model="item.text">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<input type="checkbox" name="check" value="inline" ng-model="item.inlineChecked"> Inline&ndash;&gt;-->
+                <!--</fieldset>-->
+                <!--<button class="btn_hethi btn-success" ng-click="add()">New Item</button>-->
+            <!--</div>-->
+
+
+            <fieldset  data-ng-repeat="choice in choices">
+
+                <div class="col-md-3">
+                    <label class="control-label">Column Name</label>
+                    <input type="text" class="form-control" ng-model="item.columnName">
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label">Type</label>
+                    <input type="text" class="form-control" ng-model="item.type">
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label">Size</label>
+                    <input type="text" class="form-control" ng-model="item.size">
+                </div>
+                <div class="col-md-2">
+                    <label class="control-label">Primary Key</label>
+                    <!--<input type="text" class="form-control" ng-model="item.inlineChecked">-->
+                    <div class="form-group">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-line-info " data-ng-click="item.inlineChecked= 'yes'" data-ng-model="item.inlineChecked" btn-radio="'yes'" style="font-size: 12px"> Yes</button>
+                            <button type="button" class="btn btn-line-info " data-ng-click="item.inlineChecked= 'no'" data-ng-model="item.inlineChecked" btn-radio="'no'" style="font-size: 12px"> No </button>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-1">
+                    <label class="control-label" style="color: white">Primary</label>
+                    <button class=" btn_hethi btn-danger" ng-show="$last" ng-click="removeChoice()">Remove</button>
+
+                </div>
+
+                <!--<input type="text" ng-model="choice.name" name="" placeholder="Enter mobile number">-->
+
+            </fieldset>
+            <button class="addfields btn_hethi btn-success" ng-click="addNewChoice()">Add fields</button>
+
+            <div id="choicesDisplay">
+                {{ choices }}
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>

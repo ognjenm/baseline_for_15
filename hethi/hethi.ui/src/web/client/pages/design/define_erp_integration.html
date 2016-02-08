@@ -1,0 +1,70 @@
+<div class="text-lowercase">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-center">
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(1)">{{configDataService}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(2)">{{customiseWorkflow}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(3)">{{DefineOutput}}</button>
+                <button type="button" class="btn_hethi btn-success btn_wizard" data-ng-click="selectBusiness(4)">{{ErpIntegration}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(5)">{{DefineAnalytics}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(6)">{{DefineStorage}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(7)">{{Businessdemography}}</button>
+                <button type="button" class="btn_hethi btn-primary btn_wizard" data-ng-click="selectBusiness(8)">{{ServiceLevelAgrmnt}}</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-md-12" ng-init="showIntegration='yes'">
+            <div class="text-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-lg btn-line-info text-lowercase" data-ng-click="showIntegration= 'yes'" data-ng-model="showIntegration" btn-radio="'yes'" > Configure my {{ErpIntegration}} Service</button>
+                    <button type="button" class="btn btn-lg btn-line-info text-lowercase " data-ng-click="showIntegration= 'no'" data-ng-model="showIntegration" btn-radio="'no'" > I don't want {{ErpIntegration}} Service</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="divider-md"></div>
+    <div ng-switch="showIntegration">
+
+        <div ng-switch-when="yes">
+            <div class="you_have_not_select">
+                <div class="row">
+                    <div class="col-md-12">
+                        Under Construction
+                        <div class="divider"></div>
+                        <div>
+                            <button type="button" class="text-lowercase btn_hethi-lg btn-danger" data-ng-click="selectBusiness(5)">Proceed</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-switch-when="no">
+            <div class="you_have_not_select">
+                <div class="row">
+                    <div class="col-md-12">
+                        You have not Selected this Service
+                        <div class="divider"></div>
+                        <div>
+                            <button type="button" class="text-lowercase btn_hethi-lg btn-danger" data-ng-click="selectBusiness(5)">Proceed</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row margin-top-10">
+        <div class="col-md-12">
+            <div class="pull-right">
+                <button class="text-lowercase btn btn-info" data-ng-click="nextOutputChannel();selectBusiness(5)">Next <span class="fa fa-forward"></span></button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

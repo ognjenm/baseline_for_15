@@ -1,0 +1,527 @@
+<div data-ng-controller="workItemController">
+
+    <!--<div class="heading_arrow">-->
+        <!--<div class="container">-->
+            <!--<div class="row">-->
+                <!--<div class="col-md-12">-->
+                    <!--<h2 class="">-->
+                        <!--Work Item-->
+                    <!--</h2>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="row">-->
+        <!--<div class="traingle_heading"></div>-->
+    <!--</div>-->
+<!--<div class="divider-md"></div>-->
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="text-lowercase nav nav-boxed nav-justified tabbable ver-horizontal-menu" >
+                <!--<ul class="ver-inline-menu tabbable margin-bottom-10">-->
+                <li class="active" data-ng-class="">
+                    <a data-toggle="tab" href="#" data-ng-click="selectAttachment(1)">
+                        New Work Item
+                    </a>
+                </li>
+                <li class="" data-ng-class="">
+                    <a data-toggle="tab" href="#" data-ng-click="selectAttachment(2)">
+                        Image Upload
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#" data-ng-click="selectAttachment(3)">
+                        Data Upload
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#" data-ng-click="selectAttachment(4)">
+                        Virtual Printer Driver
+                    </a>
+                </li>
+
+            </ul>
+            <div class="divider-md"></div>
+            <div class="row" data-ng-switch="UploadTab">
+                <div class="col-md-12" data-ng-switch-when="1">
+                    <div class="panel panel-default text-lowercase">
+                        <div class="panel-heading">Work Item / Task Creation</div>
+                        <div class="panel-body">
+                            <form class="form-horizontal"  method="post" action="">
+
+
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Title</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="text" data-ng-model="workItemTitle">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Iteration</label>
+                                    <div class="col-md-9">
+                                        <!--<input class="form-control" type="text" data-ng-model="workItemIteration">-->
+                                        <select class="form-control text-lowercase">
+                                            <option>--IterationName--</option>
+                                            <option>Fabricon Fiber</option>
+                                            <option>Name1</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Area
+
+                                    </label>
+                                    <div class="col-md-9">
+                                        <!--<input type="text" data-ng-model="WorkItemArea" class="form-control" >-->
+                                        <!--<span class="help-block">Please enter a valid email</span>-->
+                                        <select class="form-control text-lowercase">
+                                            <option>Name</option>
+                                            <option>Fabricon Fiber</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+
+                                        <div class="panel-body panel panel-danger">
+                                            <div class="hethi_header">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <h4 class="h4_header">Status</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="divider-sm"></div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Assigned To</label>
+                                                <div class="col-md-8">
+                                                    <!--<input class="form-control" type="text" data-ng-model="AssignedTo">-->
+                                                    <select class="form-control text-lowercase">
+                                                        <option>-- select --</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">State</label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" type="text" data-ng-model="WorkItemState">
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Reason
+
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="text" data-ng-model="WorkItemReason" class="form-control" >
+                                                    <!--<span class="help-block">Please enter a valid email</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="panel-body panel panel-danger">
+
+                                            <div class="hethi_header">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <h4 class="h4_header">Details</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="divider-sm"></div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Effort</label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" type="text" data-ng-model="Effort">
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Business value</label>
+                                                <div class="col-md-8">
+                                                    <input class="form-control" type="text" data-ng-model="BusinessValue">
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">Area
+
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control text-lowercase">
+                                                        <option>-- Area --</option>
+                                                        <option>Fabricon Fiber</option>
+                                                    </select>                                        <!--<span class="help-block">Please enter a valid email</span>-->
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="col-md-9">
+                                        <div class="pull-right">
+                                            <button type="button" class="text-lowercase btn-primary btn_hethi">Save</button>
+                                            <button type="button" class="text-lowercase btn_hethi btn-warning" data-ng-click="clearTest()">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </form>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12" data-ng-switch-when="2">
+                    <div class="panel panel-info panel-body text-lowercase">
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-md-3 control-label">Image Upload</label>-->
+                            <!--<div class="col-md-8">-->
+                                <!--<input class="form-control" type="text" data-ng-model="ImageUpload">-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <div class="codrops-header">
+                            <header class="codrops-header">
+                                <!--<div class="codrops-links">-->
+                                <!--<a class="codrops-icon codrops-icon--prev" href="http://tympanus.net/Tutorials/SVGRipples/" title="Previous Demo"><span>Previous Demo</span></a>-->
+                                <!--<a class="codrops-icon codrops-icon--drop" href="http://tympanus.net/codrops/?p=24831" title="Back to the article"><span>Back to the Codrops article</span></a>-->
+                                <!--</div>-->
+
+                                <div class="divider"></div>
+
+                                <h1>Please click to upload an Image file</h1>
+
+
+                                <!--<strong>-->
+                                    <!--<a href="http://tympanus.net/codrops/?p=24831">Styling and Customizing File Inputs the Smart Way</a>-->
+                                    <!--</strong>-->
+
+                            </header>
+                            <div class="content">
+                                <div class="box">
+                                    <form class="form-horizontal" >
+                                        <div class="divider-lg"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-8 col-lg-offset-2">
+                                                <div class="input-group">
+                                  <span class="input-group-btn">
+                                      <span class="btn-file-hethi btn-danger btn-file">
+
+                                            <span class="fa fa-upload"></span> Choose a file&hellip;
+                                          <input type="file" name="file" id="file" data-ng-file-model="ImagePath" >
+
+                                      </span>
+                                  </span>
+                                                    <input type="text" ng-model="pathfile" class="form-control input-hethi input-lg" readonly>
+                                                    <span class="input-group-btn">
+                                    <button class="text-lowercase btn-file-hethi btn-primary" type="submit">Upload</button>
+                                </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-8 col-lg-offset-2">
+                                                <!--<div class="col-md-6">-->
+                                                <img src="{{image}}" class="thumbnail img-responsive">
+                                                <!--</div>-->
+                                            </div>
+                                        </div>
+
+                                        <!--<div class="form-group">-->
+                                            <!--<div class="col-md-8 col-lg-offset-2">-->
+                                                <!--<div class="pull-right">-->
+                                                    <!--<button type="submit" class="btn_hethi btn-primary">Upload</button>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    </form>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="col-md-12" data-ng-switch-when="3">
+                    <div class="panel-info panel panel-body text-lowercase">
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-md-3 control-label">Data Upload</label>-->
+                            <!--<div class="col-md-8">-->
+                                <!--<input class="form-control" type="text" data-ng-model="DataUpload">-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <div class="codrops-header">
+                            <header class="codrops-header">
+                                <!--<div class="codrops-links">-->
+                                <!--<a class="codrops-icon codrops-icon--prev" href="http://tympanus.net/Tutorials/SVGRipples/" title="Previous Demo"><span>Previous Demo</span></a>-->
+                                <!--<a class="codrops-icon codrops-icon--drop" href="http://tympanus.net/codrops/?p=24831" title="Back to the article"><span>Back to the Codrops article</span></a>-->
+                                <!--</div>-->
+
+                                <div class="divider"></div>
+
+                                <h1>Please click to upload a data file</h1>
+
+
+                                <!--<strong>-->
+                                <!--<a href="http://tympanus.net/codrops/?p=24831">Styling and Customizing File Inputs the Smart Way</a>-->
+                                <!--</strong>-->
+
+                            </header>
+                            <div class="content">
+                                <div class="box">
+                                    <form class="form-horizontal" >
+                                        <div class="divider-lg"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-8 col-lg-offset-2">
+                                                <div class="input-group">
+                                  <span class="input-group-btn">
+                                      <span class="btn-file-hethi btn-danger btn-file">
+
+                                            <span class="fa fa-upload"></span> Choose a file&hellip;
+                                          <input type="file" name="file" id="file1" data-ng-file-model="ImagePath" >
+
+                                      </span>
+                                  </span>
+                                                    <input type="text" ng-model="pathfile" class="form-control input-hethi input-lg" readonly>
+                                                    <span class="input-group-btn">
+                                    <button class="text-lowercase btn-file-hethi btn-primary" type="submit">Upload</button>
+                                </span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-8 col-lg-offset-2">
+                                                <!--<div class="col-md-6">-->
+                                                <img src="{{image}}" class="thumbnail img-responsive">
+                                                <!--</div>-->
+                                            </div>
+                                        </div>
+
+                                        <!--<div class="form-group">-->
+                                            <!--<div class="col-md-8 col-lg-offset-2">-->
+                                                <!--<div class="pull-right">-->
+                                                    <!--<button type="submit" class="btn_hethi btn-primary">I Upload the file</button>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    </form>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-12" data-ng-switch-when="4">
+                    <div class="panel-info panel panel-body">
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-md-3 control-label">Virtual Print Driver</label>-->
+                            <!--<div class="col-md-8">-->
+                                <!--<input class="form-control" type="text" data-ng-model="VPDriver">-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <div class="row">
+                            <div class="col-md-12 text-center ">
+                                <div class="download_provision">Download Virtual Print Driver</div>
+                                <button type="button" class="btn_hethi blue">Download Driver</button>
+                                <div class="margin-top-20" style="font-size: 13px;font-weight: 400;color: #777;">
+                                    <span class="alt-platform">For Windows 10/8.1/8/7/Vista/XP 32-bit</span>
+                                    <div class="divider"></div>
+                                    <p class="show-dialog-options" >
+                                        <a data-g-event="cta" href="#">Download Virtual Driver
+                                            for another platform</a>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--<div class="row">-->
+
+        <!--<div class="col-md-12" >-->
+            <!--<div class="panel panel-default">-->
+                <!--<div class="panel-heading">Work Item / Task Creation</div>-->
+                <!--<div class="panel-body">-->
+                    <!--<form class="form-horizontal"  method="post" action="">-->
+
+
+
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-md-2 control-label">Title</label>-->
+                                <!--<div class="col-md-9">-->
+                                    <!--<input class="form-control" type="text" data-ng-model="workItemTitle">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-md-2 control-label">Iteration</label>-->
+                                <!--<div class="col-md-9">-->
+                                    <!--&lt;!&ndash;<input class="form-control" type="text" data-ng-model="workItemIteration">&ndash;&gt;-->
+                                    <!--<select class="form-control">-->
+                                        <!--<option>--IterationName--</option>-->
+                                        <!--<option>Fabricon Fiber</option>-->
+                                        <!--<option>Name1</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-md-2 control-label">Area-->
+
+                                <!--</label>-->
+                                <!--<div class="col-md-9">-->
+                                    <!--&lt;!&ndash;<input type="text" data-ng-model="WorkItemArea" class="form-control" >&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<span class="help-block">Please enter a valid email</span>&ndash;&gt;-->
+                                    <!--<select class="form-control">-->
+                                        <!--<option>Name</option>-->
+                                        <!--<option>Fabricon Fiber</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                        <!--<div class="row">-->
+
+                            <!--<div class="col-md-6">-->
+
+                                  <!--<div class="panel-body panel panel-danger">-->
+                                      <!--<div class="hethi_header">-->
+                                          <!--<div class="row">-->
+                                              <!--<div class="col-md-12">-->
+                                                  <!--<h4 class="h4_header">Status</h4>-->
+                                              <!--</div>-->
+                                          <!--</div>-->
+                                      <!--</div>-->
+                                      <!--<div class="divider-sm"></div>-->
+                                      <!--<div class="form-group">-->
+                                          <!--<label class="col-md-4 control-label">Assigned To</label>-->
+                                          <!--<div class="col-md-8">-->
+                                              <!--&lt;!&ndash;<input class="form-control" type="text" data-ng-model="AssignedTo">&ndash;&gt;-->
+                                              <!--<select class="form-control">-->
+                                                  <!--<option>-- select --</option>-->
+                                              <!--</select>-->
+                                          <!--</div>-->
+                                      <!--</div>-->
+                                      <!--<div class="form-group">-->
+                                          <!--<label class="col-md-4 control-label">State</label>-->
+                                          <!--<div class="col-md-8">-->
+                                              <!--<input class="form-control" type="text" data-ng-model="WorkItemState">-->
+
+                                          <!--</div>-->
+                                      <!--</div>-->
+                                      <!--<div class="form-group">-->
+                                          <!--<label class="col-md-4 control-label">Reason-->
+
+                                          <!--</label>-->
+                                          <!--<div class="col-md-8">-->
+                                              <!--<input type="text" data-ng-model="WorkItemReason" class="form-control" >-->
+                                              <!--&lt;!&ndash;<span class="help-block">Please enter a valid email</span>&ndash;&gt;-->
+                                          <!--</div>-->
+                                      <!--</div>-->
+                                  <!--</div>-->
+
+
+
+                            <!--</div>-->
+                            <!--<div class="col-md-6">-->
+                              <!--<div class="panel-body panel panel-danger">-->
+
+                                  <!--<div class="hethi_header">-->
+                                      <!--<div class="row">-->
+                                          <!--<div class="col-md-12">-->
+                                              <!--<h4 class="h4_header">Details</h4>-->
+                                          <!--</div>-->
+                                      <!--</div>-->
+                                  <!--</div>-->
+                                  <!--<div class="divider-sm"></div>-->
+                                  <!--<div class="form-group">-->
+                                      <!--<label class="col-md-4 control-label">Effort</label>-->
+                                      <!--<div class="col-md-8">-->
+                                          <!--<input class="form-control" type="text" data-ng-model="Effort">-->
+
+                                      <!--</div>-->
+                                  <!--</div>-->
+                                  <!--<div class="form-group">-->
+                                      <!--<label class="col-md-4 control-label">Business value</label>-->
+                                      <!--<div class="col-md-8">-->
+                                          <!--<input class="form-control" type="text" data-ng-model="BusinessValue">-->
+
+                                      <!--</div>-->
+                                  <!--</div>-->
+                                  <!--<div class="form-group">-->
+                                      <!--<label class="col-md-4 control-label">Area-->
+
+                                      <!--</label>-->
+                                      <!--<div class="col-md-8">-->
+                                          <!--<select class="form-control">-->
+                                              <!--<option>-- Area --</option>-->
+                                              <!--<option>Fabricon Fiber</option>-->
+                                          <!--</select>                                        &lt;!&ndash;<span class="help-block">Please enter a valid email</span>&ndash;&gt;-->
+                                      <!--</div>-->
+                                  <!--</div>-->
+                              <!--</div>-->
+
+
+                            <!--</div>-->
+                        <!--</div>-->
+
+
+                            <!--<div class="form-group">-->
+                                <!--<div class="col-md-12">-->
+                                    <!--<div class="pull-right">-->
+                                        <!--<button type="button" class="btn-primary btn_hethi">Save</button>-->
+                                        <!--<button type="button" class="btn_hethi btn-warning" data-ng-click="clearTest()">Clear</button>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+
+
+                    <!--</form>-->
+
+
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+</div>

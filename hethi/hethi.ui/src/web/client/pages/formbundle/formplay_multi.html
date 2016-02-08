@@ -1,0 +1,105 @@
+<div data-ng-controller="appHomeController">
+    <div class="col-md-10">
+        <label>Customer</label>
+    </div>
+    <div class="col-md-2">
+       <a href="/selectbps"><button class="btn_hethi btn-default btn-block" type="button">INBOX</button></a>
+    </div>
+    <div class="col-md-6">
+        <label>BPS</label>
+    </div>
+    <div class="col-md-6">
+        <label>Type</label>
+    </div>
+    <div class="col-md-12">
+        <div class="leftNav_head"></div>
+    </div>
+    <div class="col-md-3">
+        <ul class="nav nav-boxed tabbable ver-vertical-menu">
+            <div class="leftNav_head"></div>
+            <li  ng-class="clientTabList.dashboard"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('dashboard')">HCFA S</a></li>
+            <li  ng-class="clientTabList.dashboard"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('dashboard')"> HCFA+EOB</a></li>
+            <li  ng-class="clientTabList.dashboard"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('dashboard')">HCFA+EOB+Attachment</a></li>
+            <li  ng-class="clientTabList.dashboard"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('dashboard')">UB S</a></li>
+            <li  ng-class="clientTabList.dashboard"><a href="#" data-toggle="tab" data-ng-click="selectClientTab('dashboard')">UB+EOB</a></li>
+            </ul>
+            <div class="leftNav_head"> </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-9">
+            <div class="col-md-3"style="background-color: #adadad">
+                <div class="col-md-12">
+                    <label style="margin-bottom: 20px">Forms Uploaded by customer</label>
+                </div>
+                <img src=""height="75" width="75"style="margin-left: 15px" tooltip="Double click to preview">
+                <div class="col-md-12">
+                    <label style="margin-bottom: 20px">hcfa s</label>
+                </div>
+
+                <div class="col-md-12">
+                    <img src=""height="75" width="75"style="margin-left: 1%">
+                </div>
+                <div class="col-md-12">
+                    <label style="margin-bottom: 20px">hcfa m</label>
+                </div>
+                <div class="col-md-12">
+                    <img src=""height="75" width="75"style="margin-left: 1%">
+                </div>
+                <div class="col-md-12">
+                    <label style="margin-bottom: 20px">EOB</label>
+                </div>
+                <div class="col-md-12">
+                    <img src=""height="75" width="75"style="margin-left: 1%">
+                </div>
+                <div class="col-md-12">
+                    <label style="margin-bottom: 20px">UB S</label>
+                </div>
+                <div class="col-md-12">
+                    <img src=""height="75" width="75"style="margin-left: 1%">
+                </div>
+                <div class="col-md-12">
+                    <label style="margin-bottom: 20px">UB M</label>
+                </div>
+            </div>
+            <div class="col-md-4"style="background-color: #adadad;margin-left: 10px">
+                <div class="col-md-12">
+                    <label style="margin-bottom: 20px">Drag here to regroup</label>
+                </div>
+                <img src=""height="75" width="75"style="margin-left: 15px">
+                <div class="col-md-12">
+                    <label style="margin-bottom: 20px">HCFA</label>
+                </div>
+
+                <div class="col-md-12">
+                    <img src=""height="75" width="75"style="margin-left: 200px">
+                </div>
+                <div class="col-md-12">
+                    <label style="margin-bottom: 20px;margin-left: 200px">EOB</label>
+                </div>
+                <div class="col-md-8 row"style="margin-top: 325px">
+                    <label style="margin-bottom: 20px;margin-left: 150px">+</label>
+                </div>
+                <div class="col-md-4"style="margin-top: 325px;margin-left: 10px">
+                  <a href="/formbundle_thankyoubartist" > <button class="btn_hethi btn-default btn-block" type="button">Group</button></a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12">
+                    <label>hcfa-s</label>
+                </div>
+                <div class="col-md-12">
+                    <label>hcfa-s+EOB</label>
+                </div>
+                <div class="col-md-12">
+                    <label>hcfa-m</label>
+                </div>
+                <div class="col-md-12">
+                    <label>hcfa-m+EOB</label>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</div>

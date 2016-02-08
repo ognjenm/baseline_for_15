@@ -1,0 +1,508 @@
+<div id="NewRule" class="modal fade" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div>
+                <div class="modal-header modal-head-bg-default">
+                    <span class="fa fa-close white-c pull-right mouse_point" data-dismiss="modal" aria-hidden="true"></span>
+
+                    <h4 class="modal-title text-center">New Rule</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="panel-body panel">
+
+                        <section >
+                            <form  data-ng-submit="addNewRule(rules)" class="form-horizontal text-center form-validation" name="form_constraints" >
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label class="control-label">Rule Name *</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <input type="text" ng-model="rules.name" required="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="divider"></div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label class="control-label">Form Type *</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <select required="" ng-change="selectFormField(rules.form_types)" ng-model="rules.form_types" class="form-control">
+                                            <option value="">-- select form field--</option>
+                                            <option value="{{form.efs_uin}}" ng-repeat="form in formTypes">{{form.form_type}}</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="form-group" ng-show="!showSingle1">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="control-label">Rule Type *</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="radio" value="0" class="form-control" name="type" ng-model="rule_type">
+                                            Single Field Rule
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="radio" value="1" class="form-control" name="type" ng-model="rule_type">
+                                            Field Default value Rule
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="radio" value="2" class="form-control" name="type" ng-model="rule_type">
+                                            Field Mapping Rule
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-9">
+                                            <button type="button" ng-click="setRuleType(rule_type)" class="btn_hethi btn-danger"><i class="fa fa-forward"></i> Continue</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-show="showSingle">
+
+                                    <div class="form-group" >
+                                        <div class="col-md-6" >
+                                            <div class="panel panel-info margin-top-10" data-ng-repeat="rule in dynamicRule" ng-init="outerIndex=$index">
+                                                <div  class="panel-heading">
+                                                    <h3 class="panel-title">Condition {{$index+1}}</h3>
+                                                </div>
+                                                <div class="panel-body" style="height: 275px; width: auto; overflow-y: auto">
+                                                    <div class="form-group">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Ixsd Fields *</label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <!--<div class="styled-select">-->
+                                                            <!--<select>-->
+                                                            <!--<option>Here is the first option</option>-->
+                                                            <!--<option>The second option</option>-->
+                                                            <!--</select>-->
+                                                            <!--</div>-->
+                                                            <select ng-required="showSingle" ng-change="createStatement(rule.field,'1')" ng-model="rule.field" class="form-control">
+                                                                <option value="">-- select form field--</option>
+                                                                <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="divider"></div>
+
+                                                    <div class="form-group">
+
+                                                        <div class="row col-md-12" ng-repeat="newOper in rule.functions">
+                                                            <div class="col-md-3">
+                                                                <label ng-if="$first" class="control-label">Operations*</label>
+                                                            </div>
+                                                            <div class="col-md-5">
+
+                                                                <select ng-change="createStatement('fun','2')" ng-model="newOper.id"  class="form-control margin-top-10" ng-required="showSingle">
+                                                                    <option value="">-- select operations --</option>
+                                                                    <optgroup label="{{key}}" ng-repeat="(key,value) in typeOfOperators">
+                                                                        <option ng-repeat="opera in value" value="{{opera}}">{{opera.operation_name}}</option>
+                                                                    </optgroup>
+
+                                                                </select>
+                                                            </div>
+                                                            <div  class="col-md-4">
+                                                                <!--<span ng-if="$last" ng-click="addNewOperations($index,outerIndex)" class="btn_hethi btn-info"><i class="fa fa-plus-circle"></i></span>-->
+                                                                <!--<span ng-if="!$last" ng-click="rule.functions.splice($index,1)" class="btn_hethi btn-danger"><i class="fa fa-remove"></i></span>-->
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="divider"></div>
+
+                                                    <div class="form-group">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Criteria *</label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <input ng-change="createStatement(rule,'3')" type="text" ng-model="rule.condition" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" >
+
+                                                        <div class="col-md-12">
+                                                            <div class="text-center">
+                                                                <button ng-if="dynamicRule.length > 1" data-ng-click="removeCondition($index)" type="button" class="btn_hethi btn-danger"><i class="fa fa-remove"></i> Remove</button>
+                                                                <button ng-if="$last" type="button" ng-click="addNewCondition($index,'&&')" class="btn_hethi btn-primary"><i class="fa fa-plus-circle"></i> AND Condition</button>
+                                                                <button ng-if="$last" type="button" ng-click="addNewCondition($index,'||')" class="btn_hethi btn-info"><i class="fa fa-plus-circle"></i> OR Condition</button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="panel panel-info margin-top-10">
+                                                <div  class="panel-heading">
+                                                    <h3 class="panel-title">Action</h3>
+                                                </div>
+                                                <div class="panel-body" style="height: 275px; width: auto; overflow-y: auto">
+                                                    <div class="row margin-top-10">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Exception queues </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="pull-left" ng-repeat="(key,val) in queueTemp">
+                                                                <span><i class="fa fa-info-circle"></i>  {{key}}</span>
+                                                            </div>
+                                                            <!--<select ng-change="setExceptionLog(rules.exception_queue)" class="form-control" ng-model="rules.exception_queue">-->
+                                                            <!--<option ng-repeat="(key,val) in exceptionList" value="{{key}}">{{key}}</option>-->
+                                                            <!--</select>-->
+                                                        </div>
+                                                    </div>
+                                                    <!--<div class="row margin-top-10">-->
+                                                    <!--<div class="col-md-3">-->
+                                                    <!--<label class="control-label">Next process </label>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="col-md-6">-->
+                                                    <!--<select class="form-control">-->
+                                                    <!--<option>process 1</option>-->
+                                                    <!--<option>process 2</option>-->
+                                                    <!--<option>process 3</option>-->
+                                                    <!--</select>-->
+                                                    <!--</div>-->
+                                                    <!--</div>-->
+                                                    <div class="row margin-top-10">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Exception Log </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                           <textarea readonly cols="8" rows="5" type="text" class="form-control" ng-model="rules.exception_log">
+                                                               </textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-top-10">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Exception Statement </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <textarea cols="8" rows="5" readonly type="text" class="form-control" ng-model="rules.exception_statement">
+                                                                </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="divider"></div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <label class="control-label">Statement *</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <textarea readonly class="form-control" ng-required="showSingle" rows="2" ng-model="rules.statement"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="pull-right">
+                                                <button type="submit" class="btn-primary btn_hethi" >Save</button>
+                                                <button type="button" data-dismiss="modal" aria-hidden="true" class="btn_hethi btn-warning" data-ng-click="clearTest()">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div ng-hide="showSingle2">
+                                    <div class="form-group" >
+                                        <div class="col-md-6" >
+                                            <div class="panel panel-info margin-top-10" data-ng-repeat="rule in dynamicRule" ng-init="outerIndex=$index">
+                                                <div  class="panel-heading">
+                                                    <h3 class="panel-title">Condition {{$index+1}}</h3>
+                                                </div>
+                                                <div class="panel-body" style="height: 275px; width: auto; overflow-y: auto">
+                                                    <div class="form-group">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Ixsd Fields *</label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <!--<div class="styled-select">-->
+                                                            <!--<select>-->
+                                                            <!--<option>Here is the first option</option>-->
+                                                            <!--<option>The second option</option>-->
+                                                            <!--</select>-->
+                                                            <!--</div>-->
+                                                            <select ng-required="showSingle" ng-change="createStatement(rule.field,'1')" ng-model="rule.field" class="form-control">
+                                                                <option value="">-- select form field--</option>
+                                                                <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="divider"></div>
+
+                                                    <div class="form-group">
+
+                                                        <div class="row col-md-12" ng-repeat="newOper in rule.functions">
+                                                            <div class="col-md-3">
+                                                                <label ng-if="$first" class="control-label">Operations*</label>
+                                                            </div>
+                                                            <div class="col-md-5">
+
+                                                                <select ng-change="createStatement('fun','2')" ng-model="newOper.id"  class="form-control margin-top-10" ng-required="showSingle">
+                                                                    <option value="">-- select operations --</option>
+                                                                    <optgroup label="{{key}}" ng-repeat="(key,value) in typeOfOperators">
+                                                                        <option ng-repeat="opera in value" value="{{opera}}">{{opera.operation_name}}</option>
+                                                                    </optgroup>
+
+                                                                </select>
+                                                            </div>
+                                                            <div  class="col-md-4">
+                                                                <span ng-show="newOper.status" ng-click="addNewOperations($index,outerIndex)" class="btn_hethi btn-info"><i class="fa fa-plus-circle"></i></span>
+                                                                <span ng-hide="newOper.status" ng-click="rule.functions.splice($index,1)" class="btn_hethi btn-danger"><i class="fa fa-remove"></i></span>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="divider"></div>
+
+                                                    <div class="form-group">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Criteria *</label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <input ng-change="createStatement(rule,'3')" type="text" ng-model="rule.condition" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" >
+
+                                                        <div class="col-md-12">
+                                                            <div class="text-center">
+                                                                <button ng-if="dynamicRule.length > 1" data-ng-click="removeCondition($index)" type="button" class="btn_hethi btn-danger"><i class="fa fa-remove"></i> Remove</button>
+                                                                <button ng-if="$last" type="button" ng-click="addNewCondition($index,'&&')" class="btn_hethi btn-primary"><i class="fa fa-plus-circle"></i> AND Condition</button>
+                                                                <button ng-if="$last" type="button" ng-click="addNewCondition($index,'||')" class="btn_hethi btn-info"><i class="fa fa-plus-circle"></i> OR Condition</button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="panel panel-info margin-top-10">
+                                                <div  class="panel-heading">
+                                                    <h3 class="panel-title">Action</h3>
+                                                </div>
+                                                <div class="panel-body" style="height: 275px; width: auto; overflow-y: auto">
+                                                    <div class="row margin-top-10">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Set Default Value</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <input ng-change="createStatement1('0')" type="text" class="form-control" ng-model="rules.default_val">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row margin-top-10">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Exception Log </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                           <textarea readonly cols="8" rows="5" type="text" class="form-control" ng-model="rules.exception_log">
+                                                               </textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-top-10">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Action Statement </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <textarea cols="8" rows="5" readonly type="text" class="form-control" ng-model="rules.action_statement">
+                                                            </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="divider"></div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <label class="control-label">Statement *</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <textarea readonly class="form-control" ng-required="showSingle" rows="2" ng-model="rules.statement"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="pull-right">
+                                                <button type="submit" class="btn-primary btn_hethi" >Save</button>
+                                                <button type="button" data-dismiss="modal" aria-hidden="true" class="btn_hethi btn-warning" data-ng-click="clearTest()">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-hide="showSingle3">
+                                    <div class="form-group" >
+                                        <div class="col-md-6" >
+                                            <div class="panel panel-info margin-top-10" data-ng-repeat="rule in dynamicRule" ng-init="outerIndex=$index">
+                                                <div  class="panel-heading">
+                                                    <h3 class="panel-title">Condition {{$index+1}}</h3>
+                                                </div>
+                                                <div class="panel-body" style="height: 275px; width: auto; overflow-y: auto">
+                                                    <div class="form-group">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Ixsd Fields *</label>
+                                                        </div>
+                                                        <div class="col-md-9">
+
+                                                            <select ng-required="showSingle" ng-change="createStatement(rule.field,'1')" ng-model="rule.field" class="form-control">
+                                                                <option value="">-- select form field--</option>
+                                                                <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="divider"></div>
+
+                                                    <div class="form-group">
+
+                                                        <div class="row col-md-12" ng-repeat="newOper in rule.functions">
+                                                            <div class="col-md-3">
+                                                                <label ng-if="$first" class="control-label">Operations*</label>
+                                                            </div>
+                                                            <div class="col-md-5">
+
+                                                                <select ng-change="createStatement('fun','2')" ng-model="newOper.id"  class="form-control margin-top-10" ng-required="showSingle">
+                                                                    <option value="">-- select operations --</option>
+                                                                    <optgroup label="{{key}}" ng-repeat="(key,value) in typeOfOperators">
+                                                                        <option ng-repeat="opera in value" value="{{opera}}">{{opera.operation_name}}</option>
+                                                                    </optgroup>
+
+                                                                </select>
+                                                            </div>
+                                                            <div  class="col-md-4">
+                                                                <span ng-show="newOper.status" ng-click="addNewOperations($index,outerIndex)" class="btn_hethi btn-info"><i class="fa fa-plus-circle"></i></span>
+                                                                <span ng-hide="newOper.status" ng-click="rule.functions.splice($index,1)" class="btn_hethi btn-danger"><i class="fa fa-remove"></i></span>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="divider"></div>
+
+                                                    <div class="form-group">
+                                                        <div class="col-md-3">
+                                                            <label class="control-label">Criteria *</label>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <input ng-change="createStatement(rule,'3')" type="text" ng-model="rule.condition" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" >
+
+                                                        <div class="col-md-12">
+                                                            <div class="text-center">
+                                                                <button ng-if="dynamicRule.length > 1" data-ng-click="removeCondition($index)" type="button" class="btn_hethi btn-danger"><i class="fa fa-remove"></i> Remove</button>
+                                                                <button ng-if="$last" type="button" ng-click="addNewCondition($index,'&&')" class="btn_hethi btn-primary"><i class="fa fa-plus-circle"></i> AND Condition</button>
+                                                                <button ng-if="$last" type="button" ng-click="addNewCondition($index,'||')" class="btn_hethi btn-info"><i class="fa fa-plus-circle"></i> OR Condition</button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="panel panel-info margin-top-10">
+                                                <div  class="panel-heading">
+                                                    <h3 class="panel-title">Action</h3>
+                                                </div>
+                                                <div class="panel-body" style="height: 275px; width: auto; overflow-y: auto">
+                                                    <div class="row margin-top-10">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Set Mapping Field Value</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <!--<input ng-change="createStatement1('1')" type="text" class="form-control" ng-model="rules.default_val">-->
+                                                            <select ng-change="createStatement1('1')" ng-model="rules.default_val" class="form-control">
+                                                                <option value="">-- select form field--</option>
+                                                                <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row margin-top-10">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Exception Log </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                           <textarea readonly cols="8" rows="5" type="text" class="form-control" ng-model="rules.exception_log">
+                                                               </textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-top-10">
+                                                        <div class="col-md-4">
+                                                            <label class="control-label">Action Statement </label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <textarea cols="8" rows="5" readonly type="text" class="form-control" ng-model="rules.action_statement">
+                                                            </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="divider"></div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <label class="control-label">Statement *</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <textarea readonly class="form-control" ng-required="showSingle" rows="2" ng-model="rules.statement"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="pull-right">
+                                                <button type="submit" class="btn-primary btn_hethi" >Save</button>
+                                                <button type="button" data-dismiss="modal" aria-hidden="true" class="btn_hethi btn-warning" data-ng-click="clearTest()">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="divider"></div>
+
+
+
+
+
+
+
+                            </form>
+                        </section>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

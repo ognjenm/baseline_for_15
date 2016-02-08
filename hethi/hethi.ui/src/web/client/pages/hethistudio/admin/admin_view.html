@@ -1,0 +1,154 @@
+<!--Old Code-->
+<!--<div class="row">-->
+<!--&lt;!&ndash;<h3> <label>WELCOME {{loginedUserData.customer_name}}</label></h3>&ndash;&gt;-->
+
+<!--<div ng-click="" class="col-md-3 mouse_point text-center"-->
+<!--style="color: #ffffff;font-size: 12px;font-weight: bold;-->
+<!--border-radius:10px;padding-top:20px;-->
+<!--background-color: #ff8750;height: 50px;-->
+<!--margin-left: 20px;-->
+<!--margin-bottom: 20px" data-toggle="tooltip"-->
+<!--title=""> All Customers-->
+<!--</div>-->
+
+<!--<div ng-click="" class="col-md-3 mouse_point text-center"-->
+<!--style="color: #ffffff;font-size: 12px;font-weight: bold;-->
+<!--border-radius:10px;padding-top:20px;-->
+<!--background-color: #ff7fb1;height: 50px;margin-left: 20px"-->
+<!--data-toggle="tooltip" title="">-->
+
+<!--New Customers-->
+<!--</div>-->
+
+<!--<div ng-click="status2=!status2" class="col-md-3 mouse_point text-center"-->
+<!--style="color: #ffffff;font-size: 12px;font-weight: bold;-->
+<!--border-radius:10px;padding-top:20px;-->
+<!--background-color: #a8ff4d;height: 50px;-->
+<!--margin-left: 20px" data-toggle="tooltip" title="">-->
+<!--Existing Customers-->
+<!--</div>-->
+<!--</div>-->
+
+
+
+<div data-ng-controller="admin_home_controller">
+
+
+    <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+            <!--<ul class="nav nav-boxed nav-justified tabbable admin-ver-horizontal-menu" >-->
+                <!--&lt;!&ndash;<ul class="ver-inline-menu tabbable margin-bottom-10">&ndash;&gt;-->
+                <!--<li ng-repeat="row in services">-->
+                    <!--<a href="#" data-toggle="tab" data-ng-click="row.status=!row.status"><span ng-class="row.status ? 'fa fa-check-square-o':'fa fa-square-o'" class="fa fa-square-o"></span>  {{row.master_service}}</a>-->
+
+                <!--</li>-->
+
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="row">
+        <div class="col-md-12">
+            <div class="text-center">
+                <button ng-repeat="row in services" type="button" class="btn_hethi btn_hethi-lg blue-btngrp " ng-class="row.status ? 'active-btngrp':'inactive-btngrp'"  data-ng-model="row.status" data-ng-click="row.status=!row.status"  style="margin-left: 2px">
+                    {{row.master_service}}
+                </button>
+                &lt;!&ndash;<button type="button" class="btn btn-line-info " ng-click="data.value= 'no'" data-ng-model="btn.value" btn-radio="'no'" style="font-size: 12px"> No </button>&ndash;&gt;
+            </div>
+        </div>
+    </div>
+-->
+
+    <div class="divider-md"></div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class = "table-filters row">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <input type = "text" class = "form-control input-round" data-ng-model="searchKeywordsIndexer"
+                               data-ng-keyup="searchIndexer()" placeholder="search" />
+      <span class="input-group-btn">
+
+        <button class="btn btn-default"  style="border-top-right-radius: 48%;border-bottom-right-radius: 48%" type="button"><span class="fa fa-search"></span></button>
+      </span>
+
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+
+            <div class="divider-md"></div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                    <thead class="text-lowercase" style="background-color: #000000;color: #ffffff">
+                    <tr>
+                        <th class="text-center">
+                            <div class="thSn">
+                                #
+                            </div>
+                        </th>
+
+                        <th style="width:200px" class="text-center" >
+                            <div class="">
+                                business partner
+                            </div>
+                        </th>
+                        <th  class="text-center">
+                            <div class="th">
+                                BPaaS
+                            </div>
+                        </th>
+                        <th>
+                        <div class="th">
+                            industry
+                        </div>
+                        </th>
+                        <th class="text-center" style="width:200px" >
+                            <div class="th">
+                                received time
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                offer name
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th">
+                                Form
+                            </div>
+                        </th>
+
+                        <th class="text-center">
+                            <div class="th">
+                                #
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-click="selectbps($index);" ng-repeat="row in currentPageCustomerList">
+                        <td class="text-center">{{$index+1}}</td>
+                        <td class="text-center">{{row.customer_name}}</td>
+                        <td class="text-center">{{row.BPaaS_service}} 	</td>
+                        <td class="text-center">{{row.indus_service}}</td>
+                        <td class="text-11 text-center">
+                            {{row.lastupdtm | date:'medium'}}
+                        </td>
+                        <td class="text-center"> on network * </td>
+                        <td class="text-center">{{row.form_type}}</td>
+
+                        <td class="text-center"><a  ng-click="selectbps($index);" class="  text-small"> click </a> </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+

@@ -1,0 +1,99 @@
+<div data-ng-controller="admin_lookup_controller">
+
+    <div class="panel panel-default table-dynamic">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Create Lookup Table</strong></div>
+        <div class="panel-body">
+            <div class="divider"></div>
+          <form data-ng-submit="createTable()">
+               <div class="row">
+                   <div class="col-md-6">
+                       <div class="form-group">
+                           <select required="" ng-model="customer" class="form-control input-hethi">
+                               <option value="">--Select a Customer--</option>
+                               <option ng-repeat="customers in loadCustomerName" value="{{customers.customer_id}}">{{customers.customer_name}}</option>
+                           </select>
+                       </div>
+                   </div>
+                   <div class="col-md-6">
+                       <div class="form-group">
+                           <select required="" ng-model="lookup" class="form-control input-hethi">
+                               <option value="">--Select Lookup Type--</option>
+                               <option>VendorMaster</option>
+                               <option>LawsonPO</option>
+                               <option>GL</option>
+                               <option>Employee</option>
+                               <option>ApprovalGrid</option>
+                               <option>InvoiceHistory</option>
+                               <option>MA540_H_Record_PO</option>
+
+                           </select>
+                       </div>
+                   </div>
+                   <!--<div class="col-md-2">-->
+                       <!--<div class="form-group">-->
+                           <!--<button type="button" class="btn_hethi btn-primary">Go</button>-->
+                       <!--</div>-->
+                   <!--</div>-->
+               </div>
+
+               <hr>
+               <fieldset  data-ng-repeat="choice in choices">
+
+                   <div class="col-md-3">
+                       <label class="control-label">Column Name</label>
+                       <input type="text" class="form-control" ng-model="choice.columnName">
+                   </div>
+                   <div class="col-md-3">
+                       <label class="control-label">Type</label>
+                       <select class="form-control" ng-change="hideSize(choice)" ng-model="choice.type">
+                           <option>varchar</option>
+                           <option>text</option>
+                           <option>int</option>
+                           <option>bigint</option>
+                           <option>date</option>
+                           <option>datetime</option>
+                           <option>decimal</option>
+                       </select>
+
+                   </div>
+                   <div class="col-md-3">
+                       <label class="control-label">Size</label>
+                       <input ng-disabled="hideText" type="text" ng-change="checkType(choice)" class="form-control" ng-model="choice.size">
+                   </div>
+                   <div class="col-md-2">
+                       <label class="control-label">Primary Key</label>
+                       <!--<input type="text" class="form-control" ng-model="item.inlineChecked">-->
+                       <div class="form-group">
+                           <div class="btn-group">
+                               <button type="button" class="btn btn-line-info " data-ng-click="choice.inlineChecked= 'yes'" data-ng-model="choice.inlineChecked" btn-radio="'yes'" style="font-size: 12px"> Yes</button>
+                               <button type="button" class="btn btn-line-info " data-ng-click="choice.inlineChecked= 'no'" data-ng-model="choice.inlineChecked" btn-radio="'no'" style="font-size: 12px"> No </button>
+                           </div>
+
+                       </div>
+
+                   </div>
+                   <div class="col-md-1">
+                       <label class="control-label" style="color: white">Primary</label>
+                       <button class=" btn_hethi btn-danger" ng-if="choices.length > 1" ng-click="removeChoice()">Remove</button>
+
+                   </div>
+
+                   <!--<input type="text" ng-model="choice.name" name="" placeholder="Enter mobile number">-->
+
+               </fieldset>
+               <button type="button" class="addfields btn_hethi btn-success" ng-click="addNewChoice()">Add fields</button>
+               <div class="col-md-offset-5 pull-right margin-top-10">
+                   <button class=" btn_hethi btn-primary" type="submit"><i class="fa fa-table"></i> Create Table</button>
+               </div>
+           </form>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+</div>

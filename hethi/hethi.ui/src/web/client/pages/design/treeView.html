@@ -1,0 +1,17 @@
+
+<div class="margin_top_60" data-ng-controller="treeController">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div style="padding: 10px; border: 1px solid #aaa;">
+
+                <ul class="breadcrumb">
+                    <li ng-repeat="b in breadcrums" ng-class="{ active: $last }">{{ b }}</li>
+                </ul>
+                <div>Business</div>
+                <div tree-view="structure" tree-view-options="options"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
