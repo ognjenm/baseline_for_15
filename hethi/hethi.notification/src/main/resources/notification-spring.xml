@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans  xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+	xmlns:jms="http://www.springframework.org/schema/jms"  
+    xmlns:context="http://www.springframework.org/schema/context"     
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/integration
+		http://www.springframework.org/schema/integration/spring-integration.xsd
+		http://www.springframework.org/schema/integration/stream
+		http://www.springframework.org/schema/integration/stream/spring-integration-stream.xsd">
+
+	<beans:bean id="NotificationPackage" class="com.hethi.notification.NotificationPackage">
+	</beans:bean>
+ 
+<beans:bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+<beans:property name="service" ref="NotificationPackage" />
+<beans:property name="serviceInterface" value="com.hethi.notification.NotificationInterface"/>
+<beans:property name="serviceName" value="im" />
+<beans:property name="replaceExistingBinding" value="true" />
+<beans:property name="registryPort" value="10100" />
+</beans:bean>
+	 <int:poller id="poller" default="true" fixed-delay="100"/> 
+
+</beans:beans>
+
+
+
