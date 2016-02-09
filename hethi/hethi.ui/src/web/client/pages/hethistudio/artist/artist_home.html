@@ -1785,7 +1785,7 @@
                 <form data-ng-submit="saveStenciling()">
                     <div class="row">
                         <div class="col-md-6" style="border-right: 1px solid #869791">
-                            <img  src="{{previewImage}}"  class="thumbnail img-responsive">
+                            <img  src="{{previewImage}}"  ng-style="{width : width ,height : height}" class="thumbnail">
                         </div>
                         <div class="col-md-6">
                             <div  ng-repeat="row in position_cordinates"><input  type="text" id="{{row.keyName}}" ng-model="row.value"
@@ -1794,7 +1794,7 @@
                             </div>
                             <!--Math.ceil($scope.formSize.width/600*$('#x1').val())-->
 
-                            <img id="imageId" src="{{previewImage}}"  ng-class="{width: width ,height: height}" class="thumbnail img-responsive">
+                            <img id="imageId" src="{{previewImage}}"  ng-style="{width : width ,height : height}" class="thumbnail ">
 
 
                             <!--<textarea ng-repeat="row in position_cordinates" ng-if="row.height > 8" cols="5" rows="5"-->

@@ -241,47 +241,73 @@
                                             <div ng-click="package_seq=false;rule_seq=!rule_seq;workset_seq=false;ruleset_seq=false" class="mouse_point panel-heading">
                                                 <h3 class="panel-title"><i class="fa fa-tasks"></i> Rule Settings..</h3>
                                             </div>
-                                            <div ng-show="rule_seq" class="panel-body" style="height: auto; width: auto; overflow-y: auto">
+                                            <div ng-show="rule_seq" >
 
-                                                <!--<div ng-repeat="rule in ruleSequence">-->
-                                                    <!--{{rule}}-->
-                                                <!--</div>-->
-                                                <div ng-repeat="rule1 in ruleSequence" class="margin-bottom-10">
-                                                    <div class="col-md-10 ">
-                                                        <ul dnd-list="rule1" >
+                                                <div class="panel-body" style="height: auto; width: auto; overflow-y: auto">
+                                                    <div ng-repeat="rule1 in currentPageStoresIndexer" class="margin-bottom-10">
+                                                        <div class="col-md-10 ">
+                                                            <ul dnd-list="rule1" >
 
-                                                            <!-- The dnd-draggable directive makes an element draggable and will
-                                                                 transfer the object that was assigned to it. If an element was
-                                                                 dragged away, you have to remove it from the original list
-                                                                 yourself using the dnd-moved attribute -->
-                                                            <!--<label>{{rule.rule_order}}</label> <buttuon type="button" class="btn_hethi btn-primary"-->
-                                                            <!--ng-click="changeOrder($index)"><span class="fa fa-plus-circle"></span></buttuon>-->
-                                                            <li dnd-draggable="rule"
-                                                                dnd-effect-allowed="move"
-                                                                dnd-selected="models.selected = rule"
+                                                                <!-- The dnd-draggable directive makes an element draggable and will
+                                                                     transfer the object that was assigned to it. If an element was
+                                                                     dragged away, you have to remove it from the original list
+                                                                     yourself using the dnd-moved attribute -->
+                                                                <!--<label>{{rule.rule_order}}</label> <buttuon type="button" class="btn_hethi btn-primary"-->
+                                                                <!--ng-click="changeOrder($index)"><span class="fa fa-plus-circle"></span></buttuon>-->
+                                                                <li dnd-draggable="rule"
+                                                                    dnd-effect-allowed="move"
+                                                                    dnd-selected="models.selected = rule"
                                                                     ng-style="{{rule1.style}}">
-                                                                <!--style="background-color: #1FA1B7;color: white;padding: 10px;"    >-->
-                                                                <span ng-click="openRuleSet(rule,$index)" class="mouse_point">{{rule1.rule_order}}  {{rule1.rule_name}}</span>
-                                                          <!--<span ng-if="$index+1 > 1"-->
-                                                                <!--class="glyphicon glyphicon-chevron-up pull-right"-->
-                                                                <!--data-ng-click=" upOrder($index) "-->
-                                                                <!--data-ng-class="{active: row == 'Task'}">-->
-                                                          <!--</span>-->
-                                                          <!--<span ng-if="$index+1< ruleSequence.length"-->
-                                                                <!--class="glyphicon glyphicon-chevron-down pull-right"-->
-                                                                <!--data-ng-click="downOrder($index) "-->
-                                                                <!--data-ng-class="{active: row == '-Task'}">-->
-                                                          <!--</span>-->
+                                                                    <!--style="background-color: #1FA1B7;color: white;padding: 10px;"    >-->
+                                                                    <span ng-click="openRuleSet(rule,$index)" class="mouse_point">{{rule1.rule_order}}  {{rule1.rule_name}}</span>
+                                                                    <!--<span ng-if="$index+1 > 1"-->
+                                                                    <!--class="glyphicon glyphicon-chevron-up pull-right"-->
+                                                                    <!--data-ng-click=" upOrder($index) "-->
+                                                                    <!--data-ng-class="{active: row == 'Task'}">-->
+                                                                    <!--</span>-->
+                                                                    <!--<span ng-if="$index+1< ruleSequence.length"-->
+                                                                    <!--class="glyphicon glyphicon-chevron-down pull-right"-->
+                                                                    <!--data-ng-click="downOrder($index) "-->
+                                                                    <!--data-ng-class="{active: row == '-Task'}">-->
+                                                                    <!--</span>-->
 
-                                                            </li>
+                                                                </li>
 
 
-                                                        </ul>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button ng-click="enableStatus(rule1)" ng-if="rule1.rule_status == 0" class="btn_hethi btn-success">enable</button>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-2">
-                                                        <button ng-click="enableStatus(rule1)" ng-if="rule1.rule_status == 0" class="btn_hethi btn-success">enable</button>
-                                                    </div>
+
                                                 </div>
+                                                <footer ng-show="currentPageStoresIndexer" class="table-footer">
+                                                    <div class="row">
+                                                        <div class="col-md-6 page-num-info" >
+                                                             <span >
+                                                               <!--data-ng-options="num for num in numPerPageOptIndexer"-->
+                                                                Show
+                                                                <select data-ng-model="numPerPageIndexer"
+                                                                     data-ng-options="num for num in numPerPageOptIndexer"
+                                                                     data-ng-change="onNumPerPageChangeIndexer(numPerPageIndexer)">
+                                                                  <!--<option ng-repeat="num in numPerPageOptIndexer" value="{{num.no}}">{{num.no}}</option>-->
+                                                                </select>
+                                                                  entries per page
+                                                             </span>
+                                                        </div>
+                                                        <div class="col-md-6 text-right pagination-container">
+                                                            <pagination class="pagination-sm"
+                                                                        page="currentPageIndexer"
+                                                                        total-items="filteredStoresIndexer.length"
+                                                                        max-size="4"
+                                                                        ng-click="selectIndexer(currentPageIndexer)"
+                                                                        items-per-page="numPerPageIndexer"
+                                                                        rotate="false"
+                                                                        boundary-links="true"></pagination>
+                                                        </div>
+                                                    </div>
+                                                </footer>
 
                                                 <!--<button type="button" data-ng-click="saveRuleSequence()" class="btn_hethi btn-info"><i class="fa fa-save"></i> Save Rule Sequence</button>-->
 

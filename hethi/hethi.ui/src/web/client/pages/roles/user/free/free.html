@@ -9,8 +9,8 @@
               and !!!! DON'T ADD any Div class or span Class inside
               the ID named "freeSlider" and "scroll_slider_content"
  ------------    -->
-        <section class="{{ hideSliderclass1 }}" id="freeSlider" ng-hide="mainslider">
-            <div id="demo" class="center_div">
+        <section class="freemium_section">
+            <div id="demo" class="" style="margin-top: 10%">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -71,8 +71,9 @@
             </div>
         </section>
 
-        <section class="{{ hideSliderclass1 }} center_div" ng-show="one">
-            <div class="container">
+        <section id="industry"  >
+            <div class="freemium_section"  style="margin-top: 10%" ng-if="one">
+            <div class="container" >
 
                 <div class="row">
                     <div class="col-md-12">
@@ -141,10 +142,12 @@
                 </div>
 
             </div>
+            </div>
         </section>
 
-        <section ng-show="uploadForm">
-            <div class="">
+        <section id="formUpload">
+            <div  class="freemium_section" ng-if="uploadForm">
+            <div class="" >
                 <div class="row hethi_grey_color">
                     <div class="col-md-6">
                         <h3>
@@ -169,7 +172,7 @@
                     <div class="col-md-4">
                         <div class="row">
                             <div class="col-md-12">
-                                <select class="form-control input-md input-hethi" ng-model="selectedIndustryList" ng-options="data as data.indus_service for data in selectedBpaaS.BpaaS_service_industry_list">
+                                <select class="form-control input-md input-hethi" ng-change="selectedIndustryListChanged(selectedIndustryList);" ng-model="selectedIndustryList" ng-options="data as data.indus_service for data in selectedBpaaS.BpaaS_service_industry_list">
                                     <option value="">--Select a Industry--</option>
                                 </select>
                             </div>
@@ -178,7 +181,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                <select class="form-control input-md input-hethi" ng-model="selectedForms" ng-options="data as data.form_type for data in selectedIndustryList.industry_form_list">
+                                <select class="form-control input-md input-hethi" ng-change="selectedFormsChanged(selectedForms);" ng-model="selectedForms" ng-options="data as data.form_type for data in selectedIndustryList.industry_form_list">
                                     <option value="">--Select a Form--</option>
                                 </select>
                             </div>
@@ -253,6 +256,7 @@
                     </div>
                 </div>
 
+            </div>
             </div>
         </section>
 

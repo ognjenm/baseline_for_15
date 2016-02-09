@@ -1,34 +1,63 @@
-<div class="page-forgot margin_top_60" data-ng-controller="forgotPasswordController">
+<div id="sign_in_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-sm" >
+        <div class="modal-content">
+            <div>
+                <div class="modal-header" style="background-color: #d2e2e8;">
+                    <span class="fa fa-close ash-c pull-right mouse_point" data-dismiss="modal" aria-hidden="true"></span>
 
-    <div class="signin-header">
-        <section class="logo text-center">
-            <a href="/">Sign In</a>
-        </section>
-    </div>
+                    <h4 class="modal-title text-center">Already user ? sign in</h4>
+                </div>
+                <div class="modal-body">
+                    <section>
+                        <form data-ng-submit="SignInToHethi(signin);">
+                            <!--<div class="panel-heading-sign_up text-center  " style="background-color: #d2e2e8;">-->
+                            <!--<span class="font_w text-normal" style="text-transform: none">Already user ? sign in</span>-->
+                            <!--</div>-->
+                            <div class="form-group">
 
-    <!--<div class="info text-center">-->
-        <!--<p class="text-small">Enter your email address that you used to register. We'll send you an email with your username and a link to reset your password.</p>-->
-    <!--</div>-->
+                                <input placeholder="Email address"
+                                       id="userLogin"
+                                       ng-model="signin.username"
+                                       required=""
+                                       class="form-control input-round"
+                                       type="email"
+                                       minlength="6"
+                                       maxlength="50">
+                            </div>
+                            <div class="form-group">
 
-    <div class="form-container text-center">
+                                <input placeholder="Password" id="pwd"
+                                       class="form-control input-round"
+                                       type="password"
+                                       ng-model="signin.password"
+                                       required=""
+                                        >
+                            </div>
 
-        <form class="form-horizontal" name="forgotPasswordForm">
-            <div class="form-group">
-                <span class="glyphicon glyphicon-envelope"></span>
-                <input type="email"
-                       class="form-control input-lg input-round text-center"
-                       placeholder="Email">
+                            <div class="form-group margin-bottom-10">
+                                <label class="ui-checkbox">
+                                    <input name="checkbox1"
+                                           ng-model="signin.remember"
+                                           type="checkbox"  >
+                                    <span>Stay signed in</span></label>
+                                <a ng-click="forgot()" href="#" class="float-right" style="color: #008BCB;font-size: 12px"><span i18n="forgot password"></span> ?</a>
+
+                            </div>
+
+
+                            <button type="submit" class="btn btn-success btn-block input-round"><i class="fa fa-sign-in"></i> Login</button>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <div style="font-weight: bold;padding-bottom: 5px;padding-top: 5px">Or</div>
+                                </div>
+                            </div>
+
+                            <button type="button" data-ng-click="signUpUser()" class="btn btn-info btn-block input-round"><i class="fa fa-user-plus"></i> Sign Up</button>
+                            <div class="divider-sm"></div>
+                        </form>
+                    </section>
+                </div>
             </div>
-            <div class="form-group">
-                <span class="glyphicon glyphicon-lock"></span>
-                <input type="password"
-                       class="form-control input-lg input-round text-center"
-                       placeholder="password">
-            </div>
-            <div class="form-group">
-                <a href="#/" class="btn btn-lg btn-block btn-primary btn-round" >Sign In</a>
-            </div>
-        </form>
-
+        </div>
     </div>
 </div>
