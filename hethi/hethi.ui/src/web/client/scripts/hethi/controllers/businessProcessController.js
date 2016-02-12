@@ -672,7 +672,7 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
             if(fun.rule_status == 1)
                 fun['style']={'background-color': '#008BCB','color': 'white','padding': '10px'};
             else
-                fun['style']={'background-color': '#1FA1B7','color': 'white','padding': '10px'};
+                fun['style']={'background-color': '#add8e6','color': 'white','padding': '10px'};
             $scope.ruleSequence[fun.rule_order-1] =fun;
             index++;
         });
@@ -706,6 +706,12 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         $scope.temp.forEach(function(fun){
             $scope.workSetSequence[fun.workset_order-1] =fun;
         });
+        init = function() {
+            $scope.searchIndexer();
+            return $scope.selectIndexer($scope.currentPageIndexer);
+        };
+
+        return init();
     };
 
     $scope.saveRuleSequence=function(){
@@ -1499,19 +1505,19 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
     };
     $scope.onFilterChangeIndexer = function() {
         $scope.selectIndexer(1);
-        $scope.currentPageIndexer = 1;
+        $scope.currentPageIndexer = 2;
         return $scope.rowIndexer = '';
     };
     $scope.onNumPerPageChangeIndexer = function() {
         $scope.selectIndexer(1);
-        return $scope.currentPageIndexer = 1;
+        return $scope.currentPageIndexer = 2;
     };
     $scope.onOrderChangeIndexer = function() {
         $scope.selectIndexer(1);
-        return $scope.currentPageIndexer = 1;
+        return $scope.currentPageIndexer = 2;
     };
     $scope.searchIndexer = function() {
-        $scope.filteredStoresIndexer = $filter('filter')($scope.storesIndexer, $scope.searchKeywordsIndexer);
+        $scope.filteredStoresIndexer = $filter('filter')($scope.ruleSequence, $scope.searchKeywordsIndexer);
         return $scope.onFilterChangeIndexer();
     };
     $scope.orderIndexer = function(rowName) {
@@ -1519,19 +1525,14 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
             return;
         }
         $scope.rowIndexer = rowName;
-        $scope.filteredStoresIndexer = $filter('orderBy')($scope.storesIndexer, rowName);
+        $scope.filteredStoresIndexer = $filter('orderBy')($scope.ruleSequence, rowName);
         return $scope.onOrderChangeIndexer();
     };
     $scope.numPerPageOptIndexer = [3, 5, 10, 20];
-    $scope.numPerPageIndexer = $scope.numPerPageOptIndexer[1];
-    $scope.currentPageIndexer = 1;
+    $scope.numPerPageIndexer = $scope.numPerPageOptIndexer[2];
+    $scope.currentPageIndexer = 2;
     $scope.currentPageStoresIndexer = [];
-    init = function() {
-        $scope.searchIndexer();
-        return $scope.selectIndexer($scope.currentPageIndexer);
-    };
 
-    return init();
 
 //    **************************************
 

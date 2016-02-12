@@ -1426,7 +1426,8 @@ hethi.controller('freedemoController', ['$http','$scope','$filter','$rootScope',
 
     $scope.load_ccore_serviceplays=function(){
         var input={
-            'customer_id':$rootScope.loginedUserData.customer_id
+            'customer_id':$rootScope.loginedUserData.customer_id,
+            'efs_uin':"cefs100101"
         };
         $http({
             method: 'POST',
@@ -1434,6 +1435,7 @@ hethi.controller('freedemoController', ['$http','$scope','$filter','$rootScope',
             dataType:'jsonp',
             data: input
         }).success(function(data) {
+            //alert(JSON.stringify(data[0]))
             $scope.servicePlaysQue=data[0];
             //console.log(JSON.stringify(data[0]));
         });
@@ -1456,7 +1458,7 @@ hethi.controller('freedemoController', ['$http','$scope','$filter','$rootScope',
     };
     $rootScope.ProceedToWorkflow=function(){
         var sfs_uin='csfs100101';
-        var hethi_subservicecode='daas_channel';
+        var hethi_subservicecode='daas.inventory';
         $rootScope.startWorkflow(sfs_uin,hethi_subservicecode);
     };
     $scope.getWorkflowLog=true;

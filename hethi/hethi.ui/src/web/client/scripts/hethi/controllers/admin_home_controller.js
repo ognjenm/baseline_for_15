@@ -22,14 +22,10 @@ hethi.controller('admin_home_controller', ['$http','$scope','$filter','$location
 
         for(var key in $scope.tempOffers){
             $scope.tempOffers[key].forEach(function(res){
-                res['status']=true;
+                res.status=true;
             })
         }
-        //alert(JSON.stringify($scope.tempOffers));
-        for(var key in $scope.tempOffers){
-            //alert(JSON.stringify($scope.tempOffers[key]))
-        }
-        //$scope.servicePlays_grouped=[];
+
         var input={
             'customer_id':1
         };
@@ -44,20 +40,17 @@ hethi.controller('admin_home_controller', ['$http','$scope','$filter','$location
             $scope.servicePlays_grouped = _.groupBy($rootScope.servicePlays, function (elemet) {
                 return elemet.hethi_servicecode;
             });
-            //alert(JSON.stringify($scope.tempOffers));
             for(var key in $scope.tempOffers){
-                //alert(JSON.stringify(key))
 
                 for(var key1 in $scope.servicePlays_grouped){
                     if(key==key1){
                         $scope.tempOffers[key].forEach(function(ele){
-                            $scope.servicePlays_grouped[key1].forEach(function(row){
-                                if(ele.hethi_subservicecode==row.hethi_subservicecode){
+                            $scope.servicePlays_grouped[key].forEach(function(row){
+                                row.status=false;
+                                if(ele.hethi_subservicecode == row.hethi_subservicecode){
                                     row.status=true;
                                 }
-                                else{
-                                    row.status=false;
-                                }
+
                             })
                         })
                     }
@@ -121,29 +114,33 @@ hethi.controller('admin_home_controller', ['$http','$scope','$filter','$location
     //    }
     //});
 
-    $scope.selectIndexer = function(page) {
-//        logger.log(page) ;
+    $scope.searchKeywordsIndexer = '';
+    $scope.filteredStoresIndexer = [];
+    $scope.rowIndexer = '';
 
-        var end=$scope.filteredCustomerList.length, start=0;
-        //start = (page - 1) * $scope.numPerPageIndexer;
-        //end = start + $scope.numPerPageIndexer;
-        return $scope.currentPageCustomerList = $scope.filteredCustomerList.slice(start, end);
+
+    $scope.selectIndexer = function(page) {
+
+        var end, start;
+        start = (page - 1) * $scope.numPerPageIndexer;
+        end = start + $scope.numPerPageIndexer;
+        return $scope.currentPageStoresIndexer = $scope.filteredStoresIndexer.slice(start, end);
     };
     $scope.onFilterChangeIndexer = function() {
         $scope.selectIndexer(1);
-        $scope.currentPageIndexer = 1;
+        $scope.currentPageIndexer = 2;
         return $scope.rowIndexer = '';
     };
     $scope.onNumPerPageChangeIndexer = function() {
         $scope.selectIndexer(1);
-        return $scope.currentPageIndexer = 1;
+        return $scope.currentPageIndexer = 2;
     };
     $scope.onOrderChangeIndexer = function() {
         $scope.selectIndexer(1);
-        return $scope.currentPageIndexer = 1;
+        return $scope.currentPageIndexer = 2;
     };
     $scope.searchIndexer = function() {
-        $scope.filteredCustomerList = $filter('filter')($rootScope.customerList, $scope.searchKeywordsIndexer);
+        $scope.filteredStoresIndexer = $filter('filter')($scope.customerList, $scope.searchKeywordsIndexer);
         return $scope.onFilterChangeIndexer();
     };
     $scope.orderIndexer = function(rowName) {
@@ -151,17 +148,15 @@ hethi.controller('admin_home_controller', ['$http','$scope','$filter','$location
             return;
         }
         $scope.rowIndexer = rowName;
-        $scope.filteredCustomerList = $filter('orderBy')($rootScope.customerList, rowName);
+        $scope.filteredStoresIndexer = $filter('orderBy')($scope.customerList, rowName);
         return $scope.onOrderChangeIndexer();
     };
     $scope.numPerPageOptIndexer = [3, 5, 10, 20];
-    $scope.numPerPageIndexer = $scope.numPerPageOptIndexer[1];
-    $scope.currentPageIndexer = 1;
-    $scope.filteredCustomerList = [];
-    init = function() {
-        $scope.searchIndexer();
-        return $scope.selectIndexer($scope.currentPageIndexer);
-    };
+    $scope.numPerPageIndexer = $scope.numPerPageOptIndexer[2];
+    $scope.currentPageIndexer = 2;
+    $scope.currentPageStoresIndexer = [];
+    //$scope.currentPageCustomerList=[];
+
 
     //init();
     $http({
@@ -171,7 +166,11 @@ hethi.controller('admin_home_controller', ['$http','$scope','$filter','$location
     }).success(function(data) {
         if(data[0][0].result!="No Data") {
             $rootScope.customerList = data[0];
-            init();
+            init = function() {
+                $scope.searchIndexer();
+                return $scope.selectIndexer($scope.currentPageIndexer);
+            };
+            return init();
         }
     });
     $http({
@@ -197,7 +196,7 @@ hethi.controller('admin_home_controller', ['$http','$scope','$filter','$location
         });
         if(isChecked) {
             $rootScope.selectedCustomerIndex = id;
-            $rootScope.selectedCustomer = $scope.currentPageCustomerList[id];
+            $rootScope.selectedCustomer = $scope.currentPageStoresIndexer[id];
 
             $location.path('/classify_selectbps');
         }else{
@@ -233,7 +232,6 @@ hethi.controller('admin_home_controller', ['$http','$scope','$filter','$location
             data: input
         }).success(function(data) {
             $rootScope.servicePlays=data[0];
-            /*alert(JSON.stringify($rootScope.servicePlays))*/
             $scope.tempOffers=[];
             $scope.servicePlays_grouped = _.groupBy($rootScope.servicePlays, function (elemet) {
 
@@ -266,7 +264,6 @@ hethi.controller('admin_home_controller', ['$http','$scope','$filter','$location
         console.log(JSON.stringify(forms))
         var jsonData=[];
         var offername=forms.newOfferName;
-        alert(offername);
         for(var key in $scope.servicePlays_grouped){
 
             $scope.servicePlays_grouped[key].forEach(function(rows){
@@ -279,7 +276,6 @@ hethi.controller('admin_home_controller', ['$http','$scope','$filter','$location
         };
         var x2js =new X2JS();
         var xml=x2js.json2xml_str({"root":{"data":jsonData}});
-        alert(xml);
 
         var input={
             offerxml:xml,name:offername,user_id:1
@@ -295,7 +291,6 @@ hethi.controller('admin_home_controller', ['$http','$scope','$filter','$location
             logger.log(JSON.stringify("Offer Successfully Save"));
             $scope.selectbps();
             $scope.load_admin_task_list_new();
-            alert(res)
         })
     };
 

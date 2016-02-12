@@ -43,9 +43,11 @@ hethi.controller('hethi_artist_home_Controller', ['$http','$scope','$filter','$r
     {Key:"MICR",Value:"MICR"}];
 
     $scope.mxsdFieldType=[{Key:"label",Value:"label"},{Key:"data",Value:"data"}];
-    $scope.ixsdFields=[{ixsdPath:"po/header/buyer/invoice_number",ixsdFieldName:"invoice_number",group:"buyer"},
-        {ixsdPath:"po/header/buyer/invoice_date",ixsdFieldName:"invoice_date",group:"buyer"},
-        {ixsdPath:"po/footer/invoice_total",ixsdFieldName:"invoice_total",group:""}];
+    $scope.indexingValues=[{"indexToClassify":"No","indexToReject":"No","indexToSplitMerge":"No"}];
+    $scope.selectedValue=$scope.indexingValues[0];
+    //$scope.ixsdFields=[{ixsdPath:"po/header/buyer/invoice_number",ixsdFieldName:"invoice_number",group:"buyer"},
+    //    {ixsdPath:"po/header/buyer/invoice_date",ixsdFieldName:"invoice_date",group:"buyer"},
+    //    {ixsdPath:"po/footer/invoice_total",ixsdFieldName:"invoice_total",group:""}];
     $scope.selectedMxsdPath="";
     $scope.selectedIxsd="";
     $scope.fieldType="";
@@ -160,52 +162,51 @@ hethi.controller('hethi_artist_home_Controller', ['$http','$scope','$filter','$r
                 "field":[]}
         }};
         //console.log("xml2Js : " + JSON.stringify(js));
-        //alert(xml);
-        //alert(JSON.stringify(js));
-        var H=js.efsuin.header;
-        var F=js.efsuin.footer;
-        var B=js.efsuin.body;
-
-        var headerData= { name: 'Header', folders: [] ,lab: [{ name: 'asdsd'},{ name: 'dsadsadasata'}] };
-        H.field.forEach(function(r){
-            var tempH={ name: r.name, files: [{ name: 'label',label: r.label},{ name: 'data',data: r.data}] };
-            headerData.folders.push(tempH);
-        });
-        var footerData= { name: 'Footer', folders: [] };
-        F.field.forEach(function(r){
-            var tempF= { name: r.name, files: [{ name: 'label',data: r.label},{ name: 'data',data: r.data}] };
-            footerData.folders.push(tempF);
-        });
-        var bodyData= { name: 'Body', folders: [] };
-        var bt={ name: 'Table',folders:[],files: [{ name: 'label'},{ name: 'data'}]};
-        B.table.header.field.forEach(function(r){
-            var tempB= { name: r.name, files: [{ name: 'label',data: r.label},{ name: 'data',data: r.data}] };
-            bt.folders.push(tempB);
-        });
-        if( B.table.lineitem.field.length!=undefined){
-            B.table.lineitem.field.forEach(function(r){
-                var tempB= { name: r.name, files:[{ name: 'label',data: r.label},{ name: 'data',data: r.data}] };
-                bt.folders.push(tempB);
-            });
-        };
-
-        if( B.table.footer.field.length!=undefined){
-            B.table.footer.field.forEach(function(r){
-                var tempB= { name: r.name, files: [{ name: 'label',data: r.label},{ name: 'data',data: r.data}]};
-                bt.folders.push(tempB);
-            });
-        };
-
-
-        bodyData.folders.push(bt);
-        $scope.field_data_structure = { folders: []} ;
-        $scope.field_data_structure.folders.push(headerData);
-        $scope.field_data_structure.folders.push(footerData);
-        $scope.field_data_structure.folders.push(bodyData);
+        //var H=js.efsuin.header;
+        //var F=js.efsuin.footer;
+        //var B=js.efsuin.body;
+        //
+        //var headerData= { name: 'Header', folders: [] ,lab: [{ name: 'asdsd'},{ name: 'dsadsadasata'}] };
+        //H.field.forEach(function(r){
+        //    var tempH={ name: r.name, files: [{ name: 'label',label: r.label},{ name: 'data',data: r.data}] };
+        //    headerData.folders.push(tempH);
+        //});
+        //var footerData= { name: 'Footer', folders: [] };
+        //F.field.forEach(function(r){
+        //    var tempF= { name: r.name, files: [{ name: 'label',data: r.label},{ name: 'data',data: r.data}] };
+        //    footerData.folders.push(tempF);
+        //});
+        //var bodyData= { name: 'Body', folders: [] };
+        //var bt={ name: 'Table',folders:[],files: [{ name: 'label'},{ name: 'data'}]};
+        //B.table.header.field.forEach(function(r){
+        //    var tempB= { name: r.name, files: [{ name: 'label',data: r.label},{ name: 'data',data: r.data}] };
+        //    bt.folders.push(tempB);
+        //});
+        //if( B.table.lineitem.field.length!=undefined){
+        //    B.table.lineitem.field.forEach(function(r){
+        //        var tempB= { name: r.name, files:[{ name: 'label',data: r.label},{ name: 'data',data: r.data}] };
+        //        bt.folders.push(tempB);
+        //    });
+        //};
+        //
+        //if( B.table.footer.field.length!=undefined){
+        //    B.table.footer.field.forEach(function(r){
+        //        var tempB= { name: r.name, files: [{ name: 'label',data: r.label},{ name: 'data',data: r.data}]};
+        //        bt.folders.push(tempB);
+        //    });
+        //};
+        //
+        //
+        //bodyData.folders.push(bt);
+        //$scope.field_data_structure = { folders: []} ;
+        //$scope.field_data_structure.folders.push(headerData);
+        //$scope.field_data_structure.folders.push(footerData);
+        //$scope.field_data_structure.folders.push(bodyData);
     });
 };
+    var host=$location.$$host+':'+$location.$$port;
 
-$scope.loadMxsd('http://localhost:5050/images/ixsd/mxsd.xml');
+$scope.loadMxsd('http://'+host+'/images/ixsd/mxsd.xml');
 var IsJsonString= function (str) {
         try {
             JSON.parse(str);
@@ -217,12 +218,10 @@ var IsJsonString= function (str) {
  var d=[];
 var getKeyValue=function(ob){
     //console.log(JSON.stringify(ob));
-    //alert(IsJsonString(JSON.stringify(ob)));
     for(var k in ob){
         var t={name:k,files:ob[k]};
         if(IsJsonString(JSON.stringify(ob))){
             d.push(t);
-            alert(JSON.stringify(d));
             getKeyValue(ob[k]);
         }
     };
@@ -236,7 +235,6 @@ var getKeyValue=function(ob){
             forEachIn(object, function (accessor, child) {
 
                 visit(child);
-                //alert(accessor);
             });
         }
         else {
@@ -256,11 +254,13 @@ var getKeyValue=function(ob){
     }
 
     function isArray(element) {
-        return element.constructor == Array;
+        return angular.isArray(element);
+        //return element.constructor == Array;
     }
 
     function isObject(element) {
-        return element.constructor == Object;
+        return angular.isObject(element);
+        //return element.constructor == Object;
     }
 $scope.loadMasterForm=function(path){
         $http({
@@ -269,27 +269,23 @@ $scope.loadMasterForm=function(path){
         }).success(function(xml) {
             var x2js = new X2JS();
             var js = x2js.xml_str2json(xml);
-            //alert(xml);
-            //alert(JSON.stringify(js));
             $scope.ixmlFormFields=js;
             //visit(js);
             //var result = JSONTree.create(js);
             //document.getElementById("masterList").innerHTML = result;
-            //alert(result)
             //var nd=getKeyValue(js);
             //nd.forEach(function(r){
             //    var z=getKeyValue(r.files);
-            //    alert(JSON.stringify(z));
             //});
             //var nd2=getKeyValue(nd.files);
             //var nd3=getKeyValue(nd2.files);
             //var nd4=getKeyValue(nd3.files);
-            //alert(JSON.stringify(nd));
 
         });
     };
     $scope.loadMasterFormStart=function(){
-        $scope.loadMasterForm('http://localhost:5050/images/ixsd/po.xml');
+        var host=$location.$$host+':'+$location.$$port;
+        $scope.loadMasterForm('http://'+host+'/images/ixsd/po.xml');
     };
 
     $scope.checkItratable=function(element) {
@@ -307,7 +303,7 @@ $scope.loadMasterForm=function(path){
     $scope.isUndefined=angular.isUndefined;
 
     $scope.isItratable=function(element){
-        return isArray(element) || isObject(element);
+        return $scope.isArray(element) || $scope.isObject(element);
     };
     $scope.selectedNodeCrumb = [''];
     $scope.folderSelected=function(key,val,parent){
@@ -317,7 +313,6 @@ $scope.loadMasterForm=function(path){
         while (nodeScope.key) {
             breadcrumbs.push(nodeScope.key);
             nodeScope = nodeScope.$parent.$parent.$parent.$parent;
-            //alert(nodeScope.key);
         }
         var a='';
         breadcrumbs.reverse().forEach(function(row){
@@ -345,10 +340,7 @@ $scope.loadMasterForm=function(path){
         });
         a=a.substring(0, a.length-1);
 
-        //alert($scope.masterFormFields[a])
-        alert(key);
-        alert(JSON.stringify(val));
-        val.added=true;
+        //val.added=true;
         //$scope.selectedNodeCrumb.push(key)
 
     };
@@ -362,7 +354,6 @@ $scope.loadMasterForm=function(path){
         while (nodeScope.key) {
             breadcrumbs.push(nodeScope.key);
             nodeScope = nodeScope.$parent.$parent.$parent.$parent;
-            //alert(nodeScope.key);
         }
         var a='';
         breadcrumbs.reverse().forEach(function(row){
@@ -391,7 +382,6 @@ $scope.loadMasterForm=function(path){
         });
         a=a.substring(0, a.length-1);
 
-        alert(val)
         //val.added=true;
         //$scope.selectedNodeCrumb.push(key)
 
@@ -406,7 +396,6 @@ $scope.loadMasterForm=function(path){
         deleteObject($scope.mxsd.efsuin)
         function deleteObject(object){
             var stack = breadcrumbs.reverse();
-            alert(stack);
             while(stack.length>1){
                 object = object[stack.shift()];
             }
@@ -423,7 +412,6 @@ $scope.loadMasterForm=function(path){
         deleteObject($scope.masterFormFields)
         function deleteObject(object){
             var stack = breadcrumbs.reverse();
-            alert(stack);
             while(stack.length>2){
                 object = object[stack.shift()];
             }
@@ -443,7 +431,6 @@ $scope.loadMasterForm=function(path){
         while (nodeScope.key) {
             breadcrumbs.push(nodeScope.key);
             nodeScope = nodeScope.$parent.$parent.$parent.$parent;
-            //alert(nodeScope.key);
         }
         //nodeScope.show=!nodeScope.show;
         var a='';
@@ -453,7 +440,7 @@ $scope.loadMasterForm=function(path){
 
         });
         a=a.substring(0, a.length-1);
-        $scope.selectedValue=val;
+        //$scope.selectedValue=val;
         val.show=!val.show;
 
     };
@@ -465,7 +452,6 @@ $scope.loadMasterForm=function(path){
         while (nodeScope.key) {
             breadcrumbs.push(nodeScope.key);
             nodeScope = nodeScope.$parent.$parent.$parent.$parent;
-            //alert(nodeScope.key);
         }
         var a='';
         breadcrumbs.reverse().forEach(function(row){
@@ -493,15 +479,10 @@ $scope.loadMasterForm=function(path){
         });
         a=a.substring(0, a.length-1);
 
-        //alert(a)
         //{group:"buyer"}
         $scope.selectedIxsd={ixsdPath:a,ixsdFieldName:$scope.selectedNodeCrumb[$scope.selectedNodeCrumb.length-1]};
         $scope.showIxml=false;
-        //alert(JSON.stringify($scope.selectedNodeCrumb));
 
-        //alert($scope.masterFormFields[a])
-        //alert(key);
-        //alert(JSON.stringify(val));
         //val.added=true;
         //$scope.selectedNodeCrumb.push(key)
 
@@ -515,8 +496,6 @@ $scope.loadMasterForm=function(path){
     //};
     //$scope.fileSelected=function(key,val){
     //
-    //    alert(key);
-    //    alert(JSON.stringify(val));
     //    val.added=true;
     //    $scope.selectedNodeCrumb.push(key)
     //
@@ -524,48 +503,7 @@ $scope.loadMasterForm=function(path){
 
     $scope.selectedNodes = [''];
 
-    $scope.structure = { folders: [
-        { name: 'Header', files: [{ name: 'File 1.jpg' }, { name: 'File 2.png' }],
-            folders: [
-                { name: 'Order Number', files: [{ name: 'label'},{ name: 'data'}] },
-                { name: 'Order Date', files: [{ name: 'label'},{ name: 'data'}] },
-                { name: 'PO Number', files: [{ name: 'label'},{ name: 'data'}] },
-            { name: 'Subfolder 2', files: [{ name: 'Subfile 1.txt' },{ name: 'Subfile 1.txt' }]},
-            { name: 'Subfolder 3' }
-        ]},
 
-        { name: 'Body' , files: [{ name: 'File 1.gif' }, { name: 'File 2.gif' }]}
-    ], files: [{ name: 'File 1.gif' }, { name: 'File 2.gif' }]};
-
-    $scope.options = {
-        onNodeSelect: function (node, list) {
-            $scope.selectedNodes = list;
-            $scope.selectedNode = node;
-            //alert(JSON.stringify(node));
-        }
-    };
-
-    $scope.options2 = {
-        collapsible: false
-    };
-
-    var iconClassMap = {
-            txt: 'icon-file-text',
-            jpg: 'icon-picture blue',
-            png: 'icon-picture orange',
-            gif: 'icon-picture'
-        },
-        defaultIconClass = 'icon-file';
-
-    $scope.options3 = {
-        mapIcon: function (file) {
-            var pattern = /\.(\w+)$/,
-                match = pattern.exec(file.name),
-                ext = match && match[1];
-
-            return iconClassMap[ext] || defaultIconClass;
-        }
-    };
 
     //Tree Ends
 
@@ -631,13 +569,11 @@ $scope.loadMasterForm=function(path){
                 data[0][index].form_type='Attachment';
                 var lastRow=JSON.stringify(data[0][index]);
                 $scope.hethi_efs_list.push(lastRow);
-                //alert(JSON.stringify($scope.hethi_efs_forms))
                 $scope.hethi_efs_bundle.forEach(function(bundle){
                     var bundle_type='';
                     var form_names='';
                     if(bundle.form_primary!=''){
                         $scope.hethi_efs_forms.forEach(function(efs){
-                            //alert(JSON.stringify(efs));
                             if(efs.efslob_id==bundle.form_primary){
                                 bundle_type=efs.form_type;
                                 return false;
@@ -754,7 +690,6 @@ $scope.loadMasterForm=function(path){
     };
     $rootScope.totalFormFields=[];
     $scope.assignFormToMetadata=function(selectedForm){
-        //alert(JSON.stringify(selectedForm))
         var input={
             table_name:'ixsd_'+selectedForm.efs_uin
         };
@@ -767,7 +702,6 @@ $scope.loadMasterForm=function(path){
         }).success(function (data) {
             $scope.masterFormFields={};
             $rootScope.currentEfsUin=(data[1][0]);
-            //alert(JSON.stringify($rootScope.currentEfsUin));
             $scope.masterFormFields[selectedForm.form]=(data[1][0]);
             var input1={
                 efs_uin :selectedForm.efs_uin,
@@ -851,7 +785,6 @@ $scope.loadMasterForm=function(path){
                 f.form_type=form.form_type;
                 f.efslob_id=form.efslob_id;
                 f.efs_uin=form.efs_uin;
-                alert(JSON.stringify(form))
             }
         });
         var input={
@@ -921,7 +854,6 @@ $scope.loadMasterForm=function(path){
             return false;
 
         });
-        alert(JSON.stringify(data.uploaded_files))
         $scope.selectedFormType=[];
         $scope.efs_groups = _.groupBy(data.uploaded_files, function (elemet) {
             return elemet.form_type;
@@ -929,7 +861,6 @@ $scope.loadMasterForm=function(path){
         //$scope.test= _.groupBy($rootScope.selectedBundleList,function(element){
         //    return element.bundle_name;
         //});
-        //alert(JSON.stringify($scope.test));
         //$scope.formsToStencil={};
         //for(var key in $scope.test){
         //    $scope.form_types=[];
@@ -945,11 +876,9 @@ $scope.loadMasterForm=function(path){
         //                }
         //            }
         //        }
-        //        alert(JSON.stringify($scope.form_types));
         //        $scope.formsToStencil[key]=$scope.form_types;
         //    }
         //}
-        ////alert(JSON.stringify($scope.formsToStencil))
         //$rootScope.formBundleToStencil=[];
         //for(var key in $scope.formsToStencil){
         //    var bundle_name='';
@@ -979,7 +908,6 @@ $scope.loadMasterForm=function(path){
         //    $scope.temp.push(input);
         //    index++;
         //}
-        ////alert(JSON.stringify($rootScope.formBundleToStencil));
         //$rootScope.focusedFormType=firstFormType;
         //$rootScope.selectedTfs=$rootScope.selectedBundleList[0].tfs_uin;
         //$rootScope.selectedFormBundleType= $rootScope.formBundleToStencil[0];
@@ -1019,7 +947,6 @@ $scope.loadMasterForm=function(path){
             }
         });
         $rootScope.selectedTfs=formBundle.tfs_uin;
-        //alert($rootScope.selectedTfs)
         $rootScope.selectedFormBundleType=selected;
         $scope.setStencilingForm(firstFormType);
     };
@@ -1028,9 +955,7 @@ $scope.loadMasterForm=function(path){
 
     $scope.setStencilingForm=function(firstFormType){
         var stencil='',upload_id='',file_id='',efs_uin;
-        //alert(JSON.stringify(firstFormType));
 
-        //alert("Form..."+JSON.stringify(form));
         $rootScope.focusedFormType=firstFormType;
         firstFormType.forEach(function(f){
             f.class=false;
@@ -1054,17 +979,18 @@ $scope.loadMasterForm=function(path){
             data:input2
         }).success(function(response) {
             var x2js = new X2JS();
-            response[0][0].eFS_XSD_location=='stencil id not found' ?
+            var host=$location.$$host+':'+$location.$$port;
+            //response[0][0].eFS_XSD_location=='stencil id not found' ?
                 $http({
                     method: 'GET',
-                    url:'http://localhost:5050/images/ixsd/mxsd.xml'
+                    url:'http://'+host+'/images/ixsd/mxsd.xml'
                 }).success(function(xml) {
                         //console.log("xml : " + xml);
 
 
                     setmxsd(x2js.xml_str2json(xml));
-                    })
-                :setmxsd(x2js.xml_str2json(response[0][0].eFS_XSD));
+                    });
+                //:setmxsd(x2js.xml_str2json(response[0][0].eFS_XSD));
             //mxsd.business.industry||bpaas
             //mxsd.formdemo.efsuin
             function setmxsd(js) {
@@ -1115,17 +1041,13 @@ $scope.loadMasterForm=function(path){
             user_id:form_page.lastupuser
         };
         $scope.stencilForm.push(input);
-        alert("Page 1.."+JSON.stringify(form_page));
         $rootScope.currentPage=form_page.file_name;
         $rootScope.selectedFile_id=form_page.file_id;
         $rootScope.selectedUpload_id=form_page.upload_id;
         $rootScope.selectedUser_id=form_page.lastupuser;
         $rootScope.selectedImage=form_page.file_location;
-        //alert(form_page.file_location);
         form_page.class=true;
         $scope.stencilingPage=form_page;
-        //alert("hdhdf  "+JSON.stringify(form_page));
-        //alert(JSON.stringify($scope.stencilingPage));
         //$('#stencilingImage').attr('src',$rootScope.selectedImage).attr('src');
         //$('img').click(function(){
             $('#stencilingImage').attr('src', $(this).attr('src'));
@@ -1138,7 +1060,6 @@ $scope.loadMasterForm=function(path){
             //this.width;   // Note: $(this).width() will not work for in memory images
 
         //});
-        //alert($('#stencilingImage').getAttribute('src'));
         //destroyCanvas();
         //enableDrawing();
     };
@@ -1204,7 +1125,6 @@ $scope.loadMasterForm=function(path){
             user_id:$scope.stencilForm[0].user_id,
             nextqueue:3  //stenciling completed
         };
-        //alert(JSON.stringify(input2));
 
         $http({
             method: 'POST',
@@ -1214,13 +1134,11 @@ $scope.loadMasterForm=function(path){
         }).success(function(res) {
 
             $scope.previewImage=res[1][0].file_location;
-            //alert($scope.previewImage);
 
             var image=new Image();
             image.src=res[1][0].file_location;
             $scope.height='886px';
             $scope.width='629px';
-            //alert($scope.height+" "+$scope.width);
             $scope.hethi_artist_home="Preview";
 
             if (res[0][0].result == "Success"){
@@ -1236,6 +1154,8 @@ $scope.loadMasterForm=function(path){
         });
     };
     $scope.completeStenciling=function(){
+        $scope.height='886px';
+        $scope.width='629px';
         if($scope.masterFormFields.mxsd!=0)
         {
             $scope.completeStencilingProcess();
@@ -1250,7 +1170,6 @@ $scope.loadMasterForm=function(path){
         $scope.ShowStencilCompleted=false;
     };
     $scope.saveStenciling=function(){
-        //alert(JSON.stringify($scope.position_cordinates))
         $scope.position_cordinates.forEach(function(f){
             if(f.position_name='header'){
                 $scope.efs_data_header.forEach(function(fun){
@@ -1294,13 +1213,10 @@ $scope.loadMasterForm=function(path){
         input['uid']=10;
         input['version']=1;
         //input['lastupdtm']='';
-        //alert(JSON.stringify(input));
         $scope.mxsd.efsuin.header.field=$scope.efs_data_header;
         $scope.mxsd.efsuin.footer.field=$scope.efs_data_footer;
         var x2js = new X2JS();
         var xml = x2js.json2xml_str($scope.mxsd);
-        //alert(JSON.stringify($scope.mxsd.efsuin));
-        alert(xml);
         var input1={
             tfs_uin:$rootScope.selectedTfs,
             efs_uin:'cefs100101',
@@ -1312,7 +1228,6 @@ $scope.loadMasterForm=function(path){
             mxml_location:'',
             file_id:$rootScope.selectedFile_id
         };
-        alert(JSON.stringify(input1));
         $http({
             method: 'POST',
             url: $rootScope.spring_rest_service+'/stencilservices/save_stencil_data',
@@ -1383,11 +1298,9 @@ $scope.loadMasterForm=function(path){
             //}else{
             //    jsData.efsuin.footer.field=[]
             //}
-            //alert(JSON.stringify(jsData));
             console.log(JSON.stringify(jsData));
             var x2js =new X2JS();
             var xml=x2js.json2xml_str(jsData);
-            alert(xml);
             console.log(xml);
 
             var input={
@@ -1417,49 +1330,49 @@ $scope.loadMasterForm=function(path){
                             dataType:'jsonp',
                             data:formData
                         }).success(function(s) {
-console.log(JSON.stringify(s))
-                            $scope.image3Efs={"efsuin":{"header":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"branch_location","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"DEZ DIGITAL PRINTING " +
-                            " P.X Box .1213" +
-                            " Grand Rapids , Michigan","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},{"name":"","ixsdfieldname":"invoice_number","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"#201","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                                {"name":"","ixsdfieldname":"invoice_date","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"March 19,2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                                {"name":"","ixsdfieldname":"vendor_address01","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"ML HOTEL& SUITS , 0332 Best Blvd","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                                {"name":"","ixsdfieldname":"scandate","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"4/15/2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}],"show":true},"footer":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"invoice_amount","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$7200","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                                {"name":"","ixsdfieldname":"invoice_sub_total","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$8000","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}]},"body":{"table":{"header":{"field":[]},"lineitem":{"field":[]},"footer":{"field":[]}},"field":[]}}}
-
-
-                            $scope.image2Efs={"efsuin":{"header":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"branch_location","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"New World Company , Floor 100, 100 main street","position":{"top":"","left":"","width":"","height":""},
-                                "classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},
-                                "show":false},{"name":"","ixsdfieldname":"invoice_number","value":"",
-                                "label":{"content":"","position":{"top":"","left":"","width":"","height":""}
-                                    ,"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},
-                                "data":{"content":"859652","position":{"top":"","left":"","width":"","height":""}
-                                    ,"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true}
-                                ,"show":false},
-                                {"name":"","ixsdfieldname":"invoice_date","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"26/02/2001","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                                {"name":"","ixsdfieldname":"vendor_address01","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"Mr. Graham H.Smith,12 south Road ","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                                {"name":"","ixsdfieldname":"scandate","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"4/15/2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}],"show":true},"footer":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"invoice_amount","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$7200","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                                {"name":"","ixsdfieldname":"invoice_sub_total","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$8000","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}]},"body":{"table":{"header":{"field":[]},"lineitem":{"field":[]},"footer":{"field":[]}},"field":[]}}}
-
-
-                            $scope.image1Efs={"efsuin":{"header":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"branch_location","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"DEZ DIGITAL PRINTING , P.X Box .1213","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},{"name":"","ixsdfieldname":"invoice_number","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"#201","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                                {"name":"","ixsdfieldname":"invoice_date","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"March 19,2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                                {"name":"","ixsdfieldname":"vendor_address01","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"ML HOTEL& SUITS , 0332 Best Blvd","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                                {"name":"","ixsdfieldname":"scandate","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"4/15/2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}],"show":true},"footer":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"invoice_amount","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$7200","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                                {"name":"","ixsdfieldname":"invoice_sub_total","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$8000","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}]},"body":{"table":{"header":{"field":[]},"lineitem":{"field":[]},"footer":{"field":[]}},"field":[]}}}
+                            console.log(JSON.stringify(s));
+                            //$scope.image3Efs={"efsuin":{"header":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"branch_location","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"DEZ DIGITAL PRINTING " +
+                            //" P.X Box .1213" +
+                            //" Grand Rapids , Michigan","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},{"name":"","ixsdfieldname":"invoice_number","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"#201","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
+                            //    {"name":"","ixsdfieldname":"invoice_date","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"March 19,2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
+                            //    {"name":"","ixsdfieldname":"vendor_address01","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"ML HOTEL& SUITS , 0332 Best Blvd","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
+                            //    {"name":"","ixsdfieldname":"scandate","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"4/15/2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}],"show":true},"footer":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"invoice_amount","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$7200","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
+                            //    {"name":"","ixsdfieldname":"invoice_sub_total","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$8000","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}]},"body":{"table":{"header":{"field":[]},"lineitem":{"field":[]},"footer":{"field":[]}},"field":[]}}}
+                            //
+                            //
+                            //$scope.image2Efs={"efsuin":{"header":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"branch_location","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"New World Company , Floor 100, 100 main street","position":{"top":"","left":"","width":"","height":""},
+                            //    "classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},
+                            //    "show":false},{"name":"","ixsdfieldname":"invoice_number","value":"",
+                            //    "label":{"content":"","position":{"top":"","left":"","width":"","height":""}
+                            //        ,"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},
+                            //    "data":{"content":"859652","position":{"top":"","left":"","width":"","height":""}
+                            //        ,"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true}
+                            //    ,"show":false},
+                            //    {"name":"","ixsdfieldname":"invoice_date","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"26/02/2001","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
+                            //    {"name":"","ixsdfieldname":"vendor_address01","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"Mr. Graham H.Smith,12 south Road ","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
+                            //    {"name":"","ixsdfieldname":"scandate","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"4/15/2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}],"show":true},"footer":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"invoice_amount","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$7200","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
+                            //    {"name":"","ixsdfieldname":"invoice_sub_total","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$8000","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}]},"body":{"table":{"header":{"field":[]},"lineitem":{"field":[]},"footer":{"field":[]}},"field":[]}}}
+                            //
+                            //
+                            //$scope.image1Efs={"efsuin":{"header":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"branch_location","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"DEZ DIGITAL PRINTING , P.X Box .1213","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},{"name":"","ixsdfieldname":"invoice_number","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"#201","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
+                            //    {"name":"","ixsdfieldname":"invoice_date","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"March 19,2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
+                            //    {"name":"","ixsdfieldname":"vendor_address01","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"ML HOTEL& SUITS , 0332 Best Blvd","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
+                            //    {"name":"","ixsdfieldname":"scandate","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"4/15/2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}],"show":true},"footer":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"invoice_amount","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$7200","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
+                            //    {"name":"","ixsdfieldname":"invoice_sub_total","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$8000","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}]},"body":{"table":{"header":{"field":[]},"lineitem":{"field":[]},"footer":{"field":[]}},"field":[]}}}
                             $scope.ShowStencilCompleted=true;
                             logger.logSuccess("stenciling completed");
                             $scope.efs_data=[];
                             $scope.position_cordinates=[];
-                            var formNo='';
-                            if($rootScope.currentPage.substring(0,2)=="Ex"){
-                                formNo=$scope.image3Efs;
-                            }
-                            if($rootScope.currentPage.substring(0,2)=="in"){
-                                formNo=$scope.image2Efs;
-                            }
-                            if($rootScope.currentPage.substring(0,2)=="ap"){
-                                formNo=$scope.image1Efs;
-                            }
+                            //var formNo='';
+                            //if($rootScope.currentPage.substring(0,2)=="Ex"){
+                            //    formNo=$scope.image3Efs;
+                            //}
+                            //if($rootScope.currentPage.substring(0,2)=="in"){
+                            //    formNo=$scope.image2Efs;
+                            //}
+                            //if($rootScope.currentPage.substring(0,2)=="ap"){
+                            //    formNo=$scope.image1Efs;
+                            //}
                             $scope.efs_data_header=s.mxsd.form.header;
                             $scope.efs_data_footer=s.mxsd.form.footer;
                             $scope.efs_data_body=s.mxsd.form.body;
@@ -1838,7 +1751,6 @@ console.log(JSON.stringify(s))
             return val;
         }
         function myItem(val){
-            //alert(JSON.stringify(item));
             val={
                 "name": "",
                 "ixsdfieldname": ""+one,
@@ -1889,7 +1801,6 @@ console.log(JSON.stringify(s))
     };
 
     $scope.save_mxsd=function(data) {
-        //alert($rootScope.selectEfsUin);
 
         var input = {
             'customer_id': $rootScope.loginedUserData.customer_id,
@@ -1903,57 +1814,54 @@ console.log(JSON.stringify(s))
             dataType: 'jsonp',
             data: input
         }).success(function (data) {
-            alert(JSON.stringify(data));
         });
     };
     $scope.addTomxsd=function(selectedValue){
-        if(selectedValue.position){
-            alert(JSON.stringify($scope.formSize));
-            var x1=Math.ceil($scope.formSize.width/600*$('#x1').val());
-            var y1=Math.ceil($scope.formSize.Height/850*$('#y1').val());
-            var w=Math.ceil($scope.formSize.width/600*$('#w').val());
-            var h=Math.ceil($scope.formSize.Height/850*$('#h').val());
-            //x1=$('#x1').val(),y1=$('#y1').val(),w=$('#w').val(),h=$('#h').val();
-            selectedValue.position.top= x1;
-            selectedValue.position.left=y1;
-            selectedValue.position.width=w;
-            selectedValue.position.height=h;
-        }
-        alert(JSON.stringify(selectedValue));
-        var a='';
-        $scope.selectedNodeCrumb1.forEach(function(rows,i){
-            if(i!=0){
-                a=a+rows;
-            }
-        });
-        a= a.substring(0, a.length-1);
-        Object.byString = function(o, s) {
-            s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
-            s = s.replace(/^\./, '');           // strip a leading dot
-            var a = s.split('.');
-            for (var i = 0, n = a.length; i < n; ++i) {
-                var k = a[i];
-                if (k in o) {
-                    o = o[k];
-                } else {
-                    return;
-                }
-            }
-            return o;
-        };
-        function updateObject(object, newValue, path){
-
-            var stack = path.split('.');
-
-            while(stack.length>1){
-                object = object[stack.shift()];
-            }
-
-            object[stack.shift()] = newValue;
-
-        }
-        //updateObject($scope.mxsd.efsuin,selectedValue,a);
-        logger.logSuccess("Successfully Added");
+        //if(selectedValue.position){
+        //    var x1=Math.ceil($scope.formSize.width/600*$('#x1').val());
+        //    var y1=Math.ceil($scope.formSize.Height/850*$('#y1').val());
+        //    var w=Math.ceil($scope.formSize.width/600*$('#w').val());
+        //    var h=Math.ceil($scope.formSize.Height/850*$('#h').val());
+        //    //x1=$('#x1').val(),y1=$('#y1').val(),w=$('#w').val(),h=$('#h').val();
+        //    selectedValue.position.top= x1;
+        //    selectedValue.position.left=y1;
+        //    selectedValue.position.width=w;
+        //    selectedValue.position.height=h;
+        //}
+        //var a='';
+        //$scope.selectedNodeCrumb1.forEach(function(rows,i){
+        //    if(i!=0){
+        //        a=a+rows;
+        //    }
+        //});
+        //a= a.substring(0, a.length-1);
+        //Object.byString = function(o, s) {
+        //    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+        //    s = s.replace(/^\./, '');           // strip a leading dot
+        //    var a = s.split('.');
+        //    for (var i = 0, n = a.length; i < n; ++i) {
+        //        var k = a[i];
+        //        if (k in o) {
+        //            o = o[k];
+        //        } else {
+        //            return;
+        //        }
+        //    }
+        //    return o;
+        //};
+        //function updateObject(object, newValue, path){
+        //
+        //    var stack = path.split('.');
+        //
+        //    while(stack.length>1){
+        //        object = object[stack.shift()];
+        //    }
+        //
+        //    object[stack.shift()] = newValue;
+        //
+        //}
+        ////updateObject($scope.mxsd.efsuin,selectedValue,a);
+        //logger.logSuccess("Successfully Added");
 
 
     }
@@ -1984,6 +1892,11 @@ console.log(JSON.stringify(s))
                             $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field[j][$scope.fieldType.Value].position.left = ""+y1;
                             $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field[j][$scope.fieldType.Value].position.width = ""+w;
                             $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field[j][$scope.fieldType.Value].position.height = ""+h;
+                            $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field[j].Indexing={
+                                "Classify":selectedValue.indexToClassify,
+                                "Reject":selectedValue.indexToReject,
+                                "SplitMerge":selectedValue.indexToSplitMerge
+                            };
                             fieldExists = true;
                             added = true;
                         }
@@ -1999,6 +1912,11 @@ console.log(JSON.stringify(s))
                             "ixsdfieldname": $scope.selectedIxsd.ixsdFieldName,
                             "ixsdxpath": $scope.selectedIxsd.ixsdPath,
                             "type": $scope.dataType.Value,
+                            "Indexing":{
+                                "Classify":selectedValue.indexToClassify,
+                                "Reject":selectedValue.indexToReject,
+                                "SplitMerge":selectedValue.indexToSplitMerge
+                            },
                             "label": {
                                 "sequence": "",
                                 "position": {
@@ -2025,6 +1943,11 @@ console.log(JSON.stringify(s))
                                 "ixsdfieldname": $scope.selectedIxsd.ixsdFieldName,
                                 "ixsdxpath": $scope.selectedIxsd.ixsdPath,
                                 "type": $scope.dataType.Value,
+                                "Indexing":{
+                                    "Classify":selectedValue.indexToClassify,
+                                    "Reject":selectedValue.indexToReject,
+                                    "SplitMerge":selectedValue.indexToSplitMerge
+                                },
                                 "label": {
                                     "sequence": "",
                                     "position": {
@@ -2064,6 +1987,11 @@ console.log(JSON.stringify(s))
                     "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
                     "ixsdxpath":$scope.selectedIxsd.ixsdPath,
                     "type":$scope.dataType.Value,
+                    "Indexing":{
+                        "Classify":selectedValue.indexToClassify,
+                        "Reject":selectedValue.indexToReject,
+                        "SplitMerge":selectedValue.indexToSplitMerge
+                    },
                     "label":{
                         "sequence":"",
                         "position":{
@@ -2089,6 +2017,11 @@ console.log(JSON.stringify(s))
                             "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
                             "ixsdxpath":$scope.selectedIxsd.ixsdPath,
                             "type":$scope.dataType.Value,
+                            "Indexing":{
+                                "Classify":selectedValue.indexToClassify,
+                                "Reject":selectedValue.indexToReject,
+                                "SplitMerge":selectedValue.indexToSplitMerge
+                            },
                             "label":{
                                 "sequence":"",
                                 "position":{
@@ -2115,6 +2048,11 @@ console.log(JSON.stringify(s))
                                 "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
                                 "ixsdxpath":$scope.selectedIxsd.ixsdPath,
                                 "type":$scope.dataType.Value,
+                                "Indexing":{
+                                    "Classify":selectedValue.indexToClassify,
+                                    "Reject":selectedValue.indexToReject,
+                                    "SplitMerge":selectedValue.indexToSplitMerge
+                                },
                                 "label":{
                                     "sequence":"",
                                     "position":{
@@ -2143,6 +2081,11 @@ console.log(JSON.stringify(s))
                                 "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
                                 "ixsdxpath":$scope.selectedIxsd.ixsdPath,
                                 "type":$scope.dataType.Value,
+                                "Indexing":{
+                                    "Classify":selectedValue.indexToClassify,
+                                    "Reject":selectedValue.indexToReject,
+                                    "SplitMerge":selectedValue.indexToSplitMerge
+                                },
                                 "label":{
                                     "sequence":"",
                                     "position":{
@@ -2183,6 +2126,11 @@ console.log(JSON.stringify(s))
                             $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field[j][$scope.fieldType.Value].position.left = ""+y1;
                             $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field[j][$scope.fieldType.Value].position.width = ""+w;
                             $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field[j][$scope.fieldType.Value].position.height = ""+h;
+                            $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field[j].Indexing={
+                                "Classify":selectedValue.indexToClassify,
+                                    "Reject":selectedValue.indexToReject,
+                                    "SplitMerge":selectedValue.indexToSplitMerge
+                            };
                             fieldExists = true;
                             added = true;
                         }
@@ -2198,6 +2146,11 @@ console.log(JSON.stringify(s))
                                 "ixsdfieldname": $scope.selectedIxsd.ixsdFieldName,
                                 "ixsdxpath": $scope.selectedIxsd.ixsdPath,
                                 "type": $scope.dataType.Value,
+                                "Indexing":{
+                                    "Classify":selectedValue.indexToClassify,
+                                    "Reject":selectedValue.indexToReject,
+                                    "SplitMerge":selectedValue.indexToSplitMerge
+                                },
                                 "label": {
                                     "sequence": "",
                                     "position": {
@@ -2224,6 +2177,11 @@ console.log(JSON.stringify(s))
                                 "ixsdfieldname": $scope.selectedIxsd.ixsdFieldName,
                                 "ixsdxpath": $scope.selectedIxsd.ixsdPath,
                                 "type": $scope.dataType.Value,
+                                "Indexing":{
+                                    "Classify":selectedValue.indexToClassify,
+                                    "Reject":selectedValue.indexToReject,
+                                    "SplitMerge":selectedValue.indexToSplitMerge
+                                },
                                 "label": {
                                     "sequence": "",
                                     "position": {
@@ -2265,6 +2223,11 @@ console.log(JSON.stringify(s))
                             "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
                             "ixsdxpath":$scope.selectedIxsd.ixsdPath,
                             "type":$scope.dataType.Value,
+                                    "Indexing":{
+                                        "Classify":selectedValue.indexToClassify,
+                                        "Reject":selectedValue.indexToReject,
+                                        "SplitMerge":selectedValue.indexToSplitMerge
+                                    },
                             "label":{
                                 "sequence":"",
                                 "position":{
@@ -2290,6 +2253,11 @@ console.log(JSON.stringify(s))
                             "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
                             "ixsdxpath":$scope.selectedIxsd.ixsdPath,
                             "type":$scope.dataType.Value,
+                            "Indexing":{
+                                "Classify":selectedValue.indexToClassify,
+                                "Reject":selectedValue.indexToReject,
+                                "SplitMerge":selectedValue.indexToSplitMerge
+                            },
                             "label":{
                                 "sequence":"",
                                 "position":{
@@ -2314,6 +2282,7 @@ console.log(JSON.stringify(s))
                 added=true;
             }
         }
+        $scope.selectedValue=$scope.indexingValues[0];
 
         logger.logSuccess("Successfully Added");
 
@@ -2456,7 +2425,7 @@ hethi.directive('collection', function ($compile) {
                     //console.log(path);
                 });
             };
-            if(scope.drag){            //alert(scope.drag);
+            if(scope.drag){
                 attrs.$set('dndList',"collection");}
             if(angular.isArray(scope.collection)) {
                 scope.drag ?

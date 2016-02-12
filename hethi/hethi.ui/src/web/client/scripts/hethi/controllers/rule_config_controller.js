@@ -168,6 +168,42 @@ hethi.controller('rule_config_controller', ['$http','$scope','$filter','$locatio
                 makePort("R", go.Spot.Right, true, true),
                 makePort("B", go.Spot.Bottom, true, false)
             ));
+        myDiagram.nodeTemplateMap.add("Rectangleaaas",  // the default category
+            $(go.Node, "Spot",
+                { contextMenu:
+                    $(go.Adornment, "Vertical",
+                        $("ContextMenuButton",
+                            $(go.TextBlock, "Properties"),
+                            { click: function(e, obj) {  jQuery('#myModal').modal('show');}
+                            }),
+                        $("ContextMenuButton",
+                            $(go.TextBlock, "Settings"),
+                            { click: function(e, obj) {  jQuery('#myModal1').modal('show'); }
+                            })
+                    ) },
+                nodeStyle(),
+                // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+                $(go.Panel, "Auto",
+                    $(go.Shape, "Rectangle",
+                        { fill: "#3B8686", stroke: null },
+                        new go.Binding("figure", "figure")),
+                    $(go.TextBlock,
+                        {
+                            font: "bold 11pt Helvetica, Arial, sans-serif",
+                            stroke: lightText,
+                            margin: 8,
+                            maxSize: new go.Size(160, NaN),
+                            wrap: go.TextBlock.WrapFit,
+                            editable: true
+                        },
+                        new go.Binding("text").makeTwoWay())
+                ),
+                // four named ports, one on each side:
+                makePort("T", go.Spot.Top, false, true),
+                makePort("L", go.Spot.Left, true, true),
+                makePort("R", go.Spot.Right, true, true),
+                makePort("B", go.Spot.Bottom, true, false)
+            ));
 
         myDiagram.nodeTemplateMap.add("Rectangleiaas",  // the default category
             $(go.Node, "Spot",
@@ -229,7 +265,7 @@ hethi.controller('rule_config_controller', ['$http','$scope','$filter','$locatio
                 // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
                 $(go.Panel, "Auto",
                     $(go.Shape, "Rectangle",
-                        { fill: "#A28B16", stroke: null },
+                        { fill: "#33C7C8", stroke: null },
                         new go.Binding("figure", "figure")),
                     $(go.TextBlock,
                         {
@@ -269,7 +305,7 @@ hethi.controller('rule_config_controller', ['$http','$scope','$filter','$locatio
                 // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
                 $(go.Panel, "Auto",
                     $(go.Shape, "Rectangle",
-                        { fill: "#20581F", stroke: null },
+                        { fill: "#FE8F47", stroke: null },
                         new go.Binding("figure", "figure")),
                     $(go.TextBlock,
                         {
@@ -314,7 +350,7 @@ hethi.controller('rule_config_controller', ['$http','$scope','$filter','$locatio
                 // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
                 $(go.Panel, "Auto",
                     $(go.Shape, "Rectangle",
-                        { fill: "#92366D", stroke: null },
+                        { fill: "#F5C600", stroke: null },
                         new go.Binding("figure", "figure")),
                     $(go.TextBlock,
                         {
@@ -518,7 +554,7 @@ hethi.controller('rule_config_controller', ['$http','$scope','$filter','$locatio
             $(go.Node, "Spot", nodeStyle(),
                 $(go.Panel, "Auto",
                     $(go.Shape, "Circle",
-                        { minSize: new go.Size(40, 40), fill: "#79C900", stroke: null }),
+                        { minSize: new go.Size(40, 40), fill: "#37BC9B", stroke: null }),
                     $(go.TextBlock, "Start",
                         { font: "bold 11pt Helvetica, Arial, sans-serif", stroke: lightText },
                         new go.Binding("text"))
@@ -533,7 +569,7 @@ hethi.controller('rule_config_controller', ['$http','$scope','$filter','$locatio
             $(go.Node, "Spot", nodeStyle(),
                 $(go.Panel, "Auto",
                     $(go.Shape, "Circle",
-                        { minSize: new go.Size(40, 40), fill: "#DC3C00", stroke: null }),
+                        { minSize: new go.Size(40, 40), fill: "#DA4453", stroke: null }),
                     $(go.TextBlock, "End",
                         { font: "bold 11pt Helvetica, Arial, sans-serif", stroke: lightText },
                         new go.Binding("text"))

@@ -323,6 +323,11 @@
             "PageUrls":"pages/roles/user/freemium/generateRFI.html",
             "Controller":"generateRFI_Controller"
 
+        },
+        {
+            "KeyName":"/verifyUser",
+            "PageUrls":"pages/userVerification.html",
+            "Controller":"userVerificationController"
         }
 
 

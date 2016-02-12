@@ -36,7 +36,6 @@ hethi.controller('admin_select_bps', ['$http','$scope','$filter','$location','$r
             data: input
         }).success(function(data) {
             $rootScope.servicePlays=data[0];
-            /*alert(JSON.stringify($rootScope.servicePlays))*/
             $scope.servicePlays_grouped = _.groupBy($rootScope.servicePlays, function (elemet) {
 
                 return elemet.hethi_servicecode;
@@ -174,10 +173,9 @@ hethi.controller('admin_select_bps', ['$http','$scope','$filter','$location','$r
                 res['status']=true;
             })
         }
-        //alert(JSON.stringify($scope.tempOffers));
-        for(var key in $scope.tempOffers){
-            alert(JSON.stringify($scope.tempOffers[key]))
-        }
+        //for(var key in $scope.tempOffers){
+            //alert(JSON.stringify($scope.tempOffers[key]))
+        //}
         //$scope.servicePlays_grouped=[];
         var input={
             'customer_id':1
@@ -193,9 +191,7 @@ hethi.controller('admin_select_bps', ['$http','$scope','$filter','$location','$r
             $scope.servicePlays_grouped = _.groupBy($rootScope.servicePlays, function (elemet) {
                 return elemet.hethi_servicecode;
             });
-            //alert(JSON.stringify($scope.tempOffers));
             for(var key in $scope.tempOffers){
-                //alert(JSON.stringify(key))
 
                 for(var key1 in $scope.servicePlays_grouped){
                     if(key==key1){

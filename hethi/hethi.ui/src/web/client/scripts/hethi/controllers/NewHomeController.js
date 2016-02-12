@@ -159,6 +159,57 @@ $("body").css("padding-top", "0px");
 
     };
 
+    //mobile view
+
+    $scope.oneAtATime = true;
+
+    $scope.showBusinessNetwork=true;
+    $scope.showInteractiveDesignStudio=false;
+    $scope.showBpaaSOnCloud=false;
+    $scope.showSelfServiceWorkflow=false
+
+    $scope.GoToBusinessNetwork=function(){
+
+        $scope.showBusinessNetwork=true;
+        $scope.showInteractiveDesignStudio=false;
+        $scope.showBpaaSOnCloud=false;
+        $scope.showSelfServiceWorkflow=false;
+
+        $('html, body').animate({
+            scrollTop: $("#getBusinessNetworks").offset().top -90
+        }, 1000);
+    };
+    $scope.GoToInteractiveDesignStudio=function(){
+        $scope.showBusinessNetwork=false;
+        $scope.showInteractiveDesignStudio=true;
+        $scope.showBpaaSOnCloud=false;
+        $scope.showSelfServiceWorkflow=false;
+
+        $('html, body').animate({
+            scrollTop: $("#getInteractiveDesignStudio").offset().top -90
+        }, 1000);
+    };
+    $scope.GoToBPaaSOnCloud=function(){
+        $scope.showBusinessNetwork=false;
+        $scope.showInteractiveDesignStudio=false;
+        $scope.showBpaaSOnCloud=true;
+        $scope.showSelfServiceWorkflow=false;
+
+        $('html, body').animate({
+            scrollTop: $("#getBPaaSOnCloud").offset().top -90
+        }, 1000);
+    };
+    $scope.GoToServiceWorkFlow=function(){
+        $scope.showBusinessNetwork=false;
+        $scope.showInteractiveDesignStudio=false;
+        $scope.showBpaaSOnCloud=false;
+        $scope.showSelfServiceWorkflow=true;
+
+        $('html, body').animate({
+            scrollTop: $("#getServiceWorkflow").offset().top -90
+        }, 1000);
+    };
+
     $scope.free=function(){
         $location.path('/free');
     };
@@ -563,24 +614,33 @@ $("#existing-customer-content-owl-demo").owlCarousel({
         //$('#owl-demo .item div').addClass('h_box');
 
         $scope.showMainSlider=function(){
-//$(window).ready(function(){
-//    $('html, body').animate({
-//        scrollTop: $("#freeSlider").offset().top -0
-//    }, 10000);
-//});
+            $(window).ready(function(){
+                $('html, body').animate({
+                    scrollTop: $("#freeSlider").offset().top -90
+                }, 1000);
+            });
+            $scope.one = false;
+            $scope.mainslider = false;
+
 $scope.one = false;
 $scope.mainslider = false;
         };
 
         $scope.showOne = function (){
+            //$(window).ready(function(){
+            //    $('html, body').animate({
+            //        scrollTop: $("#industry").offset().top -10
+            //    }, 1000);
+            //});
 //$(window).ready(function(){
 //    $('html, body').animate({
 //        scrollTop: $("#scroll_slider_content").offset().top -0
 //    }, 10000);
 //});
 
-$scope.one = ! $scope.one;
-$scope.mainslider = true;
+            $scope.one =true;
+            $scope.mainslider = true;
+
 
         };
         $scope.one = false;
@@ -815,26 +875,32 @@ else {
         //$('#owl-demo .item div').addClass('h_box');
 
         $scope.showMainSlider=function(){
-//$(window).ready(function(){
-//    $('html, body').animate({
-//        scrollTop: $("#freeSlider").offset().top -0
-//    }, 10000);
-//});
-$scope.one = false;
-$scope.mainslider = false;
+            //$(window).ready(function(){
+            //    $('html, body').animate({
+            //        scrollTop: $("#freeSlider").offset().top -0
+            //    }, 10000);
+            //});
+            $scope.one = false;
+            //$scope.mainslider = false;
+            $scope.uploadForm=false;
+
         };
 
         $scope.showOne = function (index){
-//$(window).ready(function(){
-//    $('html, body').animate({
-//        scrollTop: $("#scroll_slider_content").offset().top -0
-//    }, 10000);
-//});
+            //$(window).ready(function(){
+            $scope.one? $('html, body').animate({
+                    scrollTop: $("#industry").offset().top -200
+                }, 1000):
+                $('html, body').animate({
+                    scrollTop: $("#industry").offset().top -100
+                }, 1000);
+            //});
 
-$scope.selectedBpaaS=$scope.BpaaS_Service_List[index];
-$scope.selectedIndustryList=$scope.selectedBpaaS.BpaaS_service_industry_list[0];
-$scope.one = ! $scope.one;
-$scope.mainslider = true;
+            $scope.selectedBpaaS=$scope.BpaaS_Service_List[index];
+            $scope.selectedIndustryList=$scope.selectedBpaaS.BpaaS_service_industry_list[0];
+            $scope.one = true;
+            //$scope.mainslider = true;
+
 
         };
         $scope.one = false;
@@ -851,15 +917,26 @@ $scope.IsVisible = $scope.IsVisible ? false : true;
         //        scrollTop: $("#scroll_slider_content").offset().top -0
         //    }, 10000);
         //});
+        $scope.selectedFormsChanged=function(item){
+            $scope.selectedForms=item;
+        }
+        $scope.selectedIndustryListChanged=function(item){
+            $scope.selectedIndustryList=item;
+        }
         $scope.GotoUpload=function(c){
-$scope.uploadForm=true;
-$scope.one=false;
-//$scope.selectedIndustry=$scope.selectedBpaaS;
-$scope.selectedIndustryList=$scope.selectedBpaaS.BpaaS_service_industry_list[c];
-//$scope.selectedIndustry=
-$scope.downloadCloudPlug=true;
+            $('html, body').animate({
+                scrollTop: $("#formUpload").offset().top -0
+            }, 1000);
+            $scope.uploadForm=true;
+            //$scope.one=false;
+            //$scope.selectedIndustry=$scope.selectedBpaaS;
+            $scope.selectedIndustryList=$scope.selectedBpaaS.BpaaS_service_industry_list[c];
+            //$scope.selectedIndustry=
+            $scope.downloadCloudPlug=true;
+
         }
         $scope.UploadImage=function(files) {
+            //alert($scope.selectedForms)
 if($rootScope.loginedUserData == ''||$rootScope.loginedUserData == undefined)
     logger.logError("Please Login And Continue...");
 else if($scope.selectedIndustryList == null)
