@@ -1,14 +1,14 @@
 <div data-ng-controller="PlatformPartnerController">
     <div class="margin_top_60"  ng-hide="customer_selected">
 
-        <div class="panel panel-success">
-            <div class="panel-body" >
+        <div class="panel panel-success " style="padding-top: 8%; padding-bottom: 8%">
+            <div class="panel-body margin_top_60" >
                 <div class="row margin-top-30">
                     <div class="col-md-7 col-md-offset-3">
                         <form data-ng-submit="load_landing_page( customerSelectedRow )">
                             <div class="form-group">
                                 <div class="col-sm-10">
-                                    <select  class = "form-control " data-ng-model="customerSelectedRow" data-ng-options="item as item.customer_name for item in customerList">
+                                    <select  class = "select_center form-control input-hethi input-lg " data-ng-model="customerSelectedRow" data-ng-options="item as item.customer_name for item in customerList">
                                         <option value=""> select the customer </option>
                                     </select>
                                 </div>
@@ -18,7 +18,7 @@
                             <div class="form-group text-center">
                                 <div class="divider divider"></div>
                                 <div class="col-sm-10">
-                                    <button type="submit" class=" btn btn-line-info "> go to freemium </button>
+                                    <button type="submit" class=" btn btn-block btn-info-wizard btn-lg "> Go to freemium </button>
                                 </div>
                             </div>
                         </form>
@@ -34,7 +34,24 @@
         <div class="row">
 
             <div class="col-md-12">
+                <div class="panel panel-success">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-heading">
+                                <div class="col-md-6 pull-left">
+                                     Customer :  {{selectedCustomer.customer_name}}
 
+                                </div>
+                                <div class="col-md-6 pull-right">
+                                    <button class="btn btn-sm  btn-primary pull-right margin-bottom-10" data-ng-click="removeSelectedCustomer()">
+                                        Change Customer
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div style="margin-top: 160px;">
 
                     <div class="col-sm-6 col-md-4 " ng-repeat="tab in main_tabs">
@@ -753,83 +770,100 @@
                                     <h3  class="text-center"> <label>{{service_delivery_tab}} </label></h3>
 
                                     <div class="panel-body">
-                                        <div class="row" >
-                                            <div class="col-md-3" >
-                                                <select class="select_center form-control input-hethi input-md"
-                                                        ng-model="selected_form_for_bps"
-                                                        ng-options="user as  ''+user.form_type +' ( '+user.BPaaS_service+','+user.indus_service+' ) '   for user in all_forms ">                                                        >
-                                                    <option value=""> select form type </option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <div class="btn_wizard_2">
-                                                            capture
-
-                                                        </div>
-                                                        <div class="form-group text-center">
-                                                            <label style="margin-left: 50px" class="ui-checkbox">
-                                                                <input name="checkbox1" value="option1" checked type="checkbox" id="remember" >
-                                                                <span></span>
-                                                            </label>
-
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="btn_wizard_2">
-                                                            workflow
-                                                        </div>
-                                                        <div class="form-group text-center">
-
-                                                            <label style="margin-left: 50px" class="ui-checkbox">
-                                                                <input name="checkbox1" value="option1" type="checkbox" id="remember" >
-                                                                <span></span>
-                                                            </label>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="btn_wizard_2">
-                                                            output
-                                                        </div>
-                                                        <div class="form-group text-center">
-                                                            <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="btn_wizard_2">
-                                                            integrate
-                                                        </div>
-                                                        <div class="form-group text-center">
-                                                            <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="btn_wizard_2">
-                                                            storage
-                                                        </div>
-                                                        <div class="form-group text-center">
-                                                            <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="btn_wizard_2">
-                                                            analytics
-                                                        </div>
-                                                        <div class="form-group text-center">
-                                                            <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
-
-                                                        </div>
-                                                    </div>
+                                        <form data-ng-submit="add_hethi_core_services_for_form(hethi_core_services)">
+                                            <div class="row" >
+                                                <div class="col-md-3" >
+                                                    <select class="select_center form-control input-hethi input-md"
+                                                            ng-model="hethi_core_services"
+                                                            ng-options="user as  ''+user.form_type +' ( '+user.BPaaS_service+','+user.indus_service+' ) '   for user in all_forms ">                                                        >
+                                                        <option value=""> select form type </option>
+                                                    </select>
                                                 </div>
+                                                <div class="col-md-8">
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <div class="btn_wizard_2">
+                                                                capture
 
+                                                            </div>
+                                                            <div class="form-group text-center">
+                                                                <label style="margin-left: 50px" class="ui-checkbox">
+                                                                    <input name="checkbox1" value="1" checked type="checkbox" ng-model="hethi_core_services.capture" >
+                                                                    <span></span>
+                                                                </label>
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="btn_wizard_2">
+                                                                workflow
+                                                            </div>
+                                                            <div class="form-group text-center">
+
+                                                                <label style="margin-left: 50px" class="ui-checkbox">
+                                                                    <input name="checkbox1" value="1" checked type="checkbox" ng-model="hethi_core_services.workflow" >
+                                                                    <span></span>
+                                                                </label>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="btn_wizard_2">
+                                                                output
+                                                            </div>
+                                                            <div class="form-group text-center">
+                                                                <label style="margin-left: 50px" class="ui-checkbox">
+                                                                    <input name="checkbox1" value="1" checked type="checkbox" ng-model="hethi_core_services.output" >
+                                                                    <span></span>
+                                                                </label>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="btn_wizard_2">
+                                                                integrate
+                                                            </div>
+                                                            <div class="form-group text-center">
+                                                                <label style="margin-left: 50px" class="ui-checkbox">
+                                                                    <input name="checkbox1" value="1" checked type="checkbox" ng-model="hethi_core_services.integrate" >
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <div class="btn_wizard_2">
+                                                                storage
+                                                            </div>
+                                                            <div class="form-group text-center">
+                                                                <label style="margin-left: 50px" class="ui-checkbox">
+                                                                    <input name="checkbox1" value="1" checked type="checkbox" ng-model="hethi_core_services.storage" >
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-2">
+
+                                                            <div class="btn_wizard_2">
+                                                                analytics
+                                                            </div>
+                                                            <div class="form-group text-center">
+                                                                <label style="margin-left: 50px" class="ui-checkbox">
+                                                                    <input name="checkbox1" value="1" checked type="checkbox" ng-model="hethi_core_services.analytics" >
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-1" >
+                                                    <button type="submit" class="btn_hethi  btn-w-md blue pull-left"  >Add </button>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
+
 
                                         <div class="row" style="border-top: 1px solid #2A6497;padding-top: 20px;">
                                             <div class="col-md-offset-1 col-md-10">
@@ -867,27 +901,27 @@
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                <tr data-ng-repeat="form in bpaasData">
+                                                                <tr data-ng-repeat="item in hethi_core_services_orchestration">
                                                                     <td>
-                                                                        {{form.name}}
+                                                                        {{item.form_type}}
                                                                     </td>
                                                                     <td class="text-center">
-                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="1" type="checkbox" ng-model="item.capture" ><span></span></label>
                                                                     </td>
                                                                     <td class="text-center">
-                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="1" type="checkbox" ng-model="item.workflow"><span></span></label>
                                                                     </td>
                                                                     <td class="text-center">
-                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="1" type="checkbox" ng-model="item.output" ><span></span></label>
                                                                     </td>
                                                                     <td class="text-center">
-                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="1" type="checkbox" ng-model="item.integrate" ><span></span></label>
                                                                     </td>
                                                                     <td class="text-center">
-                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="1" type="checkbox" ng-model="item.storage" ><span></span></label>
                                                                     </td>
                                                                     <td class="text-center">
-                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="1" type="checkbox" ng-model="item.analytics" ><span></span></label>
                                                                     </td>
 
                                                                 </tr>
