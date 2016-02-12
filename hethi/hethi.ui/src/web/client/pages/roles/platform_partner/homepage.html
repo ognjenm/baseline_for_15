@@ -37,21 +37,21 @@
 
                 <div style="margin-top: 160px;">
 
-                    <div class="col-sm-6 col-md-4 " ng-repeat="(key,value) in main_tabs">
+                    <div class="col-sm-6 col-md-4 " ng-repeat="tab in main_tabs">
                         <div class="col-md-10 col-md-offset-1">
                             <div class="row home-page" >
                                 <div class="services clearfix">
                                     <div class="service_item service_two span4">
                                         <!--background-color:#7cc0fc; detail_{{$index}}-->
-                                        <div class="detail  " style="background-color:#7cc0fc;"  data-ng-click="select_main_tab(key)">
-                                            <div ng-switch="key">
-                                                <h2 ng-switch-default="" > {{key}}</h2>
+                                        <div class="detail  " style="background-color:#7cc0fc;"  data-ng-click="select_main_tab(tab.menu_name)">
+                                            <div ng-switch="tab.menu_name">
+                                                <h2 ng-switch-default="" > {{tab.menu_name}}</h2>
 
                                                 <!--<span ng-show="value" class="service_item  detail_{{value}}  " >_____________________</span>-->
                                             </div>
 
                                             <p></p>
-                                            <a href="" data-ng-click="select_main_tab(key)" class="detail_{{value}}" style="font-weight: 900; "><b>____</b></a>
+                                            <a href="" data-ng-click="select_main_tab(tab.menu_name)" class="detail_{{tab.is_active}}" style="font-weight: 900; "><b>____</b></a>
                                         </div>
                                         <img class="shadow" src="styles/img/service_shadow.png" alt="" border="0">
                                     </div>
@@ -79,12 +79,19 @@
                         <h3  class="text-center"> <label>{{selected_main_tab}} </label></h3>
                         <div>
 
-                            <div class=" col-md-1"> </div>
+                            <div class=" row">
 
+                                <div class=" col-md-12">
 
-                            <div class="text-center text-lowercase ">
-                                <button ng-repeat="tab in service_delivery_tabs" type="button" class="btn_hethi  btn-primary btn_wizard"  ng-class="tab.isActive"  data-ng-click="set_service_delivery_tab(tab.menu_name)"> {{tab.menu_name}}</button>
+                                    <div class="text-center text-lowercase ">
+                                        <button ng-repeat="tab in service_delivery_tabs" type="button" class="btn_hethi  btn-info-wizard btn_wizard"  ng-class="tab.isActive"  data-ng-click="set_service_delivery_tab(tab.menu_name)"> {{tab.menu_name}}</button>
+                                    </div>
+
+                                </div>
                             </div>
+
+
+
 
 
 
@@ -386,7 +393,7 @@
 
 
                                 </div>
-                                <div  ng-switch-when="organization structure">
+                                <div ng-switch-when="organization structure">
 
                                     <div class="panel panel-success">
                                         <div class="row">
@@ -748,10 +755,10 @@
                                     <div class="panel-body">
                                         <div class="row" >
                                             <div class="col-md-3" >
-                                                <select class="select_center form-control input-hethi input-md">
-                                                    <option value="0"> form type </option>
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
+                                                <select class="select_center form-control input-hethi input-md"
+                                                        ng-model="selected_form_for_bps"
+                                                        ng-options="user as  ''+user.form_type +' ( '+user.BPaaS_service+','+user.indus_service+' ) '   for user in all_forms ">                                                        >
+                                                    <option value=""> select form type </option>
                                                 </select>
                                             </div>
                                             <div class="col-md-9">
@@ -762,7 +769,10 @@
 
                                                         </div>
                                                         <div class="form-group text-center">
-                                                            <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" checked type="checkbox" id="remember" ><span></span></label>
+                                                            <label style="margin-left: 50px" class="ui-checkbox">
+                                                                <input name="checkbox1" value="option1" checked type="checkbox" id="remember" >
+                                                                <span></span>
+                                                            </label>
 
                                                         </div>
 
@@ -772,7 +782,11 @@
                                                             workflow
                                                         </div>
                                                         <div class="form-group text-center">
-                                                            <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+
+                                                            <label style="margin-left: 50px" class="ui-checkbox">
+                                                                <input name="checkbox1" value="option1" type="checkbox" id="remember" >
+                                                                <span></span>
+                                                            </label>
 
                                                         </div>
                                                     </div>
