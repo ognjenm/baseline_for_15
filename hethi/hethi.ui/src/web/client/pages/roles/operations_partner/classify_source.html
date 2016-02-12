@@ -1,0 +1,555 @@
+<div >
+    <h3  class="text-center"> <label>classify source</label></h3>
+    <hr>
+    <div class="row" >
+        <div class="col-md-12">
+            <div class = "table-filters row">
+                <div class="col-md-2 ">
+
+                    <ul class="nav nav-boxed tabbable admin-ver-horizontal-menu">
+                        <li class="" ng-class="classify_source_tabs.on_offer"><a href="#" data-toggle="tab" data-ng-click="set_classify_source_tab('on_offer')">on offer</a></li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                    <ul class="nav nav-boxed tabbable admin-ver-horizontal-menu">
+                        <li class="" ng-class="classify_source_tabs.on_board"><a href="#" data-toggle="tab" data-ng-click="set_classify_source_tab('on_board')">on board</a></li>
+                    </ul>
+
+                </div>
+                <div class="col-md-2">
+
+                </div>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <input type = "text" class = "form-control input-round" data-ng-model="searchKeywordsIndexer"
+                               data-ng-keyup="searchIndexer()" placeholder="search" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default"  style="border-top-right-radius: 48%;border-bottom-right-radius: 48%" type="button"><span class="fa fa-search"></span></button>
+                                                </span>
+
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+
+            <div class="divider-md"></div>
+
+            <div ng-switch="classify_source_tab">
+                <div ng-switch-when="on_offer">
+
+
+                    <div class="panel panel-default table-dynamic">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-stripped  hethi_content_table ">
+                                    <thead class="text-lowercase table-bg-info">
+                                    <tr>
+                                        <th class="text-center">
+                                            <div class="thSn">
+                                                #
+                                            </div>
+                                        </th>
+
+                                        <th>
+                                            <div class="thMax">
+                                                business partner
+                                                            <span class="glyphicon glyphicon-chevron-up"
+                                                                  data-ng-click=" orderIndexer('customer_name') "
+                                                                  data-ng-class="{active: row == 'customer_name'}">
+                                                            </span>
+                                                            <span class="glyphicon glyphicon-chevron-down"
+                                                                  data-ng-click=" orderIndexer('-customer_name') "
+                                                                  data-ng-class="{active: row == '-customer_name'}">
+                                                            </span>
+                                            </div>
+
+                                        </th>
+                                        <th>
+                                            <div class="th">
+                                                BPaaS
+                                                            <span class="glyphicon glyphicon-chevron-up"
+                                                                  data-ng-click=" orderIndexer('BPaaS_service') "
+                                                                  data-ng-class="{active: row == 'BPaaS_service'}">
+                                                            </span>
+                                                            <span class="glyphicon glyphicon-chevron-down"
+                                                                  data-ng-click=" orderIndexer('-BPaaS_service') "
+                                                                  data-ng-class="{active: row == '-BPaaS_service'}">
+                                                            </span>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="th">
+                                                industry
+                                                            <span class="glyphicon glyphicon-chevron-up"
+                                                                  data-ng-click=" orderIndexer('indus_service') "
+                                                                  data-ng-class="{active: row == 'indus_service'}">
+                                                            </span>
+                                                            <span class="glyphicon glyphicon-chevron-down"
+                                                                  data-ng-click=" orderIndexer('-indus_service') "
+                                                                  data-ng-class="{active: row == '-indus_service'}">
+                                                            </span>
+                                            </div>
+
+                                        </th>
+                                        <th>
+                                            <div class="th">
+                                                source
+                                                            <span class="glyphicon glyphicon-chevron-up"
+                                                                  data-ng-click=" orderIndexer('upload_source') "
+                                                                  data-ng-class="{active: row == 'upload_source'}">
+                                                            </span>
+                                                            <span class="glyphicon glyphicon-chevron-down"
+                                                                  data-ng-click=" orderIndexer('-upload_source') "
+                                                                  data-ng-class="{active: row == '-upload_source'}">
+                                                            </span>
+                                            </div>
+
+                                        </th>
+                                        <th>
+                                            <div class="thMax">
+                                                received time
+                                                            <span class="glyphicon glyphicon-chevron-up"
+                                                                  data-ng-click=" orderIndexer('lastupdtm') "
+                                                                  data-ng-class="{active: row == 'lastupdtm'}">
+                                                            </span>
+                                                            <span class="glyphicon glyphicon-chevron-down"
+                                                                  data-ng-click=" orderIndexer('-lastupdtm') "
+                                                                  data-ng-class="{active: row == '-lastupdtm'}">
+                                                            </span>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="th">
+                                                offer name
+                                                           <span class="glyphicon glyphicon-chevron-up"
+                                                                 data-ng-click=" orderIndexer('lastupdtm') "
+                                                                 data-ng-class="{active: row == 'lastupdtm'}">
+                                                            </span>
+                                                            <span class="glyphicon glyphicon-chevron-down"
+                                                                  data-ng-click=" orderIndexer('-lastupdtm') "
+                                                                  data-ng-class="{active: row == '-lastupdtm'}">
+                                                            </span>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="thSn">
+                                                no of files
+                                                             <span class="glyphicon glyphicon-chevron-up"
+                                                                   data-ng-click=" orderIndexer('file_count') "
+                                                                   data-ng-class="{active: row == 'file_count'}">
+                                                            </span>
+                                                            <span class="glyphicon glyphicon-chevron-down"
+                                                                  data-ng-click=" orderIndexer('-file_count') "
+                                                                  data-ng-class="{active: row == '-file_count'}">
+                                                            </span>
+                                            </div>
+                                        </th>
+
+                                        <th class="text-center">
+                                            <div class="th">
+                                                #
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!--ng-click="open_classify_forms(row);"-->
+                                    <tr ng-repeat="row in customer_uploads | filter: {'upload_source':'WEB' }">
+                                        <td class="text-center">{{$index+1}}</td>
+                                        <td class="text-center"> {{row.customer_name}}</td>
+                                        <td class="text-11 text-center">
+                                            <span ng-show="row.BPaaS_service">{{row.BPaaS_service}}</span>
+                                            <span ng-hide="row.BPaaS_service"> * not found</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-show="row.indus_service">{{row.indus_service}}</span>
+                                            <span ng-hide="row.indus_service"> * </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-show="row.upload_source">{{row.upload_source}}</span>
+                                            <span ng-hide="row.upload_source"> not defined</span>
+                                        </td>
+                                        <td class="text-11 text-center"  ng-init="row.lastupdtm=convertToDate(row.lastupdtm)">
+                                            {{row.lastupdtm | date:" d MMM , y  ' at ' h:mm:ss a"}}
+                                        </td>
+                                        <td class="text-center"> on network * </td>
+                                        <td class="text-center">
+                                            <span ng-show="row.file_count">{{row.file_count}}</span>
+                                            <span ng-hide="row.file_count" class="text-11">  no files </span></td>
+
+                                        <td class="text-center"><a  ng-click="open_classify_forms(row);" class="  text-small"> click </a> </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="table-footer">
+                                <div class="row">
+                                    <div class="col-md-6 page-num-info">
+                                                            <span>
+                                                                  Show
+                                                                <select data-ng-model="numPerPageIndexer"
+                                                                        data-ng-options="num for num in numPerPageOptIndexer"
+                                                                        data-ng-change="onNumPerPageChangeIndexer()">
+                                                                </select>
+                                                                entries per page
+                                                            </span>
+
+
+                                    </div>
+                                    <div class="col-md-6 text-right pagination-container">
+                                        <pagination class="pagination-sm"
+                                                    page="currentPageIndexer"
+                                                    total-items="filteredStoresIndexer.length"
+                                                    max-size="4"
+                                                    ng-click="selectIndexer(currentPageIndexer)"
+                                                    items-per-page="numPerPageIndexer"
+                                                    rotate="false"
+                                                    boundary-links="true"></pagination>
+                                    </div>
+                                </div>
+                            </footer>
+                        </div>
+                    </div>
+
+                </div>
+                <div ng-switch-when="on_board">
+                    on boarded customers document will list here
+
+
+                    <div class="panel panel-default table-dynamic">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-stripped  hethi_content_table ">
+                                    <thead class="text-lowercase table-bg-info">
+                                    <tr>
+                                        <th class="text-center">
+                                            <div class="thSn">
+                                                #
+                                            </div>
+                                        </th>
+
+                                        <th>
+                                            <div class="thMax">
+                                                business partner
+                                                            <span class="glyphicon glyphicon-chevron-up"
+                                                                  data-ng-click=" orderIndexer('customer_name') "
+                                                                  data-ng-class="{active: row == 'customer_name'}">
+                                                            </span>
+                                                            <span class="glyphicon glyphicon-chevron-down"
+                                                                  data-ng-click=" orderIndexer('-customer_name') "
+                                                                  data-ng-class="{active: row == '-customer_name'}">
+                                                            </span>
+                                            </div>
+
+                                        </th>
+                                        <th>
+                                            <div class="th">
+                                                BPaaS
+                                                            <span class="glyphicon glyphicon-chevron-up"
+                                                                  data-ng-click=" orderIndexer('BPaaS_service') "
+                                                                  data-ng-class="{active: row == 'BPaaS_service'}">
+                                                            </span>
+                                                            <span class="glyphicon glyphicon-chevron-down"
+                                                                  data-ng-click=" orderIndexer('-BPaaS_service') "
+                                                                  data-ng-class="{active: row == '-BPaaS_service'}">
+                                                            </span>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="th">
+                                                industry
+                                                            <span class="glyphicon glyphicon-chevron-up"
+                                                                  data-ng-click=" orderIndexer('indus_service') "
+                                                                  data-ng-class="{active: row == 'indus_service'}">
+                                                            </span>
+                                                            <span class="glyphicon glyphicon-chevron-down"
+                                                                  data-ng-click=" orderIndexer('-indus_service') "
+                                                                  data-ng-class="{active: row == '-indus_service'}">
+                                                            </span>
+                                            </div>
+
+                                        </th>
+                                        <th>
+                                            <div class="th">
+                                                source
+                                                            <span class="glyphicon glyphicon-chevron-up"
+                                                                  data-ng-click=" orderIndexer('upload_source') "
+                                                                  data-ng-class="{active: row == 'upload_source'}">
+                                                            </span>
+                                                            <span class="glyphicon glyphicon-chevron-down"
+                                                                  data-ng-click=" orderIndexer('-upload_source') "
+                                                                  data-ng-class="{active: row == '-upload_source'}">
+                                                            </span>
+                                            </div>
+
+                                        </th>
+                                        <th>
+                                            <div class="thMax">
+                                                received time
+                                                            <span class="glyphicon glyphicon-chevron-up"
+                                                                  data-ng-click=" orderIndexer('lastupdtm') "
+                                                                  data-ng-class="{active: row == 'lastupdtm'}">
+                                                            </span>
+                                                            <span class="glyphicon glyphicon-chevron-down"
+                                                                  data-ng-click=" orderIndexer('-lastupdtm') "
+                                                                  data-ng-class="{active: row == '-lastupdtm'}">
+                                                            </span>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="th">
+                                                offer name
+                                                           <span class="glyphicon glyphicon-chevron-up"
+                                                                 data-ng-click=" orderIndexer('lastupdtm') "
+                                                                 data-ng-class="{active: row == 'lastupdtm'}">
+                                                            </span>
+                                                            <span class="glyphicon glyphicon-chevron-down"
+                                                                  data-ng-click=" orderIndexer('-lastupdtm') "
+                                                                  data-ng-class="{active: row == '-lastupdtm'}">
+                                                            </span>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="thSn">
+                                                no of files
+                                                             <span class="glyphicon glyphicon-chevron-up"
+                                                                   data-ng-click=" orderIndexer('file_count') "
+                                                                   data-ng-class="{active: row == 'file_count'}">
+                                                            </span>
+                                                            <span class="glyphicon glyphicon-chevron-down"
+                                                                  data-ng-click=" orderIndexer('-file_count') "
+                                                                  data-ng-class="{active: row == '-file_count'}">
+                                                            </span>
+                                            </div>
+                                        </th>
+
+                                        <th class="text-center">
+                                            <div class="th">
+                                                #
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!--ng-click="open_classify_forms(row);"-->
+                                    <tr ng-repeat="row in customer_uploads | filter: {'upload_source':'EMAIL' }">
+                                        <td class="text-center">{{$index+1}}</td>
+                                        <td class="text-center"> {{row.customer_name}}</td>
+                                        <td class="text-11 text-center">
+                                            <span ng-show="row.BPaaS_service">{{row.BPaaS_service}}</span>
+                                            <span ng-hide="row.BPaaS_service"> * not found</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-show="row.indus_service">{{row.indus_service}}</span>
+                                            <span ng-hide="row.indus_service"> * </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-show="row.upload_source">{{row.upload_source}}</span>
+                                            <span ng-hide="row.upload_source"> not defined</span>
+                                        </td>
+                                        <td class="text-11 text-center"  ng-init="row.lastupdtm=convertToDate(row.lastupdtm)">
+                                            {{row.lastupdtm | date:" d MMM , y  ' at ' h:mm:ss a"}}
+                                        </td>
+                                        <td class="text-center"> on network * </td>
+                                        <td class="text-center">
+                                            <span ng-show="row.file_count">{{row.file_count}}</span>
+                                            <span ng-hide="row.file_count" class="text-11">  no files </span></td>
+
+                                        <td class="text-center"><a  ng-click="open_classify_forms(row);" class="  text-small"> click </a> </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <footer class="table-footer">
+                                <div class="row">
+                                    <div class="col-md-6 page-num-info">
+                                                            <span>
+                                                                  Show
+                                                                <select data-ng-model="numPerPageIndexer"
+                                                                        data-ng-options="num for num in numPerPageOptIndexer"
+                                                                        data-ng-change="onNumPerPageChangeIndexer()">
+                                                                </select>
+                                                                entries per page
+                                                            </span>
+
+
+                                    </div>
+                                    <div class="col-md-6 text-right pagination-container">
+                                        <pagination class="pagination-sm"
+                                                    page="currentPageIndexer"
+                                                    total-items="filteredStoresIndexer.length"
+                                                    max-size="4"
+                                                    ng-click="selectIndexer(currentPageIndexer)"
+                                                    items-per-page="numPerPageIndexer"
+                                                    rotate="false"
+                                                    boundary-links="true"></pagination>
+                                    </div>
+                                </div>
+                            </footer>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="row" ng-show="classify_file_selected" id="classify_forms_div">
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+
+                    <label>BPS :
+                                            <span ng-show="classify_selected_upload.BPaaS_service">
+                                                   {{classify_selected_upload.BPaaS_service}}
+                                            </span>
+                                             <span ng-hide="classify_selected_upload.BPaaS_service">
+                                                unknown
+                                            </span>
+
+                    </label>
+                </div>
+
+                <div class="col-md-3">
+                    <label>
+                        Industry :
+                                             <span ng-show="classify_selected_upload.indus_service">
+                                                   {{classify_selected_upload.indus_service}}
+                                            </span>
+                                             <span ng-hide="classify_selected_upload.indus_service">
+                                                unknown
+                                            </span>
+                    </label>
+                </div>
+
+                <div class=" col-md-6"><label class="fa fa-arrow-circle-left" data-ng-click="change_classify_file_selected()"> back  </label></div>
+                <div class ="col-md-12">
+                    <div class="leftNav_head"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 col-sm-3 col-xs-6" >
+                <div class="bg_txt margin-bottom-25" >
+                    <div class="row" >
+                        <div class="col-md-12 text-center" style="padding-bottom: 20px">
+                            <span class="h3 text-danger"><i class="fa fa-list"></i> Form List</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" >
+
+                    <div style="overflow-y: scroll;height: 400px;padding-top: 5px; padding-left: 15px">
+                        <div class="col-md-12" ng-repeat="user in classify_selected_upload.files">
+                            <div class="img_container text-center">
+                                <a href="" data-ng-click="selectImportedForm(user)" >
+
+                                    <img class="thumbnail img-responsive" style="height: 160px" src="{{user.file_location}}">
+                                </a>
+                                <div class="caption text-center margin-top-min-15 tile " ng-class="user.is_active ? 'tile_selected' : '' "  >
+                                    <a href="" data-ng-click="selectImportedForm(user)">
+                                        <h5>
+                                                                <span ng-show="user.form_type">
+                                                                    {{user.form_type}}
+                                                                </span>
+                                                                <span ng-hide="user.form_type">
+                                                                      Unknown
+                                                                </span>
+                                        </h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <img src="{{selected_form.file_location}}"  class="img-responsive" style="margin-top: 20px">
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <div class="row text-center margin-bottom-10">
+                        <div class="col-md-12">
+                            <span class="h3 text-primary">Classify Form Type</span>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <span>select  form  source </span>
+                                <div class="btn-group pull-right">
+                                    <button type="button" class=" btn btn-line-info " data-ng-click="set_form_bsource('FRM')" data-ng-model="form_bsource" btn-radio="'FRM'" > Form</button>
+                                    <button type="button" class=" btn btn-line-info " data-ng-click="set_form_bsource('EDI')" data-ng-model="form_bsource" btn-radio="'EDI'" > EDI </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12" ng-switch="form_bsource">
+                            <span data-ng-switch-when="FRM" class="text-small"> select form type </span>
+                            <span data-ng-switch-when="EDI" class="text-small"> select EDI type </span>
+                            <!--ng-options="key for(key, value) in  unique_form_types"-->
+                            <select  class="form-control " ng-model="selected_form_type">
+                                <option  value="">select form or EDI</option>
+                                <option ng-repeat="(key, value) in  unique_form_types" value="{{key}}">
+                                    {{key}}
+                                </option>
+                            </select>
+
+                            <div class="divider"></div>
+                            <div ng-show="selected_form_type">
+
+                                <span class="text-small"> select form owner </span>
+                                <select  class="form-control " ng-model="selected_hethi_form_data" ng-options="user as  ''+user.efslobowner_name +' ( '+user.BPaaS_service+','+user.indus_service+' ) '   for user in all_forms_with_owner_and_template | filter:{'form_bsource': form_bsource , 'form_type': selected_form_type }">
+                                    <option  value="">select form owner</option>
+                                </select>
+
+                                <div class="divider"></div>
+
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <button type="button" class="form-control btn_hethi  btn-info " data-ng-click="show_preview_selected_form(selected_hethi_form_data)"> Preview </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <button type="button" class="form-control btn_hethi  btn-info " data-ng-click="assign_form_to_file(selected_hethi_form_data)">assign form</button>
+                                    </div>
+                                </div>
+                                <div class="divider"></div>
+
+
+                            </div>
+                            <div>
+                                <div class="divider"></div>
+
+                                <div class="text-center"> (or) </div>
+                                <div class="divider"></div>
+                                <div class="col-md-12 text-center">
+                                    <div class="form-group">
+                                        <button type="button" class="form-control btn_hethi  btn-info " data-ng-click="create_a_new_form_or_owner()">Create a new owner or form</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div data-ng-include="'pages/roles/operations_partner/create_new_form_or_owner.html'"></div>
+</div>
