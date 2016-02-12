@@ -13,6 +13,13 @@
   top: 120px;
   left: -50px;
   width: 50px;
+
+}
+@media (min-width: 240px) and (max-width: 768px){
+    #contact-buttons-bar{
+        display: none;
+    }
+
 }
 
 
