@@ -934,7 +934,7 @@
                                              id="stencilingImage"
                                              alt="stenciling image not found"
                                              style="
-                                             width:600px ;height:850px">
+                                             width:600px ;height:850px;object-fit: fill ">
                                         <!--width="{{formSize.width}}"-->
                                         <!--height="{{formSize.Height}}"-->
                                     </div>
@@ -1188,7 +1188,7 @@
                                                         <div class="modal-body">
                                                             <div class="panel-body panel">
                                         <div class="col-md-12">
-                                            <form data-ng-submit="addTomxsd(selectedValue);">
+                                            <form data-ng-submit="addTocustomxsd(selectedValue);">
                                             <div class="ui-tab-container">
                                                 <tabset justified="true" class="ui-tab">
                                                     <tab heading="Position" >
@@ -1216,59 +1216,46 @@
 
                                                         </div>
                                                     </tab>
-                                                    <tab heading="Classify" ng-if="selectedValue.classify">
+                                                    <tab heading="Indexing" >
                                                         <div id="classify" >
 
-                                                            <div class="row text-center">
+                                                            <div class="row ">
 
-                                                                <div class="col-md-6">
-                                                                    <label>Tag to Reject?</label>
-                                                                    <div class="btn-group">
-                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.toreject= 'Y'" data-ng-model="selectedValue.classify.toreject" btn-radio="'Y'" style="font-size: 12px"> Yes</button>
-                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.toreject= 'N'" data-ng-model="selectedValue.classify.toreject" btn-radio="'N'" style="font-size: 12px"> No </button>
+                                                                <div class="col-md-offset-2 col-md-8">
+                                                                    <label class="pull-left">Index To Classify</label>
+                                                                    <div class="btn-group pull-right">
+                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToClassify= 'Yes'" data-ng-model="selectedValue.indexToClassify" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
+                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToClassify= 'No'" data-ng-model="selectedValue.indexToClassify" btn-radio="'No'" style="font-size: 12px"> No </button>
                                                                     </div>
-
                                                                 </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label>Tag to Split?</label>
-                                                                        <div class="btn-group">
-                                                                            <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.tosplit= 'Y'" data-ng-model="selectedValue.classify.tosplit" btn-radio="'Y'" style="font-size: 12px"> Yes</button>
-                                                                            <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.tosplit= 'N'" data-ng-model="selectedValue.classify.tosplit" btn-radio="'N'" style="font-size: 12px"> No </button>
+                                                            </div>
+                                                            <div class="divider"></div>
+
+                                                            <div class="row ">
+                                                                <div class="col-md-offset-2 col-md-8">
+                                                                        <label class="pull-left">Index To Reject?</label>
+                                                                        <div class="btn-group  pull-right">
+                                                                            <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToReject= 'Yes'" data-ng-model="selectedValue.indexToReject" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
+                                                                            <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToReject= 'No'" data-ng-model="selectedValue.indexToReject" btn-radio="'No'" style="font-size: 12px"> No </button>
                                                                         </div>
-                                                                    </div>
-
-
                                                                 </div>
                                                             </div>
+                                                            <div class="divider"></div>
 
-                                                            <div class="row text-center">
-                                                                <div class="col-md-6">
-
-                                                                    <label>Tag to Merge?</label>
-                                                                    <div class="btn-group">
-                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.tomerge= 'Y'" data-ng-model="selectedValue.classify.tomerge" btn-radio="'Y'" style="font-size: 12px"> Yes</button>
-                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.tomerge= 'N'" data-ng-model="selectedValue.classify.tomerge" btn-radio="'N'" style="font-size: 12px"> No </button>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <label>Tag to mXSD?</label>
-                                                                    <div class="btn-group">
-                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.tomXSD= 'Y'" data-ng-model="selectedValue.classify.tomXSD" btn-radio="'Y'" style="font-size: 12px"> Yes</button>
-                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.classify.tomXSD= 'N'" data-ng-model="selectedValue.classify.tomXSD" btn-radio="'N'" style="font-size: 12px"> No </button>
+                                                            <div class="row ">
+                                                                <div class="col-md-offset-2 col-md-8">
+                                                                    <label class="pull-left">Index To Split Merge?</label>
+                                                                    <div class="btn-group  pull-right">
+                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToSplitMerge= 'Yes'" data-ng-model="selectedValue.indexToSplitMerge" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
+                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToSplitMerge= 'No'" data-ng-model="selectedValue.indexToSplitMerge" btn-radio="'No'" style="font-size: 12px"> No </button>
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
-
-
-
 
                                                     </tab>
                                                     <div class="divider"></div>
-                                                    <div class="row" ng-if="selectedValue.position||selectedValue.classify">
+                                                    <div class="row" >
                                                         <div class="col-md-1"></div>
                                                         <div class="col-md-5">
                                                             <button type="submit" class="btn_hethi btn-success btn-block">  Add  </button>
@@ -1887,25 +1874,25 @@
             <div class="row">
                 <div class="col-md-1">
                 </div>
-                        <div class="col-md-2 ">
+                        <div class="col-md-3 ">
                             <div class="text-center">
                                 <span class="number" ng-class="hethi_artist_home=='viewForms'?'number-active':'';">1</span>
                 <span class="desc">Classify Forms</span>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div class="text-center">
-                                <span class="number " ng-class="hethi_artist_home=='viewBundle'?'number-active':''">2</span>
-                <span class="desc">Classify Bundle</span>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="text-center">
-                                <span class="number" ng-class="hethi_artist_home=='createMetaForm'?'number-active':''">3</span>
-                <span class="desc">Create Meta Form</span>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
+                        <!--<div class="col-md-2">-->
+                            <!--<div class="text-center">-->
+                                <!--<span class="number " ng-class="hethi_artist_home=='viewBundle'?'number-active':''">2</span>-->
+                <!--<span class="desc">Classify Bundle</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-2">-->
+                            <!--<div class="text-center">-->
+                                <!--<span class="number" ng-class="hethi_artist_home=='createMetaForm'?'number-active':''">3</span>-->
+                <!--<span class="desc">Create Meta Form</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="col-md-4">
                             <div class="text-center">
                                 <span class="number" ng-class="hethi_artist_home=='viewStecil'?'number-active':''">4</span>
                 <span class="desc">Create Stencil</span>
@@ -1919,7 +1906,7 @@
 				<!--</span>-->
                             <!--</div>-->
                         <!--</div>-->
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="text-center">
                                 <span class="number" ng-class="hethi_artist_home=='Preview'?'number-active':''">6</span>
                 <span class="desc">Preview</span>

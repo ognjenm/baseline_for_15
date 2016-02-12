@@ -103,6 +103,156 @@
 
                                     <h3  class="text-center"> <label>{{service_delivery_tab}} </label></h3>
 
+
+                                    <div class="row">
+                                        <div class="col-md-offset-1 col-md-10">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <select class="form-control input-hethi input-md">
+                                                                <option value="0">-- form type --</option>
+                                                                <option>form 1</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-4">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="divider-md"></div>
+
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="panel panel-info ng-scope">
+                                                        <div class="panel-heading text-center">
+
+                                                            <!--<span class="fa fa-th"></span> -->
+                                                            capture services
+
+                                                        </div>
+                                                        <!--<div class="scrollbar-325" id="style-7">-->
+                                                        <!--<div class="force-overflow">-->
+                                                        <div class="panel-body " style="min-height: 328px">
+
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div style="padding-top: 5px;padding-bottom: 5px;text-align: center;border: 1px solid grey">channel</div>
+                                                                    <div class="panel-body">
+                                                                        <div class="row " ng-repeat="btn in captureChannel">
+                                                                            <label class="col-md-6 control-label">{{btn.name}}</label>
+                                                                            <div class="col-md-6">
+                                                                                <label class="switch"><input type="checkbox" ng-model="item.activate"><i></i></label>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" class="text-center form-control input-hethi" placeholder="load start">
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" class="text-center form-control input-hethi" placeholder="load end">
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="divider"></div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" class="text-center form-control input-hethi" placeholder="time control">
+
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" class="text-center form-control input-hethi" placeholder="time control">
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div style="padding-top: 5px;padding-bottom: 5px;text-align: center;border: 1px solid grey">source</div>
+                                                                    <div class="panel-body">
+                                                                        <div class="row " ng-repeat="btn in captureSource">
+                                                                            <label class="col-md-6 control-label">{{btn.name}}</label>
+                                                                            <div class="col-md-6">
+                                                                                <label class="switch"><input type="checkbox" ng-model="item.activate"><i></i></label>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="row">
+                                                                        <div class="col-md-offset-2 col-md-8">
+                                                                            <button type="button" class="form-control btn btn-round btn-info"><span class="fa fa-plus"></span> </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="row">
+                                                                        <div class="col-md-offset-2 col-md-8">
+                                                                            <button type="button" class="form-control btn btn-round btn-info"><span class="fa fa-plus"></span> </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--</div>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="panel panel-info ng-scope">
+                                                        <div class="panel-heading text-center">
+
+                                                            <!--<span class="fa fa-th"></span> -->
+                                                            capture services summary
+
+                                                        </div>
+                                                        <div class="panel-body " style="min-height: 328px">
+                                                            <div class="scrollbar-245" id="style-7">
+                                                                <div class="force-overflow">
+
+
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div ng-show="true" class="row margin-top-5" style="border-top: 2px solid #e96351; padding-top: 10px;">
+                                                                <div class="col-md-12">
+                                                                    <div class="text-center">
+                                                                        <button type="button" data-ng-click="assignClick()" class="text-lowercase btn_hethi btn-info">&nbsp;&nbsp;Preview RFI&nbsp;&nbsp;</button>
+                                                                        <button type="submit"  class="text-lowercase btn_hethi btn-success">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div ng-switch-when="workflow">
 
@@ -239,99 +389,1062 @@
                                 <div  ng-switch-when="organization structure">
 
                                     <div class="panel panel-success">
-                                        <div class="panel-body">
-
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <h3  class="text-left"> <label>define define role and q definition  </label></h3>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="head_tab">
+                                                    workflow organization structure
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="divider"></div>
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label> select the form </label>
-                                                    <select  class = "form-control " data-ng-model="selectedFormData" data-ng-options="item as item.form_type for item in all_forms" ng-change="load_data_cbaas_workflow( selectedFormData )">
-                                                        <option value=""> select the form</option>
-                                                    </select>
-
+                                                    <div style="padding-top: 5px;padding-bottom: 5px;text-align: center;border: 1px solid grey">define role and queue definitions</div>
                                                 </div>
                                             </div>
-                                            <div class="row">
 
+                                            <div class="divider-lg"></div>
+
+                                            <div style="border-top: 1px solid #b6b6b6"></div>
+
+                                            <div class="divider-lg"></div>
+
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <div class="row">
+                                                        <!--<div class="col-md-2">-->
+                                                        <!--<label class="control-label">-->
+                                                        <!--form type-->
+                                                        <!--</label>-->
+                                                        <!--</div>-->
+                                                        <div class="col-md-5">
+                                                            <label class="control-label">
+                                                                form type
+                                                            </label>
+                                                            <select class="form-control input-hethi select_center">
+                                                                <option value="0"> -- Form Type -- </option>
+                                                                <option> PO </option>
+                                                                <option> NPO </option>
+                                                            </select>
+                                                        </div>
+                                                        <!--<div class="col-md-2">-->
+                                                        <!--<label class="control-label">-->
+                                                        <!--select role-->
+                                                        <!--</label>-->
+                                                        <!--</div>-->
+                                                        <div class="col-md-5">
+                                                            <label class="control-label">
+                                                                select role
+                                                            </label>
+                                                            <select class="form-control input-hethi select_center">
+                                                                <option value="0"> AP Analyst  </option>
+                                                                <option> AP Manager </option>
+                                                                <option> data capture  </option>
+                                                                <option> buyer  </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label class="control-label font_w">
+                                                                select role
+                                                            </label>
+                                                            <button type="button" class="form-control btn_hethi_square btn-primary">add roles</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="row">
+                                                        <!--<div class="col-md-2">-->
+                                                        <!--<label class="control-label">-->
+                                                        <!--assign Q-->
+                                                        <!--</label>-->
+                                                        <!--</div>-->
+                                                        <div class="col-md-7">
+                                                            <label class="control-label">
+                                                                assign Q
+                                                            </label>
+                                                            <select class="form-control input-hethi select_center">
+                                                                <option value="0"> -- Form Type -- </option>
+                                                                <option> PO </option>
+                                                                <option> NPO </option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <label class="control-label font_w">
+                                                                assign Q
+                                                            </label>
+                                                            <button type="button" class="form-control btn_hethi_square btn-primary">add queues</button>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label class="control-label font_w">
+                                                                assign
+                                                            </label>
+                                                            <button type="button" class="form-control btn_hethi_square btn-danger">+</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="divider-lg"></div>
+                                            <div style="border-top: 1px solid #b6b6b6;margin-bottom: 20px;margin-top: 10px"></div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="pull-right">
+                                                        <button type="button" class="btn_hethi blue btn-w-md">preview RFI</button>
+                                                        <button type="button" class="btn_hethi blue btn-w-md">save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-switch-when="locale management">
+
+                                    <h3  class="text-center"> <label>{{service_delivery_tab}} </label></h3>
+
+                                    <div class="row">
+                                        <div class="col-md-offset-1 col-md-10">
+                                            <div class="panel-body">
+                                                <div class="row" >
+                                                    <div class="col-md-4"></div>
+                                                    <div class="col-md-4" >
+                                                        <select class="select_center form-control input-hethi input-md">
+                                                            <option value="0"> form type </option>
+                                                            <option>option 1</option>
+                                                            <option>option 2</option>
+                                                        </select>
+                                                    </div>  
+                                                    <div class="col-md-4">
+                                                        <div class="row">
+                                                            <div class="col-md-5">
+                                                                <label class="control-label">display language </label>
+                                                            </div>
+                                                            <div class="col-md-7">
+                                                                <select class="select_center form-control input-hethi input-md">
+                                                                    <option value="0">English</option>
+                                                                    <option>hindi</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div style="border-top: 1px solid #b6b6b6"></div>
+
+
+                                            <div class="panel-body">
+
+                                                <div class="row" >
+
+                                                    <div class="col-md-9" >
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <label class="control-label grey">locale</label>
+                                                                <select class="select_center input-hethi form-control" ng-model="country" ng-options="country.name for country in countries track by country.code">
+                                                                    <option value="">-- Select a Country --</option>
+                                                                </select> 
+                                                            </div>         
+                                                            <div class="col-md-8">
+                                                                <label class="control-label" style="color: #ffffff">localetertret</label>
+                                                                <label class="control-label">
+                                                                    This affects formatting details such as functions, dates and currency
+                                                                </label>
+                                                            </div>    
+                                                        </div>     
+                                                    </div>  
+                                                    <div class="col-md-3">
+                                                        <label class="control-label grey">Time Zone</label>
+                                                        <select class="select_center input-hethi form-control" ng-model="country" ng-options="country.name for country in countries track by country.code">
+                                                            <option value="">-- Select a Country --</option>
+                                                        </select>  
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="divider"></div>
+                                            <div style="border-top: 1px solid #b6b6b6"></div>
+
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="text-center">
+                                                            <span style="font-size: 18px;text-decoration: underline;font-weight: bold;color: #808080">date, currency, formats</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="divider-md"></div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="col-md-5">
+                                                                <div class="control-label grey">Date Format </div>
+                                                            </div>
+                                                            <div class="col-md-7">
+                                                                <input type="date" class="form-control input-hethi">
+                                                            </div>
+                                                        </div>
+                                                        <div class="divider"></div>
+                                                        <div class="row">
+                                                            <div class="col-md-5">
+                                                                <div class="control-label grey">Time Format</div>
+                                                            </div>
+                                                            <div class="col-md-7">
+                                                                <input type="time" class="form-control input-hethi">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="col-md-5">
+                                                                <div class="control-label grey">currency </div>
+                                                            </div>
+                                                            <div class="col-md-7">
+                                                                <input type="text" class="form-control input-hethi">
+                                                            </div>
+                                                        </div>
+                                                        <div class="divider"></div>
+                                                        <div class="row">
+                                                            <div class="col-md-5">
+                                                                <div class="control-label grey">currency significant digits</div>
+                                                            </div>
+                                                            <div class="col-md-7">
+                                                                <input type="text" class="form-control input-hethi">
+                                                                <span class="font_grey">$123,456,789.00</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="divider"></div>
+                                                        <div class="row">
+                                                            <div class="col-md-5">
+                                                                <div class="control-label grey">1000s separator</div>
+                                                            </div>
+                                                            <div class="col-md-7">
+                                                                <input type="text" class="form-control input-hethi">
+                                                            </div>
+                                                        </div>
+                                                        <div class="divider"></div>
+                                                        <div class="row">
+                                                            <div class="col-md-5">
+                                                                <div class="control-label grey">decimal symbol</div>
+                                                            </div>
+                                                            <div class="col-md-7">
+                                                                <input type="text" class="form-control input-hethi">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="divider"></div>
+                                            <div style="border-top: 1px solid #b6b6b6"></div>
+
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="text-center">
+                                                            <span style="font-size: 18px;text-decoration: underline;font-weight: bold;color: #808080">holiday calendar, high volume day, week definition</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                                 <div class="divider-md"></div>
 
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered table-striped table-responsive ">
-                                                        <thead class="text-lowercase table-bg-info">
-                                                        <tr>
-                                                            <th class="text-center">
-                                                                <div class="thSn">
-                                                                    #
-                                                                </div>
-                                                            </th>
-
-                                                            <th style="width:100px" class="text-center" >
-                                                                <div class="">
-                                                                    Role
-                                                                </div>
-                                                            </th>
-                                                            <th  class="text-center">
-                                                                <div class="th">
-                                                                    Rule set
-                                                                </div>
-                                                            </th>
-                                                            <th>
-                                                                <div class="th">
-                                                                    descion
-                                                                </div>
-                                                            </th>
-                                                            <th>
-                                                                <div class="th">
-                                                                    priority
-                                                                </div>
-                                                            </th>
-
-                                                            <th class="text-center">
-                                                                <div class="th">
-                                                                    queue
-                                                                </div>
-                                                            </th>
-                                                            <th class="text-center">
-                                                                <div class="th">
-                                                                    activate
-                                                                </div>
-                                                            </th>
-
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr ng-click="selectbps($index);" >
-                                                            <td class="text-center">{{$index+1}}</td>
-                                                            <td class="text-center">ap analyst</td>
-                                                            <td class="text-center">  rules   </td>
-                                                            <td class="text-center"> descion	</td>
-                                                            <td class="text-center"> priority</td>
-                                                            <td class="text-center"> queue </td>
-                                                            <td class="text-center">  <label class="switch"><input type="checkbox" checked><i></i></label> </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="col-md-12 ">
-                                                    <div class="pull-right">
-                                                        <button class=" btn btn-line-info  btn-w-lg ">
-                                                            add custom rule set
-                                                        </button>
-                                                        <button class=" btn btn-line-info  btn-w-lg ">
-                                                            save
-                                                        </button>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <input type="date" class="form-control input-hethi">
                                                     </div>
+                                                </div>
+                                                <div class="divider"></div>
 
+                                                <div class="row">
+                                                    <div class="col-md-4">
+
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="control-label grey">First Day of Week</div>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <select class="select_center form-control input-hethi">
+                                                                    <option>sunday</option>
+                                                                    <option>monday</option>
+                                                                    <option>tuesday</option>
+                                                                    <option>wednesday</option>
+                                                                    <option>thursday</option>
+                                                                    <option>friday</option>
+                                                                    <option>saturday</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="divider"></div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="control-label grey">weekend start</div>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <select class="select_center form-control input-hethi">
+                                                                    <option>sunday</option>
+                                                                    <option>monday</option>
+                                                                    <option>tuesday</option>
+                                                                    <option>wednesday</option>
+                                                                    <option>thursday</option>
+                                                                    <option>friday</option>
+                                                                    <option>saturday</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="divider"></div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="control-label grey">weekend end</div>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <select class="select_center form-control input-hethi">
+                                                                    <option>sunday</option>
+                                                                    <option>monday</option>
+                                                                    <option>tuesday</option>
+                                                                    <option>wednesday</option>
+                                                                    <option>thursday</option>
+                                                                    <option>friday</option>
+                                                                    <option>saturday</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="divider"></div>
+                                            <div style="border-top: 1px solid #b6b6b6"></div>
+
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="pull-right">
+                                                            <button class="btn_hethi blue btn-w-md" type="button">preview RFI</button>
+                                                            <button class="btn_hethi btn-w-md blue">save</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="divider-lg"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div ng-switch-when="BPaaS services">
+
+                                    <h3  class="text-center"> <label>{{service_delivery_tab}} </label></h3>
+
+                                    <div class="panel-body">
+                                        <div class="row" >
+                                            <div class="col-md-3" >
+                                                <select class="select_center form-control input-hethi input-md">
+                                                    <option value="0"> form type </option>
+                                                    <option>option 1</option>
+                                                    <option>option 2</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <div class="btn_wizard_2">
+                                                            capture
+
+                                                        </div>
+                                                        <div class="form-group text-center">
+                                                            <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" checked type="checkbox" id="remember" ><span></span></label>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="btn_wizard_2">
+                                                            workflow
+                                                        </div>
+                                                        <div class="form-group text-center">
+                                                            <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="btn_wizard_2">
+                                                            output
+                                                        </div>
+                                                        <div class="form-group text-center">
+                                                            <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="btn_wizard_2">
+                                                            integrate
+                                                        </div>
+                                                        <div class="form-group text-center">
+                                                            <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="btn_wizard_2">
+                                                            storage
+                                                        </div>
+                                                        <div class="form-group text-center">
+                                                            <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="btn_wizard_2">
+                                                            analytics
+                                                        </div>
+                                                        <div class="form-group text-center">
+                                                            <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                             </div>
                                         </div>
+
+                                        <div class="row" style="border-top: 1px solid #2A6497;padding-top: 20px;">
+                                            <div class="col-md-offset-1 col-md-10">
+                                                <div class="panel panel-info ng-scope">
+                                                    <div class="panel-heading text-center">
+                                                        capture services
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-striped">
+                                                                <thead class="thead-bg">
+                                                                <tr>
+                                                                    <td class="text-center">
+                                                                        form type
+                                                                    </td>
+
+                                                                    <td class="text-center">
+                                                                        capture
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        manage
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        deliver
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        integrate
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        storage
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        analytics
+                                                                    </td>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr data-ng-repeat="form in bpaasData">
+                                                                    <td>
+                                                                        {{form.name}}
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        <label style="margin-left: 50px" class="ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span></span></label>
+                                                                    </td>
+
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                        <div class="divider"></div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="pull-right">
+                                                                    <button type="button" class="btn_hethi btn-w-md blue">save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
+                                <div ng-switch-when="output">
+                                    <div class="row">
+                                        <div class="col-md-offset-1 col-md-10">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <select class="form-control input-hethi input-md">
+                                                                <option value="0">-- form type --</option>
+                                                                <option>form 1</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-4">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="divider-md"></div>
+
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div class="panel panel-info ng-scope">
+                                                        <div class="panel-heading text-center">
+
+                                                            <!--<span class="fa fa-th"></span> -->
+                                                            capture services
+
+                                                        </div>
+                                                        <!--<div class="scrollbar-325" id="style-7">-->
+                                                        <!--<div class="force-overflow">-->
+                                                        <div class="panel-body " style="min-height: 328px">
+
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div style="padding-top: 5px;padding-bottom: 5px;text-align: center;border: 1px solid grey">channel</div>
+                                                                    <div class="panel-body">
+                                                                        <div class="row " ng-repeat="btn in outputContent">
+                                                                            <label class="col-md-6 control-label">{{btn.name}}</label>
+                                                                            <div class="col-md-6">
+                                                                                <label class="switch"><input type="checkbox" ng-model="item.activate"><i></i></label>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" class="text-center form-control input-hethi" placeholder="load start">
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <input type="text" class="text-center form-control input-hethi" placeholder="load end">
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div style="padding-top: 5px;padding-bottom: 5px;text-align: center;border: 1px solid grey">source</div>
+                                                                    <div class="panel-body">
+                                                                        <div class="row " ng-repeat="btn in outputChannel">
+                                                                            <label class="col-md-6 control-label">{{btn.name}}</label>
+                                                                            <div class="col-md-6">
+                                                                                <label class="switch"><input type="checkbox" ng-model="item.activate"><i></i></label>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    <div class="row">
+                                                                        <div class="col-md-offset-2 col-md-8">
+                                                                            <button type="button" class="form-control btn btn-round btn-info"><span class="fa fa-plus"></span></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="row">
+                                                                        <div class="col-md-offset-2 col-md-8">
+                                                                            <button type="button" class="form-control btn btn-round btn-info"><span class="fa fa-plus"></span></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--</div>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="panel panel-info ng-scope">
+                                                        <div class="panel-heading text-center">
+
+                                                            <!--<span class="fa fa-th"></span> -->
+                                                            capture services summary
+
+                                                        </div>
+                                                        <div class="panel-body " style="min-height: 328px">
+                                                            <div class="scrollbar-245" id="style-7">
+                                                                <div class="force-overflow">
+
+
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div ng-show="true" class="row margin-top-5" style="border-top: 2px solid #e96351; padding-top: 10px;">
+                                                                <div class="col-md-12">
+                                                                    <div class="text-center">
+                                                                        <button type="button" data-ng-click="assignClick()" class="text-lowercase btn_hethi btn-info">&nbsp;&nbsp;Preview RFI&nbsp;&nbsp;</button>
+                                                                        <button type="submit"  class="text-lowercase btn_hethi btn-success">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div ng-switch-when="complaince">
+                                    <div style="min-height: 475px"  data-ng-switch="complianceTab" class="margin-top-10 ">
+
+                                        <div data-ng-switch-when="1">
+                                            <div class="panel-body">
+
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="hethi_nav_tab dodgerBlue" data-ng-click="selectCompliance(1)">
+                                                            image received
+                                                        </div>
+                                                        <div class="hethi_nav_tab" data-ng-click="selectCompliance(2)">
+                                                            image shipped
+                                                        </div>
+                                                        <div class="hethi_nav_tab" data-ng-click="selectCompliance(3)">
+                                                            information integrity
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="divider"></div>
+                                                        <div class="panel panel-info">
+                                                            <div class="panel-heading text-center">
+                                                                image recieved
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-offset-1 col-md-10">
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">layout</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">image size</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">standard DPI</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">minimum acceptable DPI</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">average pages per form</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">average pages per form bundle</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">total form field</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">average no of character per field</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">average no of character per form</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+
+                                        <div data-ng-switch-when="2">
+                                            <div class="panel-body">
+
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="hethi_nav_tab " data-ng-click="selectCompliance(1)">
+                                                            image received
+                                                        </div>
+                                                        <div class="hethi_nav_tab dodgerBlue" data-ng-click="selectCompliance(2)">
+                                                            image shipped
+                                                        </div>
+                                                        <div class="hethi_nav_tab" data-ng-click="selectCompliance(3)">
+                                                            information integrity
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="panel panel-info ">
+                                                            <div class="panel-heading text-center">
+                                                                image shipped
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-offset-1 col-md-10">
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">max file size threshold</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">record size threshold</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">minimum record threshold</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">image size threshold</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">image record size threshold</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">customer shipment cutoff</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">shipment frequency</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">shipment begin time</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">shipment end time</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div data-ng-switch-when="3">
+                                            <div class="panel-body">
+
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="hethi_nav_tab " data-ng-click="selectCompliance(1)">
+                                                            image received
+                                                        </div>
+                                                        <div class="hethi_nav_tab " data-ng-click="selectCompliance(2)">
+                                                            image shipped
+                                                        </div>
+                                                        <div class="hethi_nav_tab dodgerBlue" data-ng-click="selectCompliance(3)">
+                                                            information integrity
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div class="panel panel-info">
+                                                            <div class="panel-heading text-center">
+                                                                information integrity
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-offset-1 col-md-10">
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">industry compliance</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">information security</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">data shipment file name</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">naming convention</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">customer DIN format</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">hethi DIN format</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">data archival period</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">image archival period</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">data retention period</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label class="control-label">image retention period</label>
+                                                                            </div>
+                                                                            <div class="col-md-8">
+                                                                                <input type="text" class="form-control input-hethi">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="divider"></div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div ng-switch-when="service level agreement">
+
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped">
+                                                        <thead class="thead-bg">
+                                                        <tr>
+                                                            <td>
+                                                                form type
+                                                            </td>
+                                                            <td>
+                                                                input channel
+                                                            </td>
+                                                            <td>
+                                                                input format
+                                                            </td>
+                                                            <td>
+                                                                output content
+                                                            </td>
+                                                            <td>
+                                                                output channel
+                                                            </td>
+                                                            <td>
+                                                                frequency
+                                                            </td>
+                                                            <td>
+                                                                volume
+                                                            </td>
+                                                            <td>
+                                                                TAT %
+                                                            </td>
+                                                            <td>
+                                                                Quality
+                                                            </td>
+                                                            <td>
+                                                                Quality %
+                                                            </td>
+                                                            <td>
+                                                                form / field
+                                                            </td>
+                                                        </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 
