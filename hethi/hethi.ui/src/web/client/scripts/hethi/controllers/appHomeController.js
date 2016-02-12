@@ -835,6 +835,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
             //});
         };
 
+
     $scope.load_all_master_data();
     $scope.load_artist_list();
     $scope.load_business_modes();
@@ -898,21 +899,24 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
     .controller('PlatformPartnerController', ['$http','$scope','$filter','$location','$rootScope','logger','base64', function ($http,$scope,$filter,$location,$rootScope,logger,base64) {
 
     var qs = $location.$$search;
-    $scope.main_tabs={'service & delivery':'', 'platform as a service':'', 'infrastructure as a service' :''};
+    $scope.main_tabs=[{'menu_name':'service & delivery','is_active':''},{'menu_name': 'platform as a service','is_active':''},{'menu_name': 'infrastructure as a service',is_active :''}];
     $scope.select_main_tab=function(tab){
         $scope.selected_main_tab=tab;
         //assign selected tab to query string
         $location.search({setTab:tab});
         //make selected tab active;
-        for(var k in  $scope.main_tabs){
-            if(tab==k){
-                $scope.main_tabs[k]='active';
+        $scope.main_tabs.forEach(function(row){
+
+            if(tab==row.menu_name){
+                row.is_active='active';
             }
             else
             {
-                $scope.main_tabs[k]='';
+                row.is_active='';
             }
-        }
+
+
+        })
         $('html, body').animate({
             scrollTop: $("#details_div").offset().top -10
         }, 1100);
@@ -947,7 +951,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
         //make selected tab active;
         $scope.service_delivery_tabs.forEach(function(row){
             if(tab==row.menu_name){
-                row.isActive='btn-success';
+                row.isActive='btn-info-wizard-active';
             }
             else
             {
@@ -1007,13 +1011,59 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
             $scope.customerList=data[0];
         });
     };
+    $scope.listenSelectedCustomer=function(){
+
+            var data=$rootScope.readCookie('hethi_freemium_customer');
+            if(data!=null){
+                var cookieData=JSON.parse(base64.decode(data));
+                $rootScope.selectedCustomer=cookieData;
+                $rootScope.customer_selected=true;
+            }
+            else
+            {
+                $rootScope.selectedCustomer='';
+                $rootScope.customer_selected=false;
+
+            }
+
+        };
+
     $scope.load_landing_page=function(customer){
-        $rootScope.selectedCustomer=customer;
-        $rootScope.customer_selected=true;
+
+        var secret=base64.encode(JSON.stringify(customer));
+        $rootScope.createCookie('hethi_freemium_customer', secret,1);
+        $scope.listenSelectedCustomer();
+
 
     };
+        $scope.removeSelectedCustomer=function(){
+            $rootScope.selectedCustomer='';
+            $rootScope.customer_selected=false;
+            logger.log('customer removed');
+            $rootScope.createCookie('hethi_freemium_customer', '',-1);
+            $scope.listenSelectedCustomer();
+
+        };
+
+        $scope.hethi_core_services_orchestration=[];
+        //hethi_core_services
+        $scope.add_hethi_core_services_for_form=function(data){
+
+            var form_data=data;
+            $scope.hethi_core_services_orchestration.forEach(function(row){
+               if(row.form_type==data.form_type) {
+                   row={};
+               }
+            });
+
+            $scope.hethi_core_services_orchestration.push(form_data);
+            form_data='';
+            data='';
 
 
+        };
+
+        $scope.listenSelectedCustomer();
     $scope.load_customer_list();
     $scope.load_all_forms();
 
@@ -1083,6 +1133,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
         ];
 
         $scope.captureSource=[
+
             {name:'TIFF',value:'no'},
             {name:'ANSI',value:'no'},
             {name:'EDIFACT',value:'no'},
@@ -1305,191 +1356,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
         ];
 
 
-    }])
-
-    .controller('freemium_Controller', ['$http','$scope','$location','$rootScope', function ($http,$scope,$location,$rootScope){
-
-        $scope.pageClass = 'page-about';
-        //$scope.hideSliderclass1='slider_1_class';
-
-
-
-        $(document).ready(function() {
-
-            $("#owl-demo").owlCarousel({
-                //autoPlay: 3000,
-                items : 4,
-                itemsDesktop : [1199,3],
-                itemsDesktopSmall : [979,3],
-                pagination:false,
-                navigation: true,
-                navigationText: [
-                    "<i class='fa fa-chevron-left icon-white'></i>",
-                    "<i class='fa fa-chevron-right icon-white'></i>"
-                ]
-                //Call beforeInit callback, elem parameter point to $("#owl-demo")
-                //beforeInit : function(elem){
-                //    random(elem);
-                //}
-
-            });
-
-
-            $scope.options1= {items : 4,
-                itemsDesktop : [1199,3],
-                itemsDesktopSmall : [979,3],
-                pagination:false,
-                navigation: true,
-                navigationText: ["<i class='fa fa-chevron-left icon-white'></i>",
-                    "<i class='fa fa-chevron-right icon-white'></i>"]};
-            $("#owl-demo1").owlCarousel({
-                //autoPlay: 3000,
-                items : 4,
-                itemsDesktop : [1199,3],
-                itemsDesktopSmall : [979,3],
-                pagination:false,
-                navigation: true,
-                navigationText: [
-                    "<i class='fa fa-chevron-left icon-white'></i>",
-                    "<i class='fa fa-chevron-right icon-white'></i>"
-                ]
-                //Call beforeInit callback, elem parameter point to $("#owl-demo")
-                //beforeInit : function(elem){
-                //    random(elem);
-                //}
-
-            });
-
-            $("#existing-customer-owl-demo").owlCarousel({
-                //autoPlay: 3000,
-                items : 3,
-                itemsDesktop : [1199,3],
-                itemsDesktopSmall : [979,3],
-                pagination:false,
-                navigation: true,
-                navigationText: [
-                    "<i class='fa fa-chevron-left icon-white'></i>",
-                    "<i class='fa fa-chevron-right icon-white'></i>"
-                ]
-                //Call beforeInit callback, elem parameter point to $("#owl-demo")
-                //beforeInit : function(elem){
-                //    random(elem);
-                //}
-
-            });
-            $("#existing-customer-content-owl-demo").owlCarousel({
-                //autoPlay: 3000,
-                items : 4,
-                itemsDesktop : [1199,3],
-                itemsDesktopSmall : [979,3],
-                pagination:false,
-                navigation: true,
-                navigationText: [
-                    "<i class='fa fa-chevron-left icon-white'></i>",
-                    "<i class='fa fa-chevron-right icon-white'></i>"
-                ]
-                //Call beforeInit callback, elem parameter point to $("#owl-demo")
-                //beforeInit : function(elem){
-                //    random(elem);
-                //}
-
-            });
-
-        });
-
-
-
-        $scope.class = "center_div";
-        $scope.slider="freeSlider";
-
-        $scope.itemClass = "h_box";
-
-        //$('#owl-demo .item div').addClass('h_box');
-
-        $scope.showMainSlider=function(){
-            $(window).ready(function(){
-                $('html, body').animate({
-                    scrollTop: $("#freeSlider").offset().top -90
-                }, 1000);
-            });
-            $scope.one = false;
-            $scope.mainslider = false;
-
-            $scope.one = false;
-            $scope.mainslider = false;
-        };
-
-        $scope.showOne = function (){
-            //$(window).ready(function(){
-            //    $('html, body').animate({
-            //        scrollTop: $("#industry").offset().top -10
-            //    }, 1000);
-            //});
-//$(window).ready(function(){
-//    $('html, body').animate({
-//        scrollTop: $("#scroll_slider_content").offset().top -0
-//    }, 10000);
-//});
-
-            $scope.one =true;
-            $scope.mainslider = true;
-
-
-        };
-        $scope.one = false;
-
-        //Slider Contents Visible and Invisible Code
-        $scope.IsVisible = false;
-        $scope.ShowHide = function () {
-//If DIV is visible it will be hidden and vice versa.
-            $scope.IsVisible = $scope.IsVisible ? false : true;
-
-        };
-        //$(window).ready(function(){
-        //    $('html, body').animate({
-        //        scrollTop: $("#scroll_slider_content").offset().top -0
-        //    }, 10000);
-        //});
-
-        $scope.GotoUpload=function(){
-            $scope.uploadForm=true;
-            $scope.one=false;
-//$scope.downloadCloudPlug=true;
-            $scope.showCSP=true;
-        };
-        $scope.uploadForm=false;
-        $scope.downloadCloudPlug=false;
-
-        $scope.GotoCSP=function(){
-//alert("dfsf")
-            $scope.one=false;
-            $scope.downloadCloudPlug=false;
-            $scope.showCSP=true;
-
-        };
-        $scope.connectSP=true;
-        $scope.ConnectServicePartner=function(){
-            $scope.connectSP=false;
-            $scope.uploadForms=true;
-            $scope.RFI=false;
-        };
-        $scope.generateRFI=function(){
-            $scope.connectSP=false;
-            $scope.uploadForms=false;
-            $scope.RFI=true;
-        };
-        $scope.proceedSubmit=function(){
-            $scope.connectSP=false;
-            $scope.uploadForms=false;
-            $scope.RFI=false;
-            $scope.ProceedToSubmit=true;
-
-            }
-
-
-        //end
-}])
-    .directive('ngFileModel',[
+    }]) .directive('ngFileModel',[
     function(){
         return{
             restrict:'A',
