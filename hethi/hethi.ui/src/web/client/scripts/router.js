@@ -76,7 +76,7 @@ hethi.run(function($rootScope,$location,$http,$route,logger){
     };
     $rootScope.refillRoute();
 
-    $rootScope.spring_rest_service='http://localhost:999';
+    $rootScope.spring_rest_service='http://server:999';
 
 
     //$rootScope.spring_rest_service='http://server:999';

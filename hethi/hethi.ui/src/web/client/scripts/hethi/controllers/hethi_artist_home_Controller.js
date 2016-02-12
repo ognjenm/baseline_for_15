@@ -143,6 +143,7 @@ hethi.controller('hethi_artist_home_Controller', ['$http','$scope','$filter','$r
         //console.log("xml : " + xml);
         var x2js = new X2JS();
         var js= x2js.xml_str2json(xml);
+
         $scope.mxsd={"efsuin":{
             "header":
             {"position":{"top":"","left":"","width":"","height":""},
@@ -1331,67 +1332,43 @@ $scope.loadMasterForm=function(path){
                             data:formData
                         }).success(function(s) {
                             console.log(JSON.stringify(s));
-                            //$scope.image3Efs={"efsuin":{"header":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"branch_location","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"DEZ DIGITAL PRINTING " +
-                            //" P.X Box .1213" +
-                            //" Grand Rapids , Michigan","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},{"name":"","ixsdfieldname":"invoice_number","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"#201","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                            //    {"name":"","ixsdfieldname":"invoice_date","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"March 19,2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                            //    {"name":"","ixsdfieldname":"vendor_address01","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"ML HOTEL& SUITS , 0332 Best Blvd","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                            //    {"name":"","ixsdfieldname":"scandate","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"4/15/2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}],"show":true},"footer":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"invoice_amount","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$7200","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                            //    {"name":"","ixsdfieldname":"invoice_sub_total","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$8000","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}]},"body":{"table":{"header":{"field":[]},"lineitem":{"field":[]},"footer":{"field":[]}},"field":[]}}}
-                            //
-                            //
-                            //$scope.image2Efs={"efsuin":{"header":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"branch_location","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"New World Company , Floor 100, 100 main street","position":{"top":"","left":"","width":"","height":""},
-                            //    "classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},
-                            //    "show":false},{"name":"","ixsdfieldname":"invoice_number","value":"",
-                            //    "label":{"content":"","position":{"top":"","left":"","width":"","height":""}
-                            //        ,"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},
-                            //    "data":{"content":"859652","position":{"top":"","left":"","width":"","height":""}
-                            //        ,"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true}
-                            //    ,"show":false},
-                            //    {"name":"","ixsdfieldname":"invoice_date","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"26/02/2001","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                            //    {"name":"","ixsdfieldname":"vendor_address01","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"Mr. Graham H.Smith,12 south Road ","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                            //    {"name":"","ixsdfieldname":"scandate","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"4/15/2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}],"show":true},"footer":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"invoice_amount","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$7200","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                            //    {"name":"","ixsdfieldname":"invoice_sub_total","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$8000","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}]},"body":{"table":{"header":{"field":[]},"lineitem":{"field":[]},"footer":{"field":[]}},"field":[]}}}
-                            //
-                            //
-                            //$scope.image1Efs={"efsuin":{"header":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"branch_location","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"DEZ DIGITAL PRINTING , P.X Box .1213","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},{"name":"","ixsdfieldname":"invoice_number","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"#201","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                            //    {"name":"","ixsdfieldname":"invoice_date","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"March 19,2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                            //    {"name":"","ixsdfieldname":"vendor_address01","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"ML HOTEL& SUITS , 0332 Best Blvd","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                            //    {"name":"","ixsdfieldname":"scandate","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"4/15/2013","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}],"show":true},"footer":{"position":{"top":"","left":"","width":"","height":""},"field":[{"name":"","ixsdfieldname":"invoice_amount","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$7200","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false},
-                            //    {"name":"","ixsdfieldname":"invoice_sub_total","value":"","label":{"content":"","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"data":{"content":"$8000","position":{"top":"","left":"","width":"","height":""},"classify":{"toreject":"","tosplit":"","tomerge":"","tomXSD":""},"show":true},"show":false}]},"body":{"table":{"header":{"field":[]},"lineitem":{"field":[]},"footer":{"field":[]}},"field":[]}}}
+
                             $scope.ShowStencilCompleted=true;
                             logger.logSuccess("stenciling completed");
                             $scope.efs_data=[];
                             $scope.position_cordinates=[];
-                            //var formNo='';
-                            //if($rootScope.currentPage.substring(0,2)=="Ex"){
-                            //    formNo=$scope.image3Efs;
-                            //}
-                            //if($rootScope.currentPage.substring(0,2)=="in"){
-                            //    formNo=$scope.image2Efs;
-                            //}
-                            //if($rootScope.currentPage.substring(0,2)=="ap"){
-                            //    formNo=$scope.image1Efs;
-                            //}
+
                             $scope.efs_data_header=s.mxsd.form.header;
                             $scope.efs_data_footer=s.mxsd.form.footer;
                             $scope.efs_data_body=s.mxsd.form.body;
+
                             console.log("efsuin : "+JSON.stringify(s.mxsd.form.efsuin));
                             console.log("header : "+JSON.stringify(s.mxsd.form.header));
-                            //if(s.mxsd.form.header.group.length!=0)
-                            //    console.log("headerFields : "+JSON.stringify(s.mxsd.form.header.group[0].field));
-                            if(isObject($scope.efs_data_header.group))
-                                $scope.efs_data_header.group = [$scope.efs_data_header.group];
-                            if($scope.efs_data_header.group.length!=0){
+
+                            /************HEADER START************/
+                            var headerGroup=[];
+                            if($scope.isObject($scope.efs_data_header.group))
+                            {headerGroup=[$scope.efs_data_header.group];}
+                            else if($scope.isArray($scope.efs_data_header.group))
+                            {headerGroup=$scope.efs_data_header.group;}
+                            if(headerGroup.length!=0){
+                                if($scope.isArray(headerGroup[0])){
+                                    headerGroup=headerGroup[0];
+                                }
                                 var index= 0,value='';
-                                $scope.efs_data_header.group.forEach(function(row,i){
-                                    if(isObject(row.field))
-                                        row.field = [row.field];
-                                    if(row.field.length!=0) {
-                                        row.field.forEach(function (f,j) {
+                                headerGroup.forEach(function(row,i){
+                                    var groupField=[];
+                                    if($scope.isObject(row.field))
+                                    {groupField=[row.field];}
+                                    else if($scope.isArray(row.field))
+                                    {groupField=row.field;}
+
+                                    if(groupField.length!=0) {
+                                        if($scope.isArray(groupField[0])){
+                                            groupField=groupField[0];
+                                        }
+                                        groupField.forEach(function (f,j) {
                                             value = '';
-                                            $scope.masterFormFields.mxsd.form.header.group[i].field.forEach(function (fun1) {
-                                                if (fun1.ixsdfieldname == f.ixsdfieldname) {
                                                     var positionInput = {
                                                         top: Math.ceil(629/$scope.formSize.width*f.data.position.top),
                                                         left: Math.ceil(886/$scope.formSize.Height*f.data.position.left),
@@ -1402,7 +1379,6 @@ $scope.loadMasterForm=function(path){
                                                         position_name: 'header',
                                                         group_name: row.name
                                                     };
-                                                    //index++;
                                                     $scope.position_cordinates.push(positionInput);
                                                     var positionInput = {
                                                         top: Math.ceil(629/$scope.formSize.width*f.label.position.top),
@@ -1414,43 +1390,37 @@ $scope.loadMasterForm=function(path){
                                                         position_name: 'header',
                                                         group_name: row.name
                                                     };
-                                                    //index++;
                                                     $scope.position_cordinates.push(positionInput);
-                                                }
-                                            });
-                                            //var input = {
-                                            //    ixsdfieldname: f.ixsdfieldname,
-                                            //    label_content: f.label.content,
-                                            //    label_position: f.label.position.top + "," +
-                                            //    f.label.position.left + "," +
-                                            //    f.label.position.width + "," +
-                                            //    f.label.position.height,
-                                            //    data_content: value,
-                                            //    data_position: f.data.position.top + "," +
-                                            //    f.data.position.left + "," +
-                                            //    f.data.position.width + "," +
-                                            //    f.data.position.height,
-                                            //    position_name: 'header'
-                                            //};
-                                            console.log(JSON.stringify($scope.position_cordinates));
-                                            //$scope.efs_data.push(input);
                                         });
                                     }
                                 });
 
                             }
-                            if(isObject($scope.efs_data_footer.group))
-                                $scope.efs_data_footer.group = [$scope.efs_data_footer.group];
-                            if($scope.efs_data_footer.group.length!=0){
+                            /************HEADER END************/
+
+                            /************FOOTER START************/
+                            var footerGroup=[];
+                            if($scope.isObject($scope.efs_data_footer.group))
+                            {footerGroup=[$scope.efs_data_footer.group];}
+                            else if($scope.isArray($scope.efs_data_footer.group))
+                            {footerGroup=$scope.efs_data_footer.group;}
+                            if(footerGroup.length!=0){
+                                if($scope.isArray(footerGroup[0])){
+                                    footerGroup=footerGroup[0];
+                                }
                                 var index= 0,value='';
-                                $scope.efs_data_footer.group.forEach(function(row,i){
-                                    if(isObject(row.field))
-                                        row.field = [row.field];
-                                    if(row.field.length!=0) {
-                                        row.field.forEach(function (f,j) {
+                                footerGroup.forEach(function(row,i){
+                                    var groupField=[];
+                                    if($scope.isObject(row.field))
+                                    {groupField=[row.field];}
+                                    else if($scope.isArray(row.field))
+                                    {groupField=row.field;}
+                                    if(groupField.length!=0) {
+                                        if($scope.isArray(groupField[0])){
+                                            groupField=groupField[0];
+                                        }
+                                        groupField.forEach(function (f,j) {
                                             value = '';
-                                            $scope.masterFormFields.mxsd.form.footer.group[i].field.forEach(function (fun1) {
-                                                if (fun1.ixsdfieldname == f.ixsdfieldname) {
                                                     var positionInput = {
                                                         top: Math.ceil(629/$scope.formSize.width*f.data.position.top),
                                                         left: Math.ceil(886/$scope.formSize.Height*f.data.position.left),
@@ -1461,7 +1431,6 @@ $scope.loadMasterForm=function(path){
                                                         position_name: 'footer',
                                                         group_name: row.name
                                                     };
-                                                    //index++;
                                                     $scope.position_cordinates.push(positionInput);
                                                     var positionInput = {
                                                         top: Math.ceil(629/$scope.formSize.width*f.label.position.top),
@@ -1473,43 +1442,38 @@ $scope.loadMasterForm=function(path){
                                                         position_name: 'footer',
                                                         group_name: row.name
                                                     };
-                                                    //index++;
                                                     $scope.position_cordinates.push(positionInput);
-                                                }
-                                            });
-                                            //var input = {
-                                            //    ixsdfieldname: f.ixsdfieldname,
-                                            //    label_content: f.label.content,
-                                            //    label_position: f.label.position.top + "," +
-                                            //    f.label.position.left + "," +
-                                            //    f.label.position.width + "," +
-                                            //    f.label.position.height,
-                                            //    data_content: value,
-                                            //    data_position: f.data.position.top + "," +
-                                            //    f.data.position.left + "," +
-                                            //    f.data.position.width + "," +
-                                            //    f.data.position.height,
-                                            //    position_name: 'header'
-                                            //};
-                                            console.log(JSON.stringify($scope.position_cordinates));
-                                            //$scope.efs_data.push(input);
                                         });
                                     }
                                 });
 
                             }
-                            if(isObject($scope.efs_data_body.group))
-                                $scope.efs_data_body.group = [$scope.efs_data_body.group];
-                            if($scope.efs_data_body.group.length!=0){
+                            /************FOOTER END************/
+
+                            /************BODY START************/
+                            var bodyGroup=[];
+                            if($scope.isObject($scope.efs_data_body.group))
+                            {bodyGroup=[$scope.efs_data_body.group];}
+                            else if($scope.isArray($scope.efs_data_body.group))
+                            {bodyGroup=$scope.efs_data_body.group;}
+                            if(bodyGroup.length!=0){
+                                if($scope.isArray(bodyGroup[0])){
+                                    bodyGroup=bodyGroup[0];
+                                }
                                 var index= 0,value='';
-                                $scope.efs_data_body.group.forEach(function(row,i){
-                                    if(isObject(row.field))
-                                        row.field = [row.field];
-                                    if(row.field.length!=0) {
-                                        row.field.forEach(function (f,j) {
+                                bodyGroup.forEach(function(row,i){
+                                    var groupField=[];
+                                    if($scope.isObject(row.field))
+                                    {groupField=[row.field];}
+                                    else if($scope.isArray(row.field))
+                                    {groupField=row.field;}
+
+                                    if(groupField.length!=0) {
+                                        if($scope.isArray(groupField[0])){
+                                            groupField=groupField[0];
+                                        }
+                                        groupField.forEach(function (f,j) {
                                             value = '';
-                                            $scope.masterFormFields.mxsd.form.body.group[i].field.forEach(function (fun1) {
-                                                if (fun1.ixsdfieldname == f.ixsdfieldname) {
                                                     var positionInput = {
                                                         top: Math.ceil(629/$scope.formSize.width*f.data.position.top),
                                                         left: Math.ceil(886/$scope.formSize.Height*f.data.position.left),
@@ -1520,7 +1484,6 @@ $scope.loadMasterForm=function(path){
                                                         position_name: 'body',
                                                         group_name: row.name
                                                     };
-                                                    //index++;
                                                     $scope.position_cordinates.push(positionInput);
                                                     var positionInput = {
                                                         top: Math.ceil(629/$scope.formSize.width*f.label.position.top),
@@ -1532,35 +1495,21 @@ $scope.loadMasterForm=function(path){
                                                         position_name: 'body',
                                                         group_name: row.name
                                                     };
-                                                    //index++;
                                                     $scope.position_cordinates.push(positionInput);
-                                                }
-                                            });
-                                            //var input = {
-                                            //    ixsdfieldname: f.ixsdfieldname,
-                                            //    label_content: f.label.content,
-                                            //    label_position: f.label.position.top + "," +
-                                            //    f.label.position.left + "," +
-                                            //    f.label.position.width + "," +
-                                            //    f.label.position.height,
-                                            //    data_content: value,
-                                            //    data_position: f.data.position.top + "," +
-                                            //    f.data.position.left + "," +
-                                            //    f.data.position.width + "," +
-                                            //    f.data.position.height,
-                                            //    position_name: 'header'
-                                            //};
-                                            console.log(JSON.stringify($scope.position_cordinates));
-                                            //$scope.efs_data.push(input);
                                         });
                                     }
-                                    if(isObject(row.fieldlist.field))
-                                        row.fieldlist.field = [row.fieldlist.field];
-                                    if(row.fieldlist.field.length!=0) {
-                                        row.fieldlist.field.forEach(function (f,j) {
+                                    var groupFieldlist=[];
+                                    if($scope.isObject(row.fieldlist.field))
+                                    {groupFieldlist=[row.fieldlist.field];}
+                                    else if($scope.isArray(row.fieldlist.field))
+                                    {groupFieldlist=row.fieldlist.field;}
+
+                                    if(groupFieldlist.length!=0) {
+                                        if($scope.isArray(groupFieldlist[0])){
+                                            groupFieldlist=groupFieldlist[0];
+                                        }
+                                        groupFieldlist.forEach(function (f,j) {
                                             value = '';
-                                            $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field.forEach(function (fun1) {
-                                                if (fun1.ixsdfieldname == f.ixsdfieldname) {
                                                     var positionInput = {
                                                         top: Math.ceil(629/$scope.formSize.width*f.data.position.top),
                                                         left: Math.ceil(886/$scope.formSize.Height*f.data.position.left),
@@ -1571,7 +1520,6 @@ $scope.loadMasterForm=function(path){
                                                         position_name: 'lineitem',
                                                         group_name: row.name
                                                     };
-                                                    //index++;
                                                     $scope.position_cordinates.push(positionInput);
                                                     var positionInput = {
                                                         top: Math.ceil(629/$scope.formSize.width*f.label.position.top),
@@ -1583,32 +1531,14 @@ $scope.loadMasterForm=function(path){
                                                         position_name: 'lineitem',
                                                         group_name: row.name
                                                     };
-                                                    //index++;
                                                     $scope.position_cordinates.push(positionInput);
-                                                }
-                                            });
-                                            //var input = {
-                                            //    ixsdfieldname: f.ixsdfieldname,
-                                            //    label_content: f.label.content,
-                                            //    label_position: f.label.position.top + "," +
-                                            //    f.label.position.left + "," +
-                                            //    f.label.position.width + "," +
-                                            //    f.label.position.height,
-                                            //    data_content: value,
-                                            //    data_position: f.data.position.top + "," +
-                                            //    f.data.position.left + "," +
-                                            //    f.data.position.width + "," +
-                                            //    f.data.position.height,
-                                            //    position_name: 'header'
-                                            //};
-                                            console.log(JSON.stringify($scope.position_cordinates));
-                                            //$scope.efs_data.push(input);
                                         });
                                     }
                                 });
 
                             }
-                             //$scope.completedStenciling();
+                            /************BODY START************/
+
                             $scope.completedStenciling();
                         });
 
@@ -1908,7 +1838,7 @@ $scope.loadMasterForm=function(path){
                         var h=Math.ceil($scope.formSize.Height/850*$('#h').val());
                         $scope.fieldType.Value=="label"?
                         $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field.push({
-                            "name": "",
+                            "name": " ",
                             "ixsdfieldname": $scope.selectedIxsd.ixsdFieldName,
                             "ixsdxpath": $scope.selectedIxsd.ixsdPath,
                             "type": $scope.dataType.Value,
@@ -1918,28 +1848,28 @@ $scope.loadMasterForm=function(path){
                                 "SplitMerge":selectedValue.indexToSplitMerge
                             },
                             "label": {
-                                "sequence": "",
+                                "sequence": " ",
                                 "position": {
                                     "top":""+x1,
                                     "left":""+y1,
                                     "width":""+w,
                                     "height":""+h
                                 },
-                                "content": ""
+                                "content": " "
                             },
                             "data": {
-                                "sequence": "",
+                                "sequence": " ",
                                 "position": {
-                                    "top": "",
-                                    "left": "",
-                                    "width": "",
-                                    "height": ""
+                                    "top": " ",
+                                    "left": " ",
+                                    "width": " ",
+                                    "height": " "
                                 },
-                                "content": ""
+                                "content": " "
                             }
                         }):
                             $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field.push({
-                                "name": "",
+                                "name": " ",
                                 "ixsdfieldname": $scope.selectedIxsd.ixsdFieldName,
                                 "ixsdxpath": $scope.selectedIxsd.ixsdPath,
                                 "type": $scope.dataType.Value,
@@ -1949,24 +1879,24 @@ $scope.loadMasterForm=function(path){
                                     "SplitMerge":selectedValue.indexToSplitMerge
                                 },
                                 "label": {
-                                    "sequence": "",
+                                    "sequence": " ",
                                     "position": {
-                                        "top":"",
-                                        "left":"",
-                                        "width":"",
-                                        "height":""
+                                        "top":" ",
+                                        "left":" ",
+                                        "width":" ",
+                                        "height":" "
                                     },
-                                    "content": ""
+                                    "content": " "
                                 },
                                 "data": {
-                                    "sequence": "",
+                                    "sequence": " ",
                                     "position": {
                                         "top":""+x1,
                                         "left":""+y1,
                                         "width":""+w,
                                         "height":""+h
                                     },
-                                    "content": ""
+                                    "content": " "
                                 }
                             });
                         added = true;
@@ -1983,7 +1913,7 @@ $scope.loadMasterForm=function(path){
                 $scope.fieldType.Value=="label"?
                 $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group.push(
                 {"field":[{
-                    "name":"",
+                    "name":" ",
                     "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
                     "ixsdxpath":$scope.selectedIxsd.ixsdPath,
                     "type":$scope.dataType.Value,
@@ -1993,27 +1923,27 @@ $scope.loadMasterForm=function(path){
                         "SplitMerge":selectedValue.indexToSplitMerge
                     },
                     "label":{
-                        "sequence":"",
+                        "sequence":" ",
                         "position":{
                             "top":""+x1,
                             "left":""+y1,
                             "width":""+w,
                             "height":""+h},
-                        "content":""},
+                        "content":" "},
                     "data":{
-                        "sequence":"",
+                        "sequence":" ",
                         "position":{
-                            "top":"",
-                            "left":"",
-                            "width":"",
-                            "height":""},
-                        "content":""}
+                            "top":" ",
+                            "left":" ",
+                            "width":" ",
+                            "height":" "},
+                        "content":" "}
                 }],
                     "_name":groupname
                 }):
                     $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group.push(
                         {"field":[{
-                            "name":"",
+                            "name":" ",
                             "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
                             "ixsdxpath":$scope.selectedIxsd.ixsdPath,
                             "type":$scope.dataType.Value,
@@ -2023,28 +1953,28 @@ $scope.loadMasterForm=function(path){
                                 "SplitMerge":selectedValue.indexToSplitMerge
                             },
                             "label":{
-                                "sequence":"",
+                                "sequence":" ",
                                 "position":{
-                                    "top":"",
-                                    "left":"",
-                                    "width":"",
-                                    "height":""},
-                                "content":""},
+                                    "top":" ",
+                                    "left":" ",
+                                    "width":" ",
+                                    "height":" "},
+                                "content":" "},
                             "data":{
-                                "sequence":"",
+                                "sequence":" ",
                                 "position":{
                                     "top":""+x1,
                                     "left":""+y1,
                                     "width":""+w,
                                     "height":""+h},
-                                "content":""}
+                                "content":" "}
                         }],
                             "_name":groupname
                         }):
                     $scope.fieldType.Value=="label"?
                         $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group.push(
                             {"field":[{
-                                "name":"",
+                                "name":" ",
                                 "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
                                 "ixsdxpath":$scope.selectedIxsd.ixsdPath,
                                 "type":$scope.dataType.Value,
@@ -2054,30 +1984,30 @@ $scope.loadMasterForm=function(path){
                                     "SplitMerge":selectedValue.indexToSplitMerge
                                 },
                                 "label":{
-                                    "sequence":"",
+                                    "sequence":" ",
                                     "position":{
                                         "top":""+x1,
                                         "left":""+y1,
                                         "width":""+w,
                                         "height":""+h},
-                                    "content":""},
+                                    "content":" "},
                                 "data":{
-                                    "sequence":"",
+                                    "sequence":" ",
                                     "position":{
-                                        "top":"",
-                                        "left":"",
-                                        "width":"",
-                                        "height":""},
-                                    "content":""}
+                                        "top":" ",
+                                        "left":" ",
+                                        "width":" ",
+                                        "height":" "},
+                                    "content":" "}
                             }],
                                 "fieldlist":{
-                                    "field":[]
+                                    "field":[ ]
                                 },
                                 "_name":groupname
                             }):
                         $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group.push(
                             {"field":[{
-                                "name":"",
+                                "name":" ",
                                 "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
                                 "ixsdxpath":$scope.selectedIxsd.ixsdPath,
                                 "type":$scope.dataType.Value,
@@ -2087,21 +2017,21 @@ $scope.loadMasterForm=function(path){
                                     "SplitMerge":selectedValue.indexToSplitMerge
                                 },
                                 "label":{
-                                    "sequence":"",
+                                    "sequence":" ",
                                     "position":{
-                                        "top":"",
-                                        "left":"",
-                                        "width":"",
-                                        "height":""},
-                                    "content":""},
+                                        "top":" ",
+                                        "left":" ",
+                                        "width":" ",
+                                        "height":" "},
+                                    "content":" "},
                                 "data":{
-                                    "sequence":"",
+                                    "sequence":" ",
                                     "position":{
                                         "top":""+x1,
                                         "left":""+y1,
                                         "width":""+w,
                                         "height":""+h},
-                                    "content":""}
+                                    "content":" "}
                             }],
                                 "fieldlist":{
                                     "field":[]
@@ -2142,7 +2072,7 @@ $scope.loadMasterForm=function(path){
                         var h=Math.ceil($scope.formSize.Height/850*$('#h').val());
                         $scope.fieldType.Value=="label"?
                             $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field.push({
-                                "name": "",
+                                "name": " ",
                                 "ixsdfieldname": $scope.selectedIxsd.ixsdFieldName,
                                 "ixsdxpath": $scope.selectedIxsd.ixsdPath,
                                 "type": $scope.dataType.Value,
@@ -2152,28 +2082,28 @@ $scope.loadMasterForm=function(path){
                                     "SplitMerge":selectedValue.indexToSplitMerge
                                 },
                                 "label": {
-                                    "sequence": "",
+                                    "sequence": " ",
                                     "position": {
                                         "top":""+x1,
                                         "left":""+y1,
                                         "width":""+w,
                                         "height":""+h
                                     },
-                                    "content": ""
+                                    "content": " "
                                 },
                                 "data": {
-                                    "sequence": "",
+                                    "sequence": " ",
                                     "position": {
-                                        "top": "",
-                                        "left": "",
-                                        "width": "",
-                                        "height": ""
+                                        "top": " ",
+                                        "left": " ",
+                                        "width": " ",
+                                        "height": " "
                                     },
-                                    "content": ""
+                                    "content": " "
                                 }
                             }):
                             $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field.push({
-                                "name": "",
+                                "name": " ",
                                 "ixsdfieldname": $scope.selectedIxsd.ixsdFieldName,
                                 "ixsdxpath": $scope.selectedIxsd.ixsdPath,
                                 "type": $scope.dataType.Value,
@@ -2183,24 +2113,24 @@ $scope.loadMasterForm=function(path){
                                     "SplitMerge":selectedValue.indexToSplitMerge
                                 },
                                 "label": {
-                                    "sequence": "",
+                                    "sequence": " ",
                                     "position": {
-                                        "top":"",
-                                        "left":"",
-                                        "width":"",
-                                        "height":""
+                                        "top":" ",
+                                        "left":" ",
+                                        "width":" ",
+                                        "height":" "
                                     },
-                                    "content": ""
+                                    "content": " "
                                 },
                                 "data": {
-                                    "sequence": "",
+                                    "sequence": " ",
                                     "position": {
                                         "top":""+x1,
                                         "left":""+y1,
                                         "width":""+w,
                                         "height":""+h
                                     },
-                                    "content": ""
+                                    "content": " "
                                 }
                             });
                         added = true;
@@ -2216,10 +2146,10 @@ $scope.loadMasterForm=function(path){
                 $scope.fieldType.Value=="label"?
                     $scope.masterFormFields.mxsd.form.body.group.push(
                         {
-                            "field":[],
+                            "field":[ ],
                             "fieldlist":{
                                 "field":[{
-                            "name":"",
+                            "name":" ",
                             "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
                             "ixsdxpath":$scope.selectedIxsd.ixsdPath,
                             "type":$scope.dataType.Value,
@@ -2229,27 +2159,27 @@ $scope.loadMasterForm=function(path){
                                         "SplitMerge":selectedValue.indexToSplitMerge
                                     },
                             "label":{
-                                "sequence":"",
+                                "sequence":" ",
                                 "position":{
                                     "top":""+x1,
                                     "left":""+y1,
                                     "width":""+w,
                                     "height":""+h},
-                                "content":""},
+                                "content":" "},
                             "data":{
-                                "sequence":"",
+                                "sequence":" ",
                                 "position":{
-                                    "top":"",
-                                    "left":"",
-                                    "width":"",
-                                    "height":""},
-                                "content":""}
+                                    "top":" ",
+                                    "left":" ",
+                                    "width":" ",
+                                    "height":" "},
+                                "content":" "}
                         }]},
                             "_name":groupname
                         }):
                     $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group.push(
                         {"field":[{
-                            "name":"",
+                            "name":" ",
                             "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
                             "ixsdxpath":$scope.selectedIxsd.ixsdPath,
                             "type":$scope.dataType.Value,
@@ -2259,21 +2189,21 @@ $scope.loadMasterForm=function(path){
                                 "SplitMerge":selectedValue.indexToSplitMerge
                             },
                             "label":{
-                                "sequence":"",
+                                "sequence":" ",
                                 "position":{
-                                    "top":"",
-                                    "left":"",
-                                    "width":"",
-                                    "height":""},
-                                "content":""},
+                                    "top":" ",
+                                    "left":" ",
+                                    "width":" ",
+                                    "height":" "},
+                                "content":" "},
                             "data":{
-                                "sequence":"",
+                                "sequence":" ",
                                 "position":{
                                     "top":""+x1,
                                     "left":""+y1,
                                     "width":""+w,
                                     "height":""+h},
-                                "content":""}
+                                "content":" "}
                         }],
                             "_name":groupname
                         });
@@ -2384,7 +2314,21 @@ $scope.loadMasterForm=function(path){
         }
         $scope.myTemplate=coords;
 
-    }
+    };
+    $scope.viewAutoStenciling=function(){
+        var input={
+            upload_id:$scope.stencilForm[0].upload_id,
+            file_id:$scope.stencilForm[0].file_id,
+            user_id:$scope.stencilForm[0].user_id
+        }
+        $http({
+            method: 'POST',
+            url: $rootScope.spring_rest_service + '/autoStenciling',
+            dataType: 'jsonp',
+            data: input
+        }).success(function (data) {
+        });
+    };
     $scope.setY=function(row){
         row.yedited=(+row.y + +15);
     }

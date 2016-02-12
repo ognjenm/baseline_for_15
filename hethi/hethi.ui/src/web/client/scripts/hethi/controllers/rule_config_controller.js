@@ -349,8 +349,8 @@ hethi.controller('rule_config_controller', ['$http','$scope','$filter','$locatio
                 nodeStyle(),
                 // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
                 $(go.Panel, "Auto",
-                    $(go.Shape, "Rectangle",
-                        { fill: "#F5C600", stroke: null },
+                    $(go.Shape, "RoundedRectangle",
+                        { fill:$(go.Brush,"Linear",{0.0:"#c89033",1.0:"#f9b73c"}), stroke: null },
                         new go.Binding("figure", "figure")),
                     $(go.TextBlock,
                         {
