@@ -1,0 +1,125 @@
+.color-danger {
+    color: #FA7B58;
+}
+.color-info {
+    color: #56BDF1;
+}
+.color-success {
+    color: #94B758;
+}
+.hethi-nav-blue-color{
+    /*background: #16293A !important;*/
+    /*border-left: 4px solid #4ECA00;*/
+
+    background-image: -webkit-linear-gradient(top, #2398a9 0%, #45c0be 100%);
+    background-image:      -o-linear-gradient(top, #2398a9 0%, #45c0be 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#2398a9), to(#45c0be));
+    background-image:         linear-gradient(to bottom, #2398a9 0%, #45c0be 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff265a88', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    background-repeat: repeat-x;
+
+}
+/*Blue Color Family*/
+
+.hethi-webSafe-blue{
+    background-color: #2398a9 !important;
+}
+.hethi-webSafe-blue-1{
+    background-color: #2ca7ae !important;
+}
+.hethi-webSafe-blue-2{
+    background-color: #36b8ba !important;
+}
+.hethi-webSafe-blue-3{
+    background-color: #45c0be !important;
+}
+.hethi-webSafe-blue-4{
+    background-color: #5cc5c1 !important;
+}
+.hethi-webSafe-blue-5{
+    background-color: #76ccc1 !important;
+}
+.hethi-webSafe-cyanBlue{
+    background-color: #87b5c4;
+}
+.hethi-webSafe-cyanBlue-shadow{
+    background-color: #417580;
+}
+
+/*orange*/
+.hethi-webSafe-orange{
+    background-color: #f67555 !important;
+}
+.hethi-webSafe-orange-1{
+    background-color: #fc8859 !important;
+}
+.hethi-webSafe-orange-2{
+    background-color: #ff965c !important;
+}
+.hethi-webSafe-orange-3{
+    background-color: #ffa25f !important;
+}
+
+/*Brown Family*/
+
+.hethi-webSafe-indigobrown{
+    background-color: #524242 !important;
+}
+.hethi-webSafe-indigobrown-1{
+    background-color: #5d4b49 !important;
+}
+.hethi-webSafe-indigobrown-2{
+    background-color: #675352 !important;
+}
+.hethi-webSafe-indigobrown-3{
+    background-color: #725d5a !important;
+}
+
+/*Green Family*/
+
+.hethi-webSafe-blueGreen{
+    background-color: #64c59a !important;
+}
+.hethi-webSafe-blueGreen-1{
+    background-color: #6dc59b !important;
+}
+.hethi-webSafe-blueGreen-2{
+    background-color: #89c48e !important;
+}
+.hethi-webSafe-blueGreen-3{
+    background-color: #95d49d !important;
+}
+.hethi-webSafe-blueGreen-4{
+    background-color: #a0d8a7 !important;
+}
+.hethi-webSafe-blueGreen-5{
+    background-color: #b8e2be !important;
+}
+
+/*Yellow Family*/
+
+.hethi-webSafe-cyanYellow{
+    background-color: #efd65f !important;
+}
+.hethi-webSafe-cyanYellow-shadow{
+    background-color: #c5b055 !important;
+}
+.hethi-webSafe-lightYellow{
+    background-color: #f2e13c !important;
+}
+.hethi-webSafe-lightYellow-shadow{
+    background-color: #847a32 !important;
+}
+
+/*Grey Family*/
+
+.hethi-webSafe-ashGrey{
+    background-color: #9cbac2 !important;
+}
+.hethi-webSafe-ashGrey-shadow{
+    background-color: #5c6d74 !important;
+}
+.hethi-webSafe-ashGrey-dark{
+    background-color: #34545f;
+}
