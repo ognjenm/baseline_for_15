@@ -1106,7 +1106,7 @@ and (max-width: 1280px){
     background-color: #FE8F47;
 }
 .leftNav_head_menu_process_DaaS{
-    border-radius: 20px;
+    border-radius: 5px;
     text-align: center;
     padding: 5px;
     font-size: 14px;
@@ -1115,7 +1115,14 @@ and (max-width: 1280px){
     margin-bottom: 3px;
     /*border-top: 1px solid #BED6DA;*/
     /*background-color: #92366D;*/
-    background-color: #F5C600;
+    /*background-color: #F5C600;*/
+    background-image: -webkit-linear-gradient(top, #c89033 0%, #f9b73c 100%);
+    background-image:      -o-linear-gradient(top, #c89033 0%, #f9b73c 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#c89033), to(#f9b73c));
+    background-image:         linear-gradient(to bottom, #c89033 0%, #f9b73c 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff265a88', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    background-repeat: repeat-x;
 }
 .leftNav_head_menu_process_IaaS{
     border-radius: 20px;
@@ -2356,7 +2363,8 @@ element {
 }
 .btn_wizard_2{
     height: 40px;
-    background: #005471;
+    background-color: #417580;
+    /*background: #005471;*/
     font-size: 16px;
     /*font-style: oblique;*/
     color: #FFF;
@@ -2861,7 +2869,7 @@ element {
 .hethi_nav_tab{
     margin-top: 5px;
     height: 80px;
-    background: #005471;
+    background: #378BA9;
     font-size: 24px;
     color: #FFF;
     text-align: center;
@@ -2870,16 +2878,17 @@ element {
     display: flex;
     justify-content: center; /* align horizontal */
     align-items: center; /* align vertical */
+    cursor: pointer;
+
+    background-image: -webkit-linear-gradient(top, #417580 0%, #87b5c4 100%);
+    background-image:      -o-linear-gradient(top, #417580 0%, #87b5c4 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#417580), to(#87b5c4));
+    background-image:         linear-gradient(to bottom, #417580 0%, #87b5c4 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff265a88', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    background-repeat: repeat-x;
 }
-.color-danger {
-    color: #FA7B58;
-}
-.color-info {
-    color: #56BDF1;
-}
-.color-success {
-    color: #94B758;
-}
+
 .rule_box{
     width:150px;
     height:100px;
@@ -2909,4 +2918,12 @@ element {
        margin-bottom: 10em;
     }
 
+}
+.hethi-hd-label{
+    /*background-color: #226579;*/
+    /*color: white;*/
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    border: 1px solid #80505c;
 }
