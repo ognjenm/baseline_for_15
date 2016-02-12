@@ -65,7 +65,7 @@
 
 
 
-    <div id="header1">
+    <div id="header1" class="top">
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -124,128 +124,12 @@
                             </ul>
                         </li>
                         <li class="dropdown" ng-hide="isSigned" >
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sign In <span class="caret"></span></a>
-                            <div class="dropdown-menu with-arrow pull-right form-login stop-propagation" role="menu">
-                                <form data-ng-submit="SignInToHethi(signin)">
-                                    <div class="panel-heading-sign_up text-center  " style="background-color: #d2e2e8;">
-                                        <span class="font_w text-normal" style="text-transform: none">Already user ? sign in</span>
-                                    </div>
-                                    <div class="form-group">
-
-                                        <input placeholder="Email address"
-                                               id="userLogin"
-                                               ng-model="signin.username"
-                                               required=""
-                                               class="form-control input-round"
-                                               type="email"
-                                               minlength="6"
-                                               maxlength="50">
-                                    </div>
-                                    <div class="form-group">
-
-                                        <input placeholder="Password" id="pwd"
-                                               class="form-control input-round"
-                                               type="password"
-                                               ng-model="signin.password"
-                                               required=""
-                                                >
-                                    </div>
-
-                                    <div class="form-group margin-bottom-10">
-                                        <label class="ui-checkbox">
-                                            <input name="checkbox1"
-                                                   ng-model="signin.remember"
-                                                   type="checkbox"  >
-                                            <span>Stay signed in</span></label>
-                                        <a ng-click="forgot()" href="#" class="float-right" style="color: #008BCB;font-size: 12px"><span i18n="forgot password"></span> ?</a>
-
-                                    </div>
-
-
-                                    <button type="submit" class="btn btn-success btn-block input-round"><i class="fa fa-sign-in"></i> Login</button>
-                                    <div class="row">
-                                        <div class="col-md-12 text-center">
-                                            <div style="font-weight: bold;padding-bottom: 5px;padding-top: 5px">Or</div>
-                                        </div>
-                                    </div>
-
-                                    <button type="button" data-ng-click="signUpUser()" class="btn btn-info btn-block input-round"><i class="fa fa-user-plus"></i> Sign Up</button>
-
-
-                                    <div class="divider-sm"></div>
-
-                                </form>
-
-
-                            </div>
+                            <a href="#sign_in_modal" data-toggle="modal" data-target="#sign_in_modal">Sign In</a>
 
                         </li>
                         <li class="dropdown" ng-hide="isSigned" >
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">join hethi network <span class="caret"></span></a>
-                            <!--<div class="dropdown-menu with-arrow pull-right form-login stop-propagation" role="menu" ng-switch="signup_btn_stats">-->
-                                <!--<div ng-switch-default="">-->
-                                    <!--<form data-ng-submit="registerNewUSer(register)">-->
-                                        <!--<div class="panel-heading-sign_up text-center  " style="background-color: #d2e2e8;">-->
-                                            <!--<span class="font_w text-normal" style="text-transform: none">New user ? Register here</span>-->
-                                        <!--</div>-->
-                                        <!--<div class="form-group">-->
-
-                                            <!--<input placeholder="Email address"-->
-                                                   <!--ng-model="register.business_email"-->
-                                                   <!--required=""-->
-                                                   <!--class="form-control input-round text-center"-->
-                                                   <!--type="email"-->
-                                                   <!--minlength="6"-->
-                                                   <!--maxlength="50">-->
-                                        <!--</div>-->
-                                        <!--<div class="form-group">-->
-
-                                            <!--<input placeholder="Company name"-->
-                                                   <!--class="form-control input-round text-center"-->
-                                                   <!--type="text"-->
-                                                   <!--ng-model="register.business_name"-->
-                                                   <!--required=""-->
-                                                    <!-->-->
-                                        <!--</div>-->
-
-                                        <!--<div class="form-group">-->
-
-                                            <!--<input placeholder="Country"-->
-                                                   <!--class="form-control input-round text-center"-->
-                                                   <!--type="text"-->
-                                                   <!--ng-model="register.country"-->
-                                                   <!--required=""-->
-                                                    <!-->-->
-                                        <!--</div>-->
-
-
-
-                                        <!--<button type="submit" ng-disabled="signup_btn_stats" class="btn btn-info btn-block input-round" ng-switch="signup_btn_stats"><i class="fa fa-user-plus"></i> Sign Up  <span data-ng-switch-when="true"  class=" fa fa-cog fa-spin"></span> </button>-->
-
-
-                                        <!--<div class="divider-sm"></div>-->
-
-                                    <!--</form>-->
-                                <!--</div>-->
-                                <!--<div ng-switch-when="false">-->
-                                    <!--<div class="panel-heading-sign_up text-center  " style="background-color: #d2e2e8;">-->
-                                        <!--<span class="font_w text-normal" style="text-transform: none">New user ? Register here</span>-->
-                                    <!--</div>-->
-                                    <!--<div class="form-group">-->
-                                    <!--</div>-->
-                                    <!--<div class="form-group">-->
-                                        <!--<span class="font_w text-normal cloudMsg" style="text-transform: none">  <span class="fa fa-info-circle"></span> A confirmation email has been send to {{custmer_email}} , Please follow the email to complete the registration process </span>-->
-
-                                        <!--<br> <br>-->
-                                    <!--</div>-->
-                                    <!--<div class="form-group">-->
-                                        <!--<a  data-ng-click="change_signup_btn_stats('')" >back</a>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-
-
-
-                            <!--</div>-->
+                            <a href="#" data-ng-click="signUp()" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">join hethi network
+                            </a>
 
                         </li>
 
@@ -293,7 +177,7 @@
         <div class="page-row page-row-expanded container-fluid">
             <!--<div class="page-row page-row-expanded container-fluid" style="margin-top: 70px">-->
 
-            <div data-ng-view="">
+            <div class="margin_content_bottom" data-ng-view="">
 
             </div>
         </div>
@@ -301,7 +185,9 @@
 
 
 
-
+<section>
+    <div data-ng-include="'pages/signin.html'"></div>
+</section>
 
     <!--<footer class="text-center footer ">-->
     <!--<p class="small copyright-text">Copyright &copy; 2015 hethi</p>-->
@@ -447,5 +333,28 @@
 <script src="scripts/hethi/controllers/forgotPasswordController.js"></script>
 
 <script src="scripts/hethi/controllers/NewHomeController.js"></script>
+<script src="scripts/hethi/controllers/freedemocontroller.js"></script>
+<script type="text/javascript">
+    // create the back to top button
+    $('body').prepend('<a href="#" class="back-to-top">Back to Top</a>');
+
+    var amountScrolled = 300;
+
+    $(window).scroll(function() {
+        if ( $(window).scrollTop() > amountScrolled ) {
+            $('a.back-to-top').fadeIn('slow');
+        } else {
+            $('a.back-to-top').fadeOut('slow');
+        }
+    });
+
+    $('a.back-to-top, a.simple-back-to-top').click(function() {
+        $('html, body').animate({
+            scrollTop: 0
+        }, 700);
+        return false;
+    });
+</script>
+
 </body>
 </html>
