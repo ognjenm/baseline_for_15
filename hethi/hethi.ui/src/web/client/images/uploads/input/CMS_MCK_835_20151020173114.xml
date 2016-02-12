@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<X12>
+	<ISA>
+		<ISA01><!--I01: Authorization Information Qualifier-->00<!--No Authorization Information Present (No Meaningful Information in I02)--></ISA01>
+		<ISA02><!--I02: Authorization Information--></ISA02>
+		<ISA03><!--I03: Security Information Qualifier-->00<!--No Security Information Present (No Meaningful Information in I04)--></ISA03>
+		<ISA04><!--I04: Security Information--></ISA04>
+		<ISA05><!--I05: Interchange ID Qualifier-->ZZ<!--Mutually Defined--></ISA05>
+		<ISA06><!--I06: Interchange Sender ID-->SOURCEHOV</ISA06>
+		<ISA07><!--I05: Interchange ID Qualifier-->30<!--U.S. Federal Tax Identification Number--></ISA07>
+		<ISA08><!--I07: Interchange Receiver ID-->581651222</ISA08>
+		<ISA09><!--I08: Interchange Date-->151020<!--2015-10-20--></ISA09>
+		<ISA10><!--I09: Interchange Time-->1731<!--17:31:00.00--></ISA10>
+		<ISA11><!--I65: Repetition Separator-->^</ISA11>
+		<ISA12><!--I11: Interchange Control Version Number-->00501<!--Standards Approved for Publication by ASC X12 Procedures Review Board through October 2003--></ISA12>
+		<ISA13><!--I12: Interchange Control Number-->100000612</ISA13>
+		<ISA14><!--I13: Acknowledgment Requested-->1<!--Interchange Acknowledgment Requested (TA1)--></ISA14>
+		<ISA15><!--I14: Interchange Usage Indicator-->P<!--Production Data--></ISA15>
+		<ISA16><!--I15: Component Element Separator-->:</ISA16>
+	</ISA>
+	<GS>
+		<GS01><!--479: Functional Identifier Code-->HP<!--Health Care Claim Payment/Advice (835)--></GS01>
+		<GS02><!--142: Application Sender's Code-->SOURCEHOV</GS02>
+		<GS03><!--124: Application Receiver's Code-->581651222</GS03>
+		<GS04><!--373: Date-->20151020<!--2015-10-20--></GS04>
+		<GS05><!--337: Time-->1731<!--17:31:00.00--></GS05>
+		<GS06><!--28: Group Control Number-->100000612</GS06>
+		<GS07><!--455: Responsible Agency Code-->X<!--Accredited Standards Committee X12--></GS07>
+		<GS08><!--480: Version / Release / Industry Identifier Code-->005010X221<!--Standards Approved for Publication by ASC X12 Procedures Review Board through October 2003 (005010X221)--></GS08>
+	</GS>
+	<TS_835>
+		<ST>
+			<ST01><!--143: Transaction Set Identifier Code-->835<!--Health Care Claim Payment/Advice--></ST01>
+			<ST02><!--329: Transaction Set Control Number-->100000612</ST02>
+		</ST>
+		<BPR>
+			<BPR01><!--305: Transaction Handling Code-->I<!--Remittance Information Only--></BPR01>
+			<BPR02><!--782: Monetary Amount-->110.7</BPR02>
+			<BPR03><!--478: Credit/Debit Flag Code-->C<!--Credit--></BPR03>
+			<BPR04><!--591: Payment Method Code-->CHK<!--Check--></BPR04>
+			<BPR10><!--509: Originating Company Identifier-->1943205587</BPR10>
+			<BPR16><!--373: Date-->20151020<!--2015-10-20--></BPR16>
+		</BPR>
+		<TRN>
+			<TRN01><!--481: Trace Type Code-->1<!--Current Transaction Trace Numbers--></TRN01>
+			<TRN02><!--127: Reference Identification-->152014373</TRN02>
+			<TRN03><!--509: Originating Company Identifier-->1943205587</TRN03>
+		</TRN>
+		<REF>
+			<REF01><!--128: Reference Identification Qualifier-->EV<!--Receiver Identification Number--></REF01>
+			<REF02><!--127: Reference Identification-->581651222</REF02>
+		</REF>
+		<REF>
+			<REF01><!--128: Reference Identification Qualifier-->F2<!--Version Code - Local--></REF01>
+			<REF02><!--127: Reference Identification-->FS3.21</REF02>
+		</REF>
+		<GROUP_1>
+			<N1>
+				<N101><!--98: Entity Identifier Code-->PR<!--Payer--></N101>
+				<N102><!--93: Name-->MSH REIMBURSEMENT</N102>
+			</N1>
+			<N3>
+				<N301><!--166: Address Information-->4343 N SCOTTSDALE ROAD</N301>
+				<N302><!--166: Address Information-->SUITE 150</N302>
+			</N3>
+			<N4>
+				<N401><!--19: City Name-->SCOTTSDALE</N401>
+				<N402><!--156: State or Province Code-->AZ</N402>
+				<N403><!--116: Postal Code-->85251</N403>
+			</N4>
+			<PER>
+				<PER01><!--366: Contact Function Code-->BL<!--Technical Department--></PER01>
+				<PER02><!--93: Name-->MEAGAN SAMPOGNA</PER02>
+				<PER03><!--365: Communication Number Qualifier-->TE<!--Telephone--></PER03>
+				<PER04><!--364: Communication Number-->4806634340</PER04>
+				<PER05><!--365: Communication Number Qualifier-->EX<!--Telephone Extension--></PER05>
+				<PER06><!--364: Communication Number-->123</PER06>
+			</PER>
+			<PER>
+				<PER01><!--366: Contact Function Code-->IC<!--Information Contact--></PER01>
+				<PER03><!--365: Communication Number Qualifier-->UR<!--Uniform Resource Locator (URL)--></PER03>
+				<PER04><!--364: Communication Number-->WWW.MCKESSON.COM</PER04>
+			</PER>
+		</GROUP_1>
+		<GROUP_1>
+			<N1>
+				<N101><!--98: Entity Identifier Code-->PE<!--Payee--></N101>
+				<N102><!--93: Name-->ASSOCIATED RETINAL CONSULTANTS, P.C.</N102>
+				<N103><!--66: Identification Code Qualifier-->FI<!--Federal Taxpayer's Identification Number--></N103>
+				<N104><!--67: Identification Code-->381946761</N104>
+			</N1>
+			<N3>
+				<N301><!--166: Address Information-->39650 ORCHARD HILL PLACE 200</N301>
+			</N3>
+			<N4>
+				<N401><!--19: City Name-->NOVI</N401>
+				<N402><!--156: State or Province Code-->MI</N402>
+				<N403><!--116: Postal Code-->48375</N403>
+			</N4>
+			<REF>
+				<REF01><!--128: Reference Identification Qualifier-->PQ<!--Payee Identification--></REF01>
+				<REF02><!--127: Reference Identification-->1215003793</REF02>
+			</REF>
+		</GROUP_1>
+		<GROUP_2>
+			<LX>
+				<LX01><!--554: Assigned Number-->1</LX01>
+			</LX>
+			<TS3>
+				<TS301><!--127: Reference Identification-->1215003793</TS301>
+				<TS302><!--1331: Facility Code Value-->11</TS302>
+				<TS303><!--373: Date-->20151231<!--2015-12-31--></TS303>
+				<TS304><!--380: Quantity-->1</TS304>
+				<TS305><!--782: Monetary Amount-->1404</TS305>
+			</TS3>
+			<GROUP_3>
+				<CLP>
+					<CLP01><!--1028: Claim Submitter's Identifier-->1099036B</CLP01>
+					<CLP02><!--1029: Claim Status Code-->2<!--Processed as Secondary--></CLP02>
+					<CLP03><!--782: Monetary Amount-->1404</CLP03>
+					<CLP04><!--782: Monetary Amount-->110.7</CLP04>
+					<CLP05><!--782: Monetary Amount-->5</CLP05>
+					<CLP06><!--1032: Claim Filing Indicator Code-->ZZ<!--Mutually Defined--></CLP06>
+					<CLP07><!--127: Reference Identification-->1528615459846392087</CLP07>
+					<CLP08><!--1331: Facility Code Value-->11</CLP08>
+					<CLP09><!--1325: Claim Frequency Type Code-->1</CLP09>
+				</CLP>
+				<NM1>
+					<NM101><!--98: Entity Identifier Code-->QC<!--Patient--></NM101>
+					<NM102><!--1065: Entity Type Qualifier-->1<!--Person--></NM102>
+					<NM103><!--1035: Name Last or Organization Name-->ROSE</NM103>
+					<NM104><!--1036: Name First-->CHRISTOPHER</NM104>
+					<NM105><!--1037: Name Middle-->D</NM105>
+					<NM108><!--66: Identification Code Qualifier-->MI<!--Member Identification Number--></NM108>
+					<NM109><!--67: Identification Code-->1-209499382</NM109>
+				</NM1>
+				<NM1>
+					<NM101><!--98: Entity Identifier Code-->82<!--Rendering Provider--></NM101>
+					<NM102><!--1065: Entity Type Qualifier-->1<!--Person--></NM102>
+					<NM103><!--1035: Name Last or Organization Name-->WOLFE</NM103>
+					<NM104><!--1036: Name First-->JEREMY</NM104>
+					<NM105><!--1037: Name Middle-->D</NM105>
+					<NM108><!--66: Identification Code Qualifier-->FI<!--Federal Taxpayer's Identification Number--></NM108>
+					<NM109><!--67: Identification Code-->381946761</NM109>
+				</NM1>
+				<DTM>
+					<DTM01><!--374: Date/Time Qualifier-->036<!--Expiration--></DTM01>
+					<DTM02><!--373: Date-->20160821<!--2016-08-21--></DTM02>
+				</DTM>
+				<DTM>
+					<DTM01><!--374: Date/Time Qualifier-->050<!--Received--></DTM01>
+					<DTM02><!--373: Date-->20151014<!--2015-10-14--></DTM02>
+				</DTM>
+				<PER>
+					<PER01><!--366: Contact Function Code-->CX<!--Payers Claim Office--></PER01>
+					<PER02><!--93: Name-->EOKESH NATARAJAN</PER02>
+					<PER03><!--365: Communication Number Qualifier-->TE<!--Telephone--></PER03>
+					<PER04><!--364: Communication Number-->5869098153</PER04>
+				</PER>
+				<GROUP_4>
+					<SVC>
+						<SVC01>
+							<SVC0101><!--235: Product/Service ID Qualifier-->HC<!--Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes--></SVC0101>
+							<SVC0102><!--234: Product/Service ID-->J2778</SVC0102>
+						</SVC01>
+						<SVC02><!--782: Monetary Amount-->1404</SVC02>
+						<SVC03><!--782: Monetary Amount-->110.7</SVC03>
+						<SVC05><!--380: Quantity-->3</SVC05>
+					</SVC>
+					<DTM>
+						<DTM01><!--374: Date/Time Qualifier-->472<!--Service--></DTM01>
+						<DTM02><!--373: Date-->20150928<!--2015-09-28--></DTM02>
+					</DTM>
+					<CAS>
+						<CAS01><!--1033: Claim Adjustment Group Code-->OA<!--Other adjustments--></CAS01>
+						<CAS02><!--1034: Claim Adjustment Reason Code-->23</CAS02>
+						<CAS03><!--782: Monetary Amount-->1288.3</CAS03>
+					</CAS>
+					<CAS>
+						<CAS01><!--1033: Claim Adjustment Group Code-->PR<!--Patient Responsibility--></CAS01>
+						<CAS02><!--1034: Claim Adjustment Reason Code-->3</CAS02>
+						<CAS03><!--782: Monetary Amount-->5</CAS03>
+					</CAS>
+				</GROUP_4>
+			</GROUP_3>
+		</GROUP_2>
+		<SE>
+			<SE01><!--96: Number of Included Segments-->27</SE01>
+			<SE02><!--329: Transaction Set Control Number-->100000612</SE02>
+		</SE>
+	</TS_835>
+	<GE>
+		<GE01><!--97: Number of Transaction Sets Included-->1</GE01>
+		<GE02><!--28: Group Control Number-->100000612</GE02>
+	</GE>
+	<IEA>
+		<IEA01><!--I16: Number of Included Functional Groups-->1</IEA01>
+		<IEA02><!--I12: Interchange Control Number-->100000612</IEA02>
+	</IEA>
+</X12>
