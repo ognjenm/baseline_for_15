@@ -25,8 +25,6 @@ import org.json.simple.parser.ParseException;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
-import com.hethi.rest.utility.QueryExecutors;
-import com.hethi.rest.utility.FileOperations;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
 
@@ -135,6 +133,7 @@ public class EMAIL {
 		mapObject.put("fileName", file_name);
 		mapObject.put("fileType", file_type);
 		mapObject.put("fileSize", file_size);
+		mapObject.put("formSource", "EMAIL");
 		Gson gson = new Gson();
 		String returnString = gson.toJson(mapObject);
 		if ((!file_type.equals("zip"))) {

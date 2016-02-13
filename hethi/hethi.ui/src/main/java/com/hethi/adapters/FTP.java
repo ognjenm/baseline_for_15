@@ -67,6 +67,7 @@ public class FTP {
 		mapObject.put("fileName", file_name);
 		mapObject.put("fileType", file_type);
 		mapObject.put("fileSize", file_size);
+		mapObject.put("formSource", "FTP");
 		Gson gson = new Gson();
 		String returnString = gson.toJson(mapObject);
 		if ((!file_type.equals("zip"))) {
@@ -123,6 +124,7 @@ public class FTP {
 		mapObject.put("fileName", jsonObj.get("fileName").toString());
 		mapObject.put("fileType", jsonObj.get("fileType").toString());
 		mapObject.put("fileSize", jsonObj.get("fileSize").toString());
+		mapObject.put("formSource", jsonObj.get("formSource").toString());
 		Gson gson = new Gson();
 		String returnString = gson.toJson(mapObject);
 		zipIn.close();
@@ -133,18 +135,29 @@ public class FTP {
 	public Message<String> saveFile(String JSONData)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {
 
+		Long today = new Date().getTime();
 		Message<String> msg = null;
 		JSONObject jsonObj = null;
+		String newFilePath="",newFileName="";
 		try {
 			jsonObj = (JSONObject) new JSONParser().parse(JSONData);
-			System.out.println("File store channel enabled for " + jsonObj.get("fileName").toString());
+			String filePathToRename=jsonObj.get("filePath").toString();
+			WriteToFile wFile = new WriteToFile();
+			File newFile=wFile.fileNameUpdation(filePathToRename, today);
+			
+			newFilePath=newFile.getAbsolutePath();
+			newFileName=newFile.getName();
+			System.out.println("new file path ="+newFilePath);
+			
+			System.out.println("File store channel enabled for " + newFileName);
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String sql = "{ call store_uploaded_document('" + jsonObj.get("fileName").toString() + "','"
+		String sql = "{ call store_uploaded_document('" + newFileName + "','"
 				+ jsonObj.get("fileType").toString() + "','" + Integer.parseInt(jsonObj.get("fileSize").toString())
-				+ "','1')}";
+				+ "','1','"+jsonObj.get("formSource").toString()+"')}";
+		System.out.println(sql);
 		QueryExecutors executor = new QueryExecutors();
 		ArrayList<ArrayList> result = executor.callProcedure(sql);
 		String upload_idString = result.get(0).get(0).toString();
@@ -154,8 +167,6 @@ public class FTP {
 		Gson gson = new Gson();
 		UploadBeans bean = gson.fromJson(upload_idString, UploadBeans.class);
 		upload_id = String.valueOf(bean.getUpload_id());
-
-		
 		String cus_id ="1";
 		String sfs_uin = "csfs100102";
 		String current_channel= "daas.fullextract";
@@ -163,32 +174,34 @@ public class FTP {
 		String fileType = jsonObj.get("fileType").toString();
 		Map<String, String> mapObj = new HashMap<String, String>();
 		if (fileType.equals("zip")) {
-			mapObj.put("fileLocation", jsonObj.get("filePath").toString().split(".zip")[0]);
-			mapObj.put("fileName", jsonObj.get("fileName").toString());
+			mapObj.put("fileLocation", newFilePath.split(".zip")[0]);
+			mapObj.put("fileName", newFileName);
 			mapObj.put("uploadId", upload_id);
-			mapObj.put("customer_id",cus_id);
+			mapObj.put("uid", upload_id);
+			mapObj.put("customer_id", cus_id);
 			mapObj.put("efs_uin","");
 			mapObj.put("sfs_uin",sfs_uin );
 			mapObj.put("current_channel", current_channel);
-			mapObj.put("uid", upload_id);
+			mapObj.put("timestamp", today.toString());
 		} else {
-			mapObj.put("fileLocation", jsonObj.get("filePath").toString());
-			mapObj.put("fileName", jsonObj.get("fileName").toString());
+			mapObj.put("fileLocation", newFilePath);
+			mapObj.put("fileName", newFileName);
 			mapObj.put("fileType", jsonObj.get("fileType").toString());
 			mapObj.put("fileSize", jsonObj.get("fileSize").toString());
 			mapObj.put("uploadId", upload_id);
-			mapObj.put("customer_id",cus_id);
+			mapObj.put("uid", upload_id);
+			mapObj.put("customer_id", cus_id);
 			mapObj.put("efs_uin","");
 			mapObj.put("sfs_uin",sfs_uin );
 			mapObj.put("current_channel", current_channel);
-			mapObj.put("uid", upload_id);
+			mapObj.put("timestamp", today.toString());
 		}
 		String file_type = jsonObj.get("fileType").toString();
 		if ((!file_type.equals("zip"))) {
 			if ((!file_type.equals("rar")))
 				file_type = "single";
 		}
-//		Gson gson = new Gson();
+
 		String returnContent = gson.toJson(mapObj);
 		msg = MessageBuilder.withPayload(returnContent).setHeader("fileType", file_type).build();
 		return msg;
@@ -205,7 +218,17 @@ public class FTP {
 		
 		JSONObject jsonObj = (JSONObject) new JSONParser().parse(JSONData);
 		String folderLocation = jsonObj.get("fileLocation").toString();
+		Long today=Long.parseLong(jsonObj.get("timestamp").toString());
+		System.out.println(folderLocation+" "+today);
+		folderLocation=folderLocation.split(today.toString())[0];
+		System.out.println("folder= "+folderLocation);
+		WriteToFile wFile=new WriteToFile();
+//		String tempFilePath= folderLocation.replace("\\", "/");
+//		tempFilePath=tempFilePath.substring(0, tempFilePath.lastIndexOf("/"))+"/"+jsonObj.get("fileName");
+//		wFile.fileNameUpdation(tempFilePath, today);
+		folderLocation=wFile.folderNameUpdation(folderLocation,today).getAbsolutePath();
 		final File folder = new File(folderLocation);
+		
 		for (final File fileEntry : folder.listFiles()) {
 			
 			if (fileEntry.isDirectory()) {
@@ -217,30 +240,14 @@ public class FTP {
 				int filename_length = fileEntry.getName().length();
 				String fileName = fileEntry.getName();
 				String fileType = fileName.substring(last_index + 1, filename_length);
-				String filePath = folderLocation + "/" + fileEntry.getName();
+				String filePath = folderLocation.replace("\\", "/") + "/" + fileEntry.getName();
+				System.out.println("here at folder="+filePath);
 				ExtractZipFiles extract = new ExtractZipFiles();
 				ArrayList<String> str = extract.readFile();
 				String domain = str.get(0);
-				Long today=new Date().getTime();
-//				filePath=filePath.substring(0,filePath.lastIndexOf('.')).concat(today.toString());
-//				fileName=fileName.substring(0,fileName.lastIndexOf('.')).concat(today.toString());
-//                
 				
 				filePath = filePath.split("client")[1];
-//				if(imgValid.validate(fileEntry.toString())){
-//					if(filePath.endsWith(".pdf")){
-//						PDFImageProcessing pdfImg=new PDFImageProcessing();
-//						try {
-//							pdfImg.convertPdfToImage("", filePath, null, "jpg", 1, 1, "rgb");
-//							filePath=filePath.replace(".pdf", ".jpg");
-//						} catch (Exception e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//					}
-//					else{
-//						ImageProcessesingServices.getFullOCR(new File("src/web/client"+filePath.substring(filePath.indexOf("/images"),filePath.length())));
-//					}
+
 				filePath = domain + filePath;
 
 				String sql = "{ call store_uploaded_document_files('"
@@ -250,10 +257,7 @@ public class FTP {
 				QueryExecutors executor = new QueryExecutors();
 				System.out.println("List folder channel is enabled for " + fileEntry.getName());
 				ArrayList<ArrayList> result = executor.callProcedure(sql);
-//				}else
-//				{
-//					System.out.println("The File Format is Not Image");
-//				}
+
 			}
 		}
 		return JSONData;
@@ -261,38 +265,21 @@ public class FTP {
 
 	public String saveFileDetails(String JSONData) throws ParseException, InstantiationException,
 			IllegalAccessException, ClassNotFoundException, SQLException, IOException, MagicParseException, MagicMatchNotFoundException, MagicException, TesseractException {
+		
 		JSONObject jsonObj = (JSONObject) new JSONParser().parse(JSONData);
 		String filePath = jsonObj.get("fileLocation").toString();
 		ExtractZipFiles extract = new ExtractZipFiles();
 		ArrayList<String> str = extract.readFile();
 		String domain = str.get(0);
-		filePath = filePath.split("client")[1];
+		filePath = filePath.split("client")[1].replace("\\", "/");
 
 		String actualFile = jsonObj.get("fileName").toString();
-		Long today=new Date().getTime();
-		String fileType=filePath.substring(filePath.lastIndexOf("."),filePath.length());
-		String tempFile=filePath.replace('\\', '/');
-		tempFile="src/web/"+tempFile;
-//		filePath=filePath.substring(0,filePath.lastIndexOf('.')).concat(today.toString())+fileType;
+
 		String fileName=actualFile;
-//		WriteToFile wFile=new WriteToFile();
-//		System.out.println(wFile.fileNameUpdation(tempFile, today).getName());;
+	
 		ImageValidator imgValid=new ImageValidator();
-        System.out.println("image here..."+fileName);
 		if(imgValid.validate(fileName)){
-		if(filePath.endsWith(".pdf")){
-			PDFImageProcessing pdfImg=new PDFImageProcessing();
-			try {
-				pdfImg.convertPdfToImage("", filePath, null, "jpg", 1, 1, "rgb");
-				filePath=filePath.replace(".pdf", ".jpg");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		else{
-			ImageProcessesingServices.getFullOCR("src/web/client"+filePath.substring(filePath.indexOf("/images"),filePath.length()));
-		}
+		
 		filePath = domain + filePath;
 		
 		String sql = "{ call store_uploaded_document_files('" + jsonObj.get("uploadId") + "','1',"
@@ -312,11 +299,12 @@ public class FTP {
 	public void successMethod(String JSONData) throws ParseException, IOException {
 		System.out.println("Success channel enabled..");
 		System.out.println("---------------------------------");
-		AbstractApplicationContext context = new ClassPathXmlApplicationContext("/spring/hethi-workflow-services.xml");
-		WorkflowInterface test = (WorkflowInterface) context.getBean("WorkflowInterfaceBean");
-		String response = test.startProcess(JSONData);
-		System.out.println("response: " + response);
-	}
+		System.out.println("last.."+JSONData);
+    	AbstractApplicationContext context = new ClassPathXmlApplicationContext("/spring/hethi-workflow-services.xml");
+        WorkflowInterface test = (WorkflowInterface) context.getBean("WorkflowInterfaceBean");
+       String response = test.startProcess(JSONData);
+       System.out.println("response: " + response);
+    }
 
 	public void waitForNewFile() {
 		System.out.println("Waiting for new file arrival..");
