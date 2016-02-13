@@ -9,6 +9,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 public class WriteToFile {
+	
 	public String createFile(String data, String upload_id, String file_id, String user_id, String location)
 			throws IOException {
 		BufferedWriter output = null;
@@ -29,26 +30,26 @@ public class WriteToFile {
 	}
 
 	public final File folderNameUpdation(String filepath, long timestamp) {
-		System.out.println("file path=" + filepath);
+//		filepath=filepath.replace("\\", "/");
 		File folder = new File(filepath);
-		System.out.println(folder + ".. folder");
-		String newDir = filepath.substring(filepath.lastIndexOf("/") + 1, filepath.length()) + timestamp;
-		System.out.println("newDir=" + folder.getParent() + "/" + newDir);
-		final File newFolder = new File(folder.getParent() + "/" + newDir);
-		folder.renameTo(newFolder);
+		System.out.println("old filepath"+filepath);
+		System.out.println(folder.exists());
+		String newDir = filepath + timestamp;
+		final File newFolder = new File(newDir);
+		System.out.println(folder.renameTo(newFolder));
+		System.out.println("new path="+newDir);
 		return newFolder;
 	}
+	
 	public final File fileNameUpdation(String filepath, long timestamp) {
-		System.out.println("file path=" + filepath);
+		File currentDirFile = new File(".");
+		String helper = currentDirFile.getAbsolutePath();
+		String currentDir = helper.substring(0, helper.lastIndexOf('.')).replace("\\", "/");
+		filepath=currentDir+filepath;
 		File folder = new File(filepath);
-		System.out.println(folder + ".. folder");
-		try{
 		String fileType=FilenameUtils.getExtension(filepath);
-		System.out.println(fileType);}catch(Exception e){}
-		
-		String newDir = filepath.substring(filepath.lastIndexOf("/") + 1, filepath.lastIndexOf(".")) + timestamp+".jpg";
-		newDir.replace("\\", "/");
-		System.out.println("newDir=" + folder.getParent() + "/" + newDir);
+		String newDir = filepath.substring(filepath.lastIndexOf("/") + 1, filepath.lastIndexOf(".")) + timestamp+"."+fileType;
+		newDir.replace('\\', '/');
 		final File newFolder = new File(folder.getParent() + "/" + newDir);
 		folder.renameTo(newFolder);
 		return newFolder;

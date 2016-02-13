@@ -11,7 +11,7 @@ public class AdminSelectBPSServices {
 	
 	public String loadOfferService(String JSONData) throws ParseException {
 		//JSONObject json = (JSONObject) new JSONParser().parse(JSONData);
-		String sql = "{ call load_offer_serviceplay}";
+		String sql = "{ call load_offer_serviceplay()}";
 		System.out.println(sql);
 		return bpsRepo.loadOfferService(sql);
 	}
@@ -44,6 +44,14 @@ public class AdminSelectBPSServices {
 				+ json.get("user_id") + "','" + json.get("upload_id") + "') }";
 		System.out.println(sql);
 		return bpsRepo.assignToArtist(sql);
+	}
+	
+	public String offer_assingnTo_artist(String JSONData) throws ParseException {
+		JSONObject json = (JSONObject) new JSONParser().parse(JSONData);
+		String sql = "{ call offer_assingnto_artist('" + json.get("customer_id") + "'," + "'" + json.get("artist_id")
+				+ "','" + json.get("efs_data") + "','" + json.get("sfs_data") + "') }";
+		System.out.println(sql);
+		return bpsRepo.offer_assingnTo_artist(sql);
 	}
 
 }

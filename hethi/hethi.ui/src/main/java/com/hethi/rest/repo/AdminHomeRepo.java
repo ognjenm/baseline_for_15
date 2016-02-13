@@ -226,4 +226,81 @@ public class AdminHomeRepo {
 		System.out.println(queryOutput);
 		return queryOutput;
 	}
+	
+	public String load_uploads_by_status(String sql) {
+		Gson gson = new Gson();
+		String queryOutput = "[{\"result\":\"No data\"}]";
+		try {
+			QueryExecutors queryObj = new QueryExecutors();
+			@SuppressWarnings("rawtypes")
+			ArrayList<ArrayList> resultList = queryObj.callProcedure(sql);
+			System.out.println(gson.toJson(resultList));
+			return gson.toJson(resultList);
+		} catch (Exception e) {
+			queryOutput = "[{\"result\":\"Error\"}]";
+		}
+		System.out.println(queryOutput);
+		return queryOutput;
+	}
+	
+	public String load_uploaded_files_by_upload_id(String sql) {
+		Gson gson = new Gson();
+		String queryOutput = "[{\"result\":\"No data\"}]";
+		try {
+			QueryExecutors queryObj = new QueryExecutors();
+			@SuppressWarnings("rawtypes")
+			ArrayList<ArrayList> resultList = queryObj.callProcedure(sql);
+			System.out.println(gson.toJson(resultList));
+			return gson.toJson(resultList);
+		} catch (Exception e) {
+			queryOutput = "[{\"result\":\"Error\"}]";
+		}
+		System.out.println(queryOutput);
+		return queryOutput;
+	}
+	public String load_all_forms_with_owner_and_template(String sql) {
+		Gson gson = new Gson();
+		String queryOutput = "[{\"result\":\"No data\"}]";
+		try {
+			QueryExecutors queryObj = new QueryExecutors();
+			@SuppressWarnings("rawtypes")
+			ArrayList<ArrayList> resultList = queryObj.callProcedure(sql);
+			System.out.println(gson.toJson(resultList));
+			return gson.toJson(resultList);
+		} catch (Exception e) {
+			queryOutput = "[{\"result\":\"Error\"}]";
+		}
+		System.out.println(queryOutput);
+		return queryOutput;
+	}
+	public String assign_form_to_file(String sql) {
+		Gson gson = new Gson();
+		String queryOutput = "[{\"result\":\"No data\"}]";
+		try {
+			QueryExecutors queryObj = new QueryExecutors();
+			@SuppressWarnings("rawtypes")
+			ArrayList<ArrayList> resultList = queryObj.callProcedure(sql);
+			System.out.println(gson.toJson(resultList));
+			return gson.toJson(resultList);
+		} catch (Exception e) {
+			queryOutput = "[{\"result\":\"Error\"}]";
+		}
+		System.out.println(queryOutput);
+		return queryOutput;
+	}
+	public String load_all_master_data(String sql) {
+		Gson gson = new Gson();
+		String queryOutput = "[{\"result\":\"No data\"}]";
+		try {
+			QueryExecutors queryObj = new QueryExecutors();
+			@SuppressWarnings("rawtypes")
+			ArrayList<ArrayList> resultList = queryObj.callProcedure(sql);
+			System.out.println(gson.toJson(resultList));
+			return gson.toJson(resultList);
+		} catch (Exception e) {
+			queryOutput = "[{\"result\":\"Error\"}]";
+		}
+		System.out.println(queryOutput);
+		return queryOutput;
+	}
 }

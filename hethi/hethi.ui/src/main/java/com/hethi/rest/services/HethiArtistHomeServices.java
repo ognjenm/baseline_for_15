@@ -1,5 +1,6 @@
 package com.hethi.rest.services;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -7,12 +8,15 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.hethi.daas.hocr.ReadHocr;
 import com.hethi.rest.repo.HethiArtistHomeRepo;
 import com.hethi.rest.utility.ExtractZipFiles;
 import com.hethi.rest.utility.WriteToFile;
 
 public class HethiArtistHomeServices {
 	HethiArtistHomeRepo artistRepo = new HethiArtistHomeRepo();
+	ReadHocr hocrReader = new ReadHocr();
+
 
 	public String load_jobs(String JSONData) throws ParseException, InstantiationException, IllegalAccessException,
 			ClassNotFoundException, SQLException {
@@ -83,5 +87,15 @@ public class HethiArtistHomeServices {
 		System.out.println(sql);
 		return artistRepo.load_users(sql);
 	}
+	public String autoStenciling(String JSONData) throws ParseException, InstantiationException, IllegalAccessException,
+			ClassNotFoundException, FileNotFoundException, IOException {
+		JSONObject json = (JSONObject) new JSONParser().parse(JSONData);
+		String filePath=(String) json.get("file_location");
+		String relativePath = "src/web/client";
+		filePath=relativePath+filePath.substring(filePath.indexOf("/images"), filePath.length());
+		String hocrPath=filePath.substring(0, filePath.lastIndexOf(".")) + ".hocr";
+		String pdfPath=hocrPath.substring(0, hocrPath.lastIndexOf(".")) + ".pdf";
+		return hocrReader.autoStencil(filePath,hocrPath, pdfPath);
+}
 
 }

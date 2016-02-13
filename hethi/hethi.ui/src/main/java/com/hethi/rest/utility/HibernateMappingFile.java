@@ -10,6 +10,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class HibernateMappingFile {
+	
 	public static void createXML(String filePath, String fileName, JSONArray jsonArray) throws IOException {
 		StringBuilder builder = new StringBuilder();
 		builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n");

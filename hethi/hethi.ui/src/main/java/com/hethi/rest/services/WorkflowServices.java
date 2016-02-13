@@ -1,10 +1,12 @@
 package com.hethi.rest.services;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -175,8 +177,11 @@ public class WorkflowServices {
 		  toXML.convert(new StreamSource(uploadedFileLocation), new StreamResult(responseFileLocation));*/
 		  
 		  
-
-		  String fPath="http://localhost:2687/images/uploads/input/";
+		  Properties properties = new Properties();
+		   properties.load(new FileInputStream(new File("src/main/resources/application.properties")));
+		  
+		   String domain =  properties.getProperty("domain");
+		  String fPath=domain+"/images/uploads/input/";
 		  Map<String, String> mapObj = new HashMap<String, String>();
 		  mapObj.put("file_location", fPath +file.getOriginalFilename());
 		  mapObj.put("xml_file_location",fPath+outputFileLocation);
@@ -265,7 +270,7 @@ public class WorkflowServices {
 	
 	public String load_cbaas_workflow_rule(String JSONData) throws ParseException {
 		JSONObject json = (JSONObject) new JSONParser().parse(JSONData);
-		String sql = "{ call load_cbaas_workflow_rule('"+json.get("packageId")+"')}";
+		String sql = "{ call load_cbaas_workflow_rule('"+json.get("efs_uin")+"')}";
 		return workflowRepo.load_cbaas_workflow_rule(sql);
 	};
 	public String enableRulesStatus(String JSONData) throws ParseException {

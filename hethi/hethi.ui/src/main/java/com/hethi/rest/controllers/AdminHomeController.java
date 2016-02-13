@@ -102,5 +102,34 @@ public class AdminHomeController {
 	public String deleteRulesSet(@RequestBody String JSONData) throws ParseException, IOException {
 		return homeService.deleteRulesSet(JSONData);
 	}
+	
+	@RequestMapping(value = "/load_uploads_by_status", method = RequestMethod.POST)
+	@ResponseBody
+	public String load_uploads_by_status(@RequestBody String JSONData) throws ParseException, IOException {
+		return homeService.load_uploads_by_status(JSONData);
+	}
+	
+	@RequestMapping(value = "/load_uploaded_files_by_upload_id", method = RequestMethod.POST)
+	@ResponseBody
+	public String load_uploaded_files_by_upload(@RequestBody String JSONData) throws ParseException, IOException {
+		return homeService.load_uploaded_files_by_upload_id(JSONData);
+	}
+	@RequestMapping(value = "/load_all_forms_with_owner_and_template", method = RequestMethod.POST)
+	@ResponseBody
+	public String load_all_forms_with_owner_and_template(@RequestBody String JSONData) throws ParseException, IOException {
+		return homeService.load_all_forms_with_owner_and_template(JSONData);
+	}
+	@RequestMapping(value = "/assign_form_to_file", method = RequestMethod.POST)
+	@ResponseBody
+	public String assign_form_to_file(@RequestBody String JSONData) throws ParseException, IOException {
+		return homeService.assign_form_to_file(JSONData);
+	}
+	@RequestMapping(value = "/load_all_master_data", method = RequestMethod.POST)
+	@ResponseBody
+	public String load_all_master_data(@RequestBody String JSONData) throws ParseException, IOException {
+		return homeService.load_all_master_data(JSONData);
+	}
+
+
 
 }

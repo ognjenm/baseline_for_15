@@ -1,5 +1,6 @@
 package com.hethi.rest.controllers;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -59,5 +60,12 @@ public class HethiArtistHomeController {
 	public String load_users() throws ParseException, InstantiationException, IllegalAccessException,
 			ClassNotFoundException, SQLException {
 		return homeServices.load_users();
+	}
+	
+	@RequestMapping(value = "/autoStenciling", method = RequestMethod.POST)
+	@ResponseBody
+	public String autoStenciling(@RequestBody String JSONData) throws ParseException, InstantiationException, IllegalAccessException,
+			ClassNotFoundException, FileNotFoundException, IOException {
+		return homeServices.autoStenciling(JSONData);
 	}
 }

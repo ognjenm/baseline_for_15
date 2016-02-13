@@ -39,6 +39,21 @@ public class StencilRepo {
 		System.out.println(queryOutput);
 		return queryObj.callProcedure(sql);
 	}
+	public ArrayList<ArrayList> preview_by_form(String sql)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {
+		Gson gson = new Gson();
+		String queryOutput = "[{\"result\":\"No data\"}]";
+		QueryExecutors queryObj = new QueryExecutors();
+		try {
+			// ArrayList<ArrayList> resultList=queryObj.callProcedure(sql);
+			// System.out.println(gson.toJson(resultList));
+			return queryObj.callProcedure(sql);
+		} catch (Exception e) {
+			queryOutput = "[{\"result\":\"Error\"}]";
+		}
+		System.out.println(queryOutput);
+		return queryObj.callProcedure(sql);
+	}
 
 	public String saveMxmlData(String sql)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {

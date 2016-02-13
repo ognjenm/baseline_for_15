@@ -1,5 +1,6 @@
 package com.hethi.rest.controllers;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
@@ -94,7 +95,7 @@ public class HethiHomeController {
 	
 	@RequestMapping( value="/addPlatformUser" , method = RequestMethod.POST)
 	@ResponseBody
-	public String addPlatformUser(@RequestBody String jsonData) throws ParseException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+	public String addPlatformUser(@RequestBody String jsonData) throws ParseException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, FileNotFoundException, IOException {
 		return homeServices.addPlatformUser(jsonData);
 	}
 	

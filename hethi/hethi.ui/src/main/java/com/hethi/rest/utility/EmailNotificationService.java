@@ -14,6 +14,7 @@ import com.hethi.rest.interfaces.WorkflowInterface;
 import javax.activation.*;
 
 public class EmailNotificationService {
+	
 	public boolean sendMail(String to, String subject, String body, String filename) {
 
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext(

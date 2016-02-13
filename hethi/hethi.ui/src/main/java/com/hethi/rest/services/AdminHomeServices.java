@@ -123,4 +123,37 @@ public class AdminHomeServices {
 		System.out.println(sql);
 		return homeRepo.deleteRulesPackage(sql);
 	}
+
+	public String load_uploads_by_status(String JSONData) throws ParseException, IOException {
+		JSONObject json = (JSONObject) new JSONParser().parse(JSONData);
+		String sql = "{ call load_uploads_by_status('" + json.get("status") + "')}";
+		System.out.println(sql);
+		return homeRepo.load_uploads_by_status(sql);
+	}
+	
+	public String load_uploaded_files_by_upload_id(String JSONData) throws ParseException, IOException {
+		JSONObject json = (JSONObject) new JSONParser().parse(JSONData);
+		String sql = "{ call load_uploaded_files_by_upload_id('" + json.get("upload_id") + "')}";
+		System.out.println(sql);
+		return homeRepo.load_uploaded_files_by_upload_id(sql);
+	}
+	
+	public String load_all_forms_with_owner_and_template(String JSONData){	
+		String sql = "{ call load_all_forms_with_owner_and_template()}";
+		System.out.println(sql);
+		return homeRepo.load_all_forms_with_owner_and_template(sql);
+	}
+	public String assign_form_to_file(String JSONData) throws ParseException, IOException {
+		JSONObject json = (JSONObject) new JSONParser().parse(JSONData);		
+		String sql = "{ call assign_form_to_file('" + json.get("efs_uin") + "','" + json.get("upload_id") +  "','" + json.get("file_id") + "')}";
+		System.out.println(sql);
+		return homeRepo.assign_form_to_file(sql);
+	}
+	public String load_all_master_data(String JSONData) {
+
+		String sql = "{ call load_all_master_data()}";
+		System.out.println(sql);
+		return homeRepo.load_all_master_data(sql);
+	}
+	
 }

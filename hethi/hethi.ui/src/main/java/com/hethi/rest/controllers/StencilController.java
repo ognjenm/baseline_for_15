@@ -185,5 +185,105 @@ public class StencilController {
 		StencilServices service = new StencilServices();
 		return service.saveMxsd(JSONData);
 	}
+	
+	@RequestMapping(value = "/preview_by_form", method = RequestMethod.POST)
+	public @ResponseBody String preview_by_form(@RequestBody String JSONData) {
+		try {
+			StencilServices stencil = new StencilServices();
+			org.json.simple.JSONObject json = (org.json.simple.JSONObject) new JSONParser().parse(JSONData);
+			String file_path = json.get("file_path").toString();
+			String relativePath = "src/web/client";
+
+			/**
+			 * Do OCR
+			 */
+			// System.out.println("image path
+			// "+relativePath+file_path.substring(file_path.indexOf("/images"),file_path.length()));
+			// String pdfFile=ImageProcessesingServices.getFullOCR(new
+			// File(relativePath+file_path.substring(file_path.indexOf("/images"),file_path.length())));
+			// System.out.println("Pdf Path "+pdfFile);
+			// String pdfFile="image/invoice_1.pdf";
+
+			System.out.println("File Path " + file_path.substring(file_path.indexOf("/images"), file_path.length()));
+
+			ArrayList<ArrayList> stencil_output = stencil.preview_by_form(JSONData);
+			Gson gson = new Gson();
+			String StencilData = gson.toJson(stencil_output.get(0).get(0));
+			Stencil stencilObj = gson.fromJson(StencilData, Stencil.class);
+			String StencilLocation = stencilObj.geteFS_XSD_location();
+			String FileLocation = file_path;
+			int i = StencilLocation.lastIndexOf("/images/");
+			StencilLocation = StencilLocation.substring(i, StencilLocation.length());
+			StencilLocation = StencilLocation.replace("/", "\\");
+			StencilLocation = relativePath + "" + StencilLocation;
+
+			/**
+			 * extract the data from seachable Pdf
+			 */
+			String pdfFile = relativePath + file_path.substring(file_path.indexOf("/images"), file_path.length());
+
+			String imageFile = pdfFile;
+			pdfFile = pdfFile.substring(0, pdfFile.lastIndexOf(".")) + ".pdf";
+
+			System.out.println("Pdf File IS " + pdfFile);
+			// String
+			// fileName=pdfFile.toString().substring(pdfFile.toString().lastIndexOf("\\"),
+			// pdfFile.toString().lastIndexOf("."));
+			// System.out.println("fileName"+fileName);
+			String jsonFile = XMLtoJsonConverter.convertXMLToJson(StencilLocation);
+			System.out.println("The json file is ====== >" + jsonFile);
+
+			org.json.simple.JSONObject demo = null;
+			try {
+				demo = ReadJson.jsonHandler(jsonFile, pdfFile,imageFile);
+				System.out.println("Json IS==" + demo.toString());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			// return StencilLocation;
+			int j = FileLocation.lastIndexOf("/images/");
+			FileLocation = FileLocation.substring(j, FileLocation.length());
+			FileLocation = FileLocation.replace("/", "\\");
+			FileLocation = relativePath + "" + FileLocation;
+			System.out.println("middle");
+
+			ProcessStencil ps;
+			String sXmlContent = "";
+			System.out.println("dfdf");
+			// if( FileLocation.toLowerCase().trim().endsWith(".tif")||
+			// FileLocation.toLowerCase().trim().endsWith(".jpg")){
+			// ps = new ProcessStencil(FileLocation, StencilLocation,
+			// TesseractPath, JodConverterPath);
+			// sXmlContent = ps.StartProcessing();
+			// }
+			// String folderName=FileLocation.split("\\.")[0];
+			// File index = new File(folderName);
+			// String[]entries = index.list();
+			// for(String s: entries){
+			// File currentFile = new File(index.getPath(),s);
+			// currentFile.delete();
+			// }
+			// System.out.println("df"+sXmlContent);
+			// index.delete();
+			// XML xml = new XML();
+			// JSONObject json_obj = XML.toJSONObject(sXmlContent);
+			String body = "Your image had processed by hethi";
+			String subject = "Notification from hethi";
+			String filename = "";
+			// EmailNotificationService service=new EmailNotificationService();
+			// boolean result=service.sendMail(notify.getBusiness_email(),
+			// subject, body, filename);
+			System.out.println("hareesh " + demo.toString());
+
+			return demo.toString();
+
+		} catch (Exception e) {
+			// e.printStackTrace();
+			// return org.json.simple.JSONObject;
+		}
+		return null;
+	}
+
 
 }

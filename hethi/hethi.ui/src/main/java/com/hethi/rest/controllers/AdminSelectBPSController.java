@@ -44,5 +44,11 @@ public class AdminSelectBPSController {
 	public String assignToArtist(@RequestBody String JSONData) throws ParseException {
 		return bpsController.assignToArtist(JSONData);
 	}
+	
+	@RequestMapping(value = "/offer_assingnTo_artist", method = RequestMethod.POST)
+	@ResponseBody
+	public String offer_assingnTo_artist(@RequestBody String JSONData) throws ParseException {
+		return bpsController.offer_assingnTo_artist(JSONData);
+	}
 
 }

@@ -19,21 +19,36 @@ import java.util.Map;
 import java.util.Properties;
 
 public class QueryExecutors {
-	@SuppressWarnings({ "rawtypes" })
-	public ArrayList<ArrayList> callProcedure(String query)
-			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {
+	
+	static final String url,user,password;
+	
+	static{
 		Properties prop = new Properties();
 		InputStream input = null;
 		File currentDirFile = new File(".");
 		String helper = currentDirFile.getAbsolutePath();
 		String currentDir = helper.substring(0, helper.lastIndexOf('.')).replace('\\', '/');
-		input = new FileInputStream(currentDir + "src/main/resources/application.properties");
+		try {
+			input = new FileInputStream(currentDir + "src/main/resources/application.properties");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
-		// load a properties file
-		prop.load(input);
-		String url = prop.getProperty("spring.datasource.url");
-		String user = prop.getProperty("spring.datasource.username");
-		String password = prop.getProperty("spring.datasource.password");
+		try {
+			prop.load(input);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		url = prop.getProperty("spring.datasource.url");
+		user = prop.getProperty("spring.datasource.username");
+		password = prop.getProperty("spring.datasource.password");
+	}
+	
+	@SuppressWarnings({ "rawtypes" })
+	
+    public ArrayList<ArrayList> callProcedure(String query)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {
+	
 		ArrayList<ArrayList> resultSet = new ArrayList<ArrayList>();
 		ArrayList<Map> resultList = null;
 		Connection conn = null;
@@ -61,8 +76,10 @@ public class QueryExecutors {
 						}
 						if (index == 1)
 							singleRow.put("result", "Success");
+						System.out.println(singleRow+" map");
 						resultList.add(singleRow);
 					}
+					System.out.println(resultList+" resultList");
 					resultSet.add(resultList);
 				} else {
 					singleRow = new HashMap<String, String>();
@@ -74,6 +91,7 @@ public class QueryExecutors {
 			}
 			stm.close();
 			conn.close();
+			System.out.println(resultSet+" resultSet");
 			return resultSet;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -89,18 +107,7 @@ public class QueryExecutors {
 	@SuppressWarnings("rawtypes")
 	public ArrayList<ArrayList> executeInsertOrUpdate(String query)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {
-		Properties prop = new Properties();
-		InputStream input = null;
-		File currentDirFile = new File(".");
-		String helper = currentDirFile.getAbsolutePath();
-		String currentDir = helper.substring(0, helper.lastIndexOf('.')).replace('\\', '/');
-		input = new FileInputStream(currentDir + "src/main/resources/application.properties");
-
-		// load a properties file
-		prop.load(input);
-		String url = prop.getProperty("spring.datasource.url");
-		String user = prop.getProperty("spring.datasource.username");
-		String password = prop.getProperty("spring.datasource.password");
+		
 		ArrayList<ArrayList> resultSet = new ArrayList<ArrayList>();
 		ArrayList<Map> resultList = null;
 		Connection conn = null;
@@ -136,18 +143,7 @@ public class QueryExecutors {
 	@SuppressWarnings("rawtypes")
 	public ArrayList<ArrayList> getTableMetaData(String query)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {
-		Properties prop = new Properties();
-		InputStream input = null;
-		File currentDirFile = new File(".");
-		String helper = currentDirFile.getAbsolutePath();
-		String currentDir = helper.substring(0, helper.lastIndexOf('.')).replace('\\', '/');
-		input = new FileInputStream(currentDir + "src/main/resources/application.properties");
-
-		// load a properties file
-		prop.load(input);
-		String url = prop.getProperty("spring.datasource.url");
-		String user = prop.getProperty("spring.datasource.username");
-		String password = prop.getProperty("spring.datasource.password");
+		
 		ArrayList<ArrayList> resultSet = new ArrayList<ArrayList>();
 		ArrayList<Map> resultList = null;
 		Connection conn = null;
@@ -188,16 +184,7 @@ public class QueryExecutors {
 	@SuppressWarnings("rawtypes")
 	public ArrayList<ArrayList> getDynamicTableData(String query)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {
-		Properties prop = new Properties();
-		InputStream input = null;
-		input = new FileInputStream(
-				"D:/Workspace/source/hareesh/hethi.com/hethi/hethi.ui/src/main/resources/application.properties");
-
-		// load a properties file
-		prop.load(input);
-		String url = prop.getProperty("spring.datasource.url");
-		String user = prop.getProperty("spring.datasource.username");
-		String password = prop.getProperty("spring.datasource.password");
+		
 		ArrayList<ArrayList> resultSet = new ArrayList<ArrayList>();
 		ArrayList<Map> resultList = null;
 		Connection conn = null;
@@ -250,19 +237,10 @@ public class QueryExecutors {
 		String returnFlag = "No data";
 		String[] abc = null;
 		ArrayList<String> list = new ArrayList<String>();
-		Properties prop = new Properties();
-		InputStream input = null;
-		File currentDirFile = new File(".");
-		String helper = currentDirFile.getAbsolutePath();
-		String currentDir = helper.substring(0, helper.lastIndexOf('.')).replace('\\', '/');
-		input = new FileInputStream(
-				currentDir+"src/main/resources/application.properties");
+		
 		Map<String, String> returnMap = new HashMap<String, String>();
 		// load a properties file
-		prop.load(input);
-		String url = prop.getProperty("spring.datasource.url");
-		String user = prop.getProperty("spring.datasource.username");
-		String password = prop.getProperty("spring.datasource.password");
+		
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(url, user, password);
@@ -291,18 +269,7 @@ public class QueryExecutors {
 
 	public Map<String, String> getData(String query)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {
-		Properties prop = new Properties();
-		InputStream input = null;
-		File currentDirFile = new File(".");
-		String helper = currentDirFile.getAbsolutePath();
-		String currentDir = helper.substring(0, helper.lastIndexOf('.')).replace('\\', '/');
-		input = new FileInputStream(currentDir + "src/main/resources/application.properties");
-
-		// load a properties file
-		prop.load(input);
-		String url = prop.getProperty("spring.datasource.url");
-		String user = prop.getProperty("spring.datasource.username");
-		String password = prop.getProperty("spring.datasource.password");
+		
 		ArrayList<ArrayList> resultSet = new ArrayList<ArrayList>();
 		ArrayList<Map> resultList = null;
 		Connection conn = null;
@@ -343,18 +310,7 @@ public class QueryExecutors {
 
 	public ArrayList<ArrayList> getIxsdMetaData(String query)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {
-		Properties prop = new Properties();
-		InputStream input = null;
-		File currentDirFile = new File(".");
-		String helper = currentDirFile.getAbsolutePath();
-		String currentDir = helper.substring(0, helper.lastIndexOf('.')).replace('\\', '/');
-		input = new FileInputStream(currentDir + "src/main/resources/application.properties");
-
-		// load a properties file
-		prop.load(input);
-		String url = prop.getProperty("spring.datasource.url");
-		String user = prop.getProperty("spring.datasource.username");
-		String password = prop.getProperty("spring.datasource.password");
+		
 		ArrayList<ArrayList> resultSet = new ArrayList<ArrayList>();
 		ArrayList<Map> resultList = null;
 		Connection conn = null;
@@ -390,5 +346,4 @@ public class QueryExecutors {
 			return resultSet;
 		}
 	}
-
 }

@@ -26,6 +26,7 @@ import net.sf.jmimemagic.MagicParseException;
 import net.sourceforge.tess4j.TesseractException;
 
 public class ExtractZipFiles {
+	
 	public ArrayList<String> readFile() throws ParseException {
 		String content = "";
 		BufferedReader br = null;

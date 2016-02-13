@@ -32,6 +32,16 @@ public class StencilServices {
 		ArrayList<ArrayList> stencil_output = stencil.generate_stencil(sql);
 		return stencil_output;
 	}
+	public ArrayList<ArrayList> preview_by_form(String JSONData) throws ParseException, InstantiationException,
+	             IllegalAccessException, ClassNotFoundException, SQLException, IOException {
+		JSONObject json = (JSONObject) new JSONParser().parse(JSONData);
+		String sql = "{ call get_stencil_template_by_stencil_id('"+json.get("form_stencid")+"')}";
+		System.out.println(sql);
+
+		StencilRepo stencil = new StencilRepo();
+		ArrayList<ArrayList> stencil_output = stencil.preview_by_form(sql);
+		return stencil_output;
+}
 
 	public String previewEfs(String JSONData) throws ParseException, InstantiationException, IllegalAccessException,
 			ClassNotFoundException, SQLException {
@@ -88,4 +98,8 @@ public class StencilServices {
 		System.out.println(sql);
 		return stencil.saveMxsd(sql);
 	}
+	
+	
+	
+	
 }

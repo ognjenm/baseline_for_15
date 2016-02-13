@@ -1,6 +1,8 @@
 package com.hethi.rest.services;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -62,7 +64,7 @@ public class HethiHomeServices {
 	       	String filepath=str.get(1);
 			String uploadedFileLocation=filepath+"/"+fileName;
 			QueryExecutors object1=new QueryExecutors();
-	        String sql="{ call store_uploaded_document('"+fileName+"','"+fileType+"','"+file.getSize()+"','"+customer_id+"')}";
+	        String sql="{ call store_uploaded_document('"+fileName+"','"+fileType+"','"+file.getSize()+"','"+customer_id+"','WEB')}";
 	        System.out.println(sql);
 	        ArrayList<ArrayList> resultList=object1.callProcedure(sql);
 	       	Gson gson=new Gson();
@@ -175,7 +177,7 @@ public class HethiHomeServices {
 		   return homeRepo.disableRule(sql);
 	}
 	
-	public String addPlatformUser(String JSONData) throws ParseException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException{
+	public String addPlatformUser(String JSONData) throws ParseException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, FileNotFoundException, IOException{
 	       JSONObject json = (JSONObject)new JSONParser().parse(JSONData);
 		   String sql = "{ call addPlatformUser('"+json.get("customer_id")+"','"+json.get("username")+"',"
 		   		+ "'"+json.get("role")+"') }";
@@ -199,7 +201,10 @@ public class HethiHomeServices {
 	    	   System.out.println("query string value is " +qString);
 	    	   Properties prop = new Properties();
 	    	   System.out.println("domain="+prop.getProperty("domain"));
-	    	   String domain = "http:localhost:4141";
+	    	   Properties properties = new Properties();
+			   properties.load(new FileInputStream(new File("src/main/resources/application.properties")));
+			  
+			   String domain =  properties.getProperty("domain");
 	           String verificationUrl=domain+"/verifyUser?q="+qString;
 	           String subject="Hethi Customer Registration ";
 	           String msg="Thank You  "+customer+", please click the below to your  to confirm cloudplug";
