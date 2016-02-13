@@ -1039,7 +1039,8 @@ $scope.loadMasterForm=function(path){
         var input={
             upload_id:form_page.upload_id,
             file_id:form_page.file_id,
-            user_id:form_page.lastupuser
+            user_id:form_page.lastupuser,
+            file_location:form_page.file_location
         };
         $scope.stencilForm.push(input);
         $rootScope.currentPage=form_page.file_name;
@@ -2294,6 +2295,7 @@ $scope.loadMasterForm=function(path){
                         });
                     });
                 }
+                $scope.mathCeil=function(x){return Math.ceil(x);};
                 if(row.fieldlist.field.length!=0){
                     row.fieldlist.field.forEach(function (rows) {
                         coords.push({
@@ -2317,9 +2319,7 @@ $scope.loadMasterForm=function(path){
     };
     $scope.viewAutoStenciling=function(){
         var input={
-            upload_id:$scope.stencilForm[0].upload_id,
-            file_id:$scope.stencilForm[0].file_id,
-            user_id:$scope.stencilForm[0].user_id
+            file_location:$scope.stencilForm[0].file_location
         }
         $http({
             method: 'POST',
@@ -2327,6 +2327,8 @@ $scope.loadMasterForm=function(path){
             dataType: 'jsonp',
             data: input
         }).success(function (data) {
+            console.log(JSON.stringify(data[0]));
+            $scope.autoStencilData=data[0];
         });
     };
     $scope.setY=function(row){

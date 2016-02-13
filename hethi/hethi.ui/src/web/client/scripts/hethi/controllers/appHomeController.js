@@ -591,7 +591,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
             var end, start;
             start = (page - 1) * $scope.numPerPageIndexer;
             end = start + $scope.numPerPageIndexer;
-            return $scope.currentPageStoresIndexer = $scope.filteredStoresIndexer.slice(start, end);
+            return $scope.currentPageCustomerList = $scope.filteredStoresIndexer.slice(start, end);
         };
         $scope.onFilterChangeIndexer = function() {
             $scope.selectIndexer(1);
@@ -607,7 +607,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
             return $scope.currentPageIndexer = 1;
         };
         $scope.searchIndexer = function() {
-            $scope.filteredStoresIndexer = $filter('filter')($scope.customer_uploads, $scope.searchKeywordsIndexer);
+            $scope.filteredStoresIndexer = $filter('filter')($scope.customerUploadsList, $scope.searchKeywordsIndexer);
             return $scope.onFilterChangeIndexer();
         };
         $scope.orderIndexer = function(rowName) {
@@ -615,13 +615,13 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
                 return;
             }
             $scope.rowIndexer = rowName;
-            $scope.filteredStoresIndexer = $filter('orderBy')($scope.customer_uploads, rowName);
+            $scope.filteredStoresIndexer = $filter('orderBy')($scope.customerUploadsList, rowName);
             return $scope.onOrderChangeIndexer();
         };
         $scope.numPerPageOptIndexer = [3, 5, 10, 20];
         $scope.numPerPageIndexer = $scope.numPerPageOptIndexer[1];
         $scope.currentPageIndexer = 1;
-        $scope.currentPageStoresIndexer = [];
+        $scope.currentPageCustomerList = [];
         init = function() {
             $scope.searchIndexer();
             return $scope.selectIndexer($scope.currentPageIndexer);
@@ -655,6 +655,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
         }).success(function (data) {
             if (data[0][0].result != "No Data") {
                 $scope.customerUploadsList = data[0];
+                init();
             }
         });
     }

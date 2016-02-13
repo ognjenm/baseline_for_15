@@ -39,10 +39,10 @@ hethi.controller('NewHomeController', ['$http','$scope','$location','$rootScope'
 
     $window.scroll(function() {
         if ($window.scrollTop() >= distance) {
-navbar.removeClass('navbar-fixed-top').addClass('navbar-fixed-top fixedMargin-menu');
+navbar.removeClass('fixed').addClass('fixed fixedMargin-menu');
 $("body").css("padding-top", "70px");
         } else {
-navbar.removeClass('navbar-fixed-top fixedMargin-menu');
+navbar.removeClass('fixed fixedMargin-menu');
 $("body").css("padding-top", "0px");
         }
     });

@@ -93,7 +93,7 @@ hethi.controller('rule_config_controller', ['$http','$scope','$filter','$locatio
 
         // define the Node templates for regular nodes
 
-        var lightText = 'whitesmoke';
+        var lightText = 'white';
 
         myDiagram.nodeTemplateMap.add("",  // the default category
             $(go.Node, "Spot",
@@ -184,8 +184,8 @@ hethi.controller('rule_config_controller', ['$http','$scope','$filter','$locatio
                 nodeStyle(),
                 // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
                 $(go.Panel, "Auto",
-                    $(go.Shape, "Rectangle",
-                        { fill: "#3B8686", stroke: null },
+                    $(go.Shape, "RoundedRectangle",
+                        { fill:$(go.Brush,"Linear",{0.0:"#BF4141",1.0:"#ce60a6"}), stroke: null },
                         new go.Binding("figure", "figure")),
                     $(go.TextBlock,
                         {
@@ -224,8 +224,8 @@ hethi.controller('rule_config_controller', ['$http','$scope','$filter','$locatio
                 nodeStyle(),
                 // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
                 $(go.Panel, "Auto",
-                    $(go.Shape, "Rectangle",
-                        { fill: "#AB4819", stroke: null },
+                    $(go.Shape, "RoundedRectangle",
+                        { fill:$(go.Brush,"Linear",{0.0:"#3c2722",1.0:"#664e4a"}), stroke: null },
                         new go.Binding("figure", "figure")),
                     $(go.TextBlock,
                         {
@@ -264,8 +264,8 @@ hethi.controller('rule_config_controller', ['$http','$scope','$filter','$locatio
                 nodeStyle(),
                 // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
                 $(go.Panel, "Auto",
-                    $(go.Shape, "Rectangle",
-                        { fill: "#33C7C8", stroke: null },
+                    $(go.Shape, "RoundedRectangle",
+                        {fill:$(go.Brush,"Linear",{0.0:"#76a879",1.0:"#366d51"}), stroke: null },
                         new go.Binding("figure", "figure")),
                     $(go.TextBlock,
                         {
@@ -304,8 +304,8 @@ hethi.controller('rule_config_controller', ['$http','$scope','$filter','$locatio
                 nodeStyle(),
                 // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
                 $(go.Panel, "Auto",
-                    $(go.Shape, "Rectangle",
-                        { fill: "#FE8F47", stroke: null },
+                    $(go.Shape, "RoundedRectangle",
+                        { fill:$(go.Brush,"Linear",{0.0:"#cf3529",1.0:"#fa5f4b"}), stroke: null },
                         new go.Binding("figure", "figure")),
                     $(go.TextBlock,
                         {
@@ -554,7 +554,7 @@ hethi.controller('rule_config_controller', ['$http','$scope','$filter','$locatio
             $(go.Node, "Spot", nodeStyle(),
                 $(go.Panel, "Auto",
                     $(go.Shape, "Circle",
-                        { minSize: new go.Size(40, 40), fill: "#37BC9B", stroke: null }),
+                        { minSize: new go.Size(40, 40), fill:$(go.Brush,"Linear",{0.0:"#259048",1.0:"#2cb258"}), stroke: null }),
                     $(go.TextBlock, "Start",
                         { font: "bold 11pt Helvetica, Arial, sans-serif", stroke: lightText },
                         new go.Binding("text"))
@@ -569,7 +569,7 @@ hethi.controller('rule_config_controller', ['$http','$scope','$filter','$locatio
             $(go.Node, "Spot", nodeStyle(),
                 $(go.Panel, "Auto",
                     $(go.Shape, "Circle",
-                        { minSize: new go.Size(40, 40), fill: "#DA4453", stroke: null }),
+                        { minSize: new go.Size(40, 40), fill:$(go.Brush,"Linear",{0.0:"#d9534f",1.0:"#c12e2a"}), stroke: null }),
                     $(go.TextBlock, "End",
                         { font: "bold 11pt Helvetica, Arial, sans-serif", stroke: lightText },
                         new go.Binding("text"))
