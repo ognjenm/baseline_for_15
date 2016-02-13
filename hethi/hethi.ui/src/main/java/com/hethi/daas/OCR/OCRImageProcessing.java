@@ -28,13 +28,14 @@ public class OCRImageProcessing {
 		}
 		System.out.println("TESSDATA PATH "+properties.getProperty("tessdataPath"));
 		list.add(RenderedFormat.PDF);
-		//list.add(RenderedFormat.HOCR);
+		list.add(RenderedFormat.HOCR);
 	
 		tessaractInstance.setDatapath(properties.getProperty("tessdataPath"));
 		tessaractInstance.setLanguage("eng");
-		System.out.println("file name here at pdf=="+inputfile);
-		String outfileLocation = inputfile.substring(0, inputfile.lastIndexOf("/"));
-		String fileName = inputfile.substring(inputfile.lastIndexOf("/"),
+
+		String outfileLocation = inputfile.substring(0, (inputfile.lastIndexOf("/")!=-1?inputfile.lastIndexOf("/"):inputfile.lastIndexOf("\\")));
+		String fileName = inputfile.substring((inputfile.lastIndexOf("/")!=-1?inputfile.lastIndexOf("/"):inputfile.lastIndexOf("\\")),
+
 				inputfile.lastIndexOf("."));
 		try{
 			System.out.println("before create");

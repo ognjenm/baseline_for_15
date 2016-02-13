@@ -98,7 +98,7 @@ public class ImageProcessesingServices {
 		 */
 		String filePath = "D:/CloudPrint/";
 
-		String inputpdfFile = ImageProcessesingServices.getFullOCR("image/invoice_1.jpg");
+		//String inputpdfFile = ImageProcessesingServices.getFullOCR("image/invoice_1.jpg");
 
 		/*try {
 			Thread.sleep(20000);
@@ -106,17 +106,19 @@ public class ImageProcessesingServices {
 			// Handle exception
 		}
 */
-		System.out.println("input pdf file   ===== > " + inputpdfFile);
+		//System.out.println("input pdf file   ===== > " + inputpdfFile);
 
 		/**
 		 * Extraction
 		 * 
 		 */
-
+		/*String inputpdfFile="sample_4.pdf";
+		
+		
 		// String inputpdfFile="image/invoice_1.pdf";
-		String inputJsonFile = "json\\Example_002-json.json";
-		ReadJson.jsonHandler(inputJsonFile, inputpdfFile,"image/invoice_1.jpg");
-		System.out.println("The Extraction completed successfully...");
+		String inputJsonFile = "mxml.json";
+		ReadJson.jsonHandler(inputJsonFile, inputpdfFile,"new.jpg");
+		System.out.println("The Extraction completed successfully...");*/
 		
 	}
 

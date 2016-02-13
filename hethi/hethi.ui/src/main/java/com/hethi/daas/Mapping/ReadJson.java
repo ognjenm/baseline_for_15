@@ -1,15 +1,11 @@
 package com.hethi.daas.Mapping;
 
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdfparser.PDFParser;
@@ -22,13 +18,18 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.hethi.rest.utility.XMLtoJsonConverter;
+
 
 
 public class ReadJson {
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException, JSONException {
 		ReadJson readJson = new ReadJson();
-		//readJson.jsonHandler("hethi.json","sample.pdf");
+		String imageFullPath="D:/Feb_11/invoice_1.jpg";
+		String pdfFullPath="D:/Feb_11/invoice_1.pdf";
+		String json=XMLtoJsonConverter.convertXMLToJson("C:/Users/Lap181/Desktop/demo_1_copy.xml");
+		readJson.jsonHandler(json,pdfFullPath,imageFullPath);
 		
 
 	}
@@ -105,6 +106,7 @@ public class ReadJson {
 		if(position.equalsIgnoreCase(",,,,")){
 			position="0,0,0,0,";
 		}
+		System.out.println("position is ====== > "+position);
 		return position.substring(0, position.length() - 1);
 	}
 
@@ -131,10 +133,10 @@ public class ReadJson {
 		int imgheight         = bimg.getHeight();
 		float varWidth=imgwidth;
 		float varHeight=imgheight;
-		float x1 = (float) (varWidth/600.0*Integer.parseInt(array[0]));
-		float y1 = (float) (varHeight/850.0*Integer.parseInt(array[1]));
-		float x2 = (float) (varWidth/600.0*Integer.parseInt(array[2]));
-		float y2 = (float) ((varHeight/850.0)*Integer.parseInt(array[3]));
+		float x1 = (float) (varWidth/876.0*Integer.parseInt(array[0]));
+		float y1 = (float) (varHeight/900.0*Integer.parseInt(array[1]));
+		float x2 = (float) (varWidth/876.0*Integer.parseInt(array[2]));
+		float y2 = (float) ((varHeight/900.0)*Integer.parseInt(array[3]));
 		int left=(int) x1;
 		int top=(int) y1;
 		int width=(int) x2;
