@@ -35,16 +35,16 @@
                 <!--<span class="badge badge-danger pull-right">3</span> -->
                 Start
             </div>
-            <div class="leftNav_head_menu_process_head mouse_point" data-ng-click="showProcess()">
-                <!--<a data-toggle="tab" href="#" data-ng-click="showProcess()">-->
-                <!--<span class="badge badge-danger pull-right">3</span> -->
-                <span class="text-center">Process</span><span class="pull-right " ng-class="IsVisibleProcess ? 'fa fa-chevron-up': 'fa fa-chevron-down'"></span>
-            </div>
-            <div class="margin_class mouse_point" ng-show = "IsVisibleProcess" ng-repeat="(key,value) in Process_grouped">
-                <div data-ng-click="processes[$index].expand=!processes[$index].expand;" class="leftNav_head_menu_process">
+            <!--<div class="leftNav_head_menu_process_head mouse_point" data-ng-click="showProcess()">-->
+                   <!--<span class="text-center">Process</span><span class="pull-right " ng-class="IsVisibleProcess ? 'fa fa-chevron-up': 'fa fa-chevron-down'"></span>-->
+            <!--</div>-->
+            <!--<div class="margin_class mouse_point" ng-show = "IsVisibleProcess" ng-repeat="(key,value) in Process_grouped">-->
+
+            <div class=" mouse_point" ng-repeat="(key,value) in Process_grouped">
+                <div data-ng-click="processes[$index].expand=!processes[$index].expand;" class="leftNav_head_menu_process_head">
                     <span class="text-center">{{key}}</span><span class="pull-right " ng-class="processes[$index].expand ? 'fa fa-angle-up': 'fa fa-angle-down'"></span>
                 </div>
-                <div ng-show = "processes[$index].expand">
+                <div class="margin_class" ng-show = "processes[$index].expand">
                     <div class="draggable leftNav_head_menu_process_{{item.hethi_servicecode}}"
                          id="draggable{{key}}Process{{$index}}"
                          drag-value="{{item}}"
@@ -57,21 +57,17 @@
 
 
             <!--<li><a href="#" data-toggle="tab" data-ng-click="showRules()">Rules</a></li>-->
-            <div class="leftNav_head_menu_process_head mouse_point" data-ng-click="showRules()" >
-                <!--<a data-toggle="tab" href="#" data-ng-click="showRules()">-->
-                <!--<span class="badge badge-danger pull-right">3</span>-->
-                <span class="text-center">Rules</span><span class="pull-right " ng-class="IsVisibleRule ? 'fa fa-chevron-up': 'fa fa-chevron-down'"></span>
+            <!--<div class="leftNav_head_menu_process_head mouse_point" data-ng-click="showRules()" >-->
+                <!--<span class="text-center">Rules</span><span class="pull-right " ng-class="IsVisibleRule ? 'fa fa-chevron-up': 'fa fa-chevron-down'"></span>-->
 
-            </div>
+            <!--</div>-->
 
-            <div class="margin_class">
-                <div ng-show = "IsVisibleRule" class="draggable leftNav_head_menu_rules" id="draggableRule{{$index}}" drag-value="{{item}}" ng-repeat="item in Rules" draggable="true">
-                    {{item.name}}
-                </div>
-            </div>
+            <!--<div class="margin_class">-->
+                <!--<div ng-show = "IsVisibleRule" class="draggable leftNav_head_menu_rules" id="draggableRule{{$index}}" drag-value="{{item}}" ng-repeat="item in Rules" draggable="true">-->
+                    <!--{{item.name}}-->
+                <!--</div>-->
+            <!--</div>-->
             <div id="End" drag-value="End" class="draggable leftNav_head_menu end_bg mouse_point" style="background-color: #DC3C00" draggable="true">
-                <!--<a data-toggle="tab" href="#" data-ng-click="showProcess()">-->
-                <!--<span class="badge badge-danger pull-right">3</span> -->
                 End
             </div>
             <!--</ul>-->

@@ -33,7 +33,7 @@
                                                 <label class="control-label">Country</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control" ng-model="localeData.country" required="">
+                                                <input type="text" class="form-control input-hethi" ng-model="localeData.country" required="">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -41,7 +41,7 @@
                                                 <label class="control-label">Time zone</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <select class="form-control text-lowercase "  ng-model="localeData.zone"  ng-change="fill_localeData_by_zone(localeData)" ng-options="row as row.zone_timezone for row in czones" required="">
+                                                <select class="form-control text-lowercase input-hethi "  ng-model="localeData.zone"  ng-change="fill_localeData_by_zone(localeData)" ng-options="row as row.zone_timezone for row in czones" required="">
                                                     <option value=""> Select time zone</option>
                                                 </select>
                                             </div>
@@ -51,7 +51,7 @@
                                                 <label class="control-label">Currency</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control"  placeholder="currency" ng-model="localeData.currency_type">
+                                                <input type="text" class="form-control input-hethi"  placeholder="currency" ng-model="localeData.currency_type">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -59,7 +59,7 @@
                                                 <label class="control-label">Primary document language</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <select class="form-control text-lowercase "  ng-model="localeData.primary_doc_lang" ng-options="row as row.language_name for row in clanguages" required="">
+                                                <select class="form-control text-lowercase input-hethi "  ng-model="localeData.primary_doc_lang" ng-options="row as row.language_name for row in clanguages" required="">
                                                     <option value=""> Primary document language</option>
                                                 </select>
                                             </div>
@@ -69,7 +69,7 @@
                                                 <label class="control-label">Expected document language</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <select class="form-control text-lowercase"  ng-model="localeData.expected_doc_lang" ng-options="row as row.language_name for row in clanguages" required="">
+                                                <select class="form-control text-lowercase input-hethi"  ng-model="localeData.expected_doc_lang" ng-options="row as row.language_name for row in clanguages" required="">
                                                     <option value=""> Expected document language</option>
                                                 </select>
                                             </div>
@@ -99,7 +99,7 @@
                                             </div>
                                             <div class="col-md-8" >
 
-                                                <select class="form-control text-lowercase"  ng-model="calendarData.weekday_start" ng-options="row as row.dayname for row in weekdays" required="">
+                                                <select class="form-control text-lowercase input-hethi"  ng-model="calendarData.weekday_start" ng-options="row as row.dayname for row in weekdays" required="">
                                                     <option value=""> Locale weekday start</option>
                                                 </select>
                                             </div>
@@ -109,7 +109,7 @@
                                                 <label class="control-label">Weekday end</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <select class="form-control text-lowercase"  ng-model="calendarData.weekday_end" ng-options="row as row.dayname for row in weekdays" required="">
+                                                <select class="form-control text-lowercase input-hethi"  ng-model="calendarData.weekday_end" ng-options="row as row.dayname for row in weekdays" required="">
                                                     <option value=""> Locale weekday end</option>
                                                 </select>
                                             </div>
@@ -119,7 +119,7 @@
                                                 <label class="control-label">Holidays</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control input-hethi">
                                             </div>
                                         </div>
 
@@ -148,7 +148,7 @@
                                                 <label class="control-label">Layout</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control" ng-model="imageData.layout">
+                                                <input type="text" class="form-control input-hethi" ng-model="imageData.layout">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -156,7 +156,7 @@
                                                 <label class="control-label">Image size</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control" ng-model="imageData.image_size">
+                                                <input type="text" class="form-control input-hethi" ng-model="imageData.image_size">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -164,7 +164,7 @@
                                                 <label class="control-label">Standard DPI</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control"ng-model="imageData.standard_dpi">
+                                                <input type="text" class="form-control input-hethi"ng-model="imageData.standard_dpi">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -172,7 +172,7 @@
                                                 <label class="control-label">Minimum acceptable DPI</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control"ng-model="imageData.min_acceptable_dpi">
+                                                <input type="text" class="form-control input-hethi"ng-model="imageData.min_acceptable_dpi">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -180,7 +180,7 @@
                                                 <label class="control-label">Average pages per form</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control" ng-model="imageData.avg_pages_form">
+                                                <input type="text" class="form-control input-hethi" ng-model="imageData.avg_pages_form">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -188,7 +188,7 @@
                                                 <label class="control-label">Average pages per form bundle</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control" ng-model="imageData.avg_pageds_form_bundle">
+                                                <input type="text" class="form-control input-hethi" ng-model="imageData.avg_pageds_form_bundle">
                                             </div>
                                         </div>
 
@@ -197,7 +197,7 @@
                                                 <label class="control-label">Total form field</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control" ng-model="imageData.total_form_fields">
+                                                <input type="text" class="form-control input-hethi" ng-model="imageData.total_form_fields">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -205,7 +205,7 @@
                                                 <label class="control-label">Avg no of character per field</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control" ng-model="imageData.avg_character_fields">
+                                                <input type="text" class="form-control input-hethi" ng-model="imageData.avg_character_fields">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -213,7 +213,7 @@
                                                 <label class="control-label">Avg no of character per form</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control"ng-model="imageData.avg_character_form">
+                                                <input type="text" class="form-control input-hethi"ng-model="imageData.avg_character_form">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -240,7 +240,7 @@
                                                 <label class="control-label">Daily volume</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control"ng-model="volumeData.daily_volume">
+                                                <input type="text" class="form-control input-hethi"ng-model="volumeData.daily_volume">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -248,7 +248,7 @@
                                                 <label class="control-label">Weekly volume</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control" ng-model="volumeData.weekly_volume">
+                                                <input type="text" class="form-control input-hethi" ng-model="volumeData.weekly_volume">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -256,7 +256,7 @@
                                                 <label class="control-label">Monthly volume</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control"ng-model="volumeData.monthly_volume">
+                                                <input type="text" class="form-control input-hethi"ng-model="volumeData.monthly_volume">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -266,7 +266,7 @@
                                             <div class="col-md-8">
                                                 <div class="input-group">
                                                     <!--<span class="input-group-addon">High volume day is</span>-->
-                                                    <select class="form-control text-lowercase" aria-label="Amount (to the nearest dollar)">
+                                                    <select class="form-control text-lowercase input-hethi" aria-label="Amount (to the nearest dollar)">
                                                         <option value="1">Monday</option>
                                                         <option value="2">Tuesday</option>
                                                         <option value="3">Wednesday</option>
@@ -309,7 +309,7 @@
                                             <label class="control-label">Max file size threshold</label>
                                         </div>
                                         <div class="col-md-8" >
-                                            <input type="text" class="form-control" ng-model="deliveryData.max_shipment_file_size">
+                                            <input type="text" class="form-control input-hethi" ng-model="deliveryData.max_shipment_file_size">
                                         </div>
                                     </div>
                                     <div class="row margin-top-10">
@@ -317,7 +317,7 @@
                                             <label class="control-label">Record size threshold</label>
                                         </div>
                                         <div class="col-md-8" >
-                                            <input type="text" class="form-control" ng-model="deliveryData.max_shipment_file_record_nos">
+                                            <input type="text" class="form-control input-hethi" ng-model="deliveryData.max_shipment_file_record_nos">
                                         </div>
                                     </div>
                                     <div class="row margin-top-10">
@@ -325,7 +325,7 @@
                                             <label class="control-label">Minimum record threshold</label>
                                         </div>
                                         <div class="col-md-8" >
-                                            <input type="text" class="form-control" ng-model="deliveryData.min_shipment_record_size_nos">
+                                            <input type="text" class="form-control input-hethi" ng-model="deliveryData.min_shipment_record_size_nos">
                                         </div>
                                     </div>
                                     <div class="row margin-top-10">
@@ -333,7 +333,7 @@
                                             <label class="control-label">Image size threshold</label>
                                         </div>
                                         <div class="col-md-8" >
-                                            <input type="text" class="form-control" ng-model="deliveryData.max_shipment_image_size">
+                                            <input type="text" class="form-control input-hethi" ng-model="deliveryData.max_shipment_image_size">
                                         </div>
                                     </div>
                                     <div class="row margin-top-10">
@@ -341,7 +341,7 @@
                                             <label class="control-label">Image record size threshold</label>
                                         </div>
                                         <div class="col-md-8" >
-                                            <input type="text" class="form-control" ng-model="deliveryData.max_shipment_image_record_nos">
+                                            <input type="text" class="form-control input-hethi" ng-model="deliveryData.max_shipment_image_record_nos">
                                         </div>
                                     </div>
                                     <div class="row margin-top-10">
@@ -349,7 +349,7 @@
                                             <label class="control-label">Customer shipment cut off</label>
                                         </div>
                                         <div class="col-md-8" >
-                                            <input type="text" class="form-control" ng-model="deliveryData.customer_shipment_cutoff">
+                                            <input type="text" class="form-control input-hethi" ng-model="deliveryData.customer_shipment_cutoff">
                                         </div>
                                     </div>
 
@@ -358,7 +358,7 @@
                                             <label class="control-label">Shipment frequency</label>
                                         </div>
                                         <div class="col-md-8" >
-                                            <input type="text" class="form-control" ng-model="deliveryData.shipment_freq">
+                                            <input type="text" class="form-control input-hethi" ng-model="deliveryData.shipment_freq">
                                         </div>
                                     </div>
                                     <div class="row margin-top-10">
@@ -366,7 +366,7 @@
                                             <label class="control-label">Shipment begin time</label>
                                         </div>
                                         <div class="col-md-8" >
-                                            <input type="datetime" class="form-control" ng-model="deliveryData.shipment_start_time">
+                                            <input type="datetime" class="form-control input-hethi" ng-model="deliveryData.shipment_start_time">
                                         </div>
                                     </div>
                                     <div class="row margin-top-10">
@@ -374,7 +374,7 @@
                                             <label class="control-label">Shipment end time</label>
                                         </div>
                                         <div class="col-md-8" >
-                                            <input type="datetime" class="form-control" ng-model="deliveryData.shipment_end_time">
+                                            <input type="datetime" class="form-control input-hethi" ng-model="deliveryData.shipment_end_time">
                                         </div>
                                     </div>
                                     <div class="row margin-top-10">
@@ -400,7 +400,7 @@
                                                 <label class="control-label">Industry compliance</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control" ng-model="cD.industry_compliance">
+                                                <input type="text" class="form-control input-hethi" ng-model="cD.industry_compliance">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -408,7 +408,7 @@
                                                 <label class="control-label">Information security</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control" ng-model="cD.information_security">
+                                                <input type="text" class="form-control input-hethi" ng-model="cD.information_security">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -416,7 +416,7 @@
                                                 <label class="control-label">Data shipment file name</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" placeholder="naming convention" class="form-control"ng-model="cD.data_shipment_file_name">
+                                                <input type="text" placeholder="naming convention" class="form-control input-hethi"ng-model="cD.data_shipment_file_name">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -424,7 +424,7 @@
                                                 <label class="control-label">Customer DIN format</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control"ng-model="cD.customer_din_format">
+                                                <input type="text" class="form-control input-hethi"ng-model="cD.customer_din_format">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -432,7 +432,7 @@
                                                 <label class="control-label">Hethi DIN format</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control"ng-model="cD.hethi_din_format">
+                                                <input type="text" class="form-control input-hethi"ng-model="cD.hethi_din_format">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -440,7 +440,7 @@
                                                 <label class="control-label">Data archival period</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control"ng-model="cD.data_archival_period">
+                                                <input type="text" class="form-control input-hethi" ng-model="cD.data_archival_period">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -448,7 +448,7 @@
                                                 <label class="control-label">Image archival period</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control"ng-model="cD.image_archival_period">
+                                                <input type="text" class="form-control input-hethi" ng-model="cD.image_archival_period">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -456,7 +456,7 @@
                                                 <label class="control-label">Data retention period</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control"ng-model="cD.data_retention_period">
+                                                <input type="text" class="form-control input-hethi" ng-model="cD.data_retention_period">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
@@ -464,7 +464,7 @@
                                                 <label class="control-label">Image retention period</label>
                                             </div>
                                             <div class="col-md-8" >
-                                                <input type="text" class="form-control"ng-model="cD.image_retention_period">
+                                                <input type="text" class="form-control input-hethi" ng-model="cD.image_retention_period">
                                             </div>
                                         </div>
                                         <div class="row margin-top-10">
