@@ -11,10 +11,10 @@
     /*background: #16293A !important;*/
     /*border-left: 4px solid #4ECA00;*/
 
-    background-image: -webkit-linear-gradient(top, #2398a9 0%, #45c0be 100%);
-    background-image:      -o-linear-gradient(top, #2398a9 0%, #45c0be 100%);
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#2398a9), to(#45c0be));
-    background-image:         linear-gradient(to bottom, #2398a9 0%, #45c0be 100%);
+    background-image: -webkit-linear-gradient(top, #025663 0%, #1ABBB9 100%);
+    background-image:      -o-linear-gradient(top, #025663 0%, #1ABBB9 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#025663), to(#1ABBB9));
+    background-image:         linear-gradient(to bottom, #025663 0%, #1ABBB9 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff265a88', GradientType=0);
     filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
     background-repeat: repeat-x;
