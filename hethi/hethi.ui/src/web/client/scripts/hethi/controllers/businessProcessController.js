@@ -1335,6 +1335,58 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         $rootScope.currentRuleSet=rows.RuleSetName;
         $rootScope.currentRuleSet_id=rows.ruleset_id;
     };
+    $scope.applyOperation=function(){
+        if($scope.selected!=undefined){
+            $scope.opera=$scope.selected;
+            $scope.selected=undefined;
+            $('#operationPalette').modal('hide');
+        }
+        else
+           logger.logError('select any operation')
+
+    };
+    $scope.selectOperation=function(row,index){
+        $scope.selected=row.operation_name;
+        $scope.requireValue=row.custom_value;
+        $scope.btnType1=row.custom_type;
+        $scope.customInfo=row.custom_message;
+    };
+    $scope.changeStatus=function(status){
+        $scope.tableRequired=status;
+    };
+    $scope.tableRequired=false;
+    $scope.operations=[{operation_name:'check price discrepancy',status:false,custom_value:0,custom_type:'',custom_message:'',description:'check invoice amount is 5 % / $10 (+ or -) variance or not'},
+        {operation_name:'check quantity discrepancy',status:false,custom_value:0,custom_type:'',custom_message:'',description:'check the Qty is greater than the quantity on the PO line'},
+        {operation_name:'check invoice date expiration',status:false,custom_value:1,custom_type:'custom',custom_message:'validity period (in days)',description:'check  invoice has a future date of more than 90 days'},
+        {operation_name:'calculate invoice total',status:false,custom_value:0,custom_type:'',custom_message:'',description:'calculate sum of all line item'},
+        {operation_name:'invoice  amount to zero',status:false,custom_value:0,custom_type:'',custom_message:'',description:'check invoice amount to zero'},
+        {operation_name:'invoice date format',status:false,custom_value:0,custom_type:'',custom_message:'',description:'check invoice date format is correct or not'},
+        {operation_name:'image illegible',status:false,custom_value:0,custom_type:'',custom_message:'',description:'image is clear or not'},
+        {operation_name:'freight, surcharge tax illegible',status:false,custom_value:0,custom_type:'',custom_message:'',description:'freight, surcharge tax illegible'},
+        {operation_name:'currency validation',status:false,custom_value:1,custom_type:'custom',custom_message:'currency ',description:'currency should be in USD or $'},
+        {operation_name:'calculate item sub total',status:false,custom_value:1,custom_type:'field',custom_message:'output field ',description:'compute rate * qty = sub total'},
+        {operation_name:'check mandatory fields are available',status:false,custom_value:0,custom_type:'',custom_message:'',description:'invoice number,invoice amount,invoice date,po number is mandatory'},
+        {operation_name:'check vendor',status:false,custom_value:0,custom_type:'',custom_message:'',description:'check vendor with given details'},
+        {operation_name:'validate vendor address',status:false,custom_value:0,custom_type:'',custom_message:'',description:'validate vendor address'},
+        {operation_name:'check po is invalid or not',status:false,custom_value:0,custom_type:'',custom_message:'',description:'check po is valid or not'},
+        {operation_name:'check invoice duplication',status:false,custom_value:0,custom_type:'',custom_message:'',description:'check invoice duplication'},
+        {operation_name:'check PO line mismatch',status:false,custom_value:0,custom_type:'',custom_message:' ',description:'po line count is equal with master file'}];
+
+    $scope.tempRow=[];
+    $scope.operationList={opRow:[]};
+    var index=0;
+    $scope.operations.forEach(function(row,i){
+        if(((i+1) % 4 ) != 0){
+            $scope.tempRow.push(row);
+            $scope.operationList['opRow'][index]=$scope.tempRow;
+        }
+        else if(((i+1) % 4 ) == 0){
+            $scope.tempRow.push(row);
+            $scope.operationList['opRow'][index]=$scope.tempRow;
+            index++;
+            $scope.tempRow=[];
+        }
+    });
 
     $scope.oneAtATime = true;
     $scope.oneAtaTimeWorkset = true;
@@ -1538,4 +1590,17 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
 
 
 
-}]);
+}]).directive('tooltip', function(){
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs){
+            $(element).hover(function(){
+                // on mouseenter
+                $(element).tooltip('show');
+            }, function(){
+                // on mouseleave
+                $(element).tooltip('hide');
+            });
+        }
+    };
+});
