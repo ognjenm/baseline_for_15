@@ -357,7 +357,7 @@
                                                      <div class="">
                                                          <div style="width:auto" id="style-7">
                                                              <div class="force-overflow">
-                                                                 <div class="panel-body text-lowercase">
+                                                                 <div class="panel-body ">
                                                                      <div class="divider-md"></div>
                                                                      <div ng-show="ruleType == 'simple'">
                                                                              <div class="row ">
@@ -546,11 +546,36 @@
                                                                          </form>
 
                                                                      </div>
-                                                                     <div ng-show="ruleType == 'computation'">
+                                                                     <div ng-show="ruleType == 'computation'" >
+                                                                         <div class="row margin-bottom-20">
+                                                                             <div class="col-md-2">
+                                                                                 <span >Look up table</span>
+                                                                             </div>
+                                                                             <div class="col-md-3">
+                                                                                 <div class="btn-group" >
+                                                                                     <button type="button" btn-radio="'sum'" ng-click="changeStatus(true)" ng-class="tableRequired?'btn btn-success':'btn btn-line-success'">
+                                                                                         required
+                                                                                     </button>
+                                                                                     <button type="button" btn-radio="'tax'" ng-click="changeStatus(false)" ng-class="tableRequired?'btn btn-line-success':'btn btn-success'">
+                                                                                         not required
+                                                                                     </button>
+                                                                                 </div>
+                                                                             </div>
+                                                                             <div class="col-md-2">
+                                                                                 <select required="" ng-show="tableRequired" ng-model="lookUpForm.lookup" class="form-control">
+                                                                                     <option value="">table names</option>
+                                                                                     <option ng-repeat="tables in typeOfOperators['Look Up']" value="{{tables}}">{{tables.operation_name}}</option>
+                                                                                 </select>
+                                                                             </div>
+                                                                             <div class="col-md-3" ng-show="tableRequired">
+                                                                                 <span> to refer</span>
+                                                                             </div>
+                                                                         </div>
                                                                          <div ng-repeat="input in inputFields">
+
                                                                              <div class="row margin-bottom-20">
                                                                                  <div class="col-md-2">
-                                                                                     <span ng-if="$first">input  as  fields</span>
+                                                                                     <span ng-if="$first"> for the field</span>
                                                                                  </div>
                                                                                  <div class="col-md-3">
                                                                                      <select   ng-model="condition" class="form-control">
@@ -558,7 +583,16 @@
                                                                                          <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
                                                                                      </select>
                                                                                  </div>
-                                                                                 <div class="col-md-4">
+                                                                                 <div class="col-md-2" ng-show="tableRequired">
+                                                                                     <span>maps with</span>
+                                                                                 </div>
+                                                                                 <div class="col-md-2" ng-show="tableRequired">
+                                                                                     <select required="" ng-model="fd.field2" class="form-control">
+                                                                                         <option value="">select field</option>
+                                                                                         <option value="inv_num" >inv_num</option>
+                                                                                     </select>
+                                                                                 </div>
+                                                                                 <div class="col-md-3">
                                                                                      <span data-ng-click="inputFields.push({id:inputFields.length+1,status:false})" ng-if="$last" class="btn_hethi btn-info mouse_point">
                                                                                          <i class="fa fa-plus"></i> new field
                                                                                      </span>&nbsp;
@@ -571,49 +605,47 @@
 
                                                                          <div class="row margin-bottom-20">
                                                                              <div class="col-md-2">
-                                                                                 <span>apply  to  operation</span>
+                                                                                 <span>to apply the operation</span>
                                                                              </div>
-                                                                             <div class="col-md-10">
-                                                                                 <div class="btn-group" >
-                                                                                     <button btn-radio="'sum'" ng-click="selectOption('sum')" ng-class="btnType == 'sum'?'btn btn-success':'btn btn-line-success'">
-                                                                                         compute sum
-                                                                                     </button>
-                                                                                     <button btn-radio="'tax'" ng-click="selectOption('tax')" ng-class="btnType == 'tax'?'btn btn-success':'btn btn-line-success'">
-                                                                                         compute tax
-                                                                                     </button>
-                                                                                     <button btn-radio="'summary'" ng-click="selectOption('summary')" ng-class="btnType == 'summary'?'btn btn-success':'btn btn-line-success'">
-                                                                                         compute summary
-                                                                                     </button>
-                                                                                     <button btn-radio="'validity'" ng-click="selectOption('validity')" ng-class="btnType == 'validity'?'btn btn-success':'btn btn-line-success'">
-                                                                                         calculate invoice validity
-                                                                                     </button>
-                                                                                 </div>
+                                                                             <div class="col-md-3">
+                                                                                 <input type="text" readonly class="form-control" ng-model="opera">
+                                                                             </div>
+                                                                             <div class="col-md-1" >
+                                                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#operationPalette">
+                                                                                    <i class="fa fa-search"></i> browse
+                                                                                 </button>
+                                                                             </div>
+                                                                             <div class="col-md-2" ng-show="requireValue">
+                                                                                 with
                                                                              </div>
                                                                          </div>
-                                                                         <div class="row " ng-init="btnType1='field'">
+                                                                         <div class="row margin-bottom-20"  ng-show="requireValue">
                                                                              <div class="col-md-2">
-                                                                                 <span>output as</span>
+                                                                                 <span>{{customInfo}}</span>
                                                                              </div>
-                                                                             <div class="col-md-4">
-                                                                                 <div class="btn-group" >
-                                                                                     <button  ng-click="btnType1='field'" ng-class="btnType1 == 'field'?'btn btn-danger':'btn btn-line-danger'">
-                                                                                         field value
-                                                                                     </button>
-                                                                                     <button ng-click="btnType1='custom'" ng-class="btnType1 == 'custom'?'btn btn-danger':'btn btn-line-danger'">
-                                                                                         custom value
-                                                                                     </button>
-                                                                                     <button ng-click="btnType1='calendar'" ng-class="btnType1 == 'calendar'?'btn btn-danger':'btn btn-line-danger'">
-                                                                                         calendar value
-                                                                                     </button>
+                                                                             <!--<div class="col-md-2">-->
+                                                                                 <!--<span  class="btn btn-success">-->
+                                                                                     <!--{{btnType1}} value-->
+                                                                                 <!--</span>-->
+                                                                                 <!--&lt;!&ndash;<div class="btn-group" >&ndash;&gt;-->
+                                                                                     <!--&lt;!&ndash;<button  ng-click="btnType1='field'" ng-class="btnType1 == 'field'?'btn btn-success':'btn btn-line-success'">&ndash;&gt;-->
+                                                                                         <!--&lt;!&ndash;field value&ndash;&gt;-->
+                                                                                     <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                                                                                     <!--&lt;!&ndash;<button ng-click="btnType1='custom'" ng-class="btnType1 == 'custom'?'btn btn-success':'btn btn-line-success'">&ndash;&gt;-->
+                                                                                         <!--&lt;!&ndash;custom value&ndash;&gt;-->
+                                                                                     <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                                                                                     <!--&lt;!&ndash;<button ng-click="btnType1='calendar'" ng-class="btnType1 == 'calendar'?'btn btn-success':'btn btn-line-success'">&ndash;&gt;-->
+                                                                                         <!--&lt;!&ndash;calendar value&ndash;&gt;-->
+                                                                                     <!--&lt;!&ndash;</button>&ndash;&gt;-->
 
-                                                                                 </div>
-                                                                             </div>
+                                                                                 <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                                             <!--</div>-->
                                                                              <div class="col-md-3">
                                                                                  <select ng-if="btnType1 == 'field'"  ng-model="condition" class="form-control">
                                                                                      <option value="">select field</option>
                                                                                      <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
                                                                                  </select>
-                                                                                 <input ng-if="btnType1 == 'custom'" ng-change="setOutput(op)" ng-model="op.output" type="text" class="form-control" placeholder="{{message}}">
+                                                                                 <input ng-if="btnType1 == 'custom'" ng-change="setOutput(op)" ng-model="op.output" type="text" class="form-control" placeholder="enter value">
 
                                                                                  <div ng-if="btnType1 == 'calendar'" class="input-group ui-datepicker">
                                                                                      <input type="text"
@@ -634,13 +666,13 @@
                                                                              </div>
 
                                                                          </div>
-                                                                         <div class="row margin-bottom-20">
-                                                                             <div class="col-md-6"></div>
-                                                                             <div class="col-md-3">
-                                                                                 <span ng-if="btnType1 == 'custom' && messageFlag" ng-class="!messageFlag?'text-success':'text-danger'">
-                                                                                     {{message_text}}</span>
-                                                                             </div>
-                                                                         </div>
+                                                                         <!--<div class="row margin-bottom-20">-->
+                                                                             <!--<div class="col-md-6"></div>-->
+                                                                             <!--<div class="col-md-3">-->
+                                                                                 <!--<span ng-if="btnType1 == 'custom' && messageFlag" ng-class="!messageFlag?'text-success':'text-danger'">-->
+                                                                                     <!--{{message_text}}</span>-->
+                                                                             <!--</div>-->
+                                                                         <!--</div>-->
                                                                          <div class="row">
                                                                              <div class="col-md-3"></div>
                                                                              <div class="col-md-3 ">
@@ -1245,6 +1277,7 @@
 
     <div class="divider"></div>
 
+    <section data-ng-include="'pages/hethistudio/admin/businessProcess/operationPalette.html'"></section>
     <section data-ng-include="'pages/hethistudio/admin/businessProcess/newPackages.html'"></section>
     <section data-ng-include="'pages/hethistudio/admin/businessProcess/EditPackage.html'"></section>
     <section data-ng-include="'pages/hethistudio/admin/businessProcess/newBusinessRuleSet.html'"></section>
