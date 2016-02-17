@@ -966,7 +966,8 @@ else {
     });
 }
         }
-    }]).directive("owlCarousel", function() {
+    }])
+    .directive("owlCarousel", function() {
         return {
 restrict: 'E',
 transclude: false,

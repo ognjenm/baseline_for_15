@@ -196,7 +196,7 @@ hethi.controller('admin_home_controller', ['$http','$scope','$filter','$location
         });
         if(isChecked) {
             $rootScope.selectedCustomerIndex = id;
-            $rootScope.selectedCustomer = $scope.currentPageStoresIndexer[id];
+            $rootScope.selectedCustomer = $scope.customerList[id];
 
             $location.path('/classify_selectbps');
         }else{

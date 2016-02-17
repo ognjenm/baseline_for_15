@@ -412,7 +412,7 @@ input[readonly] {
 }
 .wizard_head-1{
 
-    margin-left: 16%;
+    margin-left: 20%;
     width: 0;
     height: 0;
     border-left: 30px solid transparent;
@@ -439,7 +439,7 @@ input[readonly] {
 }
 .wizard_head-4{
 
-    margin-left: 67%;
+    margin-left: 50%;
     width: 0;
     height: 0;
     border-left: 30px solid transparent;
@@ -448,7 +448,7 @@ input[readonly] {
 }
 .wizard_head-5{
 
-    margin-left: 84%;
+    margin-left: 79%;
     width: 0;
     height: 0;
     border-left: 30px solid transparent;
@@ -1145,6 +1145,8 @@ input[readonly] {
     color: #676464;
     font-size: 16px;
     line-height: 1.554;
+    padding-bottom: 15px;
+    /*border-bottom: 3px solid rgba(2, 85, 114, 0.7);*/
 }
 .home_about_content{
     color: grey;
@@ -1154,5 +1156,98 @@ input[readonly] {
 
 }
 .home_about_content_head{
-    color: #808080;
+    color: #5A5A5A;
+    font-family: 'Philosopher-Regular';
+}
+@media (min-width: 480px) and (max-width: 640px){
+    .home_about_content_head{
+        padding-top: 20px;
+    }
+
+}
+@media (max-width: 320px){
+    .home_about_content_head h3{
+        font-size: 20px;
+    }
+
+}
+
+/*customized button*/
+
+.btn-info-wizard {
+    background-image: -webkit-linear-gradient(top, #1E9BB5 0%, #64CBDA 100%);
+    background-image:      -o-linear-gradient(top, #1E9BB5 0%, #64CBDA 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1E9BB5), to(#64CBDA));
+    background-image:         linear-gradient(to bottom, #1E9BB5 0%, #64CBDA 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff265a88', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    background-repeat: repeat-x;
+    border-color: #245580;
+}
+
+/*.btn-info-wizard {*/
+    /*color: #fff;*/
+    /*background-color: #4C4944;*/
+    /*border-color: #4C4944;*/
+/*}*/
+
+.btn-info-wizard:hover {
+    background-image: -webkit-linear-gradient(top, #1fa8b5 0%, #64CBDA 100%);
+    background-image:      -o-linear-gradient(top, #1fa8b5 0%, #64CBDA 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1fa8b5), to(#64CBDA));
+    background-image:         linear-gradient(to bottom, #1fa8b5 0%, #64CBDA 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff265a88', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    background-repeat: repeat-x;
+    border-color: #245580;
+}
+
+
+.btn-info-wizard-active {
+    background-image: -webkit-linear-gradient(top, #DA3B2F 20%, #FC5E4C 100%);
+    background-image:      -o-linear-gradient(top, #DA3B2F 20%, #FC5E4C 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#DA3B2F), to(#FC5E4C));
+    background-image:         linear-gradient(to bottom, #DA3B2F 20%, #FC5E4C 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff265a88', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    background-repeat: repeat-x;
+    border-color: #245580;
+}
+
+.btn-info-wizard-active:hover {
+    background-image: -webkit-linear-gradient(top, #f14131 20%, #FC5E4C 100%);
+    background-image:      -o-linear-gradient(top, #f14131 20%, #FC5E4C 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f14131), to(#FC5E4C));
+    background-image:         linear-gradient(to bottom, #f14131 20%, #FC5E4C 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff265a88', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    background-repeat: repeat-x;
+    border-color: #245580;
+}
+
+/*btn info-black*/
+
+
+
+.btn-info-wizard {
+    color: #fff;
+    background-color: #4C4944;
+    border-color: #4C4944;
+}
+
+.btn-info-wizard:hover {
+    color: #fff;
+    background-color: rgba(76, 73, 68, 0.85);
+    border-color: #4C4944;
+}
+.btn-info-wizard-active {
+    color: #fff;
+    background-color: #F34A61;
+    border-color: #F34A61;
+}
+
+.btn-info-wizard-active:hover {
+    color: #fff;
+    background-color: #d24158;
+    border-color: #F34A61;
 }

@@ -929,12 +929,20 @@
 
 
                                     <div class="panel panel-dark">
+
                                         <img src="{{stencilingPage.file_location}}"
                                              class=" "
                                              id="stencilingImage"
                                              alt="stenciling image not found"
                                              style="
                                              width:600px ;height:850px;object-fit: fill ">
+                                        <div ng-if="autoStencilData" data-ng-repeat="rows in autoStencilData">
+                                            <!--<div ng-repeat="row in ro">-->
+                                            <div ng-if="$index!=0">
+                                                <div ng-if="rows.data!=undefined" class="select-areas-background-area" style="position: absolute; cursor: move; width:{{(600/autoStencilData[0].width*rows.width)+'px'}}; height: {{(850/autoStencilData[0].height*rows.height)+'px'}}; left: {{(600/autoStencilData[0].width*rows.left)+15+'px'}}; top: {{(850/autoStencilData[0].height*rows.top)+'px'}}; border-style: groove; border-color: greenyellow; border-width: 3px; z-index: 102;"></div>
+                                            </div>
+                                            <!--</div>-->
+                                        </div>
                                         <!--width="{{formSize.width}}"-->
                                         <!--height="{{formSize.Height}}"-->
                                     </div>
@@ -1038,13 +1046,7 @@
                                         </div>
                                     </div>
 
-                                    <div ng-if="autoStencilData" data-ng-repeat="rows in autoStencilData">
-                                        <!--<div ng-repeat="row in ro">-->
-                                            <div ng-if="$index!=0">
-                                                <div ng-if="rows.data!=undefined" class="select-areas-background-area" style="position: absolute; cursor: move; width:{{(600/autoStencilData[0].width*rows.width)+'px'}}; height: {{(850/autoStencilData[0].height*rows.height)+'px'}}; left: {{(600/autoStencilData[0].width*rows.left)+'px'}}; top: {{(850/autoStencilData[0].height*rows.top)+'px'}}; border-style: groove; border-color: greenyellow; border-width: 2px; z-index: 102;"></div>
-                                            </div>
-                                        <!--</div>-->
-                                    </div>
+
 
                                     <div ng-if="myTemplate" data-ng-repeat="rows in myTemplate">
 
@@ -1223,38 +1225,59 @@
 
                                                         </div>
                                                     </tab>
-                                                    <tab heading="Indexing" >
+                                                    <tab heading="Classification" >
                                                         <div id="classify" >
 
                                                             <div class="row ">
 
-                                                                <div class="col-md-offset-2 col-md-8">
-                                                                    <label class="pull-left">Index To Classify</label>
+                                                                <div class="col-md-5">
+                                                                    <label class="pull-left">Indexing </label>
                                                                     <div class="btn-group pull-right">
                                                                         <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToClassify= 'Yes'" data-ng-model="selectedValue.indexToClassify" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
                                                                         <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToClassify= 'No'" data-ng-model="selectedValue.indexToClassify" btn-radio="'No'" style="font-size: 12px"> No </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-7">
+                                                                    <label class="pull-left">Form Identification</label>
+                                                                    <div class="btn-group  pull-right">
+                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.formIdentification= 'Yes'" data-ng-model="selectedValue.formIdentification" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
+                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.formIdentification= 'No'" data-ng-model="selectedValue.formIdentification" btn-radio="'No'" style="font-size: 12px"> No </button>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="divider"></div>
 
                                                             <div class="row ">
-                                                                <div class="col-md-offset-2 col-md-8">
-                                                                        <label class="pull-left">Index To Reject?</label>
+                                                                <div class="col-md-5">
+                                                                        <label class="pull-left">Reject</label>
                                                                         <div class="btn-group  pull-right">
                                                                             <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToReject= 'Yes'" data-ng-model="selectedValue.indexToReject" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
                                                                             <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToReject= 'No'" data-ng-model="selectedValue.indexToReject" btn-radio="'No'" style="font-size: 12px"> No </button>
                                                                         </div>
                                                                 </div>
+                                                                <div class="col-md-7">
+                                                                    <label class="pull-left">Form Relationship</label>
+                                                                    <div class="btn-group  pull-right">
+                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.formRelationship= 'Yes'" data-ng-model="selectedValue.formRelationship" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
+                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.formRelationship= 'No'" data-ng-model="selectedValue.formRelationship" btn-radio="'No'" style="font-size: 12px"> No </button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <div class="divider"></div>
 
                                                             <div class="row ">
-                                                                <div class="col-md-offset-2 col-md-8">
-                                                                    <label class="pull-left">Index To Split Merge?</label>
+                                                                <div class="col-md-5">
+                                                                    <label class="pull-left">Split/Merge</label>
                                                                     <div class="btn-group  pull-right">
                                                                         <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToSplitMerge= 'Yes'" data-ng-model="selectedValue.indexToSplitMerge" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
                                                                         <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToSplitMerge= 'No'" data-ng-model="selectedValue.indexToSplitMerge" btn-radio="'No'" style="font-size: 12px"> No </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-7">
+                                                                    <label class="pull-left">Form SequenceNo</label>
+                                                                    <div class="btn-group  pull-right">
+                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.formSequenceNo= 'Yes'" data-ng-model="selectedValue.formSequenceNo" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
+                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.formSequenceNo= 'No'" data-ng-model="selectedValue.formSequenceNo" btn-radio="'No'" style="font-size: 12px"> No </button>
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -209,7 +209,7 @@ color: #ffffff !important;
     text-align: center;
     width: 100%;
     font-family: 'Philosopher-Regular';
-    z-index: 1000;
+    z-index: 9;
     padding-right: 20px;
 
 }
@@ -514,6 +514,30 @@ a:hover.back-to-top {
     text-decoration: none;
 }
 .header_content a:hover{
+    color: #2bc4dd;
+    text-decoration: none;
+}
+
+.header_content_xs{
+    background-color: #025572;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #ffffff;
+    font-size: 13px;
+    display: flex;
+    margin-top: -9px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.header_content_xs span{
+    /*margin-left: 20px;*/
+    /*margin-right: 5px;*/
+}
+.header_content_xs a{
+    color: #ffffff;
+    text-decoration: none;
+}
+.header_content_xs a:hover{
     color: #2bc4dd;
     text-decoration: none;
 }

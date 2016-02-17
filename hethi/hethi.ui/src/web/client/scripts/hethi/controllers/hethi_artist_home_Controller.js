@@ -43,7 +43,7 @@ hethi.controller('hethi_artist_home_Controller', ['$http','$scope','$filter','$r
     {Key:"MICR",Value:"MICR"}];
 
     $scope.mxsdFieldType=[{Key:"label",Value:"label"},{Key:"data",Value:"data"}];
-    $scope.indexingValues=[{"indexToClassify":"No","indexToReject":"No","indexToSplitMerge":"No"}];
+    $scope.indexingValues=[{"indexToClassify":"No","indexToReject":"No","indexToSplitMerge":"No","formIdentification":"No","formRelationship":"No","formSequenceNo":"No"}];
     $scope.selectedValue=$scope.indexingValues[0];
     //$scope.ixsdFields=[{ixsdPath:"po/header/buyer/invoice_number",ixsdFieldName:"invoice_number",group:"buyer"},
     //    {ixsdPath:"po/header/buyer/invoice_date",ixsdFieldName:"invoice_date",group:"buyer"},
@@ -1826,7 +1826,10 @@ $scope.loadMasterForm=function(path){
                             $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field[j].Indexing={
                                 "Classify":selectedValue.indexToClassify,
                                 "Reject":selectedValue.indexToReject,
-                                "SplitMerge":selectedValue.indexToSplitMerge
+                                "SplitMerge":selectedValue.indexToSplitMerge,
+                                "Identification":selectedValue.formIdentification,
+                                "Relationship":selectedValue.formRelationship,
+                                "SequenceNo":selectedValue.formSequenceNo
                             };
                             fieldExists = true;
                             added = true;
@@ -1846,7 +1849,10 @@ $scope.loadMasterForm=function(path){
                             "Indexing":{
                                 "Classify":selectedValue.indexToClassify,
                                 "Reject":selectedValue.indexToReject,
-                                "SplitMerge":selectedValue.indexToSplitMerge
+                                "SplitMerge":selectedValue.indexToSplitMerge,
+                                "Identification":selectedValue.formIdentification,
+                                "Relationship":selectedValue.formRelationship,
+                                "SequenceNo":selectedValue.formSequenceNo
                             },
                             "label": {
                                 "sequence": " ",
@@ -1877,7 +1883,10 @@ $scope.loadMasterForm=function(path){
                                 "Indexing":{
                                     "Classify":selectedValue.indexToClassify,
                                     "Reject":selectedValue.indexToReject,
-                                    "SplitMerge":selectedValue.indexToSplitMerge
+                                    "SplitMerge":selectedValue.indexToSplitMerge,
+                                    "Identification":selectedValue.formIdentification,
+                                    "Relationship":selectedValue.formRelationship,
+                                    "SequenceNo":selectedValue.formSequenceNo
                                 },
                                 "label": {
                                     "sequence": " ",
@@ -1921,7 +1930,10 @@ $scope.loadMasterForm=function(path){
                     "Indexing":{
                         "Classify":selectedValue.indexToClassify,
                         "Reject":selectedValue.indexToReject,
-                        "SplitMerge":selectedValue.indexToSplitMerge
+                        "SplitMerge":selectedValue.indexToSplitMerge,
+                        "Identification":selectedValue.formIdentification,
+                        "Relationship":selectedValue.formRelationship,
+                        "SequenceNo":selectedValue.formSequenceNo
                     },
                     "label":{
                         "sequence":" ",
@@ -1951,7 +1963,10 @@ $scope.loadMasterForm=function(path){
                             "Indexing":{
                                 "Classify":selectedValue.indexToClassify,
                                 "Reject":selectedValue.indexToReject,
-                                "SplitMerge":selectedValue.indexToSplitMerge
+                                "SplitMerge":selectedValue.indexToSplitMerge,
+                                "Identification":selectedValue.formIdentification,
+                                "Relationship":selectedValue.formRelationship,
+                                "SequenceNo":selectedValue.formSequenceNo
                             },
                             "label":{
                                 "sequence":" ",
@@ -1982,7 +1997,10 @@ $scope.loadMasterForm=function(path){
                                 "Indexing":{
                                     "Classify":selectedValue.indexToClassify,
                                     "Reject":selectedValue.indexToReject,
-                                    "SplitMerge":selectedValue.indexToSplitMerge
+                                    "SplitMerge":selectedValue.indexToSplitMerge,
+                                    "Identification":selectedValue.formIdentification,
+                                    "Relationship":selectedValue.formRelationship,
+                                    "SequenceNo":selectedValue.formSequenceNo
                                 },
                                 "label":{
                                     "sequence":" ",
@@ -2015,7 +2033,10 @@ $scope.loadMasterForm=function(path){
                                 "Indexing":{
                                     "Classify":selectedValue.indexToClassify,
                                     "Reject":selectedValue.indexToReject,
-                                    "SplitMerge":selectedValue.indexToSplitMerge
+                                    "SplitMerge":selectedValue.indexToSplitMerge,
+                                    "Identification":selectedValue.formIdentification,
+                                    "Relationship":selectedValue.formRelationship,
+                                    "SequenceNo":selectedValue.formSequenceNo
                                 },
                                 "label":{
                                     "sequence":" ",
@@ -2060,7 +2081,10 @@ $scope.loadMasterForm=function(path){
                             $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field[j].Indexing={
                                 "Classify":selectedValue.indexToClassify,
                                     "Reject":selectedValue.indexToReject,
-                                    "SplitMerge":selectedValue.indexToSplitMerge
+                                    "SplitMerge":selectedValue.indexToSplitMerge,
+                                "Identification":selectedValue.formIdentification,
+                                "Relationship":selectedValue.formRelationship,
+                                "SequenceNo":selectedValue.formSequenceNo
                             };
                             fieldExists = true;
                             added = true;
@@ -2080,7 +2104,10 @@ $scope.loadMasterForm=function(path){
                                 "Indexing":{
                                     "Classify":selectedValue.indexToClassify,
                                     "Reject":selectedValue.indexToReject,
-                                    "SplitMerge":selectedValue.indexToSplitMerge
+                                    "SplitMerge":selectedValue.indexToSplitMerge,
+                                    "Identification":selectedValue.formIdentification,
+                                    "Relationship":selectedValue.formRelationship,
+                                    "SequenceNo":selectedValue.formSequenceNo
                                 },
                                 "label": {
                                     "sequence": " ",
@@ -2111,7 +2138,10 @@ $scope.loadMasterForm=function(path){
                                 "Indexing":{
                                     "Classify":selectedValue.indexToClassify,
                                     "Reject":selectedValue.indexToReject,
-                                    "SplitMerge":selectedValue.indexToSplitMerge
+                                    "SplitMerge":selectedValue.indexToSplitMerge,
+                                    "Identification":selectedValue.formIdentification,
+                                    "Relationship":selectedValue.formRelationship,
+                                    "SequenceNo":selectedValue.formSequenceNo
                                 },
                                 "label": {
                                     "sequence": " ",
@@ -2157,7 +2187,10 @@ $scope.loadMasterForm=function(path){
                                     "Indexing":{
                                         "Classify":selectedValue.indexToClassify,
                                         "Reject":selectedValue.indexToReject,
-                                        "SplitMerge":selectedValue.indexToSplitMerge
+                                        "SplitMerge":selectedValue.indexToSplitMerge,
+                                        "Identification":selectedValue.formIdentification,
+                                        "Relationship":selectedValue.formRelationship,
+                                        "SequenceNo":selectedValue.formSequenceNo
                                     },
                             "label":{
                                 "sequence":" ",
@@ -2187,7 +2220,10 @@ $scope.loadMasterForm=function(path){
                             "Indexing":{
                                 "Classify":selectedValue.indexToClassify,
                                 "Reject":selectedValue.indexToReject,
-                                "SplitMerge":selectedValue.indexToSplitMerge
+                                "SplitMerge":selectedValue.indexToSplitMerge,
+                                "Identification":selectedValue.formIdentification,
+                                "Relationship":selectedValue.formRelationship,
+                                "SequenceNo":selectedValue.formSequenceNo
                             },
                             "label":{
                                 "sequence":" ",
@@ -2327,8 +2363,8 @@ $scope.loadMasterForm=function(path){
             dataType: 'jsonp',
             data: input
         }).success(function (data) {
-            console.log(JSON.stringify(data[0]));
-            $scope.autoStencilData=data[0];
+            console.log(JSON.stringify(data));
+            $scope.autoStencilData=data;
         });
     };
     $scope.setY=function(row){
