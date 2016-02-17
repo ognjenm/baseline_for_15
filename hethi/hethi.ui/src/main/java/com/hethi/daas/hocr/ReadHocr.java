@@ -69,9 +69,14 @@ public class ReadHocr {
 				span.setId((String) inner_span_obj.get("id"));
 				span.setTitle((String) inner_span_obj.get("title"));
 				span.setDir((String) inner_span_obj.get("dir"));
-				System.out.println("Strong = "+inner_span_obj.get("strong"));
 //				if(!inner_span_obj.get("strong")){
-				span.setStrong((String)inner_span_obj.get("strong"));
+				if(String.valueOf(inner_span_obj.get("strong"))!="null"){
+					span.setStrong(String.valueOf(inner_span_obj.get("strong")));
+					}else if(String.valueOf(inner_span_obj.get("#text"))!="null"){
+						span.setStrong(String.valueOf(inner_span_obj.get("#text")));
+					}else{
+						span.setStrong(String.valueOf(inner_span_obj.get("em")));
+					}
 //				}
 				spanarray.add(span);
 			} else if (object instanceof JSONArray) {
@@ -127,30 +132,45 @@ public class ReadHocr {
 		singleRow.put("width", String.valueOf(imgwidth));
 		resultList.add(singleRow);
 		resultSet.add(resultList);
+		String posOld="0,0,0,0";
 		for (Span span : positionList) {
-			String pos=span.getTitle();
+			String pos=span.getTitle();		
+			System.out.println(pos);
 			singleRow =  new HashMap<String, String>();
 			String []array=pos.split(",");
+			String []arrayOld=posOld.split(",");
 			if(!array[0].startsWith("bbox")){
+				System.out.println("if"+(Integer.parseInt(array[0])-Integer.parseInt(arrayOld[2])+Integer.parseInt(arrayOld[0])));
+				if((Integer.parseInt(array[0])-Integer.parseInt(arrayOld[2])+Integer.parseInt(arrayOld[0]))<8 && (Integer.parseInt(array[0])-Integer.parseInt(arrayOld[2])+Integer.parseInt(arrayOld[0]))>0){
+					System.out.println(resultList.get(resultList.size()-1));
+					resultList.get(resultList.size()-1).remove("width");
+					resultList.get(resultList.size()-1).put("width", String.valueOf(Integer.parseInt(array[2])-Integer.parseInt(arrayOld[0])+Integer.parseInt(arrayOld[2])));
+					resultList.get(resultList.size()-1).remove("data");
+					resultList.get(resultList.size()-1).put("data", String.valueOf(resultList.get(resultList.size()-1).get("data"))+" "+span.getStrong());
+					posOld=String.valueOf(resultList.get(resultList.size()-1).get("left")+","+resultList.get(resultList.size()-1).get("top")+","+resultList.get(resultList.size()-1).get("width")+","+resultList.get(resultList.size()-1).get("height"));
+//					resultSet.get(resultSet.size()).get(0).set("width").set(Integer.parseInt(array[2])-Integer.parseInt(arrayOld[0]));
+				}else{
 			int x1=Integer.parseInt(array[0]);
 			int y1=Integer.parseInt(array[1]);
 			int x2=Integer.parseInt(array[2]);
 			int y2=Integer.parseInt(array[3]);
-			x1=x2-x1;
-			y1=y2-y1;
+			x2=x2-x1;
+			y2=y2-y1;
 			String data=span.getStrong();
+			posOld=String.valueOf(x1+","+y1+","+x2+","+y2);
 //			DataExtraction.pdftoText(x1, y1, x2, y2, PdfFile);			
-			singleRow.put("top", String.valueOf(y2));
-			singleRow.put("left", String.valueOf(x2));
-			singleRow.put("width", String.valueOf(x1));
-			singleRow.put("height", String.valueOf(y1));			
+			singleRow.put("top", String.valueOf(y1));
+			singleRow.put("left", String.valueOf(x1));
+			singleRow.put("width", String.valueOf(x2));
+			singleRow.put("height", String.valueOf(y2));			
 			singleRow.put("data", data);
 			resultList.add(singleRow);
-			resultSet.add(resultList);
+				}
+//			resultSet.add(resultList);
 			}
 		}
 		Gson gsonObj=new Gson();
-		return gsonObj.toJson(resultSet);
+		return gsonObj.toJson(resultList);
 		
 		
 	}

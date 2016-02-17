@@ -20,7 +20,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguratio
 public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-		 ListenerControllers controller=new ListenerControllers();
-		 controller.startListener();
+//		 ListenerControllers controller=new ListenerControllers();
+//		 controller.startListener();
 	}
 }
