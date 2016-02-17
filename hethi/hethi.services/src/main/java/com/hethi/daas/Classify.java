@@ -30,16 +30,28 @@ import org.json.simple.parser.ParseException;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 
-import com.google.gson.Gson;
+
 import com.hethi.domain.iPost;
-import com.hethi.utils.RuleExecutors;
-import com.hethi.utils.ServicePlayQueue;
+
 
 public class Classify {
-	
+	/*
+	public static void main(String args[]){
+		JSON newJson = new JSON();
+
+		for (each json in jsonArray) {
+		    String id = json.get("id");
+		    String name = json.get("name");
+
+		    newJson.put(id, name);
+		}
+	}*/
 	public  Message<String> Classify(String data) throws ParseException, InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException  {
 		
+		
+		
 		String messageContent=data;
+		System.out.println("@@@@@@@@@@@@@@@@@@@ data");
 		 Message<String> msg;	
 		 String SEPARATOR = "-----------------------";
 		 String log=SEPARATOR+"inside_daas_classify_channel"+SEPARATOR;		
@@ -55,11 +67,22 @@ public class Classify {
 	        ipost.setSfs_uin(ipost.getNext_queue());
 	        ipost.setCurrent_channel(ipost.getNext_channel());
 	        
-			String next_channel= "exit_channel";		
+	        String efs_uin = "cefs100101";
+	        
+	        ipost.setEfs_uin(efs_uin);
+	        String uid = ipost.getUid();
+	        String cusid = ipost.getCustomer_id();
+	        
+	        System.out.println("classify complet ***************************");
+	        
+	        String next_channel= "daas.extract";
+			String sfs_uin = "csfs100106";
+			ipost.setSfs_uin(sfs_uin);
+			ipost.setNext_queue(sfs_uin);
 			ipost.setNext_channel(next_channel);
 			
 			
-			ServicePlayQueue pq =new ServicePlayQueue();
+			/*ServicePlayQueue pq =new ServicePlayQueue();
 			String result=pq.NextServicePlay(ipost.toString());
 			
 
@@ -236,7 +259,7 @@ public class Classify {
 
 	    trans.commit();	
 	    session.close();
-	    
+	    */
 	    
 			 String playload = ipost.toString();
 		        msg= MessageBuilder.withPayload(playload)

@@ -8,7 +8,7 @@ public class JODImageProcessing {
 
 	public static String convertOfficeToPdf(String filePath) throws IOException {
 
-		String JodConverterPath = "E:\\mani\\Workspace\\DaaS\\HethiEngine\\resources\\jod_converter\\jodconverter-cli-2.2.2.jar";
+		/*String JodConverterPath = "E:\\mani\\Workspace\\DaaS\\HethiEngine\\resources\\jod_converter\\jodconverter-cli-2.2.2.jar";
 
 		// String sPdfPath = offFile.substring(0, offFile.lastIndexOf('.'));
 		String sPdfPath = filePath.substring(0, filePath.lastIndexOf("."));
@@ -28,8 +28,8 @@ public class JODImageProcessing {
 		} catch (InterruptedException e) {
 			System.out.println("Exception:" + e.getMessage());
 			return "";
-		}
-		return sPdfPath;
+		}*/
+		return "";
 	}
 
 }

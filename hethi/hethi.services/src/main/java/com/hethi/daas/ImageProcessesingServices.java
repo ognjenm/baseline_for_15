@@ -15,12 +15,13 @@ import net.sourceforge.tess4j.TesseractException;
 //import org.opencv.core.Mat;
 public class ImageProcessesingServices {
 
-	public static String getFullOCR(File filename)
+	public static String getFullOCR(String filename)
 			throws IOException, MagicParseException, MagicMatchNotFoundException, MagicException, TesseractException {
 		String mimeType = "";
-		String type = FilenameUtils.getExtension(filename.toString());
+		String type = FilenameUtils.getExtension(filename);
 		System.out.println("extension is " + type);
-		mimeType = Magic.getMagicMatch(filename, false).getMimeType();
+		filename=filename.replace("\\", "/");
+		mimeType = Magic.getMagicMatch(new File(filename), false).getMimeType();
 		System.out.println("the mime is" + mimeType);
 
 		/**
@@ -29,7 +30,7 @@ public class ImageProcessesingServices {
 		
 		if (type.equalsIgnoreCase("doc") || type.equalsIgnoreCase("docX") || type.equalsIgnoreCase("xls")
 				|| type.equalsIgnoreCase("xlsx") || type.equalsIgnoreCase("txt") || type.equalsIgnoreCase("odt")) {
-			JODImageProcessing.convertOfficeToPdf(filename.toString());
+			JODImageProcessing.convertOfficeToPdf(filename);
 			System.out.println("Office To SearchablePDF Created Successfully");
 		}
 
@@ -66,7 +67,7 @@ public class ImageProcessesingServices {
 		return mimeType;
 	}
 
-	public static void convertGIFToTiff(File inputFile) {
+	public static void convertGIFToTiff(String inputFile) {
 
 	}
 

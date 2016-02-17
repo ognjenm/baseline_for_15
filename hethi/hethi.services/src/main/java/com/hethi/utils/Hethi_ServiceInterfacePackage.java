@@ -39,8 +39,9 @@ public class Hethi_ServiceInterfacePackage implements Hethi_SeviceInterface {
 			String efs_uin =json.get("efs_uin").toString();
 			String sfs_uin =json.get("sfs_uin").toString();
 			String current_channel =json.get("current_channel").toString();
+			String uid = json.get("uid").toString();
 			String din="1";
-			String uid="1";
+			
 			int version=1;
 			String user_id="RNT01";
 			System.out.println("data pushing to : " + current_channel);

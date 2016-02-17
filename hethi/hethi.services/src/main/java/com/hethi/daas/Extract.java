@@ -1,28 +1,19 @@
 package com.hethi.daas;
 
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
-import org.drools.KnowledgeBase;
-import org.drools.KnowledgeBaseFactory;
-import org.drools.builder.KnowledgeBuilder;
-import org.drools.builder.KnowledgeBuilderError;
-import org.drools.builder.KnowledgeBuilderErrors;
-import org.drools.builder.KnowledgeBuilderFactory;
-import org.drools.builder.ResourceType;
-import org.drools.io.Resource;
-import org.drools.io.ResourceFactory;
-import org.drools.runtime.StatefulKnowledgeSession;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+import org.json.JSONException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -32,220 +23,268 @@ import org.springframework.messaging.support.MessageBuilder;
 
 import com.google.gson.Gson;
 import com.hethi.domain.iPost;
-import com.hethi.utils.RuleExecutors;
-import com.hethi.utils.ServicePlayQueue;
+import com.hethi.utils.QueryExecutors;
 
 public class Extract {
-	
-	public  Message<String> Extract(String data) throws ParseException, InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException  {
-		
-		String messageContent=data;
-		 Message<String> msg;	
-		 String SEPARATOR = "-----------------------";
-		 String log=SEPARATOR+"inside_daas_Extract_channel"+SEPARATOR;		
-		 System.out.println(" \n ");
-		 System.out.println(""+SEPARATOR);
-		 System.out.println(log);
-		 System.out.println(""+SEPARATOR);
-		 System.out.println(" \n ");
-		 System.out.println(" \n ");
-		 
-		    iPost ipost=new iPost(data);
-	        ipost.stackDescription(log);
-	        ipost.setSfs_uin(ipost.getNext_queue());
-	        ipost.setCurrent_channel(ipost.getNext_channel());
-	        
-			String next_channel= "exit_channel";		
-			ipost.setNext_channel(next_channel);
-			
-			
-			ServicePlayQueue pq =new ServicePlayQueue();
-			String result=pq.NextServicePlay(ipost.toString());
-			
 
-		
-		JSONArray jsonArray=(JSONArray)new JSONParser().parse(result);
-		
+	public Message<String> Extract(String data) throws ParseException, InstantiationException, IllegalAccessException,
+			ClassNotFoundException, IllegalArgumentException, InvocationTargetException, SQLException,
+			FileNotFoundException, IOException, JSONException {
 
-		JSONArray responseOne=(JSONArray)jsonArray.get(0); //current queue, next queue, exception queue
-		JSONArray responseTwo=(JSONArray)jsonArray.get(1); //rules to apply for this queue (array);
-		
-		JSONObject queueJson=(JSONObject)responseOne.get(0);
-		System.out.println(" queueJson :" +queueJson.toString());
-		System.out.println(" ruleJson :" +responseTwo.toString());
-		
-		String response=queueJson.get("result").toString();
-		
-		if(response.equalsIgnoreCase("Success")){		    
-				  
-				  next_channel=queueJson.get("next_channel").toString();
-				  String next_queue=queueJson.get("next_queue").toString();
-				  
-				  String exception_channel=queueJson.get("exception_channel").toString();	
-				  String exception_queue=queueJson.get("exception_queue").toString();
-				  
-				  if(next_queue != null && !next_queue.isEmpty()){
-					  
-					  ipost.setNext_queue(next_queue);
-					  ipost.setNext_channel(next_channel);
-				  }
-				  
-				  if(exception_queue != null && !exception_queue.isEmpty()){
-					  
-					  ipost.setException_queue(exception_queue);
-					  ipost.setException_channel(exception_channel);
-				  }				 	  			  
-				  
-		}
-		else
-		{		
-			ipost.stackDescription("No next proceess found from database");				
-		}
+		String messageContent = data;
+		Message<String> msg;
+		String SEPARATOR = "-----------------------";
+		String log = SEPARATOR + "inside_daas_Extract_channel" + SEPARATOR;
+		System.out.println(" \n ");
+		System.out.println("" + SEPARATOR);
+		System.out.println(log);
+		System.out.println("" + SEPARATOR);
+		System.out.println(" \n ");
+		System.out.println(" \n ");
 
-		Configuration config=new Configuration();
-		config.configure("hibernate/hibernate.cfg.xml");
-		SessionFactory factory=config.buildSessionFactory();
-		Session session=factory.openSession();
-		Transaction trans=session.beginTransaction();
-		String queryOutput= "[{\"result\":\"No data\"}]";
-		
-//		reading all  objects for form 
-		
-		ArrayList<String> formObjList=pq.listFilesToInsert(ipost.getEfs_uin());
-		ArrayList<Object> formObjects= new ArrayList<Object>();
-		 
-		String importFormsPackage="";
-		
-		int formObjCount=0;
-		while(formObjCount<formObjList.size()){		
-			
-			
-			String fileName=formObjList.get(formObjCount).toString();		
-			String className = "com.hethi.rest.model."+fileName;
-			importFormsPackage=importFormsPackage+"import "+className+"; \n";
-			Object classObj = Class.forName(className).newInstance();
-			String hql="from "+fileName.toLowerCase()+" where din=:Din   order by  version  desc , lastupdtm  desc ";
-			Query queryResult = session.createQuery(hql);
-			queryResult.setMaxResults(1);
-			queryResult.setParameter("Din", "1");
-			List<Object> allUsers=queryResult.list();
-			Iterator<Object> it=allUsers.iterator();
-			ArrayList<Map<String,String>> arrayString=new ArrayList<Map<String,String>>();
-			while(it.hasNext()){
-				 classObj=it.next();
-				 Map<String,String> returnMap=pq.readElements(classObj);
-				 arrayString.add(returnMap);
-			}
-//			Gson gson=new Gson();
-//			queryOutput=gson.toJson(arrayString);
-//			System.out.println("queryOutput "+queryOutput);	
-			
-			formObjects.add(classObj);		
-			formObjCount++;
-		}
+		iPost ipost = new iPost(data);
+		ipost.stackDescription(log);
+		ipost.setSfs_uin(ipost.getNext_queue());
+		ipost.setCurrent_channel(ipost.getNext_channel());
 
-		
-		
+		String uploadid = ipost.getUid();
+		String customerid = ipost.getCustomer_id();
 
-		JSONObject checkRuleJson=(JSONObject)responseTwo.get(0);
-		String hasCheckRule= (String)checkRuleJson.get("result");
-	  
-		
-	    if(hasCheckRule != null && !hasCheckRule.isEmpty()){
-	    	
-	    	ipost.stackDescription("No rule to apply");		
-	    	
-	    }
-	    else
-	    {
-	    	
-	        ipost.stackDescription("Applying rules");   	
-	    	
-	    	Iterator i = responseTwo.iterator();
-	    	
-	        String main_packages="package com.hethi.daas.service;" ;
-	        String sub_packages="import com.hethi.domain.iPost;  \n ";
-	               sub_packages=sub_packages+importFormsPackage;
-	               sub_packages=sub_packages+"import java.sql.Timestamp; \n";
-	               sub_packages=sub_packages+"import java.util.Date; \n";
-	        
-	        
-	        String rule= main_packages+"\n";
-	        	   rule=rule+sub_packages+"\n \n ";
-	        	   
-	        while (i.hasNext()) {
-	        	
-	            JSONObject row = (JSONObject) i.next();            
+		/* get image and pdf location from db */
 
-	           
-	            String rule_name=  (String)row.get("rule_name");
-	            String rule_condition = (String)row.get("rule_condition");
-	            String rule_action= (String)row.get("rule_action");
-	     
-	            	   rule=rule + "\t rule \" "+rule_name+"\" \n \n ";
-	            	   rule=rule + "\t \t when   \n ";
-	            	   rule=rule + "\t \t \t \t   "+rule_condition+" \n \n ";
-	            	   rule=rule + "\t \t then   \n ";
-	            	   rule=rule + "\t \t \t \t   "+rule_action+" \n \n ";
-	            	   rule=rule + "\t end \n"; 
-	         }
+		ArrayList<ArrayList> fileLocationList = getPdflocation(uploadid, customerid);
 
-	        System.out.println("rule Text : \n"+rule);
+		/* iterate image and pdf location */
 
-	        
-	        KnowledgeBase kbase;
-	    		try {
-	    			
-	    			RuleExecutors ruleObj =new RuleExecutors();
-	    			kbase = ruleObj.readKnowledgeBase(rule);    			
-	    			StatefulKnowledgeSession ksession = kbase.newStatefulKnowledgeSession();
-	    	        ksession.insert(ipost);
-	    	        for(int formI=0;formI<formObjects.size();formI++){
-	    	        	ksession.insert(formObjects.get(formI));
-	    	        }    	        
-	    	        ksession.fireAllRules();     	      
-	    		       
-	    		} catch (Exception e) {
-	    			// TODO Auto-generated catch block
-	    			e.printStackTrace();
-	    			ipost.stackDescription("Error on rule string , Please check the rule");	
-	    			ipost.stackDescription("Put Into Exception Queue :"+ipost.getException_channel());	
-	    			ipost.setNext_channel(ipost.getException_channel());
-	    			ipost.setNext_channel(ipost.getException_queue());
-	    			
-	    			
-	    		}
-	    }
-		
-	    try {
-			finalize();
-		} catch (Throwable e) {
+		Properties properties = new Properties();
+		try {
+
+			properties.load(new FileInputStream(new File("src/main/resources/config/application.properties")));
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    
-	    
-	    for(int formI=0;formI<formObjects.size();formI++){
-	    	session.flush();     
-	       session.clear();
-	      // session.save(formObjects.get(formI));
-	       Map<String,String> returnMap=pq.readElements(formObjects.get(formI));
-	       System.out.println("final_result ="+returnMap);
-	       
-	  }
 
-	    trans.commit();	
-	    session.close();
-	    
-	    
-			 String playload = ipost.toString();
-		        msg= MessageBuilder.withPayload(playload)
-	             .setHeader("NextQue",ipost.getNext_channel())
-	             .build();
-		        return msg;
-		 
+		String imageAbsPath = properties.getProperty("imageSourcePath");
+		String imageFullPath = "";
+
+		/* iterator the db value */
+
+		int i = 0;
+
+		ArrayList<Map<String, String>> arrayList = fileLocationList.get(0);
+		System.out.println("Total no of files  " + arrayList);
+
+		int count = 1;
+		String efs_data = "";
+
+		for (Map<String, String> mapObj : arrayList) {
+			// System.out.println("row " + count + " .. " + mapObj);
+			String dbimgvalue = mapObj.get("file_location").replace("http://localhost:5050/", "/");
+			imageFullPath = imageAbsPath + dbimgvalue;
+			String dbimgfileid = mapObj.get("file_id");
+			String dbimgefsuin = mapObj.get("efs_uin");
+			System.out.println("efss_ uin   +" + dbimgefsuin);
+			String pdfFullPath = imageFullPath.substring(0, imageFullPath.lastIndexOf(".")) + ".pdf";
+
+			/* Call MXSDList method for geting MXSD file path */
+
+			String mxsdList = getMXSDList(dbimgefsuin, customerid, uploadid);
+
+			System.out.println("MXSDLIST path Result =======> " + mxsdList);
+
+			File currentDirFile = new File(".");
+			String helper = currentDirFile.getAbsolutePath();
+			String currentDir = helper.substring(0, helper.lastIndexOf('.')).replace('\\', '/');
+
+			System.out.println("currentDir " + currentDir.replace("hethi.services/", "hethi.ui/"));
+			String pathFile = currentDir.replace("hethi.services/", "hethi.ui/") + "src/web/client/"
+					+ mxsdList.substring(mxsdList.lastIndexOf("/images") + 1, mxsdList.length());
+
+			/* Convert XML to JSON file */
+
+			String jsonMXSD = XMLtoJsonConverter.convertXMLToJson(pathFile);
+
+			System.out.println("MXSDLIST Result =======> " + mxsdList);
+
+			/* get mxmlJson Object for json file */
+
+			String mxsdjsonObject = ReadJson.jsonHandler(jsonMXSD, pdfFullPath, imageFullPath);
+
+			System.out.println("MXSDLIST Json Result =======> " + mxsdjsonObject);
+			//org.json.simple.JSONObject json = (org.json.simple.JSONObject) new JSONParser().parse(mxsdjsonObject);
+
+			List<Map<String, String>> ixsddata = ReadJson.ixsdFieldHandler(mxsdjsonObject);
+			Map<String, String> jsonmap = new HashMap<String,String>();
+			
+//			ixsddata.add(jsonmap);
+			
+			Gson gson = new Gson();
+			String jsonStringFirst = gson.toJson(ixsddata);	
+			JSONArray jArray=(JSONArray)new JSONParser().parse(jsonStringFirst);
+			System.out.println("Json First string new =====>=====>  " + jsonStringFirst);
+			Map<String,String> outputString=new HashMap<String,String>();
+			for(int index=0;index<jArray.size();index++){
+				JSONObject jsonObj1=(JSONObject)jArray.get(index);
+				Extract ex=new Extract();
+				outputString=ex.parse(jsonObj1, outputString);
+			}
+			String sql="select din from ixsd_cefs100101 where datetime=(select ifnull((select max(datetime) from ixsd_cefs100101),1))";
+			QueryExecutors execu=new QueryExecutors();
+			String din=execu.executeMyQuery(sql);
+			din=String.valueOf(Integer.parseInt(din)+1);
+			outputString.put("efs_uin","cefs100101");
+			outputString.put("version","1");
+			outputString.put("uid",uploadid);
+			outputString.put("din",din);
+			String outputJsonString=gson.toJson(outputString);
+			System.out.println("final json string =="+outputJsonString);
+			QueryExecutors exec = new QueryExecutors(); 
+			String res=exec.savePOStencilData(outputJsonString); //
+            System.out.println("Final result in Extract class ------> "+res);
+//			JSONObject object = new JSONObject();
+//			object.put("json", ixsddata);
+//			
+
+			//object.accumulateAll(ixsddata);
+			
+			// Map<String, String> map= ixsddata.get(0);
+			
+//			String jsonString = gson.toJson(object);
+
+//			System.out.println("Json string new =====>=====>  " + jsonString);
+//			for (Map<String, String> odj11 : ixsddata) {
+//				System.out.println("Map list value   ======> " + odj11);
+//			}
+
+			// JSONObject jsonObj = new JSONObject(mxsdjsonObject);
+			/*
+			 * System.out.println(jsonObj.get("")); String xml =
+			 * XML.toString(jsonObj); System.out.println(XML.toString(jsonObj));
+			 * 
+			 * System.out.println("Xml is ==== > \n " + xml);
+			 * 
+			 * XML file is insert to Database
+			 * 
+			 * String query = "{call cmxsd_efs_storage('" + customerid + "','" +
+			 * xml + "')}";
+			 * 
+			 * QueryExecutors queryObj = new QueryExecutors();
+			 * 
+			 * @SuppressWarnings("rawtypes") ArrayList<ArrayList> resultList =
+			 * queryObj.callProcedure(query); ArrayList<Map<String,String>>
+			 * arrayObj=resultList.get(0);
+			 */
+
+			/*
+			 * Map<String, String> output = new HashMap<String, String>();
+			 * 
+			 * 
+			 * org.json.simple.JSONObject mxsd=(org.json.simple.JSONObject)
+			 * json.get("mxsd"); org.json.simple.JSONObject
+			 * form=(org.json.simple.JSONObject) mxsd.get("form");
+			 * org.json.simple.JSONObject header=(org.json.simple.JSONObject)
+			 * form.get("header"); org.json.simple.JSONObject
+			 * group=(org.json.simple.JSONObject) header.get("group"); int
+			 * flag=0; JSONArray field=null; org.json.simple.JSONObject
+			 * field1=null; try{ field=(JSONArray) group.get("field"); }
+			 * catch(Exception e){ flag=1;} if(flag == 1){ try{
+			 * field1=(org.json.simple.JSONObject) group.get("field"); }
+			 * catch(Exception e){ flag=2;} } org.json.simple.JSONObject
+			 * object=null; if(flag==0){ for(int k=0;k<field.size();k++){
+			 * object=(org.json.simple.JSONObject)field.get(k); Extract
+			 * extract=new Extract(); extract.parse(object, output); } } else
+			 * if(flag == 1){ Extract extract=new Extract();
+			 * extract.parse((JSONObject) group.get("field"), output); }
+			 * 
+			 * 
+			 * 
+			 * output.put("efs_uin","ces100101"); output.put("version","1");
+			 * output.put("uid",uploadid); //Gson gson = new Gson(); String
+			 * headerText=gson.toJson(output);
+			 * System.out.println("header..."+headerText); // String
+			 * outputJsonString=gson.toJson(output); QueryExecutors exec = new
+			 * QueryExecutors(); // String
+			 * res=exec.savePOStencilData(outputJsonString); //
+			 * System.out.println("Final result in Extract class ------> "+res);
+			 * 
+			 */
 		}
-	
 
+		String next_channel = "baas.workflow";
+		ipost.setNext_channel(next_channel);
+
+		String playload = ipost.toString();
+		msg = MessageBuilder.withPayload(playload).setHeader("NextQue", ipost.getNext_channel()).build();
+		return msg;
+
+	}
+
+	public static String getMXSDList(String dbimgefsuin, String customerid, String uploadid)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+
+		//String sqltemp = "{call load_classify_templ_apply('" + dbimgefsuin + "'," + "'" + customerid + "','" + uploadid	+ "')}";
+		QueryExecutors queryObj = new QueryExecutors();
+		@SuppressWarnings("rawtypes")
+		String sqlmxsd = "Select  cindexclassifystencil.eFS_XSD_location,  cindexclassifystencil.efs_uin From  cindexclassifystencil Where  cindexclassifystencil.form_stencid = (select max(cindexclassifystencil.form_stencid) from cindexclassifystencil where cindexclassifystencil.efs_uin='"
+				+ dbimgefsuin + "')";
+		String res = queryObj.executeMyQuery(sqlmxsd);
+		return res;
+
+	}
+
+	public ArrayList<ArrayList> getPdflocation(String uid, String customerid)
+			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+
+		String sql = "{call load_pdf_location('" + uid + "'," + "'" + customerid + "')}";
+		QueryExecutors queryObj = new QueryExecutors();
+		@SuppressWarnings("rawtypes")
+		ArrayList<ArrayList> resultList = queryObj.callProcedure(sql);
+		return resultList;
+
+	}
+
+	public static Map<String, String> parse(JSONObject json, Map<String, String> out) throws JSONException {
+		
+		JSONParser parser = new JSONParser();
+		// Object obj = parser.parse(new FileReader("simple.json"));
+		JSONObject jsonObject = (JSONObject) json;
+		for (Iterator iterator = jsonObject.keySet().iterator(); iterator.hasNext();)
+		{
+			String key = (String) iterator.next();
+			//System.out.println("json key == "+jsonObject.get(key));
+			
+				out.put(key, jsonObject.get(key).toString());
+		}
+		return out;
+	}
+
+	/*
+	 * public static void main(String[] args) throws InstantiationException,
+	 * IllegalAccessException, ClassNotFoundException, SQLException,
+	 * FileNotFoundException, IOException, ParseException, JSONException {
+	 * 
+	 * String mxsdList = getMXSDList("cefs100101", "1", "86");
+	 * System.out.println("mxsd " + mxsdList); File currentDirFile = new
+	 * File("."); String helper = currentDirFile.getAbsolutePath(); String
+	 * currentDir = helper.substring(0, helper.lastIndexOf('.')).replace('\\',
+	 * '/');
+	 * 
+	 * System.out.println("currentDir " + currentDir.replace("hethi.services/",
+	 * "hethi.ui/")); String pathFile = currentDir.replace("hethi.services/",
+	 * "hethi.ui/") + "src/web/client/" +
+	 * mxsdList.substring(mxsdList.lastIndexOf("/images") + 1,
+	 * mxsdList.length()); System.out.println("pathFile " + pathFile);
+	 * 
+	 * // String ss = //
+	 * mxsdList.substring(0,mxsdList.lastIndexOf("/images")).replace(oldChar, //
+	 * newChar) String imageFullPath = "D:/Feb_11/invoice_1.jpg"; String
+	 * pdfFullPath = "D:/Feb_11/invoice_1.pdf"; // String jsonstring =
+	 * "D:/jsonst.json"; String jsonstring =
+	 * XMLtoJsonConverter.convertXMLToJson(pathFile);
+	 * ReadJson.jsonHandler(jsonstring, pdfFullPath, imageFullPath);
+	 * 
+	 * }
+	 */
 
 }

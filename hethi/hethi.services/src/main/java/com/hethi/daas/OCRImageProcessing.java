@@ -13,13 +13,16 @@ import net.sourceforge.tess4j.TesseractException;
 
 public class OCRImageProcessing {
 
-	public static String getSearchablePDF(File inputfile) throws TesseractException {
+	public static String getSearchablePDF(String inputfile) throws TesseractException {
 		Tesseract tessaractInstance = Tesseract.getInstance();
 		List<RenderedFormat> list = new ArrayList<RenderedFormat>();
 		
 		Properties properties = new Properties();
 		try {
-			properties.load(new FileInputStream(new File("src/main/resources/application.properties")));
+			/*File currentDirFile = new File(".");
+			String helper = currentDirFile.getAbsolutePath();
+			String currentDir = helper.substring(0, helper.lastIndexOf('.')).replace('\\', '/');*/
+			properties.load(new FileInputStream(new File("src/main/resources/config/application.properties")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -29,11 +32,11 @@ public class OCRImageProcessing {
 		//list.add(RenderedFormat.HOCR);
 		tessaractInstance.setLanguage("eng");
 		tessaractInstance.setDatapath(properties.getProperty("tessdataPath"));
-		String outfileLocation = inputfile.toString().substring(0, inputfile.toString().lastIndexOf("\\"));
-		String fileName = inputfile.toString().substring(inputfile.toString().lastIndexOf("\\"),
-				inputfile.toString().lastIndexOf("."));
+		String outfileLocation = inputfile.substring(0, inputfile.lastIndexOf("/"));
+		String fileName = inputfile.substring(inputfile.lastIndexOf("/"),
+				inputfile.lastIndexOf("."));
 		try{
-		tessaractInstance.createDocuments(inputfile.toString(), outfileLocation + fileName, list);
+		tessaractInstance.createDocuments(inputfile, outfileLocation + fileName, list);
 		}
 		catch(TesseractException te){
 			System.out.println(te);
@@ -83,6 +86,7 @@ public class OCRImageProcessing {
 	 */
 
 	/*
+	 * 
 	 * public static void getStencilPDF(String xmlFile) throws
 	 * TesseractException{ Tesseract tessaractInstance =
 	 * Tesseract.getInstance(); List<RenderedFormat> list = new

@@ -18,7 +18,7 @@ public class ServicePlayQueue {
 		
 		String CID=ipost.getCustomer_id();
 		String EFS_UIN=ipost.getEfs_uin();
-		String SFS_UIN=ipost.getSfs_uin();
+		String SFS_UIN="csfs100101";
 		
 		String sql = "{ call load_next_serviceplay('"+CID+"','"+EFS_UIN+"','"+SFS_UIN+"') }";
 		System.out.println(sql);
