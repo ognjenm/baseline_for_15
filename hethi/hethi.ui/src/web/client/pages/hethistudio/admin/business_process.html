@@ -321,13 +321,13 @@
                                                     <div class="col-md-9">
                                                         <div class="btn-group" >
                                                             <button type="button" btn-radio="'simple'" ng-click="setRuleType('simple')"
-                                                                    ng-class="ruleType == 'simple'?'btn btn-primary':'btn btn-line-primary'">
+                                                                    ng-class="ruleType == 'simple'?'btn btn-line-primary active':'btn btn-line-primary'">
                                                                 single statement</button>
                                                             <button type="button" btn-radio="'lookup'" ng-click="setRuleType('lookup')"
-                                                                    ng-class="ruleType == 'lookup'?'btn btn-primary':'btn btn-line-primary'">
+                                                                    ng-class="ruleType == 'lookup'?'btn btn-line-primary active':'btn btn-line-primary'">
                                                                 lookup statement</button>
                                                             <button type="button" btn-radio="'computation'" ng-click="setRuleType('computation')"
-                                                                    ng-class="ruleType == 'computation'?'btn btn-primary':'btn btn-line-primary'">
+                                                                    ng-class="ruleType == 'computation'?'btn btn-line-primary active':'btn btn-line-primary'">
                                                                 computation statement</button>
                                                         </div>
                                                     </div>
@@ -547,77 +547,127 @@
 
                                                                      </div>
                                                                      <div ng-show="ruleType == 'computation'" >
+
+                                                                         <div ng-repeat="input in inputFields" class=" margin-bottom-10" style="padding: 10px">
+                                                                             <div class="row ">
+                                                                                 <div class="col-md-11 card">
+                                                                                     <div class="row margin-bottom-20">
+                                                                                         <div class="col-md-2">
+                                                                                             <span >on form entity</span>
+                                                                                         </div>
+
+                                                                                         <div class="col-md-3">
+                                                                                             <select ng-model="condition" class="form-control">
+                                                                                                 <option value="">select entity</option>
+                                                                                                 <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                                                             </select>
+                                                                                         </div>
+                                                                                         <div  class="col-md-4">
+                                                                                             <div class="btn-group" >
+                                                                                                 <button type="button" btn-radio="'sum'" ng-click="changeStatus(true,$index)" ng-class="input.tableRequired?'btn btn-line-primary active':'btn btn-line-primary'">
+                                                                                                     with look up
+                                                                                                 </button>
+                                                                                                 <button type="button" btn-radio="'tax'" ng-click="changeStatus(false,$index)" ng-class="input.tableRequired?'btn btn-line-primary':'btn btn-line-primary active'">
+                                                                                                     without look up
+                                                                                                 </button>
+                                                                                             </div>
+                                                                                         </div>
+
+
+
+                                                                                     </div>
+                                                                                     <div class="row margin-bottom-20">
+                                                                                         <div class="col-md-1" style="text-align: right;font-size: 15px">
+                                                                                             <span ng-show="input.tableRequired" class="fa fa-hand-o-right color-info"></span>
+                                                                                             <!--<span ng-show="input.tableRequired" class="fa fa-angle-right color-info"></span>-->
+                                                                                         </div>
+                                                                                         <div class="col-md-1">
+                                                                                             <span ng-show="input.tableRequired">from</span>
+                                                                                         </div>
+
+                                                                                         <div class="col-md-3">
+                                                                                             <select required="" ng-show="input.tableRequired" ng-model="lookUpForm.lookup" class="form-control">
+                                                                                                 <option value="">lookup repository</option>
+                                                                                                 <option ng-repeat="tables in typeOfOperators['Look Up']" value="{{tables}}">{{tables.operation_name}}</option>
+                                                                                             </select>
+                                                                                         </div>
+                                                                                         <div class="col-md-2" ng-show="input.tableRequired">
+                                                                                             <span>for entity</span>
+                                                                                         </div>
+                                                                                         <div class="col-md-3" ng-show="input.tableRequired">
+                                                                                             <select required="" ng-model="fd.field2" class="form-control">
+                                                                                                 <option value="">select entity</option>
+                                                                                                 <option value="inv_num" >inv_num</option>
+                                                                                             </select>
+                                                                                         </div>
+
+                                                                                         <!--<div class="col-md-3" ng-show="tableRequired">-->
+                                                                                         <!--<span> to refer</span>-->
+                                                                                         <!--</div>-->
+                                                                                     </div>
+                                                                                 </div>
+                                                                                 <div class="col-md-1">
+                                                                                     <span data-toggle="tooltip" data-placement="top"
+                                                                                           tooltip="remove this form entity"
+                                                                                           tooltip-placement="top" ng-click="inputFields.splice($index,1)" ng-if="inputFields.length > 1"
+                                                                                           class="btn btn-danger mouse_point margin-bottom-5">
+                                                                                          <i class="fa fa-remove"></i>
+                                                                                     </span>
+                                                                                     <span data-toggle="tooltip" data-placement="top"
+                                                                                           tooltip="add new form entity"
+                                                                                           tooltip-placement="top" data-ng-click="inputFields.push({id:inputFields.length+1,status:false})" ng-if="$last" class="btn btn-info mouse_point">
+                                                                                         <i class="fa fa-plus"></i>
+                                                                                     </span>&nbsp;
+
+                                                                                 </div>
+                                                                             </div>
+
+
+                                                                             <!--<div class="row margin-bottom-20">-->
+
+                                                                                 <!--<div class="col-md-1" ng-show="tableRequired">-->
+                                                                                     <!--<span>maps to</span>-->
+                                                                                 <!--</div>-->
+                                                                                 <!--<div class="col-md-2">-->
+                                                                                     <!--<select required="" ng-show="tableRequired" ng-model="lookUpForm.lookup" class="form-control">-->
+                                                                                         <!--<option value="">lookup tables</option>-->
+                                                                                         <!--<option ng-repeat="tables in typeOfOperators['Look Up']" value="{{tables}}">{{tables.operation_name}}</option>-->
+                                                                                     <!--</select>-->
+                                                                                 <!--</div>-->
+                                                                                 <!--<div class="col-md-2" ng-show="tableRequired">-->
+                                                                                     <!--<select required="" ng-model="fd.field2" class="form-control">-->
+                                                                                         <!--<option value="">select field</option>-->
+                                                                                         <!--<option value="inv_num" >inv_num</option>-->
+                                                                                     <!--</select>-->
+                                                                                 <!--</div>-->
+                                                                                 <!--<div class="col-md-3">-->
+                                                                                     <!--<span data-ng-click="inputFields.push({id:inputFields.length+1,status:false})" ng-if="$last" class="btn btn-info mouse_point">-->
+                                                                                         <!--<i class="fa fa-plus"></i> new field-->
+                                                                                     <!--</span>&nbsp;-->
+                                                                                     <!--<span ng-click="inputFields.splice($index,1)" ng-if="inputFields.length > 1" class="btn btn-danger mouse_point">-->
+                                                                                          <!--<i class="fa fa-remove"></i> this field-->
+                                                                                     <!--</span>-->
+                                                                                 <!--</div>-->
+                                                                             <!--</div>-->
+                                                                         </div>
+
                                                                          <div class="row margin-bottom-20">
                                                                              <div class="col-md-2">
-                                                                                 <span >Look up table</span>
+                                                                                 <span>apply logical operation</span>
                                                                              </div>
-                                                                             <div class="col-md-3">
-                                                                                 <div class="btn-group" >
-                                                                                     <button type="button" btn-radio="'sum'" ng-click="changeStatus(true)" ng-class="tableRequired?'btn btn-success':'btn btn-line-success'">
-                                                                                         required
-                                                                                     </button>
-                                                                                     <button type="button" btn-radio="'tax'" ng-click="changeStatus(false)" ng-class="tableRequired?'btn btn-line-success':'btn btn-success'">
-                                                                                         not required
-                                                                                     </button>
-                                                                                 </div>
-                                                                             </div>
-                                                                             <div class="col-md-2">
-                                                                                 <select required="" ng-show="tableRequired" ng-model="lookUpForm.lookup" class="form-control">
-                                                                                     <option value="">table names</option>
-                                                                                     <option ng-repeat="tables in typeOfOperators['Look Up']" value="{{tables}}">{{tables.operation_name}}</option>
-                                                                                 </select>
-                                                                             </div>
-                                                                             <div class="col-md-3" ng-show="tableRequired">
-                                                                                 <span> to refer</span>
-                                                                             </div>
-                                                                         </div>
-                                                                         <div ng-repeat="input in inputFields">
-
-                                                                             <div class="row margin-bottom-20">
-                                                                                 <div class="col-md-2">
-                                                                                     <span ng-if="$first"> for the field</span>
-                                                                                 </div>
-                                                                                 <div class="col-md-3">
-                                                                                     <select   ng-model="condition" class="form-control">
-                                                                                         <option value="">select field</option>
-                                                                                         <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
-                                                                                     </select>
-                                                                                 </div>
-                                                                                 <div class="col-md-2" ng-show="tableRequired">
-                                                                                     <span>maps with</span>
-                                                                                 </div>
-                                                                                 <div class="col-md-2" ng-show="tableRequired">
-                                                                                     <select required="" ng-model="fd.field2" class="form-control">
-                                                                                         <option value="">select field</option>
-                                                                                         <option value="inv_num" >inv_num</option>
-                                                                                     </select>
-                                                                                 </div>
-                                                                                 <div class="col-md-3">
-                                                                                     <span data-ng-click="inputFields.push({id:inputFields.length+1,status:false})" ng-if="$last" class="btn_hethi btn-info mouse_point">
-                                                                                         <i class="fa fa-plus"></i> new field
-                                                                                     </span>&nbsp;
-                                                                                     <span ng-click="inputFields.splice($index,1)" ng-if="inputFields.length > 1" class="btn_hethi btn-danger mouse_point">
-                                                                                          <i class="fa fa-remove"></i> this field
+                                                                             <div class="col-md-4">
+                                                                                 <div class="input-group">
+                                                                                     <input type="text" readonly class="form-control" ng-model="opera">
+                                                                                     <span type="button" class="btn btn-danger input-group-addon white-c" data-toggle="modal" data-target="#operationPalette">
+                                                                                         <i class="fa fa-search"></i> browse
                                                                                      </span>
                                                                                  </div>
-                                                                             </div>
-                                                                         </div>
 
-                                                                         <div class="row margin-bottom-20">
-                                                                             <div class="col-md-2">
-                                                                                 <span>to apply the operation</span>
                                                                              </div>
-                                                                             <div class="col-md-3">
-                                                                                 <input type="text" readonly class="form-control" ng-model="opera">
-                                                                             </div>
-                                                                             <div class="col-md-1" >
-                                                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#operationPalette">
-                                                                                    <i class="fa fa-search"></i> browse
-                                                                                 </button>
-                                                                             </div>
-                                                                             <div class="col-md-2" ng-show="requireValue">
-                                                                                 with
-                                                                             </div>
+
+                                                                             <!--<div class="col-md-2" ng-show="requireValue">-->
+                                                                                 <!--with-->
+                                                                             <!--</div>-->
                                                                          </div>
                                                                          <div class="row margin-bottom-20"  ng-show="requireValue">
                                                                              <div class="col-md-2">
@@ -676,7 +726,7 @@
                                                                          <div class="row">
                                                                              <div class="col-md-3"></div>
                                                                              <div class="col-md-3 ">
-                                                                                 <button class="btn btn-primary form-control">save condition</button>
+                                                                                 <button class="btn_hethi btn-primary form-control">save condition</button>
                                                                              </div>
 
                                                                          </div>
@@ -729,15 +779,15 @@
                                                              <div class="col-md-4" style="border-right: 1px solid #dcdcdc; text-transform: lowercase">
                                                                  <div class="wrap">
                                                                      <ul >
-                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="exception?'btn-success mouse_point':'btn-line-success '"
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="exception?'btn-line-primary active mouse_point':'btn-line-primary mouse_point'"
                                                                              ng-click="setSuccessTab('exception')" >Route to Exception</li>
-                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="mapping?'btn-success mouse_point':'btn-line-success mouse_point'"
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="mapping?'btn-line-primary active mouse_point':'btn-line-primary mouse_point'"
                                                                              ng-click="setSuccessTab('mapping')" >Map to Field</li>
-                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="queue?'btn-success mouse_point':'btn-line-success mouse_point'"
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="queue?'btn-line-primary active mouse_point':'btn-line-primary mouse_point'"
                                                                              ng-click="setSuccessTab('queue')" >Map to Queue</li>
-                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="isReturn?'btn-success':'btn-line-success'"
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="isReturn?'btn-line-primary active mouse_point':'btn-line-primary mouse_point'"
                                                                              ng-click="setSuccessTab('isReturn')" >Return</li>
-                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="rule?'btn-success':'btn-line-success'"
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="rule?'btn-line-primary active mouse_point':'btn-line-primary mouse_point'"
                                                                              ng-click="setSuccessTab('rule')" >Rule</li>
                                                                          <!--<li style="padding:10px;border:1px solid #dcdcdc" ng-class="default?'btn-success':'btn-line-success'"-->
                                                                          <!--ng-click="setActionTab('default')" >Set Defalut Value</li>-->
@@ -815,8 +865,8 @@
                                                                              </div>
                                                                              <div class="col-md-8">
                                                                                  <div class="btn-group">
-                                                                                     <button ng-click="setReturnValue(returnStatus)" ng-class="returnStatus?'btn btn-success':'btn btn-line-success'" btn-radio="true" ng-model="returnStatus">True</button>
-                                                                                     <button ng-click="setReturnValue(returnStatus)" ng-class="returnStatus?'btn btn-line-success':'btn btn-success'" btn-radio="false" ng-model="returnStatus">False</button>
+                                                                                     <button ng-click="setReturnValue(returnStatus)" ng-class="returnStatus?'btn btn-line-primary active':'btn btn-line-primary'" btn-radio="true" ng-model="returnStatus">True</button>
+                                                                                     <button ng-click="setReturnValue(returnStatus)" ng-class="returnStatus?'btn btn-line-primary':'btn btn-line-primary active'" btn-radio="false" ng-model="returnStatus">False</button>
                                                                                  </div>
                                                                                  <label>&nbsp; value</label>
                                                                              </div>
@@ -874,15 +924,15 @@
                                                              <div class="col-md-4" style="border-right: 1px solid #dcdcdc">
                                                                  <div class="wrap">
                                                                      <ul >
-                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fException?'btn-success mouse_point':'btn-line-success '"
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fException?'btn-line-primary active mouse_point':'btn-line-primary mouse_point '"
                                                                              ng-click="setFailureTab('fException')" >Route to Exception</li>
-                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fMapping?'btn-success mouse_point':'btn-line-success mouse_point'"
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fMapping?'btn-line-primary active mouse_point':'btn-line-primary mouse_point'"
                                                                              ng-click="setFailureTab('fMapping')" >Map to Field</li>
-                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fQueue?'btn-success mouse_point':'btn-line-success mouse_point'"
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fQueue?'btn-line-primary active mouse_point':'btn-line-primary mouse_point'"
                                                                              ng-click="setFailureTab('fQueue')" >Map to Queue</li>
-                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fIsReturn?'btn-success':'btn-line-success'"
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fIsReturn?'btn-line-primary active mouse_point':'btn-line-primary mouse_point'"
                                                                              ng-click="setFailureTab('fIsReturn')" >Return</li>
-                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fRule?'btn-success':'btn-line-success'"
+                                                                         <li style="padding:10px;border:1px solid #dcdcdc" ng-class="fRule?'btn-line-primary active mouse_point':'btn-line-primary mouse_point'"
                                                                              ng-click="setFailureTab('fRule')" >Rule</li>
                                                                          <!--<li style="padding:10px;border:1px solid #dcdcdc" ng-class="default?'btn-success':'btn-line-success'"-->
                                                                          <!--ng-click="setActionTab('default')" >Set Defalut Value</li>-->
@@ -961,8 +1011,8 @@
                                                                              </div>
                                                                              <div class="col-md-8">
                                                                                  <div class="btn-group">
-                                                                                     <button ng-click="setReturnValue(returnStatus1)" ng-class="returnStatus1?'btn btn-success':'btn btn-line-success'" btn-radio="true" ng-model="returnStatus1">True</button>
-                                                                                     <button ng-click="setReturnValue(returnStatus1)" ng-class="returnStatus1?'btn btn-line-success':'btn btn-success'" btn-radio="false" ng-model="returnStatus1">False</button>
+                                                                                     <button ng-click="setReturnValue(returnStatus1)" ng-class="returnStatus1?'btn btn-line-primary active':'btn btn-line-primary'" btn-radio="true" ng-model="returnStatus1">True</button>
+                                                                                     <button ng-click="setReturnValue(returnStatus1)" ng-class="returnStatus1?'btn btn-line-primary':'btn btn-line-primary active'" btn-radio="false" ng-model="returnStatus1">False</button>
                                                                                  </div>
                                                                                  <label> &nbsp; value</label>
                                                                              </div>
@@ -1103,8 +1153,8 @@
                                                      </div>
                                                      <div class="col-md-9">
                                                          <div class="btn-group text-lowercase">
-                                                             <button type="button"  ng-class="r.status?'btn btn-success':'btn btn-line-success'" btn-radio="true" ng-model="r.status">enable</button>
-                                                             <button type="button"  ng-class="r.status?'btn btn-line-success':'btn btn-success'" btn-radio="false" ng-model="r.status">disable</button>
+                                                             <button type="button"  ng-class="r.status?'btn btn-line-primary active':'btn btn-line-primary'" btn-radio="true" ng-model="r.status">enable</button>
+                                                             <button type="button"  ng-class="r.status?'btn btn-line-primary':'btn btn-line-primary active'" btn-radio="false" ng-model="r.status">disable</button>
                                                          </div>
                                                      </div>
                                                  </div>
