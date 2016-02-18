@@ -17,8 +17,8 @@
                                  </div>
                                  <div class="col-md-6">
                                      <div class="input-group">
-                                         <input placeholder="search operation" type="text" class="form-control">
-                                         <span class="input-group-addon fa fa-search btn-info"></span>
+                                         <input placeholder="search operation" type="text" class="form-control" ng-model="operation_name">
+                                         <span class="input-group-addon fa fa-search btn-info" data-ng-click="selectOperation(operation_name)"></span>
                                      </div>
                                  </div>
                              </div>
@@ -28,21 +28,29 @@
                                 </div>
                             </div>
                              <hr class="text-primary">
-                             <div ng-repeat="oper in operationList.opRow">
-                                 <div class="row margin-bottom-20" >
-                                     <div class="col-md-3" ng-repeat="opera in oper">
-                                         <div data-toggle="tooltip" data-placement="top"
+                            <div class="row   margin-bottom-10">
+                                    <button class="btn_hethi_square btn-danger" style="border-radius: 100%" type="button" ng-click="changeDisplay()">next track</button>
+                                    <span class="pull-right"></span>
+                            </div>
 
-                                              tooltip="{{opera.description}}"
-                                              tooltip-placement="top"
-                                              ng-click="selectOperation(opera,$index)" class="mouse_point operation" >
-                                             {{opera.operation_name}}
-                                         </div>
+                            <div class="row">
+                                <div ng-repeat="oper in operationList.opRow " id="displayId" ng-show="$index >= displayItems && $index < displayItems+2" >
+                                    <div class="row margin-bottom-20" >
+                                        <div class="col-md-3" ng-repeat="opera in oper">
+                                            <div data-toggle="tooltip" data-placement="top"
 
-                                     </div>
-                                 </div>
-                                 <hr>
-                             </div>
+                                                 tooltip="{{opera.description}}"
+                                                 tooltip-placement="top"
+                                                 ng-click="selectOperation(opera,$index)" ng-class="opera.status == 1 ? 'active  mouse_point':'operation mouse_point'" >
+                                                {{opera.operation_name}}
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
 
 
                             <div class="row margin-bottom-20">
