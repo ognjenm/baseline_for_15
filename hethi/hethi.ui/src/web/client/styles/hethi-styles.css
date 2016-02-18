@@ -5,6 +5,27 @@
 .margin-top-min-15{
     margin-top: -15px;
 }
+.card{
+    background-color: #DFF0D8;
+    padding-top: 15px;
+    border: 1px solid #329d76;
+}
+.operation{
+    height:100px;
+    border: 1px solid deepskyblue;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}
+.selectedOperation{
+    height:100px;
+    border: 1px solid deepskyblue;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    color:white;
+    background-color: #008cb6;
+}
 .btn-arrow{
     position: relative;
     float: right;
