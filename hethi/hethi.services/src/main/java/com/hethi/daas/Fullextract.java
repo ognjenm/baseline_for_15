@@ -14,6 +14,7 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 
 import com.hethi.domain.iPost;
+import com.hethi.utils.Log;
 import com.hethi.utils.QueryExecutors;
 
 import net.sf.jmimemagic.MagicException;
@@ -39,7 +40,8 @@ public class Fullextract {
 		System.out.println(" \n ");
 		System.out.println(" \n ");
 
-		iPost ipost = new iPost(data);
+		iPost ipost = new iPost(data);	  
+		
 		ipost.stackDescription(log);
 		ipost.setSfs_uin(ipost.getNext_queue());
 		ipost.setCurrent_channel(ipost.getNext_channel());
@@ -48,6 +50,16 @@ public class Fullextract {
 		String cusid = ipost.getCustomer_id();
 
 		ArrayList<ArrayList> fileLocationList = getImgFile(cusid, uid);
+		
+		String process_id=ipost.getSfs_uin();
+		String file_id="0";
+		String sub_process_id="1";
+		String status="1";
+		String user_id="1";	
+		
+        Log logger=new Log();
+		logger.log(cusid,uid, file_id, process_id, sub_process_id,status,user_id);
+
 
 		/**
 		 * get image path from static source
@@ -76,6 +88,13 @@ public class Fullextract {
 
 		int count = 1;
 		for (Map<String, String> mapObj : arrayList) {
+			
+			 file_id=mapObj.get("file_id");
+			 sub_process_id="1";
+			 status="1";
+			 logger.log(cusid,uid, file_id, process_id, sub_process_id,status,user_id);
+			
+			
 			/*
 			 * System.out.println("row " + count + " .. " + mapObj);
 			 * System.out.println("exact image path=" +
@@ -88,6 +107,10 @@ public class Fullextract {
 			// System.out.println("333333333333" + dbimgfileid);
 			imageFullPath = imageAbsPath + dbimgvalue;
 			System.out.println("check img location in db value   ***  " + imageFullPath);
+			
+
+			 status="2";
+			 logger.log(cusid,uid, file_id, process_id, sub_process_id,status,user_id);
 
 			ImageProcessesingServices.getFullOCR(imageFullPath);
 
@@ -95,6 +118,12 @@ public class Fullextract {
 					+ "')}";
 			QueryExecutors queryObj = new com.hethi.utils.QueryExecutors();
 			queryObj.callProcedure(updateSql);
+			
+			
+			 status="3";
+			 logger.log(cusid,uid, file_id, process_id, sub_process_id,status,user_id);
+			 
+
 			// System.out.println("*****************----------***************************");
 			count++;
 

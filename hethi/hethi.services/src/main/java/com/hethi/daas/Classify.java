@@ -3,6 +3,7 @@ package com.hethi.daas;
 import java.io.Reader;
 import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +33,9 @@ import org.springframework.messaging.support.MessageBuilder;
 
 
 import com.hethi.domain.iPost;
+import com.hethi.utils.Log;
+
+import net.sourceforge.tess4j.TesseractException;
 
 
 public class Classify {
@@ -46,7 +50,7 @@ public class Classify {
 		    newJson.put(id, name);
 		}
 	}*/
-	public  Message<String> Classify(String data) throws ParseException, InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException  {
+	public  Message<String> Classify(String data) throws ParseException, InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, SQLException, TesseractException  {
 		
 		
 		
@@ -66,22 +70,43 @@ public class Classify {
 	        ipost.stackDescription(log);
 	        ipost.setSfs_uin(ipost.getNext_queue());
 	        ipost.setCurrent_channel(ipost.getNext_channel());
-	        
-	        String efs_uin = "cefs100101";
-	        
+	        String efs_uin = "cefs100101";	        
 	        ipost.setEfs_uin(efs_uin);
+	       
+	       
+
+	        Log logger=new Log();
+
+	        ipost.setEfs_uin(efs_uin);
+
 	        String uid = ipost.getUid();
 	        String cusid = ipost.getCustomer_id();
-	        
-	        System.out.println("classify complet ***************************");
-	        
+
+			String process_id=ipost.getSfs_uin();
+			String file_id="0";
+			String user_id="1";	
+			
+			String sub_process_id="1";
+			String status="1";	
+			logger.log(cusid,uid, file_id, process_id, sub_process_id,status,user_id);
+			
+			
+			 
+			 
+
+	        Extract extract = new Extract();
+	        ArrayList<ArrayList>list=extract.getPdflocation(uid, cusid);
+	        ipost.setEfs_uin(efs_uin);
+	        System.out.println("classify complete ***************************");
+
 	        String next_channel= "daas.extract";
 			String sfs_uin = "csfs100106";
 			ipost.setSfs_uin(sfs_uin);
 			ipost.setNext_queue(sfs_uin);
 			ipost.setNext_channel(next_channel);
 			
-			
+			 status="2";
+			 logger.log(cusid,uid, file_id, process_id, sub_process_id,status,user_id);
 			/*ServicePlayQueue pq =new ServicePlayQueue();
 			String result=pq.NextServicePlay(ipost.toString());
 			
@@ -260,7 +285,8 @@ public class Classify {
 	    trans.commit();	
 	    session.close();
 	    */
-	    
+			 status="3";
+			 logger.log(cusid,uid, file_id, process_id, sub_process_id,status,user_id);
 			 String playload = ipost.toString();
 		        msg= MessageBuilder.withPayload(playload)
 	             .setHeader("NextQue",ipost.getNext_channel())

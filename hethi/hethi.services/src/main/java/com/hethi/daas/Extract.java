@@ -23,6 +23,7 @@ import org.springframework.messaging.support.MessageBuilder;
 
 import com.google.gson.Gson;
 import com.hethi.domain.iPost;
+import com.hethi.utils.Log;
 import com.hethi.utils.QueryExecutors;
 
 public class Extract {
@@ -41,21 +42,26 @@ public class Extract {
 		System.out.println("" + SEPARATOR);
 		System.out.println(" \n ");
 		System.out.println(" \n ");
-
 		iPost ipost = new iPost(data);
 		ipost.stackDescription(log);
 		ipost.setSfs_uin(ipost.getNext_queue());
 		ipost.setCurrent_channel(ipost.getNext_channel());
-
 		String uploadid = ipost.getUid();
 		String customerid = ipost.getCustomer_id();
+		
+		String process_id=ipost.getSfs_uin();
+		String file_id="0";
+		String sub_process_id="1";
+		String status="1";
+		String user_id="1";	
+		
+        Log logger=new Log();
+		logger.log(customerid,uploadid, file_id, process_id, sub_process_id,status,user_id);
+
 
 		/* get image and pdf location from db */
-
 		ArrayList<ArrayList> fileLocationList = getPdflocation(uploadid, customerid);
-
 		/* iterate image and pdf location */
-
 		Properties properties = new Properties();
 		try {
 
@@ -79,6 +85,12 @@ public class Extract {
 		String efs_data = "";
 
 		for (Map<String, String> mapObj : arrayList) {
+			
+			 file_id= mapObj.get("file_id");
+			 status="1";	
+			 logger.log(customerid,uploadid, file_id, process_id, sub_process_id,status,user_id);
+			
+			
 			// System.out.println("row " + count + " .. " + mapObj);
 			String dbimgvalue = mapObj.get("file_location").replace("http://localhost:5050/", "/");
 			imageFullPath = imageAbsPath + dbimgvalue;
@@ -88,9 +100,13 @@ public class Extract {
 			String pdfFullPath = imageFullPath.substring(0, imageFullPath.lastIndexOf(".")) + ".pdf";
 
 			/* Call MXSDList method for geting MXSD file path */
+			 status="2";	
+			 logger.log(customerid,uploadid, file_id, process_id, sub_process_id,status,user_id);
 
 			String mxsdList = getMXSDList(dbimgefsuin, customerid, uploadid);
-
+			
+			
+			
 			System.out.println("MXSDLIST path Result =======> " + mxsdList);
 
 			File currentDirFile = new File(".");
@@ -123,6 +139,7 @@ public class Extract {
 			String jsonStringFirst = gson.toJson(ixsddata);	
 			JSONArray jArray=(JSONArray)new JSONParser().parse(jsonStringFirst);
 			System.out.println("Json First string new =====>=====>  " + jsonStringFirst);
+			
 			Map<String,String> outputString=new HashMap<String,String>();
 			for(int index=0;index<jArray.size();index++){
 				JSONObject jsonObj1=(JSONObject)jArray.get(index);
@@ -209,7 +226,15 @@ public class Extract {
 			 * System.out.println("Final result in Extract class ------> "+res);
 			 * 
 			 */
+            
+            
+			 status="3";	
+			 logger.log(customerid,uploadid, file_id, process_id, sub_process_id,status,user_id);
+
 		}
+		
+		
+		
 
 		String next_channel = "baas.workflow";
 		ipost.setNext_channel(next_channel);
