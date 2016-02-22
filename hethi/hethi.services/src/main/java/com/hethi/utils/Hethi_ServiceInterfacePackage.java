@@ -40,6 +40,8 @@ public class Hethi_ServiceInterfacePackage implements Hethi_SeviceInterface {
 			String sfs_uin =json.get("sfs_uin").toString();
 			String current_channel =json.get("current_channel").toString();
 			String uid = json.get("uid").toString();
+			String filePath=json.get("source_document_path_local").toString();
+			
 			String din="1";
 			
 			int version=1;
@@ -58,7 +60,7 @@ public class Hethi_ServiceInterfacePackage implements Hethi_SeviceInterface {
 			
 			
 			//assign json to class 
-//			iPost ipost = new Gson().fromJson(msg, iPost.class);
+			//iPost ipost = new Gson().fromJson(msg, iPost.class);
 			
 			
 	        iPost ipost=new iPost();
@@ -73,6 +75,7 @@ public class Hethi_ServiceInterfacePackage implements Hethi_SeviceInterface {
 	        ipost.setUid(uid);
 	        ipost.setVersion(version);
 	        ipost.setUser_id(user_id);
+	        ipost.setSource_document_path_local( filePath);
 	        
 
 	        
