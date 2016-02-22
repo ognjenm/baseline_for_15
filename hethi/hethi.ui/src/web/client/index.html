@@ -47,8 +47,8 @@
     <link rel="stylesheet" href="styles/animate.css">
 
     <link rel="stylesheet" href="styles/color.css">
-
-
+    <link rel="stylesheet" href="styles/floatingContact/style.css">
+    <link rel="stylesheet" href="styles/item_box.css">
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -58,7 +58,7 @@
     <![endif]-->
 </head>
 
-<body role="document" data-ng-controller="appHomeController">
+<body role="document" data-ng-controller="appHomeController" class="">
 <!--<FONT FACE="modern">-->
     <!--bookman  algerian arial courier desdemona garamond modern symbol wingdings-->
 <div id="wrapper1">
@@ -68,7 +68,7 @@
 
     <div id="header1" class="top">
         <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
@@ -76,18 +76,18 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <div class="" style="margin-top: 5px;margin-bottom: 5px">
+                    <div class="" style="margin-top: 10px;">
                         <div class="hethi_logo">
                             <a class="hethi_logo-text" href="/">hethi</a>
                         </div>
-                        <div style="margin-left: 20px; color: #ffffff;font-family: 'Philosopher-Regular';">business $implified</div>
+                        <!--<div style="margin-left: 20px; color: #ffffff;font-family: 'Philosopher-Regular';">business $implified</div>-->
                     </div>
                     <!--<a class="navbar-brand" href="/">Hethi</a>-->
                 </div>
                 <div id="navbar" class="navbar-collapse collapse navbar-right">
-                    <div class="divider"> </div>
 
-                    <ul class="nav navbar-nav">
+
+                    <ul class="nav navbar-nav margin-top-20">
                         <!--<li class="{{HomeActive}}"><a href="/">Home </a></li>-->
                         <!--<li  ng-show="isSigned" ><a href="/">-->
                             <!--&lt;!&ndash;<span ng-hide="isSigned" >Home</span> &ndash;&gt;-->
@@ -124,15 +124,15 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown" ng-hide="isSigned" >
-                            <a href="#sign_in_modal" data-toggle="modal" data-target="#sign_in_modal">Sign In</a>
+                        <li class="" ng-hide="isSigned" >
+                            <a href="#sign_in_modal" data-toggle="modal" data-target="#sign_in_modal"><span class="fa fa-sign-in grey" style="font-size: 22px"> </span> Sign In</a>
 
                         </li>
-                        <li class="dropdown" ng-hide="isSigned" >
-                            <a href="#" data-ng-click="signUp()" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">join hethi network
-                            </a>
+                        <!--<li class="" ng-hide="isSigned" >-->
+                            <!--<a href="#" data-ng-click="signUp()"  class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">join hethi network-->
+                            <!--</a>-->
 
-                        </li>
+                        <!--</li>-->
 
 
 
@@ -195,51 +195,72 @@
     <!--</footer>-->
     <div id="footer1">
         <div class="">
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div style="border-bottom: 1px solid #ffffff;padding-top: 5px;padding-bottom: 5px;color: #ffffff">
-                            hethi BPaaS
-                        </div>
-                    </div>
-                </div>
-                <div class="footer_content ">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <span><a href="#">robotic process automation</a></span>
-                        </div>
-                        <div class="col-md-3">
-                            <span><a href="#">convergence to industry SOP</a></span>
-                        </div>
-                        <div class="col-md-3">
-                            <span><a href="#">cloudplug network</a></span>
-                        </div>
-                        <div class="col-md-3">
-                            <span><a href="#">cloudplug integration</a></span>
-                        </div>
-                    </div>
+            <!--<div class="col-md-8">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                        <!--<div style="border-bottom: 1px solid #ffffff;padding-top: 5px;padding-bottom: 5px;color: #ffffff">-->
+                            <!--hethi BPaaS-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="footer_content ">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-3">-->
+                            <!--<span><a href="#">robotic process automation</a></span>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                            <!--<span><a href="#">convergence to industry SOP</a></span>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                            <!--<span><a href="#">cloudplug network</a></span>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                            <!--<span><a href="#">cloudplug integration</a></span>-->
+                        <!--</div>-->
+                    <!--</div>-->
 
-                </div>
+                <!--</div>-->
 
-            </div>
-            <div class="col-md-4 text-uppercase">
+            <!--</div>-->
+            <!--<div class="col-md-4 text-uppercase">-->
 
-                <h3>Follow Us &nbsp;&nbsp; <img style="width: 115px" src="images/icon/linkedin.png"></h3>
+                <!--<h3>Follow Us &nbsp;&nbsp; <img style="width: 115px" src="images/icon/linkedin.png"></h3>-->
 
-            </div>
+            <!--</div>-->
 
+<div class="col-md-4">
+
+    <div class="copyright-text text-center">
+        <div class="divider"></div>
+        <span class="small  copyright-text">Copyright &copy; <script>document.write(new Date().getFullYear())</script> hethi. All Rights Reserved.</span>
+
+    </div>
+
+</div>
+<div class="col-md-4 text-center">
+    <h3>Follow Us &nbsp;&nbsp; <img style="width: 115px" src="images/icon/linkedin.png"></h3>
+</div>
+<div class="col-md-4">
+    <div class="copyright-text text-center">
+        <div class="divider"></div>
+        <span class="small copyright-text">
+    <span>Privacy Policy </span>&nbsp;&nbsp;&nbsp;&nbsp;
+        <span>Terms of Use </span>&nbsp;&nbsp;&nbsp;&nbsp;
+</span>
+    </div>
+</div>
         </div>
-        <div class="">
-            <!--<span class="small text-center copyright-text">Copyright &copy; <script>document.write(new Date().getFullYear())</script> hethi</span>-->
-            <div class="copyright-text small text-center">
-                <span>Terms of Use </span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>Privacy Policy </span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>Copyright </span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>About Us </span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span>Contact Us</span>
-            </div>
+        <!--<div class="">-->
+            <!--&lt;!&ndash;<span class="small text-center copyright-text">Copyright &copy; <script>document.write(new Date().getFullYear())</script> hethi</span>&ndash;&gt;-->
+            <!--<div class="copyright-text small text-center">-->
+                <!--<span>Terms of Use </span>&nbsp;&nbsp;&nbsp;&nbsp;-->
+                <!--<span>Privacy Policy </span>&nbsp;&nbsp;&nbsp;&nbsp;-->
+                <!--<span>Copyright </span>&nbsp;&nbsp;&nbsp;&nbsp;-->
+                <!--<span>About Us </span>&nbsp;&nbsp;&nbsp;&nbsp;-->
+                <!--<span>Contact Us</span>-->
+            <!--</div>-->
 
-        </div>
+        <!--</div>-->
     </div>
 
 </div>
@@ -266,7 +287,7 @@
 
 <script src="scripts/js/jquery.Jcrop.js"></script>
 <script src="scripts/js/jquery.color.js"></script>
-
+<script src="scripts/lib/move-top.js"></script>
 
 
 
@@ -335,6 +356,10 @@
 
 <script src="scripts/hethi/controllers/NewHomeController.js"></script>
 <script src="scripts/hethi/controllers/freedemocontroller.js"></script>
+<script src="scripts/hethi/controllers/exceptionController.js"></script>
+
+<script src="scripts/hethi/controllers/exceptionlistController.js"></script>
+
 <script type="text/javascript">
     // create the back to top button
     $('body').prepend('<a href="#" class="back-to-top">Back to Top</a>');

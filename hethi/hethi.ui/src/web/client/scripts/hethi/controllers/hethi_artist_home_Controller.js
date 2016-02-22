@@ -1308,7 +1308,8 @@ $scope.loadMasterForm=function(path){
             var input={
                 upload_id:$scope.stencilForm[0].upload_id,
                 file_id:$scope.stencilForm[0].file_id,
-                user_id:$scope.stencilForm[0].user_id,
+                customer_id:$scope.stencilForm[0].user_id,
+                user_id:$rootScope.loginedUserData.user_id,
                 nextqueue:3 ,
                 efs_content:xml//stenciling completed
             };
@@ -2375,7 +2376,10 @@ $scope.loadMasterForm=function(path){
     };
     $scope.JcropLoader=function() {
         $.Jcrop('#stencilingImage');
-}
+    };
+    $scope.autostencilMouseHover=function(item){
+
+    }
 
 
     }]);

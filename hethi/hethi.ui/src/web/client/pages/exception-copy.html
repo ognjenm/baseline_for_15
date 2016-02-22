@@ -1,0 +1,324 @@
+<div data-ng-controller="exceptionController" class="margin_top_60">
+
+    <div class="hethiSummary_Caption">
+        <div class="row">
+            <div class="col-md-12">
+                <span class="pull-left">User Name : ABC</span>
+                <span class="pull-right">Assignment : 2 / Total : 3 <a href="/hethistudio_admin"> <span class="fa fa-close" data-ng-click="selectQueueTab(4);"></span> </a> </span>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom-25">
+        <div class="col-md-2"></div>
+        <div class="col-md-7"  style="border-bottom: 4px solid #D2D0D0; padding-bottom: 10px">
+            <div class="">
+                <button ng-repeat="efs in efs_uin" class="btn_hethi margin-right-5" ng-class="efs.className" data-ng-click="setStencilingForm(efs,$index)">
+                    <span class="thanksMsg font_b" ><b> {{efs.form_type}} </b></span>
+                </button>
+                <button ng-click="showAttachments()"  class="btn_hethi margin-right-5" ng-class="classNames" >
+                    <span class="thanksMsg font_b" ><b> Attachments </b></span>
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="row">
+        <!--<div class="col-md-2 col-sm-2">
+            <div class="row" >
+                <div ng-hide="noDocument" style="overflow-y: scroll;height: 400px;padding-top: 5px">
+                    <div ng-show="efs_image_show" class="margin-top-10" ng-repeat="files in efs_uin_images|filter:{efs_uin:selectedefs_uin}">
+                        <img ng-click="changeImage(files,$index)" class="thumbnail img-responsive img-center " style="height: 120px;"  src="{{files.file_location}}">
+                        <div class=" caption img-center text-center margin-top-10 " ng-class="files.filePosition" >
+                            <a href="" style="text-decoration: none" data-ng-click="changeImage(files,$index)" >
+                                <span class="thanksMsg" style="color: #000000"> Page {{$index+1}} / {{count}}</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div ng-show="attachments_image_show" class="margin-top-10" ng-repeat="files in attachments">
+                        <img ng-click="changeImage(files,$index)" class="thumbnail img-responsive img-center " style="height: 120px;"  src="{{files.file_location}}">
+                        <div class=" text-center margin-top-10" ng-class="files.filePosition" >
+                            <a href="" style="text-decoration: none" data-ng-click="changeImage(files,$index)">
+                                <span class="thanksMsg" style="color: #000000"> Page {{$index+1}} / {{count}} </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="col-md-9 col-sm-7">
+
+            <div ng-hide="noDocument" class="panel panel-dark" style="overflow-y: scroll;height: 400px;padding-top: 5px">
+                <img src="{{selectedimage}}"
+                     class=" img-responsive img-thumbnail"
+                     id="stencilingImage"
+                     alt="stenciling image not found"
+                     style="">
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3">
+
+            <div class="table-responsive container_Max_height" ng-show="efs_image_show">
+                <table class="table table-bordered hethi_tableStyle" style="width: 250px">
+                    <tr style="background-color: #2498BA;color: #ffffff">
+                        <th class="text-center">
+                            <div class="th">
+                                Key
+                            </div>
+                        </th>
+                        <th class="text-center">
+                            <div class="th" >
+                                Value
+                            </div>
+                        </th>
+                        <!--<th class="text-center">
+                            <div class="th">
+                                Edit
+                            </div>
+                        </th>-->
+                    </tr>
+                    <tr ng-if="indexer.key!='$$hashKey'" ng-repeat="indexer in ixsd_history_last"  >
+                        <td >{{indexer.key}}</td><td><input class="form-control ng-pristine ng-valid" ng-show="txtshow" ng-model="indexer.value" type="text">
+                         <span ng-hide="txtshow" >
+                                     {{indexer.value}}
+                                 </span></td>
+                    </tr>
+
+                </table>
+                <!--<div class="col-md-offset-4 col-md-2">
+                    <button class ="btn btn-success" ng-hide="txtshow" ng-click="txtshow=!txtshow;">Edit</button>
+                    <button class ="btn btn-success" ng-show="txtshow" ng-click="txtshow=!showtextbox;">Save</button>
+                </div>-->
+            </div>
+
+        </div>
+    </div>
+
+    <div class="containerlg" ng-show="noDocument">
+        <div class="thanksMsg">
+            <h1>
+                <i class="fa fa-info-circle"></i> No Attachment  available
+            </h1>
+
+        </div>
+
+    </div>
+
+
+    <div class="divider-lg"></div>
+
+    <ul class="nav nav-boxed nav-justified tabbable ver-horizontal-menu" ng-show="efs_image_show">
+        <!--<ul class="ver-inline-menu tabbable margin-bottom-10">-->
+        <li class="active" data-ng-class="">
+            <a data-toggle="tab" href="#" data-ng-click="selectPO(1)">
+                Line Item
+            </a>
+        </li>
+
+        <li>
+            <a data-toggle="tab" href="#" data-ng-click="selectPO(2)">
+                Exception
+            </a>
+        </li>
+        <!--<li>-->
+        <!--<a data-toggle="tab" href="#" data-ng-click="selectPO(4)">-->
+        <!--Attachments-->
+        <!--</a>-->
+        <!--</li>-->
+        <li>
+            <a data-toggle="tab" href="#" data-ng-click="selectPO(3)">
+                Workitem History
+            </a>
+        </li>
+        <li data-ng-class="colClass">
+            <a data-toggle="tab" href="#" data-ng-click="selectPO(4)">
+                Content History
+            </a>
+        </li>
+    </ul>
+    <div class="row margin-top-10" data-ng-switch="POtab" ng-show="efs_image_show">
+        <!--Member Div Starts Here-->
+        <div class="col-md-12" data-ng-switch-when="1">
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead style="background-color: #000000;color: #ffffff">
+                    <tr>
+                        <th ng-repeat="item in POLineItem[0] | orderBy : 'key'">{{item.key}}</th>
+                    </tr>
+
+                    </thead>
+                    <tbody >
+                    <tr ng-repeat="items in POLineItem">
+                        <!--<input class="form-control ng-pristine ng-valid" ng-show="true"  type="text">-->
+                        <td  ng-repeat="item in items | orderBy : 'key'">
+                            <input class="form-control ng-pristine ng-valid"  ng-show="txtshow" ng-model="item.value" type="text">
+                            <a ng-hide="txtshow"ng-if="item.key=='status'" href="#"  class="btn_hethi btn_hethi-xs green">
+                                &nbsp;&nbsp;{{item.value}}&nbsp;&nbsp;
+                            </a>
+                                 <span ng-hide="txtshow" ng-if="item.key!='status'">
+                                     {{item.value}}
+                                 </span>
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+
+        <div class="col-md-12" data-ng-switch-when="2">
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead style="  background-color: #000000;color: #ffffff">
+                    <tr>
+                        <th>Exception Datetime</th>
+                        <th>Line Item Exception Reason</th>
+                        <th>Exception Reasons</th>
+                        <th>Exception Category</th>
+                        <th>Discrepancy Reason</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  data-ng-repeat="exception in Exception">
+                        <td>{{exception.exception_datetime}}</td>
+                        <td>{{exception.line_item_exception_reason}}</td>
+                        <td>{{exception.excepionreason}}</td>
+                        <td>{{exception.exceptioncategory}}</td>
+                        <td>{{exception.descrepancy_reason}}</td>
+
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--<div class="col-md-12" data-ng-switch-when="4">-->
+        <!--<h3>Attachments</h3>-->
+        <!--</div>-->
+        <div class="col-md-12" data-ng-switch-when="3">
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead style="  background-color: #000000;color: #ffffff">
+                    <tr>
+                        <th>Queue Name</th>
+                        <th>User Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Duration</th>
+                        <th>Workitem Status</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="ItemHistory in WorkItemHistory">
+                        <td>{{ItemHistory.QueueName}}</td>
+                        <td>{{ItemHistory.UserName}}</td>
+                        <td>{{ItemHistory.StartDate}}</td>
+                        <td>{{ItemHistory.EndDate}}</td>
+                        <td>{{ItemHistory.Duration}} Day(s)</td>
+                        <td>{{ItemHistory.WorkItemStatus}}</td>
+
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="col-md-12" data-ng-switch-when="4">
+
+            <div ng-show="currentPageStoresIndexer" class="table-responsive">
+                <table class="table table-bordered">
+                    <thead style="  background-color: #000000;color: #ffffff">
+                    <tr>
+                        <th>Field Name</th>
+                        <th>Old Value</th>
+                        <th>New Value</th>
+                        <th>Workitem Status</th>
+                        <th>User Name</th>
+                        <th>Date Modified</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-if="history.FieldName!='$$hashKey' " data-ng-repeat="history in currentPageStoresIndexer">
+                        <td>{{history.FieldName}}</td>
+                        <td>{{history.OldValue}}</td>
+                        <td>{{history.NewValue}}</td>
+                        <td>{{history.WorkItemStatus}}</td>
+                        <td>{{history.UserName}}</td>
+                        <td>{{history.DateModified}}</td>
+
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="row col-md-12 margin-top-50" ng-hide="currentPageStoresIndexer">
+                <div class="containerlg">
+                    <div class="thanksMsg">
+                        <h1>
+                            <i class="fa fa-info-circle"></i>
+                            Neither content has changed
+                        </h1>
+                        <div class="divider-md"></div>
+
+                    </div>
+
+                </div>
+            </div>
+            <footer ng-show="currentPageStoresIndexer" class="table-footer">
+                <div class="row">
+                    <div class="col-md-6 page-num-info">
+                    <span>
+                                                        <!--data-ng-options="num for num in numPerPageOptIndexer"-->
+
+                        Show
+                        <select data-ng-model="numPerPageIndexer"
+                                data-ng-options="num for num in numPerPageOptIndexer"
+                                data-ng-change="onNumPerPageChangeIndexer(numPerPageIndexer)">
+                            <!--<option ng-repeat="num in numPerPageOptIndexer" value="{{num.no}}">{{num.no}}</option>-->
+                        </select>
+
+                        entries per page
+                    </span>
+                    </div>
+                    <div class="col-md-6 text-right pagination-container">
+                        <pagination class="pagination-sm"
+                                    page="currentPageIndexer"
+                                    total-items="filteredStoresIndexer.length"
+                                    max-size="4"
+                                    ng-click="selectIndexer(currentPageIndexer)"
+                                    items-per-page="numPerPageIndexer"
+                                    rotate="false"
+                                    boundary-links="true"></pagination>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+    </div>
+
+    <div class="col-md-offset-10 col-md-2">
+        <button class ="btn btn-success" ng-hide="txtshow" ng-click="txtshow=!txtshow;">Edit</button>
+        <button class ="btn btn-success" ng-show="txtshow" ng-click="saveTxtvalue(POLineItem,ixsd_history_last);txtshow=!txtshow;">Save</button>
+    </div>
+
+    <div class="divider-lg"></div>
+    <div class="divider-lg"></div>
+
+
+</div>

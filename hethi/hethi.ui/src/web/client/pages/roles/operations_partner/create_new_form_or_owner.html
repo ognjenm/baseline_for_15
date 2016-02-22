@@ -1,0 +1,106 @@
+<div id="createNewFormModel" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div>
+                <div class="modal-header">
+                    <span class="fa fa-close ash-c pull-right mouse_point" data-dismiss="modal" aria-hidden="true"></span>
+
+                    <h4 class="modal-title text-center">create a new form or owner</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body panel">
+                            <div class="form-group">
+                                <div class="col-md-12">
+
+                                    <div class="col-md-12">
+                                        <img src="{{selected_form.file_location}}" class="img-responsive">
+                                    </div>
+                                    <div class="row">
+                                        <div class="divider"></div>
+
+                                        <div class="col-md-6">
+                                            <span class="text-small"> select form owner </span>
+                                            <select  class="form-control " ng-model="new_form.bps" ng-options="user as  user.BPaaS_service   for user in bps_master_data_list"  required="" >
+                                                <option  value="">Select a business process</option>
+                                            </select>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="text-small"> select form owner </span>
+                                            <select  class="form-control " ng-model="new_form.indus" ng-options="user as  user.indus_service  for user in industry_master_data_list"  required="">
+                                                <option value="">Select an industry</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="divider"></div>
+                                        <div class="divider"></div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <span class="text-small"> select form LOB </span>
+                                                <select  class="form-control " ng-model="new_form.efslob" ng-options="user as  user.form_type for user in flob_master_data_list" required="">
+                                                        <option value="">Select a form LOB</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group ">
+                                                <span class="text-small"> select form owner </span>
+                                                <select  class="form-control " ng-model="new_form.efslobowner" ng-options="user as  user.efslobowner_name for user in fowner_master_data_list"  required="">
+                                                        <option value="">select a owner</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+
+                                    <div class="col-md-6">
+                                        <label  class="mouse_point" data-ng-click="openDialogBox('new_lob',1)">+ create a LOB</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="mouse_point" data-ng-click="openDialogBox('new_owner',1)">+create a owner</label>
+                                    </div>
+
+
+                                    <div class="col-md-12" ng-show="toggle_for_new_form">
+
+                                        <div ng-switch="tab_for_new_form">
+
+                                            <div ng-switch-when="new_lob">
+                                                new_lob
+                                            </div>
+
+                                            <div ng-switch-when="new_owner">
+                                                new_owner
+                                            </div>
+
+
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label></label>
+                                    </div>
+                                    <div class="col-md-4 col-md-offset-1">
+                                        <a data-ng-click="create_new_form(new_form)"><button class="btn_hethi btn-default btn-block" type="button">save new form</button></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ </div>

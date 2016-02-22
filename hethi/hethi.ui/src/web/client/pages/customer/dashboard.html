@@ -9,7 +9,7 @@
 
     <div class="panel-body">
         <div class="page-header">
-            <h1>
+            <h1 data-ng-click="load_dashboard()">
                 Dashboard
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
@@ -17,6 +17,67 @@
                 </small>
             </h1>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="infobox-container">
+                    <div class="row text-center">
+
+                                 <div class="col-md-2" ng-repeat="process in files_in_each_micro_process">
+
+                        <div class="infobox infobox-green" >
+                            <div class="infobox-icon">
+                                <i class="ace-icon fa fa-file"></i>
+                            </div>
+
+                            <div class="infobox-data">
+                                <span class="infobox-data-number">{{process.no_of_files}}</span>
+                                <div class="infobox-content">{{process.micro_process_name}}</div>
+                            </div>
+
+                            <div class="stat stat-success"> {{ process.percent | number: 2 }}%</div>
+                        </div>
+
+
+                    </div>
+                    </div>
+
+
+
+
+                    <div class="divider-md"></div>
+                        <div class="row text-center">
+                              <div class="col-md-2" ng-repeat="process in files_in_each_process">
+
+                                  <div class="infobox infobox-red">
+                                      <div class="infobox-icon">
+                                          <i class="ace-icon fa fa-flask"></i>
+                                      </div>
+
+                                      <div class="infobox-data">
+                                          <span class="infobox-data-number">{{process.no_of_files}}</span>
+                                          <div class="infobox-content">{{process.hethi_subservicecode}}</div>
+                                      </div>
+
+                                      <div class="badge badge-success">
+                                          {{process.percent | number: 2 }}%
+                                          <i class="ace-icon fa fa-arrow-up"></i>
+                                      </div>
+
+                                  </div>
+
+                              </div>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="divider-md"></div>
+        <div class="divider-md"></div>
+        <div class="divider-md"></div>
+
 
         <div class="row">
             <div class="col-md-12">
@@ -179,6 +240,94 @@
                     <div class="panel-body">
                         <div id="columnBasics"></div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default table-responsive">
+                    <input type="button" value="refresh " data-ng-click="load_dashboard()">
+                    <table class="table table-bordered table-striped table-responsive">
+                        <thead style="background-color: #000000;color: #ffffff">
+                        <tr>
+                            <th class="text-center">
+                                <div class="th">
+                                    #
+                                </div>
+                            </th>
+                            <th class="text-center">
+                                <div class="th">
+                                    customer
+                                </div>
+                            </th>
+                            <th class="text-center">
+                                <div class="th">
+                                    uid
+                                </div>
+                            </th>
+                            <th class="text-center">
+                                <div class="th">
+                                    file id
+                                </div>
+                            </th>
+                            <th class="text-center">
+                                <div class="th">
+                                    process
+                                </div>
+                            </th>
+                            <th class="text-center">
+                                <div class="th">
+                                    sub process
+                                </div>
+                            </th>
+
+                            <th class="text-center">
+                                <div class="th">
+                                    status
+                                </div>
+                            </th>
+                            <th class="text-center">
+                                <div class="th">
+                                    status
+                                </div>
+                            </th>
+                            <th class="text-center">
+                                <div class="th">
+                                    #
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="list in dashboard_data">
+
+
+                        <tr>
+                            <td>{{$index +1}}</td>
+                            <td>{{list.customer_name}}</td>
+                            <td>{{list.upload_id}}</td>
+                            <td>{{list.file_id}}</td>
+                            <td>{{list.hethi_subservicecode}}</td>
+                            <td>{{list.micro_process_name}}</td>
+                            <td>{{list.status_text}}</td>
+                            <td>{{list.lastupdtm}}</td>
+                            <td> <a href="" data-ng-click="list.show_history=!list.show_history">
+                                    <span ng-show="list.show_history"> close history </span>
+                                    <span ng-hide="list.show_history"> show history </span>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-show="list.show_history" ng-repeat="user in list.histroy">
+                            <td colspan="4"></td>
+                            <td>{{user.hethi_subservicecode}}</td>
+                            <td>{{user.micro_process_name}}</td>
+                            <td>{{user.status_text}}</td>
+                            <td>{{user.lastupdtm}} </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

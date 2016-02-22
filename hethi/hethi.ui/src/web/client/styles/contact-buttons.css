@@ -10,9 +10,10 @@
  
  #contact-buttons-bar {
   position: fixed;
-  top: 120px;
+  top: 40px;
   left: -50px;
   width: 50px;
+     z-index: 1093;
 
 }
 @media (min-width: 240px) and (max-width: 768px){

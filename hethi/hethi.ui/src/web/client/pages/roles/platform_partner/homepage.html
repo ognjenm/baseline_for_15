@@ -376,6 +376,348 @@
                                                 </div>
 
                                             </div>
+
+
+                                            <div class="divider divider-md"></div><div class="divider divider-md"></div><div class="divider divider-md"></div>
+
+                                            <div class="row">
+
+
+                                                <div class="col-md-12">
+                                                    <hr>
+                                                    <h3  class="text-left"> <label>define process workflow </label></h3>
+                                                    <hr>
+                                                </div>
+                                                <div data-ng-controller="rule_config_controller" class="text-lowercase">
+                                                    <div class="row" id="sample">
+                                                        <div class="col-sm-3 col-md-2" id="palettezone" >
+                                                            <!--<a href="#" class="btn btn-danger btn-sm btn-block" role="button"><i class="glyphicon glyphicon-edit"></i> </a>-->
+
+                                                            <!--<ul id="palettezone" class="nav nav-boxed tabbable ver-vertical-menu"  ng-init="palette();">-->
+                                                            <!--<li class="active"><a data-toggle="tab" href="#" data-ng-click="showProcess()"><span class="badge badge-danger pull-right">3</span> Process </a>-->
+                                                            <!--</li>-->
+                                                            <div id="Start" drag-value="Start" class="draggable leftNav_head_menu start_bg mouse_point" draggable="true">
+                                                                <!--<a data-toggle="tab" href="#" data-ng-click="showProcess()">-->
+                                                                <!--<span class="badge badge-danger pull-right">3</span> -->
+                                                                Start
+                                                            </div>
+                                                            <!--<div class="leftNav_head_menu_process_head mouse_point" data-ng-click="showProcess()">-->
+                                                            <!--<span class="text-center">Process</span><span class="pull-right " ng-class="IsVisibleProcess ? 'fa fa-chevron-up': 'fa fa-chevron-down'"></span>-->
+                                                            <!--</div>-->
+                                                            <!--<div class="margin_class mouse_point" ng-show = "IsVisibleProcess" ng-repeat="(key,value) in Process_grouped">-->
+
+                                                            <div class=" mouse_point" ng-repeat="(key,value) in Process_grouped">
+                                                                <div data-ng-click="processes[$index].expand=!processes[$index].expand;" class="leftNav_head_menu_process_head">
+                                                                    <span class="text-center">{{key}}</span><span class="pull-right " ng-class="processes[$index].expand ? 'fa fa-angle-up': 'fa fa-angle-down'"></span>
+                                                                </div>
+                                                                <div class="margin_class" ng-show = "processes[$index].expand">
+                                                                    <div class="draggable leftNav_head_menu_process_{{item.hethi_servicecode}}"
+                                                                         id="draggable{{key}}Process{{$index}}"
+                                                                         drag-value="{{item}}"
+                                                                         ng-repeat="item in value"
+                                                                         draggable="true">
+                                                                        {{item.name}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <!--<li><a href="#" data-toggle="tab" data-ng-click="showRules()">Rules</a></li>-->
+                                                            <!--<div class="leftNav_head_menu_process_head mouse_point" data-ng-click="showRules()" >-->
+                                                            <!--<span class="text-center">Rules</span><span class="pull-right " ng-class="IsVisibleRule ? 'fa fa-chevron-up': 'fa fa-chevron-down'"></span>-->
+
+                                                            <!--</div>-->
+
+                                                            <!--<div class="margin_class">-->
+                                                            <!--<div ng-show = "IsVisibleRule" class="draggable leftNav_head_menu_rules" id="draggableRule{{$index}}" drag-value="{{item}}" ng-repeat="item in Rules" draggable="true">-->
+                                                            <!--{{item.name}}-->
+                                                            <!--</div>-->
+                                                            <!--</div>-->
+                                                            <div id="End" drag-value="End" class="draggable leftNav_head_menu end_bg mouse_point" style="background-color: #DC3C00" draggable="true">
+                                                                End
+                                                            </div>
+                                                            <!--</ul>-->
+
+                                                        </div>
+                                                        <div class="col-md-10 col-sm-9">
+                                                            <div class="dropzone" id="myDiagram" style="border: solid 1px gray; height: 400px"></div>
+                                                            <!--<div id="contextMenu">-->
+                                                            <!--<ul>-->
+                                                            <!--<li><a href="#" id="cut" onclick="cxcommand(this.textContent)">Cut</a></li>-->
+                                                            <!--<li><a href="#" id="copy" onclick="cxcommand(this.textContent)">Copy</a></li>-->
+                                                            <!--<li><a href="#" id="paste" onclick="cxcommand(this.textContent)">Paste</a></li>-->
+                                                            <!--<li><a href="#" id="delete" onclick="cxcommand(this.textContent)">Delete</a></li>-->
+                                                            <!--<li><a href="#" id="color" onclick="cxcommand('Color')">Color</a></li>-->
+                                                            <!--</ul>-->
+                                                            <!--</div>-->
+
+                                                        </div>
+
+
+                                                        <!--rule model starts-->
+
+                                                        <div id="ruleModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+                                                            <div class="modal-dialog" >
+                                                                <div class="modal-content">
+                                                                    <div>
+                                                                        <div class="modal-header">
+                                                                            <span class="fa fa-close ash-c pull-right mouse_point" data-dismiss="modal" aria-hidden="true"></span>
+
+                                                                            <h4 class="modal-title text-center">Rule Properties</h4>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="panel-body panel">
+                                                                                <div class="page-header">
+                                                                                    <a class=" pull-right mouse_point text-small" data-ng-click="open_process_list=!open_process_list"> Change process</a>
+                                                                                    <h4 class="modal-title text-center">{{selected_workflow_process.text}}</h4>
+                                                                                </div>
+                                                                                <section >
+                                                                                    <form class="form-horizontal text-center form-validation" name="form_constraints" >
+                                                                                        <div class="row">
+
+                                                                                            <div class="row margin-top-10" ng-show="open_process_list" >
+                                                                                                <div class="col-md-4 ">
+                                                                                                    <label class="control-label">Select Process </label>
+                                                                                                </div>
+                                                                                                <div class="col-md-8">
+                                                                                                    <select class="form-control" ng-model="selected_efs_uin" required="" ng-change="selected_process_changed()">
+                                                                                                        <option value=""> Select Process </option>
+                                                                                                        <optgroup ng-repeat="(key,value) in Process_grouped" label="{{key}}">
+                                                                                                            <option  ng-repeat="item in value" value="{{item}}">{{item.hethi_subservicecode}} </option>
+                                                                                                        </optgroup>
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+
+
+                                                                                            <div class="row margin-top-10" >
+                                                                                                <form  data-ng-submit="">
+
+                                                                                                    <div class="col-md-4 ">
+                                                                                                        <label class="control-label">Select Workset </label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-6">
+                                                                                                        <select class="form-control" ng-model="selected_workset" name="select" required="">
+                                                                                                            <option value=""> Select Workset</option>
+                                                                                                            <option data-ng-repeat="ws in cruleworkset_list" value="{{ws.workset_id}}"> {{ws.workset_name}} </option>
+                                                                                                        </select>
+                                                                                                    </div>
+
+
+                                                                                                </form>
+
+
+                                                                                            </div>
+                                                                                            <div class="row margin-top-10" >
+                                                                                                <form  data-ng-submit="">
+
+                                                                                                    <div class="col-md-4 ">
+                                                                                                        <label class="control-label">Select Ruleset </label>
+                                                                                                    </div>
+                                                                                                    <div class="col-md-6">
+                                                                                                        <select class="form-control" ng-model="selected_ruleset" name="select" required="">
+                                                                                                            <option value=""> Select Ruleset</option>
+                                                                                                            <option data-ng-repeat="rs in cruleset_list | filter:{'workset_id':selected_workset}" value="{{rs.cruleset_id}}"> {{rs.crulesset_name}} </option>
+                                                                                                        </select>
+                                                                                                    </div>
+
+                                                                                                    <div class="col-md-2 ">
+                                                                                                        <button class="btn btn-sm btn_hethi btn-success" type="submit" data-ng-click="addNewRuleForProcess(selected_ruleset)" > Save </button>
+                                                                                                    </div>
+
+                                                                                                </form>
+
+
+                                                                                            </div>
+
+
+
+
+
+                                                                                            <div class="row margin-top-10" ng-show="rules_for_selected_process" >
+                                                                                                <div class="col-md-12 ">
+                                                                                                    <h4> Available workset</h4>
+                                                                                                    <div class="table-responsive">
+                                                                                                        <table class="table table-bordered hethi_content_table">
+                                                                                                            <thead style="background-color: rgba(255,175,194,0.20);">
+
+                                                                                                            <tr class="text-center">
+                                                                                                                <th class="text-center"> </th>
+                                                                                                                <th class="text-center">#</th>
+                                                                                                                <th class="text-center">workset_name</th>
+                                                                                                                <th class="text-center">rule_name</th>
+                                                                                                                <th class="text-center">rule_condition</th>
+                                                                                                                <th class="text-center">rule_action</th>
+                                                                                                            </tr>
+                                                                                                            </thead>
+
+
+                                                                                                            <tbody ng-repeat="rules in rules_for_selected_process">
+
+                                                                                                            <tr>
+
+                                                                                                                <td> <button type="button" class="btn btn-success " data-ng-click="deleteRuleForProcess(rules);"> <span class="fa fa-trash"></span></button> </td>
+                                                                                                                <td>{{$index+1}}</td>
+                                                                                                                <td>{{rules.workset_name}}</td>
+                                                                                                                <td>{{rules.rule_name}}</td>
+                                                                                                                <td>{{rules.rule_condition}}</td>
+                                                                                                                <td>{{rules.rule_action}}</td>
+
+                                                                                                            </tr>
+
+                                                                                                            </tbody>
+                                                                                                        </table>
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </form>
+                                                                                </section>
+
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                    </div>
+                                                    <div class="row margin-top-10">
+                                                        <div class="col-md-12">
+                                                            <div class="pull-right">
+                                                                <button class="btn btn-success" data-ng-click="saveFlow();">Save Flow <span class="fa fa-forward"></span></button>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row margin-top-10">
+                                                        <div class="col-md-12">
+                                                            <div class="pull-right">
+                                                                <button class="btn btn-info" data-ng-click="nextOutputChannel();selectBusiness(3)">Next <span class="fa fa-forward"></span></button>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <button id="SaveButton" data-ng-click="save()">Save</button>
+                                                    <button data-ng-click="load()">Load</button>
+                                                    <textarea ng-model="mySavedModel" style="width:100%;height:300px"></textarea>
+                                                    <button data-ng-click="makeSVG()">Render as SVG</button>
+                                                    <div id="SVGArea"></div>
+                                                    <section data-ng-include="'pages/formModal.html'" data-ng-controller="delegationController"></section>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="divider divider-md"></div><div class="divider divider-md"></div><div class="divider divider-md"></div>
+
+                                            <div class="row">
+
+
+                                                <div class="col-md-12">
+                                                    <hr>
+                                                    <h3  class="text-left"> <label>define business process workflow </label></h3>
+                                                    <hr>
+                                                </div>
+                                                <div class="col-md-12">
+
+                                                    <div class="row">
+                                                        <div class="col-md-7">
+                                                            <div class="row">
+                                                                <!--<div class="col-md-2">-->
+                                                                <!--<label class="control-label">-->
+                                                                <!--form type-->
+                                                                <!--</label>-->
+                                                                <!--</div>-->
+                                                                <div class="col-md-5">
+                                                                    <label class="control-label">
+                                                                        process
+                                                                    </label>
+                                                                    <select class="form-control input-hethi select_center">
+                                                                        <option value="0"> -- Form Type -- </option>
+                                                                        <option> PO </option>
+                                                                        <option> NPO </option>
+                                                                    </select>
+                                                                </div>
+                                                                <!--<div class="col-md-2">-->
+                                                                <!--<label class="control-label">-->
+                                                                <!--select role-->
+                                                                <!--</label>-->
+                                                                <!--</div>-->
+                                                                <div class="col-md-5">
+                                                                    <label class="control-label">
+                                                                       micro process
+                                                                    </label>
+                                                                    <select class="form-control input-hethi select_center">
+                                                                        <option value="0"> AP Analyst  </option>
+                                                                        <option> AP Manager </option>
+                                                                        <option> data capture  </option>
+                                                                        <option> buyer  </option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <label class="control-label font_w">
+                                                                        select process
+                                                                    </label>
+                                                                    <button type="button" class="form-control btn_hethi_square btn-primary">add roles</button>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <div class="row">
+                                                                <!--<div class="col-md-2">-->
+                                                                <!--<label class="control-label">-->
+                                                                <!--assign Q-->
+                                                                <!--</label>-->
+                                                                <!--</div>-->
+                                                                <div class="col-md-7">
+                                                                    <label class="control-label">
+                                                                        Status
+                                                                    </label>
+                                                                    <select class="form-control input-hethi select_center">
+                                                                        <option value="0"> -- status Type -- </option>
+                                                                        <option> PO </option>
+                                                                        <option> NPO </option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="col-md-3">
+                                                                    <label class="control-label font_w">
+                                                                        assign Q
+                                                                    </label>
+                                                                    <button type="button" class="form-control btn_hethi_square btn-primary">add queues</button>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <label class="control-label font_w">
+                                                                        assign
+                                                                    </label>
+                                                                    <button type="button" class="form-control btn_hethi_square btn-danger">+</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="divider-lg"></div>
+                                                    <div style="border-top: 1px solid #b6b6b6;margin-bottom: 20px;margin-top: 10px"></div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="pull-right">
+                                                                <button type="button" class="btn_hethi blue btn-w-md">preview RFI</button>
+                                                                <button type="button" class="btn_hethi blue btn-w-md">save</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>
                                         </div>
                                         <div class="panel-body" ng-hide="cbaas_workflow_rules">
                                             <div class="row margin-top-30">
@@ -383,8 +725,8 @@
                                                     <form data-ng-submit="load_data_cbaas_workflow( selectedFormData )">
                                                         <div class="form-group">
                                                             <div class="col-sm-10">
-                                                                <select  class = "form-control " data-ng-model="selectedFormData" data-ng-options="item as item.form_type for item in all_forms">
-                                                                    <option value=""> select the form</option>
+                                                                <select  class = "select_center form-control input-hethi input-lg  " data-ng-model="selectedFormData" data-ng-options="item as item.form_type for item in all_forms">
+                                                                    <option value=""> select the form </option>
                                                                 </select>
                                                             </div>
                                                             <div class="divider divider-lg"></div>
@@ -393,15 +735,16 @@
                                                         <div class="form-group text-center">
                                                             <div class="divider divider"></div>
                                                             <div class="col-sm-10">
-                                                                <button type="submit" class=" btn btn-line-info "> get sop rules </button>
+                                                                <button type="submit" class=" btn  btn-block btn-info-wizard btn-lg  "> get sop rules </button>
                                                             </div>
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
+
+
 
 
 

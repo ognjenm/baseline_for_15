@@ -24,6 +24,28 @@ hethi.controller('taskListController', ['$http','$scope','$filter','$location','
         });
 
     };
+
+    /*$scope.viewContentException=function(indexer,index){
+        $rootScope.uid=indexer.uid;
+        $rootScope.din=indexer.din;
+        $rootScope.index_value=index;
+        var input={
+            din:indexer.din
+        };
+        $http({
+            method: 'POST',
+            url: $rootScope.spring_rest_service+'/search_efsuin_for_din',
+            dataType:'jsonp',
+            data:input
+        }).success(function(data) {
+            $rootScope.datas=data;
+            $rootScope.efs_uin_a=data;
+            $rootScope.document_type=indexer.document_type;
+            $location.path('/exception_workflow');
+
+        });
+
+    };*/
     $rootScope.hidef="";
 
     $rootScope.QueueIn='active';

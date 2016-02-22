@@ -479,7 +479,7 @@ hethi.controller('hethi_home_Controller', ['$http','$scope','$rootScope','$locat
         };
         $http({
             method: 'POST',
-            url: 'http://localhost:9999/signIn',
+            url: $rootScope.spring_rest_service +'/signIn',
             dataType:'jsonp',
             data: signIn_input
         }).success(function(data) {

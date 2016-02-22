@@ -4,27 +4,23 @@
     <div class="container" ng-hide="isSigned">
 <div class="divider"></div>
         <div class="row">
-            <div class="col-md-7 col-sm-6">
+            <div class="col-md-6 col-sm-6">
 
                 <div class="form-2">
                     <h1><span class="log-in">Log in</span>
                         <!--or <span class="sign-up">sign up</span>-->
                     </h1>
-                    <div class="divider-md"></div>
+                    <div class="divider"></div>
                     <form class="form-horizontal" role="form" data-ng-submit="SignInToHethi(signin)">
-
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <label for="login"><i class="fa fa-user"></i> Email</label>
-                                <input type="email" id="signInEmail" ng-model="signin.username" class="form-control"  placeholder="Email">
-                            </div>
-                            <div class="col-md-6">
-                                <!--<div class="form-group">-->
-                                <label for="password"><i class="fa fa-lock"></i> Password</label>
-                                <input type="password" ng-model="signin.password" id="signInPassword" class="form-control" placeholder="Password">
-                                <!--</div>-->
-                            </div>
+                        <div class="input-group margin-bottom-20">
+                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                            <input type="email" class="form-control" id="signInEmail" placeholder="Email address" ng-model="signin.username">
                         </div>
+                        <div class="input-group margin-bottom-20">
+                            <span class="input-group-addon" style="padding-left: 15px;padding-right: 15px"> <i class="fa fa-lock"></i> </span>
+                            <input type="password" class="form-control" ng-model="signin.password" id="signInPassword" placeholder="Password">
+                        </div>
+
 
                         <div class="form-group margin-bottom-10">
                             <div class="col-sm-12 ">
@@ -32,7 +28,7 @@
                                     <input name="checkbox1"
                                            ng-model="signin.remember"
                                            type="checkbox"  >
-                                    <span>Stay signed in</span></label>
+                                    <span>stay signed in</span></label>
                                 <a href="#" class="pull-right" style="color: #008BCB;font-size: 12px">Forgot password?</a>
                             </div>
 
@@ -41,8 +37,8 @@
                         <div class="form-group last">
                             <div class="col-sm-12">
                                 <div class="pull-right">
-                                    <button type="submit" class="btn_hethi green">Sign in</button>
-                                    <button type="reset" class="btn_hethi btn-warning">Reset</button>
+                                    <button type="submit" class="btn_hethi blue">sign in</button>
+                                    <button type="reset" class="btn_hethi btn-warning">reset</button>
                                 </div>
                             </div>
                         </div>
@@ -53,47 +49,44 @@
                 </div>
 
             </div>
-            <div class="col-xs-12 col-md-5 col-sm-6">
+            <div class="col-xs-12 col-md-6 col-sm-6">
                 <div  ng-switch="signup_btn_stats" class="form-2">
                     <div ng-switch-default="">
                         <form data-ng-submit="registerNewUSer(register)">
 
                             <h1><span class="log-in">New user ? Register here</span>
                             </h1>
-                            <div class="divider-md"></div>
-                            <div class="form-group">
+                            <div class="divider"></div>
 
+                            <div class="input-group margin-bottom-20">
+                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                                 <input placeholder="Email address"
                                        ng-model="register.business_email"
                                        required=""
-                                       class="form-control  text-center"
+                                       class=" form-control text-center input-hethi"
                                        type="email"
                                        minlength="6"
                                        maxlength="50">
                             </div>
-                            <div class="form-group">
-
+                            <div class="input-group margin-bottom-20">
+                                <span class="input-group-addon"><i class="fa fa-bank"></i></span>
                                 <input placeholder="Company name"
-                                       class="form-control  text-center"
+                                       class=" form-control text-center input-hethi"
                                        type="text"
                                        ng-model="register.business_name"
                                        required=""
-                                        >
-                            </div>
-
-                            <div class="form-group">
-
+                                        >                            </div>
+                            <div class="input-group margin-bottom-20">
+                                <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
                                 <input placeholder="Country"
-                                       class="form-control  text-center"
+                                       class=" form-control text-center input-hethi"
                                        type="text"
                                        ng-model="register.country"
-                                       required=""
-                                        >
+                                       required="">
                             </div>
 
 
-
-                            <button type="submit" ng-disabled="signup_btn_stats" class="btn btn-info btn-block " ng-switch="signup_btn_stats"><i class="fa fa-user-plus"></i> Sign Up  <span data-ng-switch-when="true"  class=" fa fa-cog fa-spin"></span> </button>
+                            <button type="submit" ng-disabled="signup_btn_stats" class=" btn_hethi blue btn-block " ng-switch="signup_btn_stats"><i class="fa fa-user-plus"></i> Sign Up  <span data-ng-switch-when="true"  class=" fa fa-cog fa-spin"></span> </button>
 
 
                             <div class="divider-sm"></div>

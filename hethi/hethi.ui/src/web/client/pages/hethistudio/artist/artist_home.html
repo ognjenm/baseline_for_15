@@ -936,13 +936,7 @@
                                              alt="stenciling image not found"
                                              style="
                                              width:600px ;height:850px;object-fit: fill ">
-                                        <div ng-if="autoStencilData" data-ng-repeat="rows in autoStencilData">
-                                            <!--<div ng-repeat="row in ro">-->
-                                            <div ng-if="$index!=0">
-                                                <div ng-if="rows.data!=undefined" class="select-areas-background-area" style="position: absolute; cursor: move; width:{{(600/autoStencilData[0].width*rows.width)+'px'}}; height: {{(850/autoStencilData[0].height*rows.height)+'px'}}; left: {{(600/autoStencilData[0].width*rows.left)+15+'px'}}; top: {{(850/autoStencilData[0].height*rows.top)+'px'}}; border-style: groove; border-color: greenyellow; border-width: 3px; z-index: 102;"></div>
-                                            </div>
-                                            <!--</div>-->
-                                        </div>
+
                                         <!--width="{{formSize.width}}"-->
                                         <!--height="{{formSize.Height}}"-->
                                     </div>
@@ -1047,6 +1041,13 @@
                                     </div>
 
 
+                                    <div ng-if="autoStencilData" data-ng-repeat="rows in autoStencilData" ng-mousehover="autostencilMouseHover(rows);">
+                                        <!--<div ng-repeat="row in ro">-->
+                                        <div ng-if="$index!=0">
+                                            <div ng-if="rows.data!=undefined" class="select-areas-background-area" style="position: absolute; cursor: move; width:{{(600/autoStencilData[0].width*rows.width)+'px'}}; height: {{(850/autoStencilData[0].height*rows.height)+'px'}}; left: {{(600/autoStencilData[0].width*rows.left)+15+'px'}}; top: {{(850/autoStencilData[0].height*rows.top)+'px'}}; border-style: groove; border-color: greenyellow; border-width: 3px; z-index: 102;"></div>
+                                        </div>
+                                        <!--</div>-->
+                                    </div>
 
                                     <div ng-if="myTemplate" data-ng-repeat="rows in myTemplate">
 

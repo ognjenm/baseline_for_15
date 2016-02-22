@@ -1,5 +1,4 @@
-<div class="margin_top_60" data-ng-controller="FreeController" xmlns="http://www.w3.org/1999/html"
-     xmlns="http://www.w3.org/1999/html">
+<div class="margin_top_60" data-ng-controller="FreeController">
 
 <!-- First time new login CODE Starts Here ( Authenticate the user is a new customer and show this 2 section CODE ) -->
 
@@ -9,141 +8,88 @@
               and !!!! DON'T ADD any Div class or span Class inside
               the ID named "freeSlider" and "scroll_slider_content"
  ------------    -->
-        <section class="freemium_section">
-            <div id="demo" class="" style="margin-top: 10%">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <data-owl-carousel class="owl-carousel"
-                                               data-options='{items : 4,
+        <section class="">
+
+
+            <div class="form_selection">
+                <!--<div class="row">-->
+                    <!--<div class="col-md-12 text-center" style="padding: 5px">-->
+                        <!--<span class="font_20">get started</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div id="demo"  >
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <data-owl-carousel class="owl-carousel"
+                                                   data-options='{items : 4,
                                                    itemsDesktop : [1199,3],
                                                    itemsDesktopSmall : [979,3],
-                                                   pagination:false,
-                                                   navigation: true,
+                                                   pagination:true,
+                                                   navigation: false,
                                                    navigationText:["<i class=fa fa-chevron-left  icon-white></i>","<i class=fa fa-chevron-right icon-white></i>"] }'>
-                                <div owl-carousel-item="" ng-repeat="item in BpaaS_Service_List" class="item dodgerBlue owlbox-main" data-ng-click="showOne($index);">
-                                    <div class="">
-                                        {{item.BpaaS_service}}
-                                    </div>
-                                </div>
-                            </data-owl-carousel>
-                            <!--<div id="owl-demo" class="owl-carousel">-->
-                                <!--<div class="item dodgerBlue owlbox-main" ng-repeat="list in BpaaS_Service_List" data-ng-click="showOne($index);">-->
+                                    <!--<div owl-carousel-item="" ng-repeat="item in BpaaS_Service_List" class="item dodgerBlue owlbox-main" data-ng-click="showOne($index);">-->
                                     <!--<div class="">-->
-                                        <!--{{list.BpaaS_service}}-->
+                                    <!--{{item.BpaaS_service}}-->
                                     <!--</div>-->
-                                <!--</div>-->
+                                    <!--</div>-->
+                                    <a owl-carousel-item="" ng-repeat="item in BpaaS_Service_List"  class="item categoryCard"  data-ng-click="showOne($index);">
+                                        <img class="cardImage img-responsive" src="{{item.BpaaS_service_image_path}}">
+                                        <div class="cardContainer" >
+
+                                            <h2 class="cardTitle normal-text">{{item.BpaaS_service}}</h2>
+                                            <h3 class="cardTitle">{{item.BpaaS_service_description_short}}</h3>
+
+                                        </div>
+                                        <!--<div class="categoryCardFooter">-->
+                                            <!--<div class="categoryCardContentType">-->
+                                                <!--<span class="categoryCardContentTypeIcon fa fa-send"></span>-->
+                                                <!--<span>Try it</span>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    </a>
+                                </data-owl-carousel>
 
 
-                                <!--<div class="item dodgerBlue owlbox-main">-->
-                                    <!--<div class="">-->
-                                        <!--invoice process to pay-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="item dodgerBlue owlbox-main">-->
-                                    <!--<div class="">-->
-                                        <!--partner integration to pay-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="item dodgerBlue owlbox-main">-->
-                                    <!--<div class="">-->
-                                        <!--claims process to pay-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="item dodgerBlue owlbox-main">-->
-                                    <!--<div class="">-->
-                                        <!--5-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="item dodgerBlue owlbox-main">-->
-                                    <!--<div class="">-->
-                                        <!--6-->
-                                    <!--</div>-->
-                                <!--</div>-->
-
-
-                            <!--</div>-->
-
+                            </div>
                         </div>
                     </div>
+
                 </div>
+
 
             </div>
-        </section>
 
-        <section id="industry"  >
-            <div class="freemium_section"  style="margin-top: 10%" ng-if="one">
-            <div class="container" >
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div style="margin-top: 5px;margin-bottom: 5px;border: 1px solid transparent;width: 330px;position: relative;">
-                            <div class="industry_select_box">
-                                {{selectedBpaaS.BpaaS_service}}
-                            </div>
-                            <div class="div_attach_icon" data-ng-click="showMainSlider()"><i class="fa fa-close"></i></div>
-                        </div>
 
-                    </div>
+            <div class=" container">
+                <div class="page-header-item">
+                    <h1>browse industry : {{selectedBpaaS.BpaaS_service}}</h1>
                 </div>
-
-
-                <div class="row">
-                    <div class="col-md-12">
-
-                        <div id="demo-1">
-
-                            <data-owl-carousel ng-if="item==selectedBpaaS"  ng-repeat="item in BpaaS_Service_List" class="owl-carousel"
-                                               data-options="{items : 4,
+            <div class="divider"></div>
+                <a id="demo-1">
+                    <ul data-owl-carousel ng-if="item==selectedBpaaS"  ng-repeat="item in BpaaS_Service_List" class="owl-carousel topics"
+                        data-options="{items : 6,
                                                itemsDesktop : [1199,3],
                                                itemsDesktopSmall : [979,3],
-                                               pagination:false,
+                                               pagination:true,
                                                navigation: true,
                                                navigationText: ['<i class=fa fa-chevron-left icon-white></i>','<i class=fa fa-chevron-right icon-white></i>']}">
-                                <div owl-carousel-item ng-repeat="list in item.BpaaS_service_industry_list" class="item owlbox-content darkCyan" data-ng-click="GotoUpload($index);">
-                                    <div class="">
-                                        {{list.indus_service}}
-                                    </div>
-                                </div>
-                            </data-owl-carousel>
-                            <!--<div id="owl-demo1" class="owl-carousel">-->
+                        <li owl-carousel-item ng-repeat="list in item.BpaaS_service_industry_list" class="item " data-ng-click="GotoUpload($index);">
+                            <a href="#" class="">
+                                <i class="fa fa-shopping-cart"></i><span>{{list.indus_service}}</span>
 
-                                <!--<div data-ng-click="GotoUpload()" class="item owlbox-content darkCyan">-->
-                                    <!--<div class="" >-->
-                                        <!--industry-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="item owlbox-content darkCyan">-->
-                                    <!--<div class="">-->
-                                        <!--industry-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="item owlbox-content darkCyan">-->
-                                    <!--<div class="">-->
-                                        <!--industry-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="item owlbox-content darkCyan">-->
-                                    <!--<div>-->
-                                        <!--industry-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="item owlbox-content darkCyan">-->
-                                    <!--<div class="">-->
-                                        <!--industry-->
-                                    <!--</div>-->
-                                <!--</div>-->
+                            </a>
+                        </li>
+                    </ul>
 
+                </a>
 
-                            <!--</div>-->
-                        </div>
-
-                    </div>
-                </div>
 
             </div>
-            </div>
+
         </section>
+<div class="divider"></div>
 
         <section id="formUpload">
             <div  class="freemium_section" ng-if="uploadForm">

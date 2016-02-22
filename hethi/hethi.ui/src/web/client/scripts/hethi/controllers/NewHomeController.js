@@ -4,222 +4,215 @@
 
 
 hethi.controller('NewHomeController', ['$http','$scope','$location','$rootScope', function ($http,$scope,$location,$rootScope){
-    $.contactButtons({
-        effect  : 'slide-on-scroll',
-        buttons : {
-//'twitter':    { class: 'twitter',  use: true, link:'https'},
-'linkedin':   { class: 'linkedin', use: true, link: 'https://www.linkedin.com/company/mycompany' },
-//'google':     { class: 'gplus',    use: true, link: 'https://plus.google.com/myidongoogle' },
-//'mybutton':   { class: 'git',      use: true, link: 'http://github.com', icon: 'github', title: 'My title for the button' },
-'phone':      { class: 'phone ',   use: true, link: '/Contact' }
-//'phone':      { class: 'phone separated',    use: true, link: '+000' },
-//'email':      { class: 'email',    use: true, link: 'test@web.com' }
-        }
+
+    $(document).ready(function(){
+
+        var _scroll = true, _timer = false, _floatbox = $("#contact_form"), _floatbox_opener = $(".contact-opener") ;
+        _floatbox.css("right", "-300px"); //initial contact form position
+
+        //Contact form Opener button
+        _floatbox_opener.click(function(){
+            if (_floatbox.hasClass('visiable')){
+                _floatbox.animate({"right":"-300px"}, {duration: 300}).removeClass('visiable');
+            }else{
+                _floatbox.animate({"right":"0px"},  {duration: 300}).addClass('visiable');
+            }
+        });
+
+        //Effect on Scroll
+        $(window).scroll(function(){
+            if(_scroll){
+                _floatbox.animate({"top": "30px"},{duration: 300});
+                _scroll = false;
+            }
+            if(_timer !== false){ clearTimeout(_timer); }
+            _timer = setTimeout(function(){_scroll = true;
+                _floatbox.animate({"top": "20%"},{easing: "linear"}, {duration: 500});}, 400);
+        });
+
+        //reset previously set border colors and hide all message on .keyup()
+        $("#contact_form  input[required=true], #contact_form textarea[required=true]").keyup(function() {
+            $(this).css('border-color','');
+            $("#result").slideUp();
+        });
+
+
     });
-
-
-//scroll Page
 
 
     $scope.pageClass = 'page-home';
-
-    $scope.homeTab=1;
-    $scope.selectHome=function(step){
-        $scope.homeTab=step;
-        $('html, body').animate({
-            scrollTop: $("#freemium_scroll_1").offset().top -190
-        }, 1000);
-    };
-
-
-    var navbar = $('#navbar-main'),
-        distance = navbar.offset().top,
-        $window = $(window);
-
-
-    $window.scroll(function() {
-        if ($window.scrollTop() >= distance) {
-navbar.removeClass('fixed').addClass('fixed fixedMargin-menu');
-$("body").css("padding-top", "70px");
-        } else {
-navbar.removeClass('fixed fixedMargin-menu');
-$("body").css("padding-top", "0px");
-        }
-    });
-
-
-    $scope.showNetworks=true;
-    $scope.showDesignStudio=false;
-    $scope.showBpaaS=false;
-    $scope.showSelfService=false;
-
-    $scope.networkActive="snav-label-selected";
-    $scope.onNetwork="caret caret-snav";
-
-    $scope.GotoNetwork=function(){
-
-            $('html, body').animate({
-                scrollTop: $("#getNetworks").offset().top -180
-            }, 1000);
-        $scope.showNetworks=true;
-        $scope.showDesignStudio=false;
-        $scope.showBpaaS=false;
-        $scope.showSelfService=false;
-
-        $scope.cloudActive="";
-        $scope.onCloud="";
-        $scope.premiseActive="";
-        $scope.onPremise="";
-        $scope.networkActive="snav-label-selected";
-        $scope.onNetwork="caret caret-snav";
-        $scope.deliveryActive="";
-        $scope.onDelivery="";
-        $scope.designStudioActive="";
-        $scope.onDesignStudio="";
-        $scope.selfServiceActive="";
-        $scope.onSelfService="";
-
-    };
-
-    $scope.GotoDesignStudio=function(){
-
-            $('html, body').animate({
-                scrollTop: $("#getNetworks").offset().top -180
-            }, 1000);
-        $scope.showNetworks=false;
-        $scope.showDesignStudio=true;
-        $scope.showBpaaS=false;
-        $scope.showSelfService=false;
-
-        $scope.cloudActive="";
-        $scope.onCloud="";
-        $scope.premiseActive="";
-        $scope.onPremise="";
-        $scope.networkActive="";
-        $scope.onNetwork="";
-        $scope.deliveryActive="";
-        $scope.onDelivery="";
-
-        $scope.designStudioActive="snav-label-selected";
-        $scope.onDesignStudio="caret caret-snav";
-        $scope.selfServiceActive="";
-        $scope.onSelfService="";
-    };
-
-    $scope.GotoPremises=function(){
-
-            $('html, body').animate({
-                scrollTop: $("#getNetworks").offset().top -180
-            }, 1000);
-
-        $scope.showNetworks=false;
-        $scope.showDesignStudio=false;
-        $scope.showBpaaS=true;
-        $scope.showSelfService=false;
-
-        $scope.cloudActive="";
-        $scope.onCloud="";
-        $scope.premiseActive="snav-label-selected";
-        $scope.onPremise="caret caret-snav";
-        $scope.networkActive="";
-        $scope.onNetwork="";
-        $scope.deliveryActive="";
-        $scope.onDelivery="";
-        $scope.designStudioActive="";
-        $scope.onDesignStudio="";
-        $scope.selfServiceActive="";
-        $scope.onSelfService="";
-
-    };
-
-    $scope.GotoDelivery=function(){
-
-            $('html, body').animate({
-                scrollTop: $("#getNetworks").offset().top -180
-            }, 1000);
-
-
-        $scope.showNetworks=false;
-        $scope.showDesignStudio=false;
-        $scope.showBpaaS=false;
-        $scope.showSelfService=true;
-
-        $scope.cloudActive="";
-        $scope.onCloud="";
-        $scope.premiseActive="";
-        $scope.onPremise="";
-        $scope.networkActive="";
-        $scope.onNetwork="";
-        $scope.deliveryActive="snav-label-selected";
-        $scope.onDelivery="caret caret-snav";
-        $scope.designStudioActive="";
-        $scope.onDesignStudio="";
-        $scope.selfServiceActive="";
-        $scope.onSelfService="";
-
-    };
-
-    //mobile view
-
+    //Accordion
     $scope.oneAtATime = true;
 
-    $scope.showBusinessNetwork=true;
-    $scope.showInteractiveDesignStudio=false;
-    $scope.showBpaaSOnCloud=false;
-    $scope.showSelfServiceWorkflow=false
 
-    $scope.GoToBusinessNetwork=function(){
+    //Banner Read More
 
-        $scope.showBusinessNetwork=true;
-        $scope.showInteractiveDesignStudio=false;
-        $scope.showBpaaSOnCloud=false;
-        $scope.showSelfServiceWorkflow=false;
-
+    $scope.getHethiCloudPlug=function(){
         $('html, body').animate({
-            scrollTop: $("#getBusinessNetworks").offset().top -90
+            scrollTop: $("#hethiCloudPlug").offset().top -150
         }, 1000);
+        $scope.BpaaSActive="";
+        $scope.SimplifiedActive="";
+
+        $scope.hethiCloudPlug=true;
+        $scope.hethiBpaasStudio=false;
+        $scope.hethiMPC=false;
+        $scope.hethiCloudPlay=false;
+
+        $scope.showPlatformBPaaS=false;
+        $scope.showBusinessSimplified=false;
+
     };
-    $scope.GoToInteractiveDesignStudio=function(){
-        $scope.showBusinessNetwork=false;
-        $scope.showInteractiveDesignStudio=true;
-        $scope.showBpaaSOnCloud=false;
-        $scope.showSelfServiceWorkflow=false;
-
+    $scope.getHethiCloudplay=function(){
         $('html, body').animate({
-            scrollTop: $("#getInteractiveDesignStudio").offset().top -90
+            scrollTop: $("#hethiCloudPlay").offset().top -150
         }, 1000);
+        $scope.BpaaSActive="";
+        $scope.SimplifiedActive="";
+        $scope.hethiCloudPlug=false;
+        $scope.hethiBpaasStudio=false;
+        $scope.hethiMPC=false;
+        $scope.hethiCloudPlay=true;
+
+        $scope.showPlatformBPaaS=false;
+        $scope.showBusinessSimplified=false;
     };
-    $scope.GoToBPaaSOnCloud=function(){
-        $scope.showBusinessNetwork=false;
-        $scope.showInteractiveDesignStudio=false;
-        $scope.showBpaaSOnCloud=true;
-        $scope.showSelfServiceWorkflow=false;
-
+    $scope.getHethiBpaasStudio=function(){
         $('html, body').animate({
-            scrollTop: $("#getBPaaSOnCloud").offset().top -90
+            scrollTop: $("#hethiBpaasStudio").offset().top -150
         }, 1000);
+        $scope.BpaaSActive="";
+        $scope.SimplifiedActive="";
+
+        $scope.hethiCloudPlug=false;
+        $scope.hethiBpaasStudio=true;
+        $scope.hethiMPC=false;
+        $scope.hethiCloudPlay=false;
+
+        $scope.showPlatformBPaaS=false;
+        $scope.showBusinessSimplified=false;
     };
-    $scope.GoToServiceWorkFlow=function(){
-        $scope.showBusinessNetwork=false;
-        $scope.showInteractiveDesignStudio=false;
-        $scope.showBpaaSOnCloud=false;
-        $scope.showSelfServiceWorkflow=true;
-
+    $scope.getHethiBpaasMpc=function(){
         $('html, body').animate({
-            scrollTop: $("#getServiceWorkflow").offset().top -90
+            scrollTop: $("#hethiMPC").offset().top -150
         }, 1000);
+
+        $scope.BpaaSActive="";
+        $scope.SimplifiedActive="";
+
+        $scope.hethiCloudPlug=false;
+        $scope.hethiBpaasStudio=false;
+        $scope.hethiMPC=true;
+        $scope.hethiCloudPlay=false;
+
+        $scope.showPlatformBPaaS=false;
+        $scope.showBusinessSimplified=false;
+    };
+
+
+    //Mega Menu
+    $scope.showPlatformBPaaS=false;
+    $scope.showBusinessSimplified=true;
+    $scope.SimplifiedActive="active";
+
+    $scope.getBusinessSimplified=function(){
+        $('html, body').animate({
+            scrollTop: $("#section2").offset().top -150
+        }, 1000);
+
+        //$('html,body').animate({scrollTop:$("#section3").offset().top},900);
+
+
+        $scope.BpaaSActive="";
+
+        $scope.SimplifiedActive="active";
+
+        $scope.showPlatformBPaaS=false;
+
+        $scope.showBusinessSimplified=true;
+
+        $scope.hethiCloudPlug=false;
+        $scope.hethiBpaasStudio=false;
+        $scope.hethiMPC=false;
+        $scope.hethiCloudPlay=false;
+
+    };
+    $scope.showBPaaSplatform=function(){
+        $('html, body').animate({
+            scrollTop: $("#section1").offset().top -150
+        }, 1000);
+
+        $scope.BpaaSActive="active";
+
+        $scope.SimplifiedActive="";
+
+        $scope.showPlatformBPaaS=true;
+
+        $scope.showBusinessSimplified=false;
+
+        $scope.hethiCloudPlug=false;
+        $scope.hethiBpaasStudio=false;
+        $scope.hethiMPC=false;
+        $scope.hethiCloudPlay=false;
+    };
+
+    //landing page menu
+    $scope.sec1=true;
+    $scope.sec2=false;
+    $scope.sec3=false;
+    $scope.sec4=false;
+    $scope.networkActive="snav-label-selected";
+    $scope.designStudioActive="";
+    $scope.premiseActive="";
+    $scope.deliveryActive="";
+    $scope.GotoNetwork=function(){
+        $scope.sec1=true;
+        $scope.sec2=false;
+        $scope.sec3=false;
+        $scope.sec4=false;
+        $scope.networkActive="snav-label-selected";
+        $scope.designStudioActive="";
+        $scope.premiseActive="";
+        $scope.deliveryActive="";
+    };
+    $scope.GotoDesignStudio=function(){
+        $scope.sec1=false;
+        $scope.sec2=true;
+        $scope.sec3=false;
+        $scope.sec4=false;
+        $scope.networkActive="";
+        $scope.designStudioActive="snav-label-selected";
+        $scope.premiseActive="";
+        $scope.deliveryActive="";
+    };
+    $scope.GotoPremises=function(){
+        $scope.sec1=false;
+        $scope.sec2=false;
+        $scope.sec3=true;
+        $scope.sec4=false;
+        $scope.networkActive="";
+        $scope.designStudioActive="";
+        $scope.premiseActive="";
+        $scope.deliveryActive="";
+    };
+    $scope.GotoDelivery=function(){
+        $scope.sec1=false;
+        $scope.sec2=false;
+        $scope.sec3=false;
+        $scope.sec4=true;
+        $scope.networkActive="";
+        $scope.designStudioActive="";
+        $scope.premiseActive="";
+        $scope.deliveryActive="snav-label-selected";
     };
 
     $scope.free=function(){
         $location.path('/free');
     };
-
-
     $scope.goToFree=function(){
         //alert("Success");
         $location.path('/free')
     };
-
     $scope.goToFreemium=function(){
         //alert("Success");
         $location.path('/freemium')
@@ -328,12 +321,13 @@ $scope.rules = $scope.rules ? false : true;
 
         $scope.platform_as_services=false;
         $scope.showRFIscreen=function(){
-//$scope.rfi_form=true;
-$('html, body').animate({
-    scrollTop: $("#freemium_scroll_1").offset().top -90
-}, 1000);
-$scope.platform_as_services=false;
-$scope.services_and_delivery=true;
+
+            //$scope.rfi_form=true;
+            $('html, body').animate({
+                scrollTop: $("#freemium_scroll_1").offset().top -90
+            }, 1000);
+            $scope.platform_as_services=false;
+            $scope.services_and_delivery=true;
         };
 
         //    Services and delivery
@@ -519,7 +513,10 @@ $scope.services_and_delivery=true;
         $scope.pageClass = 'page-about';
         //$scope.hideSliderclass1='slider_1_class';
 
+$rootScope.getRfiForm=function(){
+    $location.path('/generateRFI');
 
+};
 
         $(document).ready(function() {
 
@@ -888,12 +885,12 @@ else {
 
         $scope.showOne = function (index){
             //$(window).ready(function(){
-            $scope.one? $('html, body').animate({
-                    scrollTop: $("#industry").offset().top -200
-                }, 1000):
-                $('html, body').animate({
-                    scrollTop: $("#industry").offset().top -100
-                }, 1000);
+            //$scope.one? $('html, body').animate({
+            //        scrollTop: $("#industry").offset().top -200
+            //    }, 1000):
+            //    $('html, body').animate({
+            //        scrollTop: $("#industry").offset().top -100
+            //    }, 1000);
             //});
 
             $scope.selectedBpaaS=$scope.BpaaS_Service_List[index];
@@ -925,7 +922,8 @@ $scope.IsVisible = $scope.IsVisible ? false : true;
         }
         $scope.GotoUpload=function(c){
             $('html, body').animate({
-                scrollTop: $("#formUpload").offset().top -0
+
+                scrollTop: $("#formUpload").offset().top -90
             }, 1000);
             $scope.uploadForm=true;
             //$scope.one=false;
