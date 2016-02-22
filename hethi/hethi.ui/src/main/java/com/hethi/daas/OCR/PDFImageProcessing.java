@@ -13,6 +13,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.util.PDFImageWriter;
 
+import com.hethi.daas.ImageIO.ImageProcessesingServices;
+
 import net.sourceforge.tess4j.TesseractException;
 import net.sourceforge.tess4j.util.PdfUtilities;
 
@@ -20,8 +22,8 @@ public class PDFImageProcessing {
 	
 	
 	
-	public static File convertScannedPDFToTiff(File sc_PDF) throws IOException, TesseractException {
-			File tiff_File = PdfUtilities.convertPdf2Tiff(sc_PDF);
+	public static File convertScannedPDFToTiff(String sc_PDF) throws IOException, TesseractException {
+			File tiff_File = PdfUtilities.convertPdf2Tiff(new File(sc_PDF));
 			writeImage(tiff_File);
 			return tiff_File;
 	}
@@ -77,7 +79,7 @@ public class PDFImageProcessing {
 			
 			
 			
-			public void convertPdfToImage( String password, String pdfInputFile, String outputPath, String imageFormat, int startPage, int endPage, String color) throws Exception
+			public void convertPdfToImage( String password, String inputFile, String outputPath, String imageFormat, int startPage, int endPage, String color) throws Exception
 		    {
 		        /*String password = "";
 		        String pdfFile = "f:/sample_invoice.pdf";
@@ -98,7 +100,7 @@ public class PDFImageProcessing {
 		            resolution = 96;
 		        }
 		        
-		        if( pdfInputFile == null )
+		        if( inputFile == null )
 		        {
 		        	System.out.println("Invalid PDF Source...");
 		            return;
@@ -107,13 +109,13 @@ public class PDFImageProcessing {
 		        {
 		            if(outputPath == null)
 		            {
-		                outputPath = pdfInputFile.substring( 0, pdfInputFile.lastIndexOf( '.' ));
+		                outputPath = inputFile.substring( 0, inputFile.lastIndexOf( '.' ));
 		            }
 
 		            PDDocument document = null;
 		            try
 		            {
-		                document = PDDocument.load( pdfInputFile );     
+		                document = PDDocument.load( inputFile );     
 		                //document.print();
 
 		                if( document.isEncrypted() )
@@ -162,8 +164,11 @@ public class PDFImageProcessing {
 		                PDFImageWriter imageWriter = new PDFImageWriter();
 		                boolean success = imageWriter.writeImage(document, imageFormat, password,
 		                        startPage, endPage, outputPath, imageType, 72);
-		                File image=new File(outputPath+"1.jpg");
-		                image.renameTo(new File(outputPath+".jpg"));
+		                for(int i=1;i<=endPage-startPage+1;i++){
+		                ImageProcessesingServices.getFullOCR(outputPath+i+"."+imageFormat);
+		                }
+		                File image=new File(outputPath+"1."+imageFormat);
+		                image.renameTo(new File(outputPath+"."+imageFormat));
 		                if (!success)
 		                {
 		                    System.err.println( "Error: no writer found for image format '"
@@ -173,7 +178,7 @@ public class PDFImageProcessing {
 		                else
 		                {
 		                	//File f  = new File(pdfInputFile.replace(".pdf",+startPage+ ".jpg"));
-		                	File f  = new File(pdfInputFile.replace(".pdf", ".jpg"));
+		                	File f  = new File(inputFile.replace(".pdf", "."+imageFormat));
 		                	//File fdest  = new File(pdfInputFile.replace(".pdf",  ".jpg"));
 		                	/*if (f.exists())
 		                	{
@@ -203,9 +208,9 @@ public class PDFImageProcessing {
 			
 			
 			
-			/*public static void main(String args[]) throws Exception{
+			public static void main(String args[]) throws Exception{
 				PDFImageProcessing pdfImg=new PDFImageProcessing();
-				pdfImg.convertPdfToImage("","resource\\pdf\\Example_002-JPG.pdf", null,"jpg", 1, 1, "rgb");
-			}*/
+				pdfImg.convertPdfToImage("","vis4931907328777416161.pdf", null,"jpg", 1, 4, "rgb");
+			}
 			
 }

@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -32,6 +33,7 @@ import com.hethi.dass.util.ImageValidator;
 import com.hethi.rest.interfaces.WorkflowInterface;
 //import com.hethi.dass.util.ImageValidator;
 import com.hethi.rest.model.UploadBeans;
+import com.hethi.rest.utility.EmailNotificationService;
 import com.hethi.rest.utility.ExtractZipFiles;
 import com.hethi.rest.utility.FileOperations;
 import com.hethi.rest.utility.QueryExecutors;
@@ -167,6 +169,7 @@ public class FTP {
 		Gson gson = new Gson();
 		UploadBeans bean = gson.fromJson(upload_idString, UploadBeans.class);
 		upload_id = String.valueOf(bean.getUpload_id());
+		
 		String cus_id ="1";
 		String sfs_uin = "csfs100102";
 		String current_channel= "daas.fullextract";
@@ -287,7 +290,21 @@ public class FTP {
 				+ "','" + filePath + "')}";
 		QueryExecutors executor = new QueryExecutors();
 		@SuppressWarnings({ "rawtypes", "unused" })
-		ArrayList<ArrayList> result = executor.callProcedure(sql);
+		ArrayList<ArrayList> result = executor.callProcedure(sql);	
+//		String data = result.get(0).get(0).toString();
+//		  JSONArray arr= (JSONArray) new JSONParser().parse(result);
+//	        JSONArray arr1= (JSONArray)arr.get(0);
+//	    	JSONObject jsonD = (JSONObject) arr1.get(0);
+//	        	System.out.println("call mail here ");
+//	        	EmailNotificationService im=new EmailNotificationService();
+//	        	String to=jsonD.get("email").toString();
+//	        	String customer=jsonD.get("customer").toString();
+//	        	String cid=jsonD.get("cid").toString();
+//	        	String uid=jsonD.get("uid").toString();
+	        	
+	        	
+	        	
+		
 		System.out.println("File details store channel is enabled for " + fileName);
 		}else
 		{

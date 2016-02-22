@@ -29,6 +29,7 @@ import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
 
 import com.google.gson.Gson;
+import com.hethi.rest.utility.Log;
 
 public class EMAIL {
 	static boolean isValid(String filePath) {
@@ -141,6 +142,8 @@ public class EMAIL {
 				file_type = "single";
 		} else
 			System.out.println("File " + part.getFileName() + " is at receive channel.");
+		
+				
 		msg = MessageBuilder.withPayload(returnString).setHeader("fileType", file_type).build();
 		return msg;
 	}

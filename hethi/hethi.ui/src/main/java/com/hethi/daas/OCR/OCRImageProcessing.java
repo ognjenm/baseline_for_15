@@ -38,10 +38,17 @@ public class OCRImageProcessing {
 
 				inputfile.lastIndexOf("."));
 		try{
-			System.out.println("before create");
+			//System.out.println("before create");
 			System.out.println(inputfile+" and "+outfileLocation + fileName+" and "+list);
-		    tessaractInstance.createDocuments(inputfile, outfileLocation + fileName, list);
-		    System.out.println("after create");
+			
+			
+			long startTime = System.currentTimeMillis();
+			  tessaractInstance.createDocuments(inputfile, outfileLocation + fileName, list);
+			long endTime   = System.currentTimeMillis();
+			long totalTime = endTime - startTime;
+			System.out.println(totalTime);
+		  
+		    //System.out.println("after create");
 		}
 		catch(TesseractException te){
 			System.out.println(te);	

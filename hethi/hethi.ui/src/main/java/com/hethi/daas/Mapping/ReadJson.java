@@ -1,5 +1,7 @@
 package com.hethi.daas.Mapping;
 
+
+
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,6 +16,7 @@ import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.pdfbox.util.PDFTextStripperByArea;
 import org.json.JSONException;
 import org.json.simple.JSONArray;
@@ -29,11 +32,13 @@ public class ReadJson {
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException, JSONException {
 		ReadJson readJson = new ReadJson();
-		String imageFullPath="D:/Feb_11/invoice_1.jpg";
+		/*String imageFullPath="D:/Feb_11/invoice_1.jpg";
 		String pdfFullPath="D:/Feb_11/invoice_1.pdf";
 		String json=XMLtoJsonConverter.convertXMLToJson("C:/Users/Lap181/Desktop/demo_1_copy.xml");
-		readJson.jsonHandler(json,pdfFullPath,imageFullPath);
+		readJson.jsonHandler(json,pdfFullPath,imageFullPath);*/
 		
+		
+		//readJson.extractFullPDF("vis4931907328777416161.pdf");
 
 	}
 
@@ -255,6 +260,7 @@ public class ReadJson {
 	public static String extractTextFromPDF(int x1, int y1, int y2, int x2, String pdfFile) {
 		String data = "";
 		try {
+			PDFTextStripper pdfStripper = new PDFTextStripper();
 			PDFParser parser = new PDFParser(new FileInputStream(new File(pdfFile)));
 			parser.parse();
 			COSDocument cosDoc = parser.getDocument();
@@ -270,6 +276,8 @@ public class ReadJson {
 			System.out.println("Text in the area:" + rect);
 			data = stripper.getTextForRegion("class1");
 			System.out.println("the value is === > " + stripper.getTextForRegion("class1"));
+			String parsedText = pdfStripper.getText(pdDoc);
+			System.out.println(parsedText);
 		}
 
 		catch (IOException e) {
@@ -280,7 +288,9 @@ public class ReadJson {
 		return data;
 
 	}
-
+	
+	
+	
 	
 	
 	

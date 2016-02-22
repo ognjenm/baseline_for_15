@@ -102,17 +102,36 @@ public class WorkflowServices {
 		System.out.println(sql);
 		return workflowRepo.searchReferenceData(sql);
 	};
+	public String searchIxsdContentLineitem(String jsonData) throws Throwable{
+		JSONObject json=(JSONObject)new JSONParser().parse(jsonData);
+		return workflowRepo.searchIxsdContentLineitem(json);
+	};
 	public String searchIxsdContent(String jsonData) throws Throwable{
 		JSONObject json=(JSONObject)new JSONParser().parse(jsonData);
 		return workflowRepo.searchIxsdContent(json);
 	};
+	public String updateIxsdContent(String jsonData) throws Throwable{
+		System.out.println("=============>Enter Last second");
+		JSONObject json=(JSONObject)new JSONParser().parse(jsonData);
+		//JSONObject json1=(JSONObject)new JSONParser().parse(jsonData1);
+		System.out.println("======>"+json.toString());
+		return workflowRepo.updateIxsdContent(json.toString());
+	};
 	public String searchIxsdData() throws Throwable{
 		return workflowRepo.searchIxsdData();
+	};
+	public String searchIxsdDataexception() throws Throwable{
+		return workflowRepo.searchIxsdDataException();
 	};
 	public String searchEfsuinForDin(String JSONData) throws ParseException{
 		JSONObject json=(JSONObject)new JSONParser().parse(JSONData);
 		String din=json.get("din").toString();
 		return workflowRepo.searchEfsuinForDin(din);
+	};
+	public String searchEfsuinForDinException(String JSONData) throws ParseException{
+		JSONObject json=(JSONObject)new JSONParser().parse(JSONData);
+		String din=json.get("din").toString();
+		return workflowRepo.searchEfsuinForDinExction(din);
 	};
 	public String saveTfsUin(String JSONData) throws ParseException{
 		JSONObject json=(JSONObject)new JSONParser().parse(JSONData);

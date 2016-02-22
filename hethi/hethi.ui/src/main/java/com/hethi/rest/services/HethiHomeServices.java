@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.catalina.util.Base64;
+import org.apache.pdfbox.pdmodel.PDDocument;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -28,18 +29,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.hethi.daas.ImageIO.ImageProcessesingServices;
+import com.hethi.daas.Mapping.ReadJson;
 import com.hethi.daas.OCR.PDFImageProcessing;
 
 import com.hethi.rest.repo.HethiHomeRepo;
 import com.hethi.rest.utility.EmailNotificationService;
 import com.hethi.rest.utility.ExtractArchive;
 import com.hethi.rest.utility.ExtractZipFiles;
+import com.hethi.rest.utility.PDFUtility;
 import com.hethi.rest.utility.QueryExecutors;
 
 import net.sf.jmimemagic.MagicException;
 import net.sf.jmimemagic.MagicMatchNotFoundException;
 import net.sf.jmimemagic.MagicParseException;
 import net.sourceforge.tess4j.TesseractException;
+import net.sourceforge.tess4j.util.PdfUtilities;
 
 public class HethiHomeServices {
 	HethiHomeRepo homeRepo=new HethiHomeRepo();
@@ -111,13 +115,22 @@ public class HethiHomeServices {
 						+ fullPath.substring(fullPath.indexOf("/images"), fullPath.length());
 				
 						if(sourcePath.endsWith(".pdf")){
-							PDFImageProcessing pdfImg=new PDFImageProcessing();
-							try {
-								pdfImg.convertPdfToImage("", sourcePath, null, "jpg", 1, 1, "rgb");
-								fullPath=fullPath.replace(".pdf", ".jpg");
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+							
+							//PdfUtility utilities=new PdfUtilities();
+							PDFUtility utility=new PDFUtility();
+							boolean isScanned=utility.isScannedPDF(sourcePath);
+							if(isScanned){
+								PDFImageProcessing pdfImg=new PDFImageProcessing();
+								PDDocument doc = PDDocument.load(new File(sourcePath));
+								int count = doc.getNumberOfPages();
+								
+								try {
+									pdfImg.convertPdfToImage("", sourcePath, null, "jpg", 1, count,"rgb");
+									fullPath=fullPath.replace(".pdf", ".jpg");
+									ImageProcessesingServices.getFullOCR("src/web/client"+fullPath.substring(fullPath.indexOf("/images"),fullPath.length()));
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
 							}
 						}
 						else{
@@ -220,7 +233,7 @@ public class HethiHomeServices {
 	        	
 	           return jsonD.toJSONString();
 	       }
-//		   return homeRepo.addPlatformUser(sql);
+	       //return homeRepo.addPlatformUser(sql);
 		return data;
 	}
 	

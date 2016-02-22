@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,11 +14,32 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.json.JSONException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import com.google.gson.Gson;
+import com.hethi.rest.repo.WorkflowRepo;
+
+
 
 public class QueryExecutors {
 	
@@ -346,4 +369,98 @@ public class QueryExecutors {
 			return resultSet;
 		}
 	}
+	
+	public Object invokeMethod(String propertName,Object classObj,Method method1,String input) throws NumberFormatException, IllegalAccessException,
+	IllegalArgumentException, InvocationTargetException, ParseException{
+		String variable=null;
+	
+		for(final Method method : classObj.getClass().getDeclaredMethods()){
+			if(method.getName().endsWith(propertName) && method.getName().startsWith("get"))
+				variable=method.getGenericReturnType().toString();
+		//System.out.println("Exception variable===========>"+variable);
+		}
+		System.out.println(input);
+		if(variable.equals("String")){
+			if(input.equals(null) || input.equals(""))
+				input="";
+			method1.invoke(classObj, input);
+		}
+		if(variable.equals("int")){
+			if(input==null || input.equals(""))
+				input="0";
+			int inputNumber=Integer.parseInt(input);
+			method1.invoke(classObj, inputNumber);
+		}
+		else if(variable.equals("long")){
+			if(input==null  || input.equals(""))
+				input="0";
+			long inputNumber=Long.parseLong(input);
+			method1.invoke(classObj, inputNumber);
+		}
+		else if(variable.equals("float")){
+			if(input==null ||  input.equals(""))
+				input="0.0";
+			float inputNumber=Float.parseFloat(input);
+			method1.invoke(classObj, inputNumber);
+		}
+		else if(variable.equals("double")){
+			if(input==null  || input.equals(""))
+				input="0.0";
+			double inputNumber=Double.parseDouble(input);
+			method1.invoke(classObj, inputNumber);
+		}
+		else if(variable.equals("class java.sql.Timestamp")){
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		    Date date = new Date();
+		    String timestamp=null;
+//		    System.out.println(input);
+		    if(input.equals(null) || input.equals(""))
+		    {
+		    	timestamp = dateFormat.format(date);
+		    }
+		    else
+		    {
+				timestamp = input;
+    		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    		Date parsedDate = df.parse(timestamp);
+    		Timestamp times=new Timestamp(parsedDate.getTime());
+    		method1.invoke(classObj, times);
+		    }
+		}
+		else if(variable.equals("class java.util.Date")){
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		    Date date = new Date();
+		    String timestamp=null;
+		    if(input.equals(null) || input.equals(""))
+		    	timestamp = dateFormat.format(date);
+		    else
+				timestamp = input;
+    		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    		Date parsedDate = df.parse(timestamp);
+    		Timestamp times=new Timestamp(parsedDate.getTime());
+    		method1.invoke(classObj, times);
+		}
+		return classObj;
+	}
+	public ArrayList<String> listFilesToInsert(String form){
+		File currentDirFile = new File(".");
+		String helper = currentDirFile.getAbsolutePath();
+		String currentDir = helper.substring(0, helper.lastIndexOf('.')).replace('\\', '/');
+		String filepath=currentDir+"src/main/java/com/hethi/rest/model";
+		System.out.println("filepath=="+filepath);
+		File folder=new File(filepath);
+		ArrayList<String> fileNames=new ArrayList<String>();
+		for(final File fileEntry:folder.listFiles()){
+			System.out.println("filename="+fileEntry.getName());
+			if(fileEntry.getName().endsWith(form+".java") || fileEntry.getName().endsWith(form+"_lineitem.java")){
+				System.out.println("just adding="+fileEntry.getName().split(".java")[0]);
+				fileNames.add(fileEntry.getName().split(".java")[0]);
+			}
+		}
+		System.out.println(fileNames);
+		return fileNames;
+	}
+	
+	
+	 	
 }

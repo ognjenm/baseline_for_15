@@ -66,20 +66,39 @@ public class WorkflowController {
 		WorkflowServices workflowservices = new WorkflowServices();
 		return workflowservices.searchReferenceData(jsonData);
 	}
-
+	
+	@RequestMapping(value = "/search_ixsd_content_lineitem", method = RequestMethod.POST)
+	@ResponseBody
+	public String searchIxsdContentLineitem(@RequestBody String jsonData) throws Throwable {
+		WorkflowServices workflowservices = new WorkflowServices();
+		return workflowservices.searchIxsdContentLineitem(jsonData);
+	}
 	@RequestMapping(value = "/search_ixsd_content", method = RequestMethod.POST)
 	@ResponseBody
 	public String searchIxsdContent(@RequestBody String jsonData) throws Throwable {
 		WorkflowServices workflowservices = new WorkflowServices();
 		return workflowservices.searchIxsdContent(jsonData);
 	}
-
+	@RequestMapping(value = "/update_ixsd_content", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateIxsdContent(@RequestBody String jsonData) throws Throwable {
+		WorkflowServices workflowservices = new WorkflowServices();
+		return workflowservices.updateIxsdContent(jsonData);
+	}
+	
 	@RequestMapping(value = "/search_ixsd_data", method = RequestMethod.POST)
 	@ResponseBody
 	public String searchIxsdData() throws Throwable {
 		WorkflowServices workflowservices = new WorkflowServices();
 		return workflowservices.searchIxsdData();
 	}
+	@RequestMapping(value = "/search_ixsd_data_exception", method = RequestMethod.POST)
+	@ResponseBody
+	public String searchIxsdDataException() throws Throwable {
+		WorkflowServices workflowservices = new WorkflowServices();
+		return workflowservices.searchIxsdDataexception();
+	}
+	
 
 	@RequestMapping(value = "/search_efsuin_for_din", method = RequestMethod.POST)
 	@ResponseBody
@@ -88,6 +107,14 @@ public class WorkflowController {
 		return workflowservices.searchEfsuinForDin(JSONData);
 	}
 
+	@RequestMapping(value = "/search_efsuin_for_din_exception", method = RequestMethod.POST)
+	@ResponseBody
+	public String searchEfsuinForDinException(@RequestBody String JSONData) throws ParseException, IOException {
+		WorkflowServices workflowservices = new WorkflowServices();
+		return workflowservices.searchEfsuinForDinException(JSONData);
+	}
+
+	
 	@RequestMapping(value = "/save_tfs_uin", method = RequestMethod.POST)
 	@ResponseBody
 	public String saveTfsUin(@RequestBody String JSONData) throws ParseException, IOException {

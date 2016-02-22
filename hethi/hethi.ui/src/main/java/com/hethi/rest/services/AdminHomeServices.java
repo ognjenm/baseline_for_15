@@ -155,5 +155,11 @@ public class AdminHomeServices {
 		System.out.println(sql);
 		return homeRepo.load_all_master_data(sql);
 	}
+	public String load_dashboard_data(String JSONData) {
+
+		String sql = "{ call load_dashboard_data()}";
+		System.out.println(sql);
+		return homeRepo.load_dashboard_data(sql);
+	}
 	
 }

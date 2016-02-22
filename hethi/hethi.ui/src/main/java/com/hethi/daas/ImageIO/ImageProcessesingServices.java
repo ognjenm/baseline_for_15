@@ -1,7 +1,11 @@
 package com.hethi.daas.ImageIO;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FilenameUtils;
 import org.json.JSONException;
@@ -9,7 +13,7 @@ import org.json.simple.parser.ParseException;
 
 import com.hethi.daas.OCR.JODImageProcessing;
 import com.hethi.daas.OCR.OCRImageProcessing;
-import com.hethi.daas.Mapping.ReadJson;
+import com.hethi.daas.OCR.PDFImageProcessing;
 
 import net.sf.jmimemagic.Magic;
 import net.sf.jmimemagic.MagicException;
@@ -60,12 +64,13 @@ public class ImageProcessesingServices {
 		 */
 
 		/*
-		 * else if(mimeType.equals("appication/pdf")){ File
-		 * file=PDFImageProcessing.convertScannedPDFToTiff(filename);
-		 * mimeType=OCRImageProcessing.getSearchablePDF(file);
-		 * System.out.println("ScannedPDF To SearchablePDF Created Successfully"
-		 * ); }
-		 */
+		  else if(mimeType.equals("appication/pdf")){ File
+		  file=PDFImageProcessing.convertScannedPDFToTiff(filename);
+		  BufferedImage bimage=ImageIO.read(file);
+		  mimeType=OCRImageProcessing.getSearchablePDF(file.toString());
+		  System.out.println("ScannedPDF To SearchablePDF Created Successfully"
+		  ); }*/
+		 
 
 		else {
 			mimeType = OCRImageProcessing.getSearchablePDF(filename);
@@ -93,12 +98,12 @@ public class ImageProcessesingServices {
 		/**
 		 * 
 		 * @processImage(string imageFileLocation) return
-		 *                      imageFile(StandanrdSize)
+		 * imageFile(StandanrdSize)
 		 * 
 		 */
 		String filePath = "D:/CloudPrint/";
 
-		//String inputpdfFile = ImageProcessesingServices.getFullOCR("image/invoice_1.jpg");
+		String inputpdfFile = ImageProcessesingServices.getFullOCR("vis6016564511235580755.pdf");
 
 		/*try {
 			Thread.sleep(20000);
@@ -112,6 +117,7 @@ public class ImageProcessesingServices {
 		 * Extraction
 		 * 
 		 */
+		
 		/*String inputpdfFile="sample_4.pdf";
 		
 		

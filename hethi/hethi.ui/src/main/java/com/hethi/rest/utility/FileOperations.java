@@ -73,6 +73,26 @@ public class FileOperations {
 		}
 		return fileNames;
 	}
+	
+	public ArrayList<String> listFilesToSelectException(){
+		File currentDirFile = new File(".");
+		String helper = currentDirFile.getAbsolutePath();
+		String currentDir = helper.substring(0, helper.lastIndexOf('.')).replace('\\', '/');
+		File folder=new File(currentDir+"src/main/java/com/hethi/rest/model");
+		ArrayList<String> fileNames=new ArrayList<String>();
+		for(final File fileEntry:folder.listFiles()){
+			if(fileEntry.getName().startsWith("ixsd_") || fileEntry.getName().endsWith("_exception")){
+				String fileName=fileEntry.getName().split(".java")[0];
+				int tempNameSize=fileName.replace("_", " ").split(" ").length;
+				if(tempNameSize==2)
+					System.out.println("exception ...."+fileName);
+				   fileNames.add(fileName);
+			}
+		}
+		return fileNames;
+	}
+	
+	
 	public Object invokeMethod(String propertName,Object classObj,Method method1,String input) throws NumberFormatException, IllegalAccessException,
 	IllegalArgumentException, InvocationTargetException, ParseException{
 		String variable=null;
@@ -177,7 +197,7 @@ public class FileOperations {
         }
 
     }
-	public Map<String,String> readElements(Object classObj) throws InstantiationException {
+	public  Map<String,String> readElements(Object classObj) throws InstantiationException {
 	    Method[] methods =classObj.getClass().getDeclaredMethods();
 	    Map<String,String> jsonMap=new HashMap<String,String>();
 	    for (Method method : methods) {
