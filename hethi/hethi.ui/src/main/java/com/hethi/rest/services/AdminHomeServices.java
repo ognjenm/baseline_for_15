@@ -109,9 +109,17 @@ public class AdminHomeServices {
 		return homeRepo.deleteRulesWorkSet(sql);
 	}
 	
+	public String loadLookupEntities(String JSONData) throws ParseException, IOException{
+    	JSONObject json=(JSONObject)new JSONParser().parse(JSONData);
+		String sql="select * from "+json.get("table").toString();
+		System.out.println(sql);
+		return homeRepo.loadEfsUin(sql);
+	}
 	public String loadEfsUin(String JSONData) throws ParseException, IOException{
     	JSONObject json=(JSONObject)new JSONParser().parse(JSONData);
-		String sql="select * from ixsd_"+json.get("efs_uin").toString();
+		String sql="select * from ixsd_"+json.get("efs_uin").toString() +" Inner Join ixsd_"+json.get("efs_uin").toString()+"_lineitem On "
+				+ "ixsd_"+json.get("efs_uin").toString()+".din = ixsd_"+json.get("efs_uin").toString()+"_lineitem.din And "
+				+ "ixsd_"+json.get("efs_uin").toString()+".uid = ixsd_"+json.get("efs_uin").toString()+"_lineitem.uid";
 		System.out.println(sql);
 		return homeRepo.loadEfsUin(sql);
 	}
@@ -154,12 +162,6 @@ public class AdminHomeServices {
 		String sql = "{ call load_all_master_data()}";
 		System.out.println(sql);
 		return homeRepo.load_all_master_data(sql);
-	}
-	public String load_dashboard_data(String JSONData) {
-
-		String sql = "{ call load_dashboard_data()}";
-		System.out.println(sql);
-		return homeRepo.load_dashboard_data(sql);
 	}
 	
 }
