@@ -43,7 +43,6 @@ import net.sf.jmimemagic.MagicException;
 import net.sf.jmimemagic.MagicMatchNotFoundException;
 import net.sf.jmimemagic.MagicParseException;
 import net.sourceforge.tess4j.TesseractException;
-import net.sourceforge.tess4j.util.PdfUtilities;
 
 public class HethiHomeServices {
 	HethiHomeRepo homeRepo=new HethiHomeRepo();
