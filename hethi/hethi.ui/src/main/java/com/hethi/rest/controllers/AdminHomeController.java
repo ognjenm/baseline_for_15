@@ -28,6 +28,12 @@ public class AdminHomeController {
 	public String loadEfsUin(@RequestBody String JSONData) throws ParseException, IOException {
 		return homeService.loadEfsUin(JSONData);
 	}
+	
+	@RequestMapping( value="/loadLookupEntities" , method = RequestMethod.POST)
+	@ResponseBody
+	public String loadLookupEntities(@RequestBody String JSONData) throws ParseException, IOException {
+		return homeService.loadLookupEntities(JSONData);
+	}
 
 	@RequestMapping(value = "/loadCustomerName", method = RequestMethod.POST)
 	@ResponseBody
@@ -128,11 +134,6 @@ public class AdminHomeController {
 	@ResponseBody
 	public String load_all_master_data(@RequestBody String JSONData) throws ParseException, IOException {
 		return homeService.load_all_master_data(JSONData);
-	}
-	@RequestMapping(value = "/load_dashboard_data", method = RequestMethod.POST)
-	@ResponseBody
-	public String load_dashboard_data(@RequestBody String JSONData) throws ParseException, IOException {
-		return homeService.load_dashboard_data(JSONData);
 	}
 
 
