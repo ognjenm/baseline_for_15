@@ -11,39 +11,57 @@
                     </div>
                     <div class="modal-body">
                         <div class="panel-body panel">
-                             <div class="row">
-                                 <div class="col-md-5">
-                                     <span><i class="fa fa-info-circle text-primary"></i> select any operation or</span>
+                             <div class="row margin-bottom-10">
+                                 <div class="col-md-12">
+                                     <span><i class="fa fa-info-circle text-primary"></i> select any operation and click apply</span>
+                                 </div>
+                             </div>
+                            <div class="row margin-bottom-10">
+                                 <div class="col-md-6">
+                                     <button class="btn btn-success" type="button">create new operation</button>
                                  </div>
                                  <div class="col-md-6">
                                      <div class="input-group">
-                                         <input placeholder="search operation" type="text" class="form-control" ng-model="operation_name">
-                                         <span class="input-group-addon fa fa-search btn-info" data-ng-click="selectOperation(operation_name)"></span>
+
+                                         <input placeholder="search operation" type="text"  typeahead="opera as opera.operation_name for opera in operations | filter:$viewValue | limitTo:10"
+                                                class="form-control ng-pristine ng-invalid ng-invalid-required mouse_point" ng-model="operation_name" aria-autocomplete="list"
+                                                aria-expanded="false" aria-owns="typeahead-00H-7962">
+                                         <span class="input-group-addon fa fa-search btn-info" data-ng-click="searchOperation(operation_name)"></span>
                                      </div>
                                  </div>
                              </div>
-                            <div class="row margin-bottom-20">
-                                <div class="col-md-3">
-                                    and click apply
-                                </div>
-                            </div>
-                             <hr class="text-primary">
-                            <div class="row   margin-bottom-10">
+
+                             <hr class="h4 text-primary">
+                            <div class="row  margin-bottom-10" style="text-align: right">
+
                                     <button class="btn_hethi_square btn-danger" style="border-radius: 100%" type="button" ng-click="changeDisplay()">next track</button>
                                     <span class="pull-right"></span>
                             </div>
 
-                            <div class="row">
+                            <div class="row margin-bottom-20">
                                 <div ng-repeat="oper in operationList.opRow " id="displayId" ng-show="$index >= displayItems && $index < displayItems+2" >
-                                    <div class="row margin-bottom-20" >
+                                    <div class="row " >
                                         <div class="col-md-3" ng-repeat="opera in oper">
-                                            <div data-toggle="tooltip" data-placement="top"
+                                            <div class="quote-container mouse_point"
+                                                 ata-toggle="tooltip" data-placement="top"
 
                                                  tooltip="{{opera.description}}"
                                                  tooltip-placement="top"
-                                                 ng-click="selectOperation(opera,$index)" ng-class="opera.status == 1 ? 'active  mouse_point':'operation mouse_point'" >
-                                                {{opera.operation_name}}
+                                                 ng-click="selectOperation(opera,$index)"
+                                                    >
+                                                <i class="pin"></i>
+                                                <blockquote class="note color-tag">
+                                                    {{opera.operation_name}}
+                                                </blockquote>
                                             </div>
+
+                                            <!--<div data-toggle="tooltip" data-placement="top"-->
+
+                                                 <!--tooltip="{{opera.description}}"-->
+                                                 <!--tooltip-placement="top"-->
+                                                 <!--ng-click="selectOperation(opera,$index)" ng-class="opera.status == 1 ? 'mouse_point poster selectedOperation':'mouse_point poster operation'" >-->
+                                                <!--{{opera.operation_name}}-->
+                                            <!--</div>-->
 
                                         </div>
                                     </div>
@@ -51,11 +69,18 @@
                                 </div>
                             </div>
 
-
-
                             <div class="row margin-bottom-20">
-                                <div class="col-md-12">
-                                    <span class="operation-status text-primary" ng-show="selected">You are selected <label>{{selected}} </label> </span>
+                                <div class="col-md-12 operation-status" ng-show="selected">
+                                    <div class="row col-md-12">
+                                        <div style="width:10px;height:10px;border-radius: 200%;background-color: white;
+                                               border: 1px solid orangered"></div>
+                                    </div>
+                                    <div class="row col-md-12">
+                                           <span class=" text-primary margin-top-15" >
+                                        You are selected <label>{{selected}}</label>  , to continue click apply</span>
+                                    </div>
+
+
                                 </div>
                             </div>
                             <div class="row margin-bottom-20">
