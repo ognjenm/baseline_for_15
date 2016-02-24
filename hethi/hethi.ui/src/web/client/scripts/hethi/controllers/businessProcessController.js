@@ -1487,6 +1487,7 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                 }
                 var temp=JSON.stringify(jsonArray).replace("\"[","[").replace("]\"","]");
                 temp=temp.replace("output\":\"{","output\":{").replace("}\",\"","},\"");
+                temp='"'+temp+'"';
                 if(i == 0) conditions=conditions+'ip.home('+temp+')';
                 else if(data.condition_statement != undefined){
                     conditions=conditions+' and ip.home('+temp+')';
