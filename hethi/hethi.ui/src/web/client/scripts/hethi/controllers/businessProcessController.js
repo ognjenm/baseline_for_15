@@ -2,7 +2,7 @@
 
 
 hethi.controller('businessProcessController', ['$http','$scope','logger','$filter','$location','$rootScope', function ($http,$scope,logger,$filter,$location,$rootScope){
-      //alert("sfgdsfg");
+      //load("sfgdsfg");
     $scope.oneAt = false;
     $scope.isRuleDiv=true;
     $rootScope.currentTab='homePage';
@@ -47,12 +47,24 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                 if(current.tabs==value){
                     $rootScope.currentTab=value;
                 }
-            })
+            });
+            //if(value == 'summary'){
+            //    var conditions='';
+            //    $scope.dynamicRules.forEach(function(rows,i){
+            //        alert(JSON.stringify(rows.jsonArray));
+            //        if(i == 0) conditions=conditions+'ip.home('+JSON.stringify(rows.jsonArray)+')';
+            //        else if(rows.condition_statement != undefined){
+            //            conditions=conditions+' and ip.home('+JSON.stringify(rows.jsonArray)+')';
+            //        }
+            //    });
+            //    conditions=conditions+")";
+            //    $scope.conditionList="ip:iPost and form:ixsd_"+$scope.efs+'('+conditions+')';
+            //}
         }
         else
             logger.logError('please give input for rule '+errorKey)
     };
-    $scope.inputFields=[{id:1,status:false}];
+
     $scope.setRuleName=function(ruleName){
         $scope.rule_name=ruleName;
     };
@@ -109,6 +121,11 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         }).success(function(data) {
             $scope.loadPackages();
         });
+    };
+    $scope.closePackageSettings=function(){
+        $scope.loadPackages();
+        $('#editPackage').modal('hide');
+
     };
     $scope.removeWorkSet=function(){
         var input={
@@ -504,6 +521,7 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         $scope.failureTab=text;
     };
     $scope.isField='custom';
+
     $scope.setFieldType=function(flag,index){
         var len= $scope.dynamicRule.length-1;
         $scope.dynamicRule[len].fieldArray.forEach(function(ele,i){
@@ -781,7 +799,7 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
     $scope.btnType='sum';
     $scope.message='enter sum output';
     $scope.setOutput=function(op){
-        if($scope.btnType=='validity'){
+        if($scope.btnType!='validity'){
             if(isNaN(op.output)){
                 $scope.messageFlag=true;
                 op.output=' ';
@@ -824,6 +842,22 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
             $scope.queueGroup=data[6];
             $scope.queueList=data[7];
             $scope.exceptionList=data[8];
+            $scope.operations=data[9];
+            $scope.tempRow=[];
+            $scope.operationList={opRow:[]};
+            var index=0;
+            $scope.operations.forEach(function(row,i){
+                if(((i+1) % 4 ) != 0){
+                    $scope.tempRow.push(row);
+                    $scope.operationList['opRow'][index]=$scope.tempRow;
+                }
+                else if(((i+1) % 4 ) == 0){
+                    $scope.tempRow.push(row);
+                    $scope.operationList['opRow'][index]=$scope.tempRow;
+                    index++;
+                    $scope.tempRow=[];
+                }
+            });
             $scope.listOfQueue= _.groupBy($scope.queueList,function(element){
                 return element.hethi_service_id;
             });
@@ -934,70 +968,86 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         $scope.conditionList=$scope.dynamicRule[0].condition_statement;
 
     };
+    $scope.ruleType='computation';
     $scope.addNewRule=function(rule){
-        var startDate='', endDate='';
-        if(rule.status==undefined)
-            rule.status='true';
-        if(rule.startDate==undefined)
-           startDate=new Date().getFullYear()+"-"+(new Date().getMonth()+1)+"-"+new Date().getDate();
-        if(rule.endDate==undefined)
-           endDate=new Date().getFullYear()+"-"+(new Date().getMonth()+1)+"-"+new Date().getDate();
-        startDate=new Date(rule.startDate).getFullYear()+"-"+(new Date(rule.startDate).getMonth()+1)+"-"+new Date(rule.startDate).getDate();
-        endDate=new Date(rule.endDate).getFullYear()+"-"+(new Date(rule.endDate).getMonth()+1)+"-"+new Date(rule.endDate).getDate();
-        if(rule.field_type==undefined){
-            rule.field_type='header';
-        }
-        var input={
-            ruleset_id:$scope.currentRuleSet,
-            rule_name:rule.name,
-            rule_desc:rule.desc,
-            rule_efs:rule.form_types,
-            rule_type:rule.field_type,
-            rule_condition:$scope.conditionList,
-            rule_action:$scope.actionEvent,
-            rule_failure:$scope.failureEvent,
-            rule_effective_startdate:startDate,
-            rule_effective_enddate:endDate,
-            rule_status:rule.status,
-            lastUpUser:'1'
-        };
-        //alert(JSON.stringify(input));
-        $http({
-            method: 'POST',
-            url: $rootScope.spring_rest_service+'/saveNewRule',
-            dataType:'jsonp',
-            data:input
-        }).success(function(data) {
-            $scope.failureEvent='';
-            $scope.actionEvent='';
-            $scope.conditionList='';
-            $scope.isLookUp=false;
-            $scope.dynamicRule.push({
-                id: $scope.dynamicRule + 1, status: false,
-                functions: [{id: 'opera' + 1, status: true}],
-                fieldArray: [{id: 1, status: true, tableIndex: false}]
+        var flag=0;
+        if($scope.conditionList == undefined || $scope.conditionList.length == 0 ) flag=1;
+        if($scope.actionEvent == undefined || $scope.actionEvent.length == 0) flag=flag+2;
+        if($scope.failureEvent == undefined || $scope.failureEvent.length == 0) flag=flag+4;
+        if(flag == 1) logger.logError('condition must be set');
+        else if(flag == 2) logger.logError('success action must be set');
+        else if(flag == 3) logger.logError('condition and success action must be set');
+        else if(flag == 4) logger.logError('failure action must be set');
+        else if(flag == 5) logger.logError('condition and failure action must be set');
+        else if(flag == 6) logger.logError('success action and failure action must be set');
+        else if(flag == 7) logger.logError('condition , success action and failure action must be set');
+        else if(flag == 0){
+            var ruleFlag=0;
+            $scope.ruleList.forEach(function(rules){
+                 if(rules.rule_name == rule.name || rules.rule_condition == $scope.conditionList){
+                     ruleFlag=1
+                 }
             });
-            logger.logSuccess('New rule has created..');
-            $scope.isRuleDiv=true;
-           $http({
-                 method: 'POST',
-                 url: $rootScope.spring_rest_service+'/loadRulesPackages',
-                 dataType:'jsonp'
-           }).success(function(data) {
-               $scope.rulePackageList=[];
-               $scope.packageList= data[0];
-               $scope.worksetList=data[1];
-               $scope.rulesetList=data[2];
-               $scope.ruleList=data[3];
-               $scope.ruleOperators=data[4];
-               $scope.formTypes=data[5];
-               $scope.formsOfIndustry= _.groupBy($scope.formTypes,function(element){
-                   return element.indus_service;
-               });
+            if(ruleFlag == 1){
+                logger.logError('this rule has already created..')
+            }
+            else{
+                var startDate='', endDate='';
+                if(rule.status==undefined)
+                    rule.status='true';
+                if(rule.startDate==undefined)
+                    startDate=new Date().getFullYear()+"-"+(new Date().getMonth()+1)+"-"+new Date().getDate();
+                if(rule.endDate==undefined)
+                    endDate=new Date().getFullYear()+"-"+(new Date().getMonth()+1)+"-"+new Date().getDate();
+                startDate=new Date(rule.startDate).getFullYear()+"-"+(new Date(rule.startDate).getMonth()+1)+"-"+new Date(rule.startDate).getDate();
+                endDate=new Date(rule.endDate).getFullYear()+"-"+(new Date(rule.endDate).getMonth()+1)+"-"+new Date(rule.endDate).getDate();
+                var input={
+                    ruleset_id:$scope.currentRuleSet,
+                    rule_name:rule.name,
+                    rule_desc:rule.desc,
+                    rule_efs:rule.form_types,
+                    rule_type:'header',
+                    rule_condition:$scope.conditionList,
+                    rule_action:$scope.actionEvent,
+                    rule_failure:$scope.failureEvent,
+                    rule_effective_startdate:startDate,
+                    rule_effective_enddate:endDate,
+                    rule_status:rule.status,
+                    lastUpUser:'1'
+                };
+                //alert(JSON.stringify(input));
+                $http({
+                    method: 'POST',
+                    url: $rootScope.spring_rest_service+'/saveNewRule',
+                    dataType:'jsonp',
+                    data:input
+                }).success(function(data) {
+                    $scope.failureEvent='';
+                    $scope.actionEvent='';
+                    $scope.conditionList='';
+                    $scope.isLookUp=false;
+                    $scope.dynamicRules=[{'id':1,status:false,inputFields:[{id:1,status:false,tableRequired:false}]}];
+                    logger.logSuccess('New rule has created..');
+                    $scope.isRuleDiv=true;
+                    $http({
+                        method: 'POST',
+                        url: $rootScope.spring_rest_service+'/loadRulesPackages',
+                        dataType:'jsonp'
+                    }).success(function(data) {
+                        $scope.rulePackageList=[];
+                        $scope.packageList= data[0];
+                        $scope.worksetList=data[1];
+                        $scope.rulesetList=data[2];
+                        $scope.ruleList=data[3];
+                        $scope.ruleOperators=data[4];
+                        $scope.formTypes=data[5];
+                        $scope.formsOfIndustry= _.groupBy($scope.formTypes,function(element){
+                            return element.indus_service;
+                        });
 
-               $scope.queueGroup=data[6];
-               $scope.queueList=data[7];
-               $scope.exceptionList=data[8];
+                        $scope.queueGroup=data[6];
+                        $scope.queueList=data[7];
+                        $scope.exceptionList=data[8];
                         //document.getElementById('NewRule');
                         $scope.typeOfOperators = _.groupBy($scope.ruleOperators, function (element) {
                             return element.category;
@@ -1016,9 +1066,11 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                         $scope.showRuleList(input);
                         $scope.showSingle=false;
                     });
-
-
                 })
+            }
+
+
+        }
 
     };
     $scope.yes=false;
@@ -1051,7 +1103,7 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
     $scope.showSingle2=true;
     $scope.showSingle3=true;
     $scope.addNewOperations=function(index,outerIndexVal){
-        $scope.dynamicRule.forEach(function(fun,i){
+        $scope.dynamicRules.forEach(function(fun,i){
             if(i==outerIndexVal){
                 fun.functions.push({id:'opera'+fun.functions.length,status:false})
             }
@@ -1083,7 +1135,6 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         $scope.showSingle2=true;
         $scope.showSingle3=true;
     };
-    $scope.ruleType='simple';
     $scope.setRuleType=function(rule_type){
        $scope.ruleType=rule_type;
        $scope.created=false;
@@ -1096,9 +1147,8 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         fieldArray:[{id:1,status:true,tableIndex:false}]}];
     $scope.loadPackages();
     $scope.removeCondition=function(index){
-        $scope.dynamicRule.splice(index,1);
-        $scope.dynamicRule[index-1].operator=undefined;
-        //$scope.createStatement({'id':'3'},'9');
+        $scope.dynamicRules.splice(index,1);
+        $scope.dynamicRules[index-1].operator=undefined;
     };
     $scope.conditionList='';
 
@@ -1336,57 +1386,240 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         $rootScope.currentRuleSet_id=rows.ruleset_id;
     };
     $scope.applyOperation=function(){
+        var len=$scope.dynamicRules.length;
         if($scope.selected!=undefined){
-            $scope.opera=$scope.selected;
+            $scope.dynamicRules[len-1].opera=$scope.selected;
             $scope.selected=undefined;
+            $scope.operationList.opRow.forEach(function(rows,i){
+                rows.forEach(function(data){
+                    data.status=0;
+                });
+            });
             $('#operationPalette').modal('hide');
         }
         else
            logger.logError('select any operation')
 
     };
+    $scope.selectOption=function(index){
+        $scope.custom_type_options.forEach(function(data,i){
+            if(i == index){
+                data.status=1
+            }
+            else
+               data.status=0;
+        })
+    };
+    //$scope.inputFields=[{id:1,status:false,tableRequired:false}];
+    $scope.dynamicRules=[{'id':1,status:false,inputFields:[{id:1,status:false,tableRequired:false}]}];
+    $scope.setCondition=function(){
+        var arrayLength=$scope.dynamicRules.length;
+        var jsonArray={};
+        jsonArray['inputs']='[';
+        jsonArray['custom_inputs']={};
+        jsonArray['output']='{';
+        var message='';
+        var conditions='';
+        $scope.errorMessage=[];
+        $scope.dynamicRules.forEach(function(data,i){
+            if(i == arrayLength-1){
+                jsonArray['operation']=data.opera;
+                var input='{';
+                data.inputFields.forEach(function(rows,i){
+                    var lookup=rows.lookup,lookupEntity=rows.lookupEntity;
+                    if(rows.lookupEntity == undefined || !rows.tableRequired){
+                        lookupEntity='';
+                        lookup='';
+                    }
+                    else{
+                        lookup='';
+                        lookup='1_'+rows.lookup.toLowerCase()+'_lookup';
+                    }
+                    if(i > 0){
+                        input=input+',{';
+                    }
+                    $scope.errorMessage.push({errorKey:rows.entity});
+                    if(lookupEntity.length > 0){
+                        $scope.errorMessage.push({errorKey:"lookup"});
+                    }
+                    $scope.value="form.get";
+
+                    var field = rows.entity.substring(0,1).toUpperCase()+rows.entity.substring(1);
+                    $scope.value=$scope.value+field+"()";
+                    input=input+'"'+rows.entity+'"'+":"+$scope.value+",";
+                    input=input+'"mxml1":"'+lookupEntity+'",';
+                    input=input+'"lookupTable":"'+lookup+'"}';
+                });
+
+                jsonArray['inputs']=jsonArray['inputs']+input+"]";
+                if($scope.custom_type_options.length == 0){
+                    jsonArray['custom_inputs']['type']='first';
+                    jsonArray['expression_type']='first';
+                }
+                else{
+                    var index=0;
+                    $scope.custom_type_options.forEach(function(rows,i){
+                        if(rows.status == 1){
+                            index=i;
+                        }
+                    });
+                    if(index ==0 ){
+                        jsonArray['custom_inputs']['type']='first';
+                        jsonArray['expression_type']='first';
+                    }
+                    else {
+                        jsonArray['custom_inputs']['type'] = 'second';
+                        jsonArray['expression_type'] = 'second';
+                    }
+                }
+                if(data.customInput == undefined || data.customInput.length == 0){ data.customInput=''; }
+                else $scope.errorMessage.push({errorKey:"custom_input"});
+                jsonArray['custom_inputs']['custom_input']=data.customInput;
+                data['jsonArray']=jsonArray;
+                if(data.outputEntity !=undefined){
+                    $scope.errorMessage.push({errorKey:data.outputEntity});
+                    var field=data.outputEntity.substring(0,1).toUpperCase()+data.outputEntity.substring(1);
+                    $scope.value='form.get'+field+'()';
+                    jsonArray['output']=jsonArray['output']+'"'+data.outputEntity+'":'+$scope.value+'}';
+                }
+                else{
+                    jsonArray['output']=jsonArray['output']+'}';
+                }
+                var temp=JSON.stringify(jsonArray).replace("\"[","[").replace("]\"","]");
+                temp=temp.replace("output\":\"{","output\":{").replace("}\",\"","},\"");
+                if(i == 0) conditions=conditions+'ip.home('+temp+')';
+                else if(data.condition_statement != undefined){
+                    conditions=conditions+' and ip.home('+temp+')';
+                }
+            }
+        });
+        $scope.error_input=[];
+        $scope.errorKeys='';
+        var errorFlag= 0,outputFlag=0;
+        $scope.expression_key.forEach(function(exp,i){
+            errorFlag=0;
+            $scope.errorMessage.forEach(function(error,j){
+                if(error.errorKey.lastIndexOf(exp.exp_key) > -1){
+                    errorFlag=1;
+                    if(i==0 && j==0) message=message+error.errorKey;
+                    else if(j==0) message=message+","+error.errorKey
+                }
+            });
+            if(errorFlag == 0){
+                outputFlag=1;
+                if(i==0) $scope.errorKeys=$scope.errorKeys+exp.exp_key;
+                else $scope.errorKeys=$scope.errorKeys+","+exp.exp_key;
+                $scope.error_input.push({key:exp.exp_key})
+            }
+        });
+        if(outputFlag == 0){
+            if($scope.rules_type == 'header')
+                $scope.conditionList="ip:iPost and form:ixsd_"+$scope.efs+'('+conditions+')';
+            else if($scope.rules_type == 'table')
+                $scope.conditionList="ip:iPost and form:ixsd_"+$scope.efs+'_lineitem('+conditions+')';
+            $scope.created=true;
+            $scope.errorStatus=false;
+            $scope.errorList=false;
+            var len=$scope.dynamicRules.length;
+            $scope.dynamicRules[len-1].condition_statement = message;
+            $scope.dynamicRules.push({'id': $scope.dynamicRules.length+1,status:false,inputFields:[{id:1,status:false,tableRequired:false}]});
+            $scope.requireValue=0;
+        }
+        else{
+            $scope.errorStatus=true;
+            $scope.created=false;
+            var len=$scope.dynamicRules.length;
+            $scope.dynamicRules[len-1].condition_statement = undefined;
+        }
+    };
+    $scope.change=function(){
+        $scope.errorList=!$scope.errorList;
+    };
+    $scope.errorList=false;
+    $scope.selectLookupEntity=function(lookup){
+        lookup='1_'+lookup+'_lookup';
+        var input={
+            table:lookup
+        };
+        $http({
+            method: 'POST',
+            url: $rootScope.spring_rest_service+'/loadLookupEntities',
+            dataType:'jsonp',
+            data:input
+        }).success(function(data) {
+            $scope.selectedLookup=data[1];
+
+        });
+    };
+    $scope.errorStatus=false;
     $scope.selectOperation=function(row,index){
         $scope.selected=row.operation_name;
         $scope.requireValue=row.custom_value;
         $scope.btnType1=row.custom_type;
         $scope.customInfo=row.custom_message;
-    };
-    $scope.changeStatus=function(status){
-        $scope.tableRequired=status;
-    };
-    $scope.tableRequired=false;
-    $scope.operations=[{operation_name:'check price discrepancy',status:false,custom_value:0,custom_type:'',custom_message:'',description:'check invoice amount is 5 % / $10 (+ or -) variance or not'},
-        {operation_name:'check quantity discrepancy',status:false,custom_value:0,custom_type:'',custom_message:'',description:'check the Qty is greater than the quantity on the PO line'},
-        {operation_name:'check invoice date expiration',status:false,custom_value:1,custom_type:'custom',custom_message:'validity period (in days)',description:'check  invoice has a future date of more than 90 days'},
-        {operation_name:'calculate invoice total',status:false,custom_value:0,custom_type:'',custom_message:'',description:'calculate sum of all line item'},
-        {operation_name:'invoice  amount to zero',status:false,custom_value:0,custom_type:'',custom_message:'',description:'check invoice amount to zero'},
-        {operation_name:'invoice date format',status:false,custom_value:0,custom_type:'',custom_message:'',description:'check invoice date format is correct or not'},
-        {operation_name:'image illegible',status:false,custom_value:0,custom_type:'',custom_message:'',description:'image is clear or not'},
-        {operation_name:'freight, surcharge tax illegible',status:false,custom_value:0,custom_type:'',custom_message:'',description:'freight, surcharge tax illegible'},
-        {operation_name:'currency validation',status:false,custom_value:1,custom_type:'custom',custom_message:'currency ',description:'currency should be in USD or $'},
-        {operation_name:'calculate item sub total',status:false,custom_value:1,custom_type:'field',custom_message:'output field ',description:'compute rate * qty = sub total'},
-        {operation_name:'check mandatory fields are available',status:false,custom_value:0,custom_type:'',custom_message:'',description:'invoice number,invoice amount,invoice date,po number is mandatory'},
-        {operation_name:'check vendor',status:false,custom_value:0,custom_type:'',custom_message:'',description:'check vendor with given details'},
-        {operation_name:'validate vendor address',status:false,custom_value:0,custom_type:'',custom_message:'',description:'validate vendor address'},
-        {operation_name:'check po is invalid or not',status:false,custom_value:0,custom_type:'',custom_message:'',description:'check po is valid or not'},
-        {operation_name:'check invoice duplication',status:false,custom_value:0,custom_type:'',custom_message:'',description:'check invoice duplication'},
-        {operation_name:'check PO line mismatch',status:false,custom_value:0,custom_type:'',custom_message:' ',description:'po line count is equal with master file'}];
+        $scope.rules_type=row.rule_type;
+        $scope.expression_key=[];
+        $scope.expression_input=row.expression_input.split(',');
+        for(var i=0;i<$scope.expression_input.length;i++){
+            $scope.expression_key.push({exp_key:$scope.expression_input[i]});
+        }
+        $scope.custom_type_options=[];
+        if(row.custom_type_options != undefined){
+            $scope.options=row.custom_type_options.split(',');
+            for(var i=0;i<$scope.options.length;i++){
+                var status=0;
+                if(i==0) status=1;
+                $scope.custom_type_options.push({id:i+1,option:$scope.options[i],status:status})
+            }
+        }
+        $scope.operationList.opRow.forEach(function(rows,i){
+            rows.forEach(function(data,j){
+                if(data.operation_name == (row.operation_name)){
+                    $scope.displayItems=i;
+                    data.status=1;
+                }
+                else{
+                    data.status=0;
+                }
+            });
+        });
 
-    $scope.tempRow=[];
-    $scope.operationList={opRow:[]};
-    var index=0;
-    $scope.operations.forEach(function(row,i){
-        if(((i+1) % 4 ) != 0){
-            $scope.tempRow.push(row);
-            $scope.operationList['opRow'][index]=$scope.tempRow;
-        }
-        else if(((i+1) % 4 ) == 0){
-            $scope.tempRow.push(row);
-            $scope.operationList['opRow'][index]=$scope.tempRow;
-            index++;
-            $scope.tempRow=[];
-        }
-    });
+    };
+    $scope.outerIndex=0;
+    $scope.changeStatus=function(status,index,outer){
+        $scope.dynamicRules[outer].inputFields.forEach(function(inputs,i){
+            if(index == i)
+                inputs.tableRequired=status;
+        });
+
+    };
+    $scope.changeDisplay=function(){
+        var next=$scope.displayItems + +2;
+        if((next) < $scope.operationList.opRow.length)
+            $scope.displayItems = next;
+        else
+            $scope.displayItems=0;
+   };
+
+    $scope.searchOperation=function(operation){
+        var flag=0;
+        $scope.operationList.opRow.forEach(function(rows,i){
+            rows.forEach(function(data){
+                var length=operation.operation_name.length;
+                if(data.operation_name == (operation.operation_name)){
+                    $scope.displayItems=i;
+                    flag=1;
+                    data.status=1;
+                }
+                else{
+                    flag++;
+                    data.status=0;
+                }
+            });
+        });
+
+    };
+    $scope.displayItems=0;
 
     $scope.oneAtATime = true;
     $scope.oneAtaTimeWorkset = true;
@@ -1569,6 +1802,7 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         return $scope.currentPageIndexer = 2;
     };
     $scope.searchIndexer = function() {
+        //alert(JSON.stringify($scope.ruleSequence));
         $scope.filteredStoresIndexer = $filter('filter')($scope.ruleSequence, $scope.searchKeywordsIndexer);
         return $scope.onFilterChangeIndexer();
     };
@@ -1576,6 +1810,7 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         if ($scope.rowIndexer === rowName) {
             return;
         }
+        //alert(JSON.stringify($scope.ruleSequence));
         $scope.rowIndexer = rowName;
         $scope.filteredStoresIndexer = $filter('orderBy')($scope.ruleSequence, rowName);
         return $scope.onOrderChangeIndexer();
@@ -1603,4 +1838,15 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
             });
         }
     };
-});
+}).filter('startsWith', function() {
+        return function(array, search) {
+            var matches = [];
+            for(var i = 0; i < array.length; i++) {
+                if (array[i].indexOf(search) === 0 &&
+                    search.length < array[i].length) {
+                    matches.push(array[i]);
+                }
+            }
+            return matches;
+        };
+    });
