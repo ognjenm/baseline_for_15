@@ -41,19 +41,32 @@
                             <div class="row margin-bottom-20">
                                 <div ng-repeat="oper in operationList.opRow " id="displayId" ng-show="$index >= displayItems && $index < displayItems+2" >
                                     <div class="row " >
-                                        <div class="col-md-3" ng-repeat="opera in oper">
-                                            <div class="quote-container mouse_point"
-                                                 ata-toggle="tooltip" data-placement="top"
 
-                                                 tooltip="{{opera.description}}"
-                                                 tooltip-placement="top"
-                                                 ng-click="selectOperation(opera,$index)"
-                                                    >
-                                                <i class="pin"></i>
-                                                <blockquote class="note color-tag">
-                                                    {{opera.operation_name}}
-                                                </blockquote>
+                                        <div class="col-md-3" ng-repeat="opera in oper">
+
+                                            <div class="input-group">
+                                                <div class="quote-container mouse_point"
+                                                     ata-toggle="tooltip" data-placement="top"
+
+                                                     tooltip="{{opera.description}}"
+                                                     tooltip-placement="top"
+                                                     ng-click="selectOperation(opera,$index)"
+                                                        >
+                                                    <i class="pin"></i>
+                                                    <blockquote ng-if="opera.status == 0" class="note color-tag">
+                                                        <!--<span ng-if="opera.status == 1" style="color: green;background-color: lightskyblue;border: 0px solid"-->
+                                                              <!--class="input-group-addon fa fa-hand-o-down"></span>-->
+                                                        {{opera.operation_name}}
+                                                    </blockquote>
+                                                    <blockquote ng-if="opera.status == 1" class="selected-note selected-tag">
+                                                        <!--<span ng-if="opera.status == 1" style="color: green;background-color: lightskyblue;border: 0px solid"-->
+                                                              <!--class="input-group-addon fa fa-hand-o-down"></span>-->
+                                                        {{opera.operation_name}}
+                                                    </blockquote>
+                                                </div>
+
                                             </div>
+
 
                                             <!--<div data-toggle="tooltip" data-placement="top"-->
 
