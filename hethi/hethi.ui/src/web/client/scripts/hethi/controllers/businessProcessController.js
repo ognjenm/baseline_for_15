@@ -1410,7 +1410,6 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                data.status=0;
         })
     };
-    //$scope.inputFields=[{id:1,status:false,tableRequired:false}];
     $scope.dynamicRules=[{'id':1,status:false,inputFields:[{id:1,status:false,tableRequired:false}]}];
     $scope.setCondition=function(){
         var arrayLength=$scope.dynamicRules.length;
@@ -1422,8 +1421,7 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         var conditions='';
         $scope.errorMessage=[];
         $scope.dynamicRules.forEach(function(data,i){
-            if(i == arrayLength-1){
-                jsonArray['operation']=data.opera;
+                jsonArray['operation'] = data.opera;
                 var input='{';
                 data.inputFields.forEach(function(rows,i){
                     var lookup=rows.lookup,lookupEntity=rows.lookupEntity;
@@ -1443,7 +1441,6 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                         $scope.errorMessage.push({errorKey:"lookup"});
                     }
                     $scope.value="form.get";
-
                     var field = rows.entity.substring(0,1).toUpperCase()+rows.entity.substring(1);
                     $scope.value=$scope.value+field+"()";
                     input=input+'"'+rows.entity+'"'+":"+$scope.value+",";
@@ -1489,10 +1486,9 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                 temp=temp.replace("output\":\"{","output\":{").replace("}\",\"","},\"");
                 temp='"'+temp+'"';
                 if(i == 0) conditions=conditions+'ip.home('+temp+')';
-                else if(data.condition_statement != undefined){
-                    conditions=conditions+' and ip.home('+temp+')';
+                else{
+                    conditions=conditions+' , ip.home('+temp+')';
                 }
-            }
         });
         $scope.error_input=[];
         $scope.errorKeys='';
@@ -1502,8 +1498,8 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
             $scope.errorMessage.forEach(function(error,j){
                 if(error.errorKey.lastIndexOf(exp.exp_key) > -1){
                     errorFlag=1;
-                    if(i==0 && j==0) message=message+error.errorKey;
-                    else if(j==0) message=message+","+error.errorKey
+                    if(i==0) message=message+error.errorKey;
+                    else  message=message+","+error.errorKey
                 }
             });
             if(errorFlag == 0){
