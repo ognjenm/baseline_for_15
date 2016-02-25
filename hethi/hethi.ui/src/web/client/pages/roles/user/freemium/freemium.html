@@ -1,122 +1,82 @@
+<script>
+    $(document).ready(function(){
+        $(this).scrollTop(0);
+    });
+</script>
 <div class="margin_top_60" data-ng-controller="freemium_Controller">
 
 
     <!-- First time new login CODE Starts Here ( Authenticate the user is a new customer and show this 2 section CODE ) -->
 
     <div ng-hide="true" >
-        <!-- -------
-                    -- ! -- WARNING -- ! -- Don't Change this 2 Sections inside and out side of the CODE
-                      and !!!! DON'T ADD any Div class or span Class inside
-                      the ID named "freeSlider" and "scroll_slider_content"
-         ------------    -->
-        <section class="{{ hideSliderclass1 }}" id="freeSlider" ng-hide="mainslider">
-            <div id="demo" class="center_div">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
 
-                            <div id="owl-demo" class="owl-carousel">
-                                <div class="item owlbox-main dodgerBlue" data-ng-click="showOne();">
-                                    <div class="">
-                                        enroll process to pay
-                                    </div>
-                                </div>
-                                <div class="item dodgerBlue owlbox-main">
-                                    <div class="">
-                                        invoice process to pay
-                                    </div>
-                                </div>
-                                <div class="item dodgerBlue owlbox-main">
-                                    <div class="">
-                                        partner integration to pay
-                                    </div>
-                                </div>
-                                <div class="item dodgerBlue owlbox-main">
-                                    <div class="">
-                                        claims process to pay
-                                    </div>
-                                </div>
-                                <div class="item dodgerBlue owlbox-main">
-                                    <div class="">
-                                        5
-                                    </div>
-                                </div>
-                                <div class="item dodgerBlue owlbox-main">
-                                    <div class="">
-                                        6
-                                    </div>
-                                </div>
+        <section>
+            <div class="form_selection">
+                <div id="demo" class="">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
 
+
+                                <data-owl-carousel class="owl-carousel"
+                                                   data-options='{items : 4,
+                                                   itemsDesktop : [1199,3],
+                                                   itemsDesktopSmall : [979,3],
+                                                   pagination:true,
+                                                   navigation: false,
+                                                   navigationText:["<i class=fa fa-chevron-left  icon-white></i>","<i class=fa fa-chevron-right icon-white></i>"] }'>
+                                    <a owl-carousel-item data-ng-repeat="item in items" class="item categoryCard"  data-ng-click="showOne();">
+                                        <img class="cardImage img-responsive" src="{{item.image}}">
+                                        <div class="cardContainer" >
+
+                                            <h2 class="cardTitle normal-text">{{item.name}}</h2>
+                                            <h3 class="cardTitle">{{item.description}}</h3>
+
+                                        </div>
+                                    </a>
+                                </data-owl-carousel>
 
                             </div>
-
                         </div>
                     </div>
+
                 </div>
+
+            </div>
+
+            <div class=" container">
+                <div class="page-header-item">
+                    <h1>browse industry : {{selectedBpaaS.BpaaS_service}}</h1>
+                </div>
+                <div class="divider"></div>
+                <a id="demo-1">
+                    <ul data-owl-carousel class="owl-carousel topics"
+                        data-options="{items : 6,
+                                               itemsDesktop : [1199,3],
+                                               itemsDesktopSmall : [979,3],
+                                               pagination:true,
+                                               navigation: true,
+                                               navigationText: ['<i class=fa fa-chevron-left icon-white></i>','<i class=fa fa-chevron-right icon-white></i>']}">
+                        <li owl-carousel-item ng-repeat="list in BpaaS_service_industry_list" class="item " data-ng-click="GotoUpload($index);">
+                            <a href="#" class="">
+                                <i class="fa {{list.fa}}"></i><span>{{list.indus_service}}</span>
+
+                            </a>
+                        </li>
+                    </ul>
+
+                </a>
+
 
             </div>
         </section>
 
-        <section class="{{ hideSliderclass1 }} center_div" ng-show="one">
-            <div class="container">
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div style="margin-top: 5px;margin-bottom: 5px;border: 1px solid transparent;width: 330px;position: relative;">
-                            <div class="industry_select_box">
-                                enroll process to pay
-                            </div>
-                            <div class="div_attach_icon" data-ng-click="showMainSlider()"><i class="fa fa-close"></i></div>
-                        </div>
+        <div class="divider"></div>
 
-                    </div>
-                </div>
+        <section id="formUpload">
 
-
-                <div class="row">
-                    <div class="col-md-12">
-
-                        <div id="demo-1">
-                            <div id="owl-demo1" class="owl-carousel">
-
-                                <div data-ng-click="GotoUpload()" class="item owlbox-content darkCyan">
-                                    <div class="" >
-                                        industry
-                                    </div>
-                                </div>
-                                <div class="item owlbox-content darkCyan">
-                                    <div class="">
-                                        industry
-                                    </div>
-                                </div>
-                                <div class="item owlbox-content darkCyan">
-                                    <div class="">
-                                        industry
-                                    </div>
-                                </div>
-                                <div class="item owlbox-content darkCyan">
-                                    <div>
-                                        industry
-                                    </div>
-                                </div>
-                                <div class="item owlbox-content darkCyan">
-                                    <div class="">
-                                        industry
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section ng-show="uploadForm">
-            <div class="">
+            <div class="freemium_section" ng-if="uploadForm">
                 <div class="row hethi_grey_color">
                     <div class="col-md-6">
                         <h3>
@@ -133,86 +93,91 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
             <hr>
 
-            <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <select class="form-control input-md input-hethi">
-                                    <option>industry </option>
-                                    <option>industry 1</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="divider"></div>
+                    <div class="col-md-offset-2 col-md-8">
+                        <div class="upload_box_hethi">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p class="grey">form type</p>
+                                    <select class="form-control input-md input-hethi">
+                                        <option>form / EDI type </option>
+                                        <option>industry 1</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-8">
+                                    <p class="grey text-center">click to upload your file or (you can zip and upload as well)</p>
+                                    <div class="input-group">
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <select class="form-control input-md input-hethi">
-                                    <option>form / EDI type </option>
-                                    <option>industry 1</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="input-group">
-
-                                    <input type="text" ng-model="pathfile" class="form-control input-hethi input-md" readonly  >
+                                        <input type="text" ng-model="pathfile" class="form-control input-hethi input-md" readonly  >
                         <span class="input-group-btn">
-                                      <span class="btn-file-hethi btn-warning btn-file">
+                            <span class="btn-file-hethi btn-warning btn-file">
 
                                             <span class="fa fa-upload"></span>
+                                          <span>browse</span>
                                           <!--Choose a file&hellip;-->
                                           <input type="file" name="file" id="file" data-ng-file-model="ImagePath"  >
 
                                       </span>
-                                  </span>
-                                         <span class="input-group-btn">
-                                    <button class="btn_hethi input-md btn-w-md btn-primary" type="submit">Upload</button>
-                                </span>
+                        </span>
+
+                                    </div>
+                                    <div class="divider"></div>
+                                    <p class="text-center font_14_grey">(upload EDI, zip, jpeg, TIFF, PDF, DOCX, XLSX, DOC, XLS)</p>
                                 </div>
-                                <div class="divider"></div>
-                                <p class="text-center">(Upload EDI, zip, jpeg, TIFF, PDF, DOCX, XLSX, DOC, XLS)</p>
+                            </div>
+
+                            <div class="divider"></div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button class="btn_hethi input-md blue" type="submit"><span class="fa fa-spinner"></span> upload</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="divider"></div>
-                <div class="row" style="border-top: 1px solid #2A6497;
-    padding-top: 30px;margin-top: 20px">
-                    <div class="col-md-offset-2 col-md-8">
+                <div class="row">
+                    <div style="border-top: 3px solid rgba(162, 122, 42, 0.39);padding-top: 30px;margin-top: 20px" class="col-md-offset-2 col-md-8">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-striped">
                                 <thead class="thead-bg">
                                 <tr>
-                                    <th class="text-center">
+                                    <th class="">
                                         upload time
                                     </th>
-                                    <th class="text-center">
+                                    <th class="">
                                         form / edi type
                                     </th>
-                                    <th class="text-center">
+                                    <th class="">
                                         file
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td class="text-center">
+                                    <td class="">
                                         01:45:00
                                     </td>
-                                    <td class="text-center">
+                                    <td class="">
                                         edi
                                     </td>
-                                    <td class="text-center">
+                                    <td class="">
+                                        invoice_pd.pdf
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="">
+                                        01:45:00
+                                    </td>
+                                    <td class="">
+                                        edi
+                                    </td>
+                                    <td class="">
                                         invoice_pd.pdf
                                     </td>
                                 </tr>
@@ -222,104 +187,82 @@
                     </div>
                 </div>
 
-            </div>
+
+
+
+        </div>
         </section>
 
 
     </div>
 
+
     <!-- First time new login CODE Ends Here ( Authenticate the user is a new customer and show this 2 section CODE ) -->
-
-
 
     <!-- ####################################### -- Existing Customer When Logged In -- ###################################################  -->
 
-    <!-- Existing Customer login CODE Starts Here ( Authenticate the user is a existing customer and show this 2 section CODE ) -->
 
     <div ng-hide="false">
-        <!-- -------
-                    -- ! -- WARNING -- ! -- Don't Change this 2 Sections inside and out side of the CODE
-                      and !!!! DON'T ADD any Div class or span Class inside
-                      the ID named "freeSlider" and "scroll_slider_content"
-         ------------    -->
-        <section class="{{ hideSliderclass1 }}" id="freeSlider_1" ng-hide="mainslider">
-            <div id="existing-customer-demo" class="center_div">
+
+        <section data-ng-show="existingCustomerItem">
+            <div class="form_selection">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
 
-                            <div id="existing-customer-owl-demo" class="owl-carousel">
-                                <div class="item owlbox-main dodgerBlue" data-ng-click="showOne();">
-                                    <div class="">
-                                        my BPaaS
-                                    </div>
-                                </div>
-                                <div class="item dodgerBlue owlbox-main">
-                                    <div class="">
-                                        try more forms / EDI
-                                    </div>
-                                </div>
-                                <div class="item dodgerBlue owlbox-main">
-                                    <div class="">
-                                        find a business partner
-                                    </div>
-                                </div>
+                            <data-owl-carousel class="owl-carousel"
+                                               data-options='{items : 4,
+                                                   itemsDesktop : [1199,3],
+                                                   itemsDesktopSmall : [979,3],
+                                                   pagination:true,
+                                                   navigation: false,
+                                                   navigationText:["<i class=fa fa-chevron-left  icon-white></i>","<i class=fa fa-chevron-right icon-white></i>"] }'>
+                                <a owl-carousel-item data-ng-repeat="item in items" class="item categoryCard"  data-ng-click="showOne();">
+                                    <img class="cardImage img-responsive" src="{{item.image}}">
+                                    <div class="cardContainer" >
 
+                                        <h2 class="cardTitle normal-text">{{item.name}}</h2>
+                                        <h3 class="cardTitle">{{item.description}}</h3>
 
-                            </div>
+                                    </div>
+                                </a>
+                            </data-owl-carousel>
 
                         </div>
                     </div>
                 </div>
-
             </div>
+
+            <div class="container" >
+                <div class="page-header-item">
+                    <h1>browse industry : {{selectedBpaaS.BpaaS_service}}</h1>
+                </div>
+                <div class="divider"></div>
+                <a id="demo-2">
+                    <ul data-owl-carousel class="owl-carousel topics"
+                        data-options="{items : 6,
+                                               itemsDesktop : [1199,3],
+                                               itemsDesktopSmall : [979,3],
+                                               pagination:true,
+                                               navigation: true,
+                                               navigationText: ['<i class=fa fa-chevron-left icon-white></i>','<i class=fa fa-chevron-right icon-white></i>']}">
+                        <li owl-carousel-item ng-repeat="list in BpaaS_service_industry_list" class="item " data-ng-click="GotoCSP($index);">
+                            <a href="#" class="">
+                                <i class="fa {{list.fa}}"></i><span>{{list.indus_service}}</span>
+
+                            </a>
+                        </li>
+                    </ul>
+
+                </a>
+            </div>
+
         </section>
 
-        <section class="{{ hideSliderclass1 }} center_div" ng-show="one">
-            <div class="container">
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div style="margin-top: 5px;margin-bottom: 5px;border: 1px solid transparent;width: 330px;position: relative;">
-                            <div class="industry_select_box">
-                                my BPaaS
-                            </div>
-                            <div class="div_attach_icon" data-ng-click="showMainSlider()"><i class="fa fa-close"></i></div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-md-12">
-
-                        <div id="existing-customer-content">
-                            <div id="existing-customer-content-owl-demo" class="owl-carousel">
-
-                                <div class="item owlbox-content darkCyan" data-ng-click="GotoCSP()">
-                                    <div class="">
-                                        download cloudplug
-                                    </div>
-                                </div>
-                                <div class="item owlbox-content darkCyan" data-ng-click="GotoCSP()">
-                                    <div class="">
-                                        connect service partner
-                                    </div>
-                                </div>
-
-
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </section>
 
         <section ng-show="downloadCloudPlug">
+
             <div class="">
                 <div class="row hethi_grey_color">
                     <div class="col-md-6">
@@ -329,10 +272,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="pull-right">
-                            <!--<h2>-->
-                            <!--<span class="fa fa-cloud-upload"> </span>-->
-                            <!--CloudPlug-->
-                            <!--</h2>-->
+
                             <img class="img_width_200" src="images/icon/cloud_plug.png">
                         </div>
                     </div>
@@ -387,6 +327,7 @@
                                         <input type="checkbox">
                                     </td>
                                 </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -405,9 +346,16 @@
             </div>
         </section>
 
-        <section ng-show="showCSP">
-            <div>
+        <section id="formCSP">
+
+            <div ng-show="showCSP" >
+                <script>
+                    $(document).ready(function(){
+                        $(this).scrollTop(0);
+                    });
+                </script>
                 <section class="" ng-show="connectSP">
+
                     <div class="row hethi_grey_color">
                         <div class="col-md-6">
                             <h3>
@@ -416,10 +364,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="pull-right">
-                                <!--<h2>-->
-                                <!--<span class="fa fa-cloud-upload"> </span>-->
-                                <!--CloudPlug-->
-                                <!--</h2>-->
+
                                 <img class="img_width_200" src="images/icon/cloud_plug.png">
                             </div>
                         </div>
@@ -427,7 +372,7 @@
 
 
                     <div class="panel-body">
-                        <div class="row" style="border-top: 1px solid #2A6497;padding-top: 30px;margin-top: 20px">
+                        <div class="row" style="border-top: 1px solid rgba(162, 122, 42, 0.39);padding-top: 30px;">
                             <div class="col-md-offset-1 col-md-10">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped">
@@ -534,8 +479,13 @@
                 </section>
 
                 <section ng-show="uploadForms">
+                    <script>
+                        $(document).ready(function(){
+                            $(this).scrollTop(0);
+                        });
+                    </script>
+                    <div >
 
-                    <div class="">
                         <div class="row hethi_grey_color">
                             <div class="col-md-6">
                                 <h3>
@@ -544,94 +494,94 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="pull-right">
-                                    <!--<h2>-->
-                                    <!--<span class="fa fa-cloud-upload"> </span>-->
-                                    <!--CloudPlug-->
-                                    <!--</h2>-->
                                     <img class="img_width_200" src="images/icon/cloud_plug.png">
                                 </div>
                             </div>
                         </div>
 
-                        <hr>
-
                         <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <select class="form-control input-md input-hethi">
-                                                <option>industry </option>
-                                                <option>industry 1</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="divider"></div>
+                            <div class="row" style="border-top: 1px solid rgba(162, 122, 42, 0.39);padding-top: 30px;">
+                                <div class="col-md-offset-2 col-md-8">
+                                    <div class="upload_box_hethi">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <p class="grey">form type</p>
+                                                <select class="form-control input-md input-hethi">
+                                                    <option>form / EDI type </option>
+                                                    <option>industry 1</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <p class="grey text-center">click to upload your file or (you can zip and upload as well)</p>
+                                                <div class="input-group">
 
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <select class="form-control input-md input-hethi">
-                                                <option>form / EDI type </option>
-                                                <option>industry 1</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="input-group">
-
-                                                <input type="text" ng-model="pathfile" class="form-control input-hethi input-md" readonly  >
+                                                    <input type="text" ng-model="pathfile" class="form-control input-hethi input-md" readonly  >
                         <span class="input-group-btn">
-                                      <span class="btn-file-hethi btn-warning btn-file">
+                            <span class="btn-file-hethi btn-warning btn-file">
 
                                             <span class="fa fa-upload"></span>
+                                          <span>browse</span>
                                           <!--Choose a file&hellip;-->
                                           <input type="file" name="file" id="file" data-ng-file-model="ImagePath"  >
 
                                       </span>
-                                  </span>
-                                         <span class="input-group-btn">
-                                    <button class="btn_hethi input-md btn-w-md btn-primary" type="submit">Upload</button>
-                                </span>
+                        </span>
+
+                                                </div>
+                                                <div class="divider"></div>
+                                                <p class="text-center font_14_grey">(upload EDI, zip, jpeg, TIFF, PDF, DOCX, XLSX, DOC, XLS)</p>
                                             </div>
-                                            <div class="divider"></div>
-                                            <p class="text-center">(Upload EDI, zip, jpeg, TIFF, PDF, DOCX, XLSX, DOC, XLS)</p>
+                                        </div>
+
+                                        <div class="divider"></div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="pull-right">
+                                                    <button class="btn_hethi input-md blue" type="submit"><span class="fa fa-spinner"></span> upload</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="divider"></div>
-                            <div class="row" style="border-top: 1px solid #2A6497;
-    padding-top: 30px;margin-top: 20px">
-                                <div class="col-md-offset-2 col-md-8">
+                            <div class="row">
+                                <div style="border-top: 3px solid rgba(162, 122, 42, 0.39);padding-top: 30px;margin-top: 20px" class="col-md-offset-2 col-md-8">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
+                                        <table class="table table-striped">
                                             <thead class="thead-bg">
                                             <tr>
-                                                <th class="text-center">
+                                                <th class="">
                                                     upload time
                                                 </th>
-                                                <th class="text-center">
+                                                <th class="">
                                                     form / edi type
                                                 </th>
-                                                <th class="text-center">
+                                                <th class="">
                                                     file
                                                 </th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td class="text-center">
+                                                <td class="">
                                                     01:45:00
                                                 </td>
-                                                <td class="text-center">
+                                                <td class="">
                                                     edi
                                                 </td>
-                                                <td class="text-center">
+                                                <td class="">
+                                                    invoice_pd.pdf
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="">
+                                                    01:45:00
+                                                </td>
+                                                <td class="">
+                                                    edi
+                                                </td>
+                                                <td class="">
                                                     invoice_pd.pdf
                                                 </td>
                                             </tr>
@@ -648,16 +598,17 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
+
+
                     </div>
 
                 </section>
 
                 <section ng-show="RFI">
+
                     <div class="">
-                        <!--<div class="divider"></div>-->
+                        <div class="divider"></div>
                         <div class="row hethi_grey_color">
                             <div class="col-md-4">
                                 <div class="row">
@@ -692,7 +643,7 @@
                     </div>
 
                     <div class="panel-body">
-                        <div class="row" style="border-top: 1px solid #2A6497;padding-top: 30px;margin-top: 0px">
+                        <div class="row" style="border-top: 1px solid rgba(162, 122, 42, 0.39);padding-top: 30px;">
                             <div class="col-md-offset-1 col-md-10">
                                 <div class="row">
                                     <div class="col-md-3">
@@ -712,10 +663,7 @@
 
                                             <a href="#" class="btn btn-line-info " data-ng-click="showDetailColStart= 'yes'" data-ng-model="showDetailColStart" btn-radio="'yes'" > EDI </a>
                                             <a href="#"  class="btn btn-line-info " data-ng-click="showDetailColStart= 'no'" data-ng-model="showDetailColStart" btn-radio="'no'" > Form </a>
-                                            <!---->
-                                            <!--<a href="#" class="btn btn-primary">Apple</a>-->
-                                            <!--<a href="#" class="btn btn-primary">Samsung</a>-->
-                                            <!--<a href="#" class="btn btn-primary">Sony</a>-->
+
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -831,13 +779,12 @@
                 </section>
 
                 <section ng-show="ProceedToSubmit">
+
                     <div class="">
-                        <!--<div class="divider"></div>-->
-
-
+                        <div class="divider"></div>
 
                         <div class="row hethi_grey_color">
-                            <div class="col-md-4 col-xs-12">
+                            <div class="col-md-5 col-xs-12">
                                 <div class="row">
                                     <div class="col-md-5 col-xs-5">
                                         business customer :
@@ -855,22 +802,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4">
-                                <!--<div class="row">-->
-                                <!--<label class="col-md-4">BPaaS</label>-->
-                                <!--<div class="col-md-8">-->
-                                <!--<select class="form-control">-->
-                                <!--<option>invoice process to pay</option>-->
-                                <!--</select>-->
-                                <!--</div>-->
-                                <!--</div>-->
-                            </div>
+                            <div class="col-md-7"></div>
                         </div>
                     </div>
 
                     <div class="panel-body">
-                        <div class="row" style="border-top: 1px solid #2A6497;padding-top: 30px;margin-top: 0px">
+                        <div class="row" style="border-top: 1px solid rgba(162, 122, 42, 0.39);padding-top: 30px;">
                             <div class="col-md-offset-1 col-md-10">
 
                                 <div class="row">
@@ -882,7 +819,7 @@
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 text-right">
                                         <h3>business sponsor :</h3>
                                     </div>
                                     <div class="col-md-9">

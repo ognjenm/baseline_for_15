@@ -124,7 +124,6 @@ public class AdminHomeServices {
 		return homeRepo.loadEfsUin(sql);
 	}
 
-
 	public String deleteRulesPackage(String JSONData) throws ParseException, IOException {
 		JSONObject json = (JSONObject) new JSONParser().parse(JSONData);
 		String sql = "{ call delete_rulesPackage('" + json.get("package_id") + "')}";
@@ -162,6 +161,18 @@ public class AdminHomeServices {
 		String sql = "{ call load_all_master_data()}";
 		System.out.println(sql);
 		return homeRepo.load_all_master_data(sql);
+	}
+	public String load_dashboard_data(String JSONData) {
+
+		String sql = "{ call load_dashboard_data()}";
+		System.out.println(sql);
+		return homeRepo.load_dashboard_data(sql);
+	}
+	public String load_all_process_and_sub_process(String JSONData) {
+
+		String sql = "{ call load_all_process_and_sub_process()}";
+		System.out.println(sql);
+		return homeRepo.load_all_process_and_sub_process(sql);
 	}
 	
 }

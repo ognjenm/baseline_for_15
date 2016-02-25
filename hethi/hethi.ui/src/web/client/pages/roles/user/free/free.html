@@ -2,7 +2,7 @@
 
 <!-- First time new login CODE Starts Here ( Authenticate the user is a new customer and show this 2 section CODE ) -->
 
-    <div ng-hide="false" >
+    <div ng-hide="true" >
 <!-- -------
             -- ! -- WARNING -- ! -- Don't Change this 2 Sections inside and out side of the CODE
               and !!!! DON'T ADD any Div class or span Class inside
@@ -12,11 +12,6 @@
 
 
             <div class="form_selection">
-                <!--<div class="row">-->
-                    <!--<div class="col-md-12 text-center" style="padding: 5px">-->
-                        <!--<span class="font_20">get started</span>-->
-                    <!--</div>-->
-                <!--</div>-->
                 <div id="demo"  >
                     <div class="container">
                         <div class="row">
@@ -56,8 +51,6 @@
                     </div>
 
                 </div>
-
-
             </div>
 
 
@@ -92,7 +85,7 @@
 <div class="divider"></div>
 
         <section id="formUpload">
-            <div  class="freemium_section" ng-if="uploadForm">
+            <div class="freemium_section" ng-if="uploadForm">
             <div class="" >
                 <div class="row hethi_grey_color">
                     <div class="col-md-6">
@@ -211,97 +204,79 @@
 
 <!-- First time new login CODE Ends Here ( Authenticate the user is a new customer and show this 2 section CODE ) -->
 
-
-
     <!-- ####################################### -- Existing Customer When Logged In -- ###################################################  -->
 
-    <!-- Existing Customer login CODE Starts Here ( Authenticate the user is a existing customer and show this 2 section CODE ) -->
 
-    <div ng-hide="true">
-        <!-- -------
-                    -- ! -- WARNING -- ! -- Don't Change this 2 Sections inside and out side of the CODE
-                      and !!!! DON'T ADD any Div class or span Class inside
-                      the ID named "freeSlider" and "scroll_slider_content"
-         ------------    -->
-        <section class="{{ hideSliderclass1 }}" id="freeSlider_1" ng-hide="mainslider">
-            <div id="existing-customer-demo" class="center_div">
+    <div ng-hide="false">
+
+        <section ng-hide="mainslider">
+
+            <div class="form_selection">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
 
-                            <div id="existing-customer-owl-demo" class="owl-carousel">
-                                <div class="item owlbox-main dodgerBlue" data-ng-click="showOne();">
-                                    <div class="">
-                                        my BPaaS
-                                    </div>
-                                </div>
-                                <div class="item dodgerBlue owlbox-main">
-                                    <div class="">
-                                        try more forms / EDI
-                                    </div>
-                                </div>
-                                <div class="item dodgerBlue owlbox-main">
-                                    <div class="">
-                                        find a business partner
-                                    </div>
-                                </div>
+                            <data-owl-carousel class="owl-carousel"
+                                               data-options='{items : 4,
+                                                   itemsDesktop : [1199,3],
+                                                   itemsDesktopSmall : [979,3],
+                                                   pagination:true,
+                                                   navigation: false,
+                                                   navigationText:["<i class=fa fa-chevron-left  icon-white></i>","<i class=fa fa-chevron-right icon-white></i>"] }'>
+                                <a owl-carousel-item data-ng-repeat="item in items" class="item categoryCard"  data-ng-click="showOne();">
+                                    <img class="cardImage img-responsive" src="{{item.image}}">
+                                    <div class="cardContainer" >
 
+                                        <h2 class="cardTitle normal-text">{{item.name}}</h2>
+                                        <h3 class="cardTitle">{{item.description}}</h3>
 
-                            </div>
+                                    </div>
+                                </a>
+                            </data-owl-carousel>
 
                         </div>
                     </div>
                 </div>
-
             </div>
+
+            <div class="container" >
+                <div class="page-header-item">
+                    <h1>browse industry : {{selectedBpaaS.BpaaS_service}}</h1>
+                </div>
+                <div class="divider"></div>
+                <a id="demo-2">
+                    <ul data-owl-carousel class="owl-carousel topics"
+                        data-options="{items : 6,
+                                               itemsDesktop : [1199,3],
+                                               itemsDesktopSmall : [979,3],
+                                               pagination:true,
+                                               navigation: true,
+                                               navigationText: ['<i class=fa fa-chevron-left icon-white></i>','<i class=fa fa-chevron-right icon-white></i>']}">
+                        <li owl-carousel-item ng-repeat="list in BpaaS_service_industry_list" class="item " data-ng-click="GotoExistUpload();">
+                            <a href="#" class="">
+                                <i class="fa {{list.fa}}"></i><span>{{list.indus_service}}</span>
+
+                            </a>
+                        </li>
+                    </ul>
+
+                </a>
+            </div>
+
+
+
         </section>
 
-        <section class="{{ hideSliderclass1 }} center_div" ng-show="one">
-            <div class="container">
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div style="margin-top: 5px;margin-bottom: 5px;border: 1px solid transparent;width: 330px;position: relative;">
-                            <div class="industry_select_box">
-                                try more forms / EDI
-                            </div>
-                            <div class="div_attach_icon" data-ng-click="showMainSlider()"><i class="fa fa-close"></i></div>
-                        </div>
-
-                    </div>
-                </div>
 
 
-                <div class="row">
-                    <div class="col-md-12">
+        <section id="existCloudPlug">
+            <div class="" ng-show="downloadExistCloudPlug">
 
-                        <div id="existing-customer-content">
-                            <div id="existing-customer-content-owl-demo" class="owl-carousel">
-
-                                <div class="item owlbox-content darkCyan" data-ng-click="GotoUpload()">
-                                    <div class="">
-                                        partner integration to pay
-                                    </div>
-                                </div>
-                                <div class="item owlbox-content darkCyan">
-                                    <div class="">
-                                        invoice process to pay
-                                    </div>
-                                </div>
+                <div class="divider"></div>
 
 
 
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section ng-show="downloadCloudPlug">
-            <div class="">
                 <div class="row hethi_grey_color">
                     <div class="col-md-6">
                         <h3>
@@ -310,86 +285,123 @@
                     </div>
                     <div class="col-md-6">
                         <div class="pull-right">
-                            <!--<h2>-->
-                            <!--<span class="fa fa-cloud-upload"> </span>-->
-                            <!--CloudPlug-->
-                            <!--</h2>-->
+
                             <img class="img_width_200" src="images/icon/cloud_plug.png">
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="panel-body">
-                <div class="row" style="border-top: 1px solid #2A6497;padding-top: 30px;margin-top: 20px">
-                    <div class="col-md-offset-1 col-md-10">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                                <thead class="thead-bg">
-                                <tr>
-                                    <th class="text-center">
-                                        upload time
-                                    </th>
-                                    <th class="text-center">
-                                        form / edi type
-                                    </th>
-                                    <th class="text-center">
-                                        form / edi file
-                                    </th>
-                                    <th class="text-center">
-                                        service partner
-                                    </th>
-                                    <th class="text-center">
-                                        version
-                                    </th>
-                                    <th class="text-center">
-                                        select
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="text-center">
-                                        1/10/2016 11:45
-                                    </td>
-                                    <td class="text-center">
-                                        PO - invoice process to pay
-                                    </td>
-                                    <td class="text-center">
-                                        invoice_pd.pdf
-                                    </td>
-                                    <td class="text-center">
-                                        pearson
-                                    </td>
-                                    <td class="text-center">
-                                        1.0
-                                    </td>
-                                    <td class="text-center">
-                                        <input type="checkbox">
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="pull-right">
-                                    <button type="button" class="btn_hethi btn_hethi_md blue">download cloudplug</button>
+                <div class="panel-body">
+                    <div class="row" style="border-top: 1px solid rgba(162, 122, 42, 0.39);padding-top: 30px;">
+                        <div class="col-md-offset-1 col-md-10">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead class="thead-bg">
+                                    <tr>
+                                        <th class="text-center">
+                                            upload time
+                                        </th>
+                                        <th class="text-center">
+                                            form / edi type
+                                        </th>
+                                        <th class="text-center">
+                                            form / edi file
+                                        </th>
+                                        <th class="text-center">
+                                            service partner
+                                        </th>
+                                        <th class="text-center">
+                                            version
+                                        </th>
+                                        <th class="text-center">
+                                            select
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-center">
+                                            1/10/2016 11:45
+                                        </td>
+                                        <td class="text-center">
+                                            PO - invoice process to pay
+                                        </td>
+                                        <td class="text-center">
+                                            invoice_pd.pdf
+                                        </td>
+                                        <td class="text-center">
+                                            pearson
+                                        </td>
+                                        <td class="text-center">
+                                            1.0
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="checkbox">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">
+                                            1/10/2016 11:45
+                                        </td>
+                                        <td class="text-center">
+                                            PO - invoice process to pay
+                                        </td>
+                                        <td class="text-center">
+                                            invoice_pd.pdf
+                                        </td>
+                                        <td class="text-center">
+                                            pearson
+                                        </td>
+                                        <td class="text-center">
+                                            1.0
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="checkbox">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">
+                                            1/10/2016 11:45
+                                        </td>
+                                        <td class="text-center">
+                                            PO - invoice process to pay
+                                        </td>
+                                        <td class="text-center">
+                                            invoice_pd.pdf
+                                        </td>
+                                        <td class="text-center">
+                                            pearson
+                                        </td>
+                                        <td class="text-center">
+                                            1.0
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="checkbox">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn_hethi btn_hethi_md blue">download cloudplug</button>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </section>
 
 
     </div>
 
-    <!-- Existing Customer login CODE Ends Here ( Authenticate the user is a existing customer and show this 2 section CODE ) -->
 
 
 

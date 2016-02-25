@@ -382,3 +382,21 @@ transform: rotate(45deg);
 	padding: 10px;
 
 }
+
+.selected-note {
+			   color: white;
+			   position: relative;
+			   margin: 0 auto;
+			   padding: 10px;
+			   font-family: Satisfy;
+			   font-size: 20px;
+			   box-shadow: 0 10px 10px 2px rgba(0,0,0,0.3);
+		   }
+.selected-tag {
+			   background: #005983;
+			   -webkit-transform: rotate(2deg);
+			   -moz-transform: rotate(2deg);
+			   -o-transform: rotate(2deg);
+			   -ms-transform: rotate(2deg);
+			   transform: rotate(2deg);
+		   }

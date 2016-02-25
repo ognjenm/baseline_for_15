@@ -2,93 +2,146 @@
 
 
 
-
-    <section class="freemium_section">
-        <div id="demo" style="margin-top: 7%">
-        <!--<div id="demo" class="center_div">-->
+    <section>
+        <div class="form_selection" data-ng-show="item_head">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
 
-                        <div id="owl-demo" class="owl-carousel">
-                            <div class="item owlbox-main " data-ng-click="showRFIscreen();">
-                                <div class="">
-                                    services & delivery
+                        <data-owl-carousel class="owl-carousel"
+                                           data-options='{items : 4,
+                                                   itemsDesktop : [1199,3],
+                                                   itemsDesktopSmall : [979,3],
+                                                   pagination:true,
+                                                   navigation: false,
+                                                   navigationText:["<i class=fa fa-chevron-left  icon-white></i>","<i class=fa fa-chevron-right icon-white></i>"] }'>
+                            <a owl-carousel-item data-ng-repeat="item in items" class="item categoryCard"  data-ng-click="showRFIscreen();">
+                                <img class="cardImage img-responsive" src="{{item.image}}">
+                                <div class="cardContainer" >
+
+                                    <h2 class="cardTitle normal-text">{{item.name}}</h2>
+                                    <h3 class="cardTitle">{{item.description}}</h3>
+
                                 </div>
-                            </div>
-                            <div class="item  owlbox-main">
-                                <div class="">
-                                    platform as a service
-                                </div>
-                            </div>
-                            <div class="item  owlbox-main">
-                                <div class="">
-                                    infrastructure as a service
-                                </div>
-                            </div>
-                        </div>
+                            </a>
+                        </data-owl-carousel>
 
                     </div>
                 </div>
             </div>
+        </div>
 
+        <div class="container" >
+            <div class="page-header-item" data-ng-show="item_head">
+                <h1>browse industry : {{selectedBpaaS.BpaaS_service}}</h1>
+            </div>
+            <div class="divider"></div>
+            <div class="{{it_fixed}} {{it_rd_fixed}}">
+                <ul class="round-topics {{fixed_round}}">
+                    <li data-ng-click="bpS()">
+                        <a href="#">
+                            <i class="fa fa-sitemap {{bpSRoundActive}}"></i><span>{{BPaasService}}</span>
+
+                        </a>
+                    </li>
+                    <li data-ng-click="lmS()">
+                        <a href="#" class="">
+                            <i class="fa fa-calendar {{lmSRoundActive}}"></i><span>{{localeMangement}}</span>
+
+                        </a>
+                    </li>
+                    <li data-ng-click="ogS()">
+                        <a href="#" class="">
+                            <i class="fa fa-gavel {{ogSRoundActive}}"></i><span>{{OrganisationStructure}}</span>
+
+                        </a>
+                    </li>
+                    <li data-ng-click="slA()">
+                        <a href="#" class="">
+                            <i class="fa fa-thumbs-up {{slARoundActive}}"></i><span>{{serviceLevelAgreement}}</span>
+
+                        </a>
+                    </li>
+                    <li data-ng-click="cmP()">
+                        <a href="#" class="">
+                            <i class="fa fa-wrench {{cmPRoundActive}}"></i><span>{{complaince}}</span>
+
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </section>
 
 
+    <div style="padding-top: 150px;">
+        <div class="{{sliderInUp}}" data-ng-show="bpServices" data-ng-include="'pages/roles/user/freemium/rfi_form/BPaaS_Service.html'"></div>
 
+        <div class="{{sliderInUp}}" data-ng-show="lmServices" data-ng-include="'pages/roles/user/freemium/rfi_form/locale_management.html'"></div>
 
-<section  id="freemium_scroll_1" >
+        <div class="{{sliderInUp}}" data-ng-show="ogServices" data-ng-include="'pages/roles/user/freemium/rfi_form/organization_structure.html'"></div>
 
+        <div class="{{sliderInUp}}" data-ng-show="slaServices" data-ng-include="'pages/roles/user/freemium/rfi_form/service_level_agreement.html'"></div>
 
-    <div style="min-height: 475px" ng-show="platform_as_services" data-ng-switch="rfiTab" class="margin-top-10 ">
-
-
-        <div data-ng-switch-when="1">
-            <div data-ng-include="'pages/roles/user/freemium/rfi_form/capture.html'"></div>
-        </div>
-        <div data-ng-switch-when="2">
-            <div data-ng-include="'pages/roles/user/freemium/rfi_form/workflow.html'"></div>
-        </div>
-        <div data-ng-switch-when="3">
-            <div data-ng-include="'pages/roles/user/freemium/rfi_form/output.html'"></div>
-        </div>
-        <div data-ng-switch-when="4">
-            <div data-ng-include="'pages/roles/user/freemium/rfi_form/integrate.html'"></div>
-        </div>
-        <div data-ng-switch-when="5">
-            <div data-ng-include="'pages/roles/user/freemium/rfi_form/storage.html'"></div>
-        </div>
-        <div data-ng-switch-when="6">
-            <div data-ng-include="'pages/roles/user/freemium/rfi_form/analytics.html'"></div>
-        </div>
-
+        <div class="{{sliderInUp}}" data-ng-show="cmpServices" data-ng-include="'pages/roles/user/freemium/rfi_form/complaince.html'"></div>
     </div>
 
-    <!---->
-
-    <div style="min-height: 475px" ng-show="services_and_delivery" data-ng-switch="rfiTab" class="margin-top-10 ">
 
 
-        <div data-ng-switch-when="1">
-            <div data-ng-include="'pages/roles/user/freemium/rfi_form/BPaaS_Service.html'"></div>
-        </div>
-        <div data-ng-switch-when="2">
-            <div data-ng-include="'pages/roles/user/freemium/rfi_form/locale_management.html'"></div>
-        </div>
-        <div data-ng-switch-when="3">
-            <div data-ng-include="'pages/roles/user/freemium/rfi_form/organization_structure.html'"></div>
-        </div>
-        <div data-ng-switch-when="4">
-            <div data-ng-include="'pages/roles/user/freemium/rfi_form/service_level_agreement.html'"></div>
-        </div>
-        <div data-ng-switch-when="5">
-            <div data-ng-include="'pages/roles/user/freemium/rfi_form/complaince.html'"></div>
-        </div>
 
 
-    </div>
-</section>
+
+<!--<section  id="freemium_scroll_1" >-->
+
+
+    <!--<div style="min-height: 475px" ng-show="platform_as_services" data-ng-switch="rfiTab" class="margin-top-10 ">-->
+
+
+        <!--<div data-ng-switch-when="1">-->
+            <!--<div data-ng-include="'pages/roles/user/freemium/rfi_form/capture.html'"></div>-->
+        <!--</div>-->
+        <!--<div data-ng-switch-when="2">-->
+            <!--<div data-ng-include="'pages/roles/user/freemium/rfi_form/workflow.html'"></div>-->
+        <!--</div>-->
+        <!--<div data-ng-switch-when="3">-->
+            <!--<div data-ng-include="'pages/roles/user/freemium/rfi_form/output.html'"></div>-->
+        <!--</div>-->
+        <!--<div data-ng-switch-when="4">-->
+            <!--<div data-ng-include="'pages/roles/user/freemium/rfi_form/integrate.html'"></div>-->
+        <!--</div>-->
+        <!--<div data-ng-switch-when="5">-->
+            <!--<div data-ng-include="'pages/roles/user/freemium/rfi_form/storage.html'"></div>-->
+        <!--</div>-->
+        <!--<div data-ng-switch-when="6">-->
+            <!--<div data-ng-include="'pages/roles/user/freemium/rfi_form/analytics.html'"></div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+
+    <!--&lt;!&ndash;&ndash;&gt;-->
+
+    <!--<div style="min-height: 475px" ng-show="services_and_delivery" data-ng-switch="rfiTab" class="margin-top-10 ">-->
+
+
+        <!--<div data-ng-switch-when="1">-->
+            <!--<div data-ng-include="'pages/roles/user/freemium/rfi_form/BPaaS_Service.html'"></div>-->
+        <!--</div>-->
+        <!--<div data-ng-switch-when="2">-->
+            <!--<div data-ng-include="'pages/roles/user/freemium/rfi_form/locale_management.html'"></div>-->
+        <!--</div>-->
+        <!--<div data-ng-switch-when="3">-->
+            <!--<div data-ng-include="'pages/roles/user/freemium/rfi_form/organization_structure.html'"></div>-->
+        <!--</div>-->
+        <!--<div data-ng-switch-when="4">-->
+            <!--<div data-ng-include="'pages/roles/user/freemium/rfi_form/service_level_agreement.html'"></div>-->
+        <!--</div>-->
+        <!--<div data-ng-switch-when="5">-->
+            <!--<div data-ng-include="'pages/roles/user/freemium/rfi_form/complaince.html'"></div>-->
+        <!--</div>-->
+
+
+    <!--</div>-->
+<!--</section>-->
 
 
 

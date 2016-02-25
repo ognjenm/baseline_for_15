@@ -1,6 +1,6 @@
 <div class="" data-ng-controller="NewHomeController">
 
-    <div class="floating-form" id="contact_form">
+    <div class="hidden-sm hidden-xs floating-form" id="contact_form">
         <div class="contact-opener">reach us</div>
         <div class="floating-form-heading">ask hethi</div>
         <div id="contact_results"></div>
@@ -39,25 +39,16 @@
 
                     <!--</div>-->
                     <div class="col-md-12">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                        </div>
-                        <div id="navbar" class="navbar-collapse collapse">
-                            <ul class="nav navbar-nav">
+
+                        <div>
+                            <ul class="nav">
                                 <li class="{{BpaaSActive}}">
-                                    <a href="#" data-ng-click="showBPaaSplatform()">BPaaS platforms</a>
+                                    <a href="#" data-ng-click="showBPaaSplatform()">business <span class="fa fa-dollar"></span>implified</a>
                                 </li>
                                 <li class="{{SimplifiedActive}}">
-                                    <a href="#" data-ng-click="getBusinessSimplified()">business <span class="fa fa-dollar"></span>implified</a>
+                                    <a href="#" data-ng-click="getBusinessSimplified()">BPaaS platform services</a>
                                 </li>
-                                <!--<li class="{{SimplifiedActive}}">-->
-                                    <!--<a href="#" data-ng-click="getBusinessSimplified()">business process services</a>-->
-                                <!--</li>-->
+
 
                             </ul>
                         </div>
@@ -80,7 +71,7 @@
                         <p class="caption-left-content">
                             <span>networked,onboard, discover, partner, monetize</span>
                         </p>
-                        <p class="read_more_button">
+                        <p class="read_more_button hidden-xs">
                             <button type="button" class="btn input-md btn-w-lg btn-line-read-more" data-ng-click="getHethiCloudPlug()">read more</button>
 
                         </p>
@@ -93,7 +84,7 @@
                         <p class="caption-left-content">
                             <span>Workflows, output, integration, analytics</span>
                         </p>
-                        <p class="read_more_button">
+                        <p class="read_more_button hidden-xs">
                             <button type="button" class="btn input-md btn-w-lg btn-line-read-more" data-ng-click="getHethiCloudplay()">read more</button>
                         </p>
                         <!--<p class="caption-right">-->
@@ -110,7 +101,7 @@
                         <p class="caption-left-content">
                             <span>improve agility by Intuitive experience in business process definition</span>
                         </p>
-                        <p class="read_more_button">
+                        <p class="read_more_button hidden-xs">
                             <button type="button" class="btn input-md btn-w-lg btn-line-read-more" data-ng-click="getHethiBpaasStudio()">read more</button>
 
                         </p>
@@ -123,7 +114,7 @@
                         <p class="caption-left-content">
                             <span>on mobile, on premise, on cloud</span>
                         </p>
-                        <p class="read_more_button">
+                        <p class="read_more_button hidden-xs">
                             <button type="button" class="btn input-md btn-w-lg btn-line-read-more" data-ng-click="getHethiBpaasMpc()">read more</button>
                         </p>
                         <!--<p class="caption-right">-->
@@ -139,9 +130,9 @@
                             <span>hethi botcamp</span>
                         </p>
                         <p class="caption-left-content">
-                            <span>Smart vendor portals and robotics lean process automation</span>
+                            <span>smart vendor portals and robotics lean process automation</span>
                         </p>
-                        <p class="read_more_button">
+                        <p class="read_more_button hidden-xs">
                             <button type="button" class="btn input-md btn-w-lg btn-line-read-more" data-ng-click="getHethiBotCamps()">read more</button>
                         </p>
                         <!--<p class="caption-right">-->
@@ -202,7 +193,7 @@
         <div data-ng-show="hethiCloudPlug" data-ng-include="'pages/hethi/home_page/hethi_cloudplug.html'"></div>
     </section>
     <section id="hethiCloudPlay" class="">
-        <div data-ng-include="'pages/hethi/home_page/hethi_cloudplay.html'"></div>
+        <div data-ng-show="hethiCloudPlay" data-ng-include="'pages/hethi/home_page/hethi_cloudplay.html'"></div>
 
     </section>
     <section id="hethiBpaasStudio" class="">
@@ -220,11 +211,11 @@
 
 
     <section id="section1">
-        <div data-ng-show="showBusinessSimplified"  class="content-bottom" data-ng-include="'pages/hethi/home_page/hethi_business_simplified.html'"></div>
+        <div data-ng-show="showBusinessSimplified"  class="content-bottom" data-ng-include="'pages/hethi/home_page/bpaasPlatformServices.html'"></div>
     </section>
 
     <section id="section2" >
-        <div data-ng-show="showPlatformBPaaS" class="content-bottom" data-ng-include="'pages/hethi/home_page/bpaasPlatformServices.html'"></div>
+        <div data-ng-show="showPlatformBPaaS" class="content-bottom" data-ng-include="'pages/hethi/home_page/hethi_business_simplified.html'"></div>
     </section>
 
 

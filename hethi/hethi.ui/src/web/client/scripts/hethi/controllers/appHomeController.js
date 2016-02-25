@@ -1029,7 +1029,8 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
 
         };
 
-    $scope.load_landing_page=function(customer){
+
+        $scope.load_landing_page=function(customer){
 
         var secret=base64.encode(JSON.stringify(customer));
         $rootScope.createCookie('hethi_freemium_customer', secret,1);
@@ -1045,9 +1046,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
             $scope.listenSelectedCustomer();
 
         };
-
         $scope.hethi_core_services_orchestration=[];
-        //hethi_core_services
         $scope.add_hethi_core_services_for_form=function(data){
 
             var form_data=data;
@@ -1064,9 +1063,1051 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
 
         };
 
+        $scope.load_all_process_and_sub_process=function(){
+            $http({method: 'POST',
+                url: $rootScope.spring_rest_service+'/load_all_process_and_sub_process',
+                dataType:'jsonp'
+            }).success(function(data) {
+                $scope.hethi_service_list=data[0];
+                $scope.hethi_service_process_list=data[1];
+                $scope.hethi_service_micro_process_list=data[2];
+                $scope.hethi_service_process_list.forEach(function(p){
+                    p.micro_processes=[];
+                    $scope.hethi_service_micro_process_list.forEach(function(mp){
+                        if(p.sfs_UIN==mp.sfs_UIN){
+                            p.micro_processes.push(mp);
+                        }
+                    });
+                });
+                $scope.hide_diagram=true;
+                $scope.set_workflow_process_container($scope.hethi_service_list[0]);
+
+            });
+        };
+        $scope.set_workflow_process_container=function(servic){
+
+            $scope.hethi_service_list.forEach(function(bp) {
+                bp.is_active=false;
+                if(bp.hethi_service_id==servic.hethi_service_id){
+                    bp.is_active=true;
+                    bp.main_process=[];
+                    $scope.main_process_container=[];
+                    $scope.hethi_service_process_list.forEach(function(p) {
+                        if(p.hethi_service_id==bp.hethi_service_id){
+                            bp.main_process.push(p);
+                            $scope.main_process_container.push(p);
+                        }
+                    });
+                }
+            });
+            //$scope.set_workflow_micro_process_container($scope.main_process_container[0]);
+            $scope.set_workflow_diagram_for_process($scope.main_process_container);
+        };
+
+
+
+        //$scope.set_workflow_micro_process_container($scope.main_process_container[0]);
+        $scope.set_workflow_micro_process_container=function(process){
+            $scope.micro_process_container=process;
+            $scope.load_micro_process_diagram(process);
+            $scope.main_process_container.forEach(function(mp) {
+                mp.is_active=false;
+                if(mp.sfs_UIN==process.sfs_UIN){
+                    mp.is_active=true;
+                };
+            });
+
+        };
+
+
         $scope.listenSelectedCustomer();
-    $scope.load_customer_list();
-    $scope.load_all_forms();
+        $scope.load_customer_list();
+        $scope.load_all_forms();
+
+
+
+
+        //$scope.load_all_process_and_sub_process();
+
+
+
+        var micro_process_diagram,myPalette;
+        $scope.init=function() {
+            //if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
+            var $ = go.GraphObject.make;  // for conciseness in defining templates
+
+            micro_process_diagram =
+                $(go.Diagram, "micro_process_diagram",// must name or refer to the DIV HTML element
+                    {
+                        initialContentAlignment: go.Spot.Center,
+                        allowDrop: true,  // must be true to accept drops from the Palette
+                        "LinkDrawn": showLinkLabel,  // this DiagramEvent listener is defined below
+                        "LinkRelinked": showLinkLabel,
+                        "animationManager.duration": 800, // slightly longer than default (600ms) animation
+                        "undoManager.isEnabled": true  // enable undo & redo
+                    });
+
+
+            window.PIXELRATIO = micro_process_diagram.computePixelRatio(); // constant needed to determine mouse coordinates on the canvas
+
+            // define a simple Node template
+
+
+            // when the document is modified, add a "*" to the title and enable the "Save" button
+            micro_process_diagram.addDiagramListener("Modified", function(e) {
+                var button = document.getElementById("SaveButton");
+                //if (button) button.disabled = !myDiagram.isModified;
+                var idx = document.title.indexOf("*");
+                if (micro_process_diagram.isModified) {
+                    if (idx < 0) document.title += "*";
+                } else {
+                    if (idx >= 0) document.title = document.title.substr(0, idx);
+                }
+            });
+
+            // helper definitions for node templates
+
+            function nodeStyle() {
+                return [
+                    // The Node.location comes from the "loc" property of the node data,
+                    // converted by the Point.parse static method.
+                    // If the Node.location is changed, it updates the "loc" property of the node data,
+                    // converting back using the Point.stringify static method.
+                    new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+                    {
+                        // the Node.location is at the center of each node
+                        locationSpot: go.Spot.Center,
+                        //isShadowed: true,
+                        //shadowColor: "#888",
+                        // handle mouse enter/leave events to show/hide the ports
+                        mouseEnter: function (e, obj) { showPorts(obj.part, true); },
+                        mouseLeave: function (e, obj) { showPorts(obj.part, false); }
+                    }
+                ];
+            }
+
+            // Define a function for creating a "port" that is normally transparent.
+            // The "name" is used as the GraphObject.portId, the "spot" is used to control how links connect
+            // and where the port is positioned on the node, and the boolean "output" and "input" arguments
+            // control whether the user can draw links from or to the port.
+            function makePort(name, spot, output, input) {
+                // the port is basically just a small circle that has a white stroke when it is made visible
+                return $(go.Shape, "Circle",
+                    {
+                        fill: "transparent",
+                        stroke: null,  // this is changed to "white" in the showPorts function
+                        desiredSize: new go.Size(15, 15),
+                        alignment: spot, alignmentFocus: spot,  // align the port on the main Shape
+                        portId: name,  // declare this object to be a "port"
+                        fromSpot: spot, toSpot: spot,  // declare where links may connect at this port
+                        fromLinkable: output, toLinkable: input,  // declare whether the user may draw links to/from here
+                        cursor: "pointer"  // show a different cursor to indicate potential link point
+                    });
+            }
+
+
+            // define the Node templates for regular nodes
+
+            var lightText = 'white';
+
+            micro_process_diagram.nodeTemplateMap.add("",  // the default category
+                $(go.Node, "Spot",
+                    { contextMenu:
+                        $(go.Adornment, "Vertical",
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Properties"),
+                                { click: function(e, obj) {  jQuery('#myModal').modal('show');}
+                                }),
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Settings"),
+                                { click: function(e, obj) {  jQuery('#myModal1').modal('show'); }
+                                })
+                        ) },
+                    nodeStyle(),
+                    // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "Rectangle",
+                            { fill: "lightgray", stroke: null },
+                            new go.Binding("figure", "figure")),
+                        $(go.TextBlock,
+                            {
+                                font: "bold 11pt Helvetica, Arial, sans-serif",
+                                stroke: lightText,
+                                margin: 8,
+                                maxSize: new go.Size(160, NaN),
+                                wrap: go.TextBlock.WrapFit,
+                                editable: true
+                            },
+                            new go.Binding("text").makeTwoWay())
+                    ),
+                    // four named ports, one on each side:
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false)
+                ));
+
+            micro_process_diagram.nodeTemplateMap.add("Rectangle",  // the default category
+                $(go.Node, "Spot",
+                    { contextMenu:
+                        $(go.Adornment, "Vertical",
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Properties"),
+                                { click: function(e, obj) {  jQuery('#myModal').modal('show');}
+                                }),
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Settings"),
+                                { click: function(e, obj) {  jQuery('#myModal1').modal('show'); }
+                                })
+                        ) },
+                    nodeStyle(),
+                    // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "Rectangle",
+                            { fill: "#3B8686", stroke: null },
+                            new go.Binding("figure", "figure")),
+                        $(go.TextBlock,
+                            {
+                                font: "bold 11pt Helvetica, Arial, sans-serif",
+                                stroke: lightText,
+                                margin: 8,
+                                maxSize: new go.Size(160, NaN),
+                                wrap: go.TextBlock.WrapFit,
+                                editable: true
+                            },
+                            new go.Binding("text").makeTwoWay())
+                    ),
+                    // four named ports, one on each side:
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false)
+                ));
+            micro_process_diagram.nodeTemplateMap.add("Rectangleaaas",  // the default category
+                $(go.Node, "Spot",
+                    { contextMenu:
+                        $(go.Adornment, "Vertical",
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Properties"),
+                                { click: function(e, obj) {  jQuery('#myModal').modal('show');}
+                                }),
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Settings"),
+                                { click: function(e, obj) {  jQuery('#myModal1').modal('show'); }
+                                })
+                        ) },
+                    nodeStyle(),
+                    // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "RoundedRectangle",
+                            { fill:$(go.Brush,"Linear",{0.0:"#BF4141",1.0:"#ce60a6"}), stroke: null },
+                            new go.Binding("figure", "figure")),
+                        $(go.TextBlock,
+                            {
+                                font: "bold 11pt Helvetica, Arial, sans-serif",
+                                stroke: lightText,
+                                margin: 8,
+                                maxSize: new go.Size(160, NaN),
+                                wrap: go.TextBlock.WrapFit,
+                                editable: true
+                            },
+                            new go.Binding("text").makeTwoWay())
+                    ),
+                    // four named ports, one on each side:
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false)
+                ));
+
+            micro_process_diagram.nodeTemplateMap.add("Rectangleiaas",  // the default category
+                $(go.Node, "Spot",
+                    { contextMenu:
+                        $(go.Adornment, "Vertical",
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Properties"),
+                                { click: function(e, obj) {
+                                    $scope.selected_workflow_process=obj.part.data;
+                                    $scope.loadRulesByProcess();
+                                    jQuery('#ruleModel').modal('show');}
+                                }),
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Settings"),
+                                { click: function(e, obj) {  jQuery('#myModal1').modal('show'); }
+                                })
+                        ) },
+                    nodeStyle(),
+                    // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "RoundedRectangle",
+                            { fill:$(go.Brush,"Linear",{0.0:"#3c2722",1.0:"#664e4a"}), stroke: null },
+                            new go.Binding("figure", "figure")),
+                        $(go.TextBlock,
+                            {
+                                font: "bold 11pt Helvetica, Arial, sans-serif",
+                                stroke: lightText,
+                                margin: 8,
+                                maxSize: new go.Size(160, NaN),
+                                wrap: go.TextBlock.WrapFit,
+                                editable: true
+                            },
+                            new go.Binding("text").makeTwoWay())
+                    ),
+                    // four named ports, one on each side:
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false)
+                ));
+
+            micro_process_diagram.nodeTemplateMap.add("Rectangleoaas",  // the default category
+                $(go.Node, "Spot",
+                    { contextMenu:
+                        $(go.Adornment, "Vertical",
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Properties"),
+                                { click: function(e, obj) {
+                                    $scope.selected_workflow_process=obj.part.data;
+                                    $scope.loadRulesByProcess();
+                                    jQuery('#ruleModel').modal('show');}
+                                }),
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Settings"),
+                                { click: function(e, obj) {  jQuery('#myModal1').modal('show'); }
+                                })
+                        ) },
+                    nodeStyle(),
+                    // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "RoundedRectangle",
+                            {fill:$(go.Brush,"Linear",{0.0:"#76a879",1.0:"#366d51"}), stroke: null },
+                            new go.Binding("figure", "figure")),
+                        $(go.TextBlock,
+                            {
+                                font: "bold 11pt Helvetica, Arial, sans-serif",
+                                stroke: lightText,
+                                margin: 8,
+                                maxSize: new go.Size(160, NaN),
+                                wrap: go.TextBlock.WrapFit,
+                                editable: true
+                            },
+                            new go.Binding("text").makeTwoWay())
+                    ),
+                    // four named ports, one on each side:
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false)
+                ));
+
+            micro_process_diagram.nodeTemplateMap.add("Rectanglebaas",  // the default category
+                $(go.Node, "Spot",
+                    { contextMenu:
+                        $(go.Adornment, "Vertical",
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Properties"),
+                                { click: function(e, obj) {
+                                    $scope.selected_workflow_process=obj.part.data;
+                                    $scope.loadRulesByProcess();
+                                    jQuery('#ruleModel').modal('show');}
+                                }),
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Settings"),
+                                { click: function(e, obj) {  jQuery('#myModal1').modal('show'); }
+                                })
+                        ) },
+                    nodeStyle(),
+                    // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "RoundedRectangle",
+                            { fill:$(go.Brush,"Linear",{0.0:"#cf3529",1.0:"#fa5f4b"}), stroke: null },
+                            new go.Binding("figure", "figure")),
+                        $(go.TextBlock,
+                            {
+                                font: "bold 11pt Helvetica, Arial, sans-serif",
+                                stroke: lightText,
+                                margin: 8,
+                                maxSize: new go.Size(160, NaN),
+                                wrap: go.TextBlock.WrapFit,
+                                editable: true
+                            },
+                            new go.Binding("text").makeTwoWay())
+                    ),
+                    // four named ports, one on each side:
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false)
+                ));
+
+            micro_process_diagram.nodeTemplateMap.add("Rectangledaas",  // the default category
+                $(go.Node, "Spot",
+                    { contextMenu:
+                        $(go.Adornment, "Vertical",
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Rule-Properties"),
+                                { click: function(e, obj) {
+                                    //save rule here
+                                    $scope.selected_workflow_process=obj.part.data;
+                                    $scope.loadRulesByProcess();
+                                    jQuery('#ruleModel').modal('show');}
+                                }),
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Settings"),
+                                { click: function(e, obj) {
+                                    //save rule here
+                                    $scope.selected_workflow_process=obj.part.data;
+                                    $scope.loadRulesByProcess();
+                                    jQuery('#ruleModel').modal('show');}
+                                })
+                        ) },
+                    nodeStyle(),
+                    // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "RoundedRectangle",
+                            { fill:$(go.Brush,"Linear",{0.0:"#c89033",1.0:"#f9b73c"}), stroke: null },
+                            new go.Binding("figure", "figure")),
+                        $(go.TextBlock,
+                            {
+                                font: "bold 11pt Helvetica, Arial, sans-serif",
+                                stroke: lightText,
+                                margin: 8,
+                                maxSize: new go.Size(160, NaN),
+                                wrap: go.TextBlock.WrapFit,
+                                editable: true
+                            },
+                            new go.Binding("text").makeTwoWay())
+                    ),
+                    // four named ports, one on each side:
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false)
+                ));
+            micro_process_diagram.nodeTemplateMap.add("Diamonddaas",  // the default category
+                $(go.Node, "Spot",
+                    { contextMenu:
+                        $(go.Adornment, "Vertical",
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Properties"),
+                                { click: function(e, obj) {  jQuery('#myModal').modal('show');}
+                                }),
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Settings"),
+                                { click: function(e, obj) {  jQuery('#myModal1').modal('show'); }
+                                })
+                        ) },
+                    nodeStyle(),
+                    // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "Diamond",
+                            { fill: "#92646D", stroke: null },
+                            new go.Binding("figure", "figure")),
+                        $(go.TextBlock,
+                            {
+                                font: "bold 11pt Helvetica, Arial, sans-serif",
+                                stroke: lightText,
+                                margin: 8,
+                                maxSize: new go.Size(160, NaN),
+                                wrap: go.TextBlock.WrapFit,
+                                editable: true
+                            },
+                            new go.Binding("text").makeTwoWay())
+                    ),
+                    // four named ports, one on each side:
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false)
+                ));
+            micro_process_diagram.nodeTemplateMap.add("Diamondbaas",  // the default category
+                $(go.Node, "Spot",
+                    { contextMenu:
+                        $(go.Adornment, "Vertical",
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Properties"),
+                                { click: function(e, obj) {  jQuery('#myModal').modal('show');}
+                                }),
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Settings"),
+                                { click: function(e, obj) {  jQuery('#myModal1').modal('show'); }
+                                })
+                        ) },
+                    nodeStyle(),
+                    // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "Diamond",
+                            { fill: "#20981F", stroke: null },
+                            new go.Binding("figure", "figure")),
+                        $(go.TextBlock,
+                            {
+                                font: "bold 11pt Helvetica, Arial, sans-serif",
+                                stroke: lightText,
+                                margin: 8,
+                                maxSize: new go.Size(160, NaN),
+                                wrap: go.TextBlock.WrapFit,
+                                editable: true
+                            },
+                            new go.Binding("text").makeTwoWay())
+                    ),
+                    // four named ports, one on each side:
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false)
+                ));
+            micro_process_diagram.nodeTemplateMap.add("Diamondoaas",  // the default category
+                $(go.Node, "Spot",
+                    { contextMenu:
+                        $(go.Adornment, "Vertical",
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Properties"),
+                                { click: function(e, obj) {  jQuery('#myModal').modal('show');}
+                                }),
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Settings"),
+                                { click: function(e, obj) {  jQuery('#myModal1').modal('show'); }
+                                })
+                        ) },
+                    nodeStyle(),
+                    // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "Diamond",
+                            { fill: "#A29B16", stroke: null },
+                            new go.Binding("figure", "figure")),
+                        $(go.TextBlock,
+                            {
+                                font: "bold 11pt Helvetica, Arial, sans-serif",
+                                stroke: lightText,
+                                margin: 8,
+                                maxSize: new go.Size(160, NaN),
+                                wrap: go.TextBlock.WrapFit,
+                                editable: true
+                            },
+                            new go.Binding("text").makeTwoWay())
+                    ),
+                    // four named ports, one on each side:
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false)
+                ));
+            micro_process_diagram.nodeTemplateMap.add("Diamondiaas",  // the default category
+                $(go.Node, "Spot",
+                    { contextMenu:
+                        $(go.Adornment, "Vertical",
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Properties"),
+                                { click: function(e, obj) {  jQuery('#myModal').modal('show');}
+                                }),
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Settings"),
+                                { click: function(e, obj) {  jQuery('#myModal1').modal('show'); }
+                                })
+                        ) },
+                    nodeStyle(),
+                    // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "Diamond",
+                            { fill: "#FF4819", stroke: null },
+                            new go.Binding("figure", "figure")),
+                        $(go.TextBlock,
+                            {
+                                font: "bold 11pt Helvetica, Arial, sans-serif",
+                                stroke: lightText,
+                                margin: 8,
+                                maxSize: new go.Size(160, NaN),
+                                wrap: go.TextBlock.WrapFit,
+                                editable: true
+                            },
+                            new go.Binding("text").makeTwoWay())
+                    ),
+                    // four named ports, one on each side:
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false)
+                ));
+
+            micro_process_diagram.nodeTemplateMap.add("Diamond",  // the default category
+                $(go.Node, "Spot",
+                    { contextMenu:
+                        $(go.Adornment, "Vertical",
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Properties"),
+                                { click: function(e, obj) {  jQuery('#myModal').modal('show');
+                                } }),
+                            $("ContextMenuButton",
+                                $(go.TextBlock, "Settings"),
+                                { click: function(e, obj) {  jQuery('#myModal1').modal('show'); } })
+                        ) },
+                    nodeStyle(),
+                    // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "Diamond",
+                            { fill: "#86863B", stroke: null },
+                            new go.Binding("figure", "figure")),
+                        $(go.TextBlock,
+                            {
+                                font: "bold 11pt Helvetica, Arial, sans-serif",
+                                stroke: lightText,
+                                margin: 8,
+                                maxSize: new go.Size(160, NaN),
+                                wrap: go.TextBlock.WrapFit,
+                                editable: true
+                            },
+                            new go.Binding("text").makeTwoWay())
+                    ),
+                    // four named ports, one on each side:
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, true, true),
+                    makePort("R", go.Spot.Right, true, true),
+                    makePort("B", go.Spot.Bottom, true, false)
+                ));
+
+            micro_process_diagram.nodeTemplateMap.add("Start",
+                $(go.Node, "Spot", nodeStyle(),
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "Circle",
+                            { minSize: new go.Size(40, 40), fill:$(go.Brush,"Linear",{0.0:"#259048",1.0:"#2cb258"}), stroke: null }),
+                        $(go.TextBlock, "Start",
+                            { font: "bold 11pt Helvetica, Arial, sans-serif", stroke: lightText },
+                            new go.Binding("text"))
+                    ),
+                    // three named ports, one on each side except the top, all output only:
+                    makePort("L", go.Spot.Left, true, false),
+                    makePort("R", go.Spot.Right, true, false),
+                    makePort("B", go.Spot.Bottom, true, false)
+                ));
+
+            micro_process_diagram.nodeTemplateMap.add("End",
+                $(go.Node, "Spot", nodeStyle(),
+                    $(go.Panel, "Auto",
+                        $(go.Shape, "Circle",
+                            { minSize: new go.Size(40, 40), fill:$(go.Brush,"Linear",{0.0:"#d9534f",1.0:"#c12e2a"}), stroke: null }),
+                        $(go.TextBlock, "End",
+                            { font: "bold 11pt Helvetica, Arial, sans-serif", stroke: lightText },
+                            new go.Binding("text"))
+                    ),
+                    // three named ports, one on each side except the bottom, all input only:
+                    makePort("T", go.Spot.Top, false, true),
+                    makePort("L", go.Spot.Left, false, true),
+                    makePort("R", go.Spot.Right, false, true)
+                ));
+
+            micro_process_diagram.nodeTemplateMap.add("Comment",
+                $(go.Node, "Auto", nodeStyle(),
+                    $(go.Shape, "File",
+                        { fill: "#EFFAB4", stroke: null }),
+                    $(go.TextBlock,
+                        {
+                            margin: 5,
+                            maxSize: new go.Size(200, NaN),
+                            wrap: go.TextBlock.WrapFit,
+                            textAlign: "center",
+                            editable: true,
+                            font: "bold 12pt Helvetica, Arial, sans-serif",
+                            stroke: '#454545'
+                        },
+                        new go.Binding("text").makeTwoWay())
+                    // no ports, because no links are allowed to connect with a comment
+                ));
+
+
+            // replace the default Link template in the linkTemplateMap
+            micro_process_diagram.linkTemplate =
+                $(go.Link,  // the whole link panel
+                    {
+                        routing: go.Link.AvoidsNodes,
+                        curve: go.Link.JumpOver,
+                        corner: 5, toShortLength: 4,
+                        relinkableFrom: true,
+                        relinkableTo: true,
+                        reshapable: true,
+                        resegmentable: true,
+                        // mouse-overs subtly highlight links:
+                        mouseEnter: function(e, link) { link.findObject("HIGHLIGHT").stroke = "rgba(30,144,255,0.2)"; },
+                        mouseLeave: function(e, link) { link.findObject("HIGHLIGHT").stroke = "transparent"; }
+                    },
+                    new go.Binding("points").makeTwoWay(),
+                    $(go.Shape,  // the highlight shape, normally transparent
+                        { isPanelMain: true, strokeWidth: 8, stroke: "transparent", name: "HIGHLIGHT" }),
+                    $(go.Shape,  // the link path shape
+                        { isPanelMain: true, stroke: "gray", strokeWidth: 2 }),
+                    $(go.Shape,  // the arrowhead
+                        { toArrow: "standard", stroke: null, fill: "gray"}),
+                    $(go.Panel, "Auto",  // the link label, normally not visible
+                        { visible: false, name: "LABEL", segmentIndex: 2, segmentFraction: 0.5},
+                        new go.Binding("visible", "visible").makeTwoWay(),
+                        $(go.Shape, "RoundedRectangle",  // the label shape
+                            { fill: "#F8F8F8", stroke: null }),
+                        $(go.TextBlock, "Yes",  // the label
+                            {
+                                textAlign: "center",
+                                font: "10pt helvetica, arial, sans-serif",
+                                stroke: "#333333",
+                                editable: true
+                            },
+                            new go.Binding("text", "text").makeTwoWay())
+                    )
+                );
+
+            // Make link labels visible if coming out of a "conditional" node.
+            // This listener is called by the "LinkDrawn" and "LinkRelinked" DiagramEvents.
+            function showLinkLabel(e) {
+                var label = e.subject.findObject("LABEL");
+                if (label !== null) label.visible = (e.subject.fromNode.data.figure === "Diamond");
+            }
+
+            // temporary links used by LinkingTool and RelinkingTool are also orthogonal:
+            micro_process_diagram.toolManager.linkingTool.temporaryLink.routing = go.Link.Orthogonal;
+            micro_process_diagram.toolManager.relinkingTool.temporaryLink.routing = go.Link.Orthogonal;
+
+
+            // initialize the Palette that is on the left side of the page
+            //myPalette =
+            //    $(go.Palette, "myPalette",  // must name or refer to the DIV HTML element
+            //        {
+            //            "animationManager.duration": 800, // slightly longer than default (600ms) animation
+            //            nodeTemplateMap: micro_process_diagram.nodeTemplateMap  // share the templates used by micro_process_diagram
+            //        });
+
+            micro_process_diagram.addDiagramListener("ObjectSingleClicked",
+                function(e) {
+                    var part = e.subject.part;
+                    if (!(part instanceof go.Link)) $scope.showMessage(part);
+                });
+            micro_process_diagram.addDiagramListener("BackgroundSingleClicked",
+                function(e) {
+                    $scope.$apply(function(){
+                        $scope.rulesList=[];
+                    });
+                });
+            //micro_process_diagram.model = go.Model.fromJson('{ "class": "go.GraphLinksModel","linkFromPortIdProperty": "fromPort","linkToPortIdProperty": "toPort"}');  // load an initial diagram from some JSON text
+            //micro_process_diagram.model = go.Model.fromJson(JSON.stringify({ "class": "go.GraphLinksModel",
+            //    "linkFromPortIdProperty": "fromPort",
+            //    "linkToPortIdProperty": "toPort",
+            //    "nodeDataArray": [
+            //        {"category":"Start", "text":"Start", "key":"Start", "loc":"-342.828125 -454"},
+            //        {"category":"Rectangle", "figure":"Rectangle", "text":"Process1", "key":"Process1", "loc":"-342.828125 -354"},
+            //        {"category":"Diamond", "figure":"Diamond", "text":"Rule1", "key":"Rule1", "loc":"-329.828125 -259"},
+            //        {"category":"Rectangle", "figure":"Rectangle", "text":"Process3", "key":"Process3", "loc":"-326.828125 -154"},
+            //        {"category":"Rectangle", "figure":"Rectangle", "text":"Process4", "key":"Process4", "loc":"-326.828125 -54"},
+            //        {"category":"End", "text":"End", "key":"End", "loc":"-326.828125 54"}
+            //    ],
+            //    "linkDataArray": [
+            //        {"from":"Start", "to":"Process1", "fromPort":"B", "toPort":"T"},
+            //        {"from":"Process1", "to":"Rule1", "fromPort":"B", "toPort":"T"},
+            //        {"from":"Rule1", "to":"Process3", "fromPort":"B", "toPort":"T", "visible":true},
+            //        {"from":"Rule1", "to":"Process4", "fromPort":"R", "toPort":"T", "visible":true ,text:"No"},
+            //        {"from":"Process4", "to":"End", "fromPort":"B", "toPort":"T"}
+            //    ]}));
+
+
+        }
+
+        function cxcommand(val) {
+            var diagram = micro_process_diagram;
+            if (!(diagram.currentTool instanceof go.ContextMenuTool)) return;
+            switch (val) {
+                case "Cut": diagram.commandHandler.cutSelection(); break;
+                case "Copy": diagram.commandHandler.copySelection(); break;
+                case "Paste": diagram.commandHandler.pasteSelection(diagram.lastInput.documentPoint); break;
+                case "Delete": diagram.commandHandler.deleteSelection(); break;
+                case "Color": changeColor(diagram); break;
+            }
+            diagram.currentTool.stopTool();
+        }
+// A custom command, for changing the color of the selected node(s).
+        function changeColor(diagram) {
+            // the object with the context menu, in this case a Node, is accessible as:
+            var cmObj = diagram.toolManager.contextMenuTool.currentObject;
+            // but this function operates on all selected Nodes, not just the one at the mouse pointer.
+            // Always make changes in a transaction, except when initializing the diagram.
+            diagram.startTransaction("change color");
+            diagram.selection.each(function(node) {
+                if (node instanceof go.Node) {  // ignore any selected Links and simple Parts
+                    // Examine and modify the data, not the Node directly.
+                    var data = node.data;
+                    if (data.color === "red") {
+                        // Call setDataProperty to support undo/redo as well as
+                        // automatically evaluating any relevant bindings.
+                        diagram.model.setDataProperty(data, "color", go.Brush.randomColor());
+                    } else {
+                        diagram.model.setDataProperty(data, "color", "red");
+                    }
+                }
+            });
+            diagram.commitTransaction("change color");
+        }
+        // Make all ports on a node visible when the mouse is over the node
+        function showPorts(node, show) {
+            var diagram = node.diagram;
+            if (!diagram || diagram.isReadOnly || !diagram.allowLink) return;
+            node.ports.each(function(port) {
+                port.stroke = (show ? "white" : null);
+            });
+        }
+
+
+        // Show the diagram's model in JSON format that the user may edit
+        $scope.save=function() {
+            //document.getElementById("mySavedModel").value = micro_process_diagram.model.toJson();
+            $scope.mySavedModel = micro_process_diagram.model.toJson();
+            micro_process_diagram.isModified = false;
+        };
+
+        $scope.page_load_completed=function() {
+            if($scope.hide_diagram_data)
+              $scope.load_micro_process_diagram($scope.hide_diagram_data);
+        };
+
+        $scope.set_workflow_diagram_for_process=function(process){
+            alert(JSON.stringify(process))
+            $scope.process_box_array=[];
+            $scope.process_line_array=[];
+            var maxx=0;
+            var x=  -800;
+            var y = -600;
+            var data={};
+            data.category="Start";
+            data.text="Start";
+            data.key="Start";
+            data.demokey="Start";
+            data.loc=x+" "+y;
+
+            var line={from:"Start" , to:process[0].sfs_UIN};
+            $scope.process_line_array.push(line);
+            $scope.process_box_array.push(data);
+            var j=0;
+
+            process.forEach(function(row){
+
+                var process_box_type;
+                if(row.hethi_servicecode=='DaaS'){
+                    process_box_type="Rectangledaas" ;
+                }
+
+
+                y= y+120;
+                var data={};
+                data.category="Rectangle";
+                data.text=row.hethi_subservicecode;
+                data.key=row.sfs_UIN;
+                data.demokey=row.sfs_UIN;
+                data.loc=x+" "+y;
+                $scope.process_box_array.push(data);
+
+                var i=1;
+                if(row.micro_processes.length==0){
+                    line={from:row.sfs_UIN };
+                    $scope.process_line_array.push(line);
+                };
+                row.micro_processes.forEach(function(mp){
+                    x=x+200;
+                    data={};
+                    data.category=process_box_type;
+                    data.text=mp.micro_process_name;
+                    data.key=mp.micro_process_id;
+                    data.demokey=mp.sfs_UIN;
+                    data.loc=x+" "+y;
+
+                    if(i==1 ){
+
+                        line={from:row.sfs_UIN ,to:mp.micro_process_id};
+                        $scope.process_line_array.push(line);
+                        line={from:mp.micro_process_id};
+                        $scope.process_line_array.push(line);
+                    }
+                    else
+                    {
+                        var l=$scope.process_line_array.length - 1;
+                        $scope.process_line_array[l].to=mp.micro_process_id;
+                        line={from:mp.micro_process_id};
+                        $scope.process_line_array.push(line);
+                    }
+                    i++;
+                    $scope.process_box_array.push(data);
+
+                });
+
+
+                data={};
+                data.category="Rectangle";
+                data.text="Hand-off";
+                data.key="End_"+row.hethi_subservicecode;
+                data.demokey="End_"+row.hethi_subservicecode;
+                x=x+200;
+                data.loc=x+" "+y;
+                $scope.process_box_array.push(data);
+                var l=$scope.process_line_array.length - 1;
+                $scope.process_line_array[l].to="End_"+row.hethi_subservicecode;
+                if(x>maxx){
+                    maxx=x;
+                }
+                x=  -800;
+
+                j=j+1;
+                if(process.length==j){
+
+                    y= -600;
+                    data={};
+                    data.category="End";
+                    data.text="End";
+                    data.key="End";
+                    data.demokey="End";
+                    data.loc=maxx +100 +" "+y;
+                    $scope.process_box_array.push(data);
+
+                    line={from:"End_"+row.hethi_subservicecode , to:"End"};
+                    $scope.process_line_array.push(line);
+
+                }
+                else
+                {
+
+                    line={from:"End_"+row.hethi_subservicecode , to:process[j].sfs_UIN};
+                    $scope.process_line_array.push(line);
+
+                }
+
+
+
+            });
+            var graph={ "class": "go.GraphLinksModel",
+                "nodeDataArray": $scope.process_box_array,
+                "linkDataArray":$scope.process_line_array
+            };
+
+            micro_process_diagram.model=go.Model.fromJson(graph);
+
+
+        };
+        $scope.load_micro_process_diagram=function(process) {
+            alert(JSON.stringify(process));
+            $scope.hide_diagram_data=process;
+            if($scope.hide_diagram == false){
+
+                var process_box_type;
+                var loc;
+                if(process.hethi_servicecode=='DaaS'){
+                    process_box_type="Rectangledaas" ;
+                }
+                var arr= [
+                    {"loc":"-800 -400"},
+                    {"loc":"-600 -400"},
+                    {"loc":"-400 -400"},
+                    {"loc":"-200 -400"},
+                    {"loc":"-0 -400"},
+                    {"loc":"200 -400"},
+                    {"loc":"400 -400"},
+                    {"loc":"600 -400"},
+                    {"loc":"800 -400"},
+                ];
+
+                $scope.micro_p_array=[];
+                $scope.micro_l_array=[];
+
+                var data={};
+
+                data.category="Start";
+                data.text="Start";
+                data.key="Start";
+                data.demokey="Start";
+                data.loc=arr[0].loc;
+                $scope.micro_p_array.push(data);
+                var i=1;
+                process.micro_processes.forEach(function(row){
+                    loc=""
+                    data={};
+                    data.category=process_box_type;
+                    data.text=row.micro_process_name;
+                    data.key=row.micro_process_id;
+                    data.demokey=row.sfs_UIN;
+                    data.loc=arr[i].loc;
+
+                    if(i==1){
+                        var line={from:"Start",to:row.micro_process_id};
+                        $scope.micro_l_array.push(line);
+                            line={from:row.micro_process_id};
+                        $scope.micro_l_array.push(line);
+                    }
+                    else
+                    {
+                        $scope.micro_l_array[i-1].to=row.micro_process_id;
+                        line={from:row.micro_process_id};
+                        $scope.micro_l_array.push(line);
+                    }
+                    i++;
+                    $scope.micro_p_array.push(data);
+
+                });
+
+
+                data={};
+                data.category="End";
+                data.text="End";
+                data.key="End";
+                data.demokey="End";
+                data.loc=arr[i].loc;
+                $scope.micro_p_array.push(data);
+                $scope.micro_l_array[i-1].to="End";
+
+                var graph={ "class": "go.GraphLinksModel",
+                    "nodeDataArray": $scope.micro_p_array,
+                    "linkDataArray":$scope.micro_l_array
+                };
+
+                console.log(JSON.stringify(graph));
+                micro_process_diagram.model=go.Model.fromJson(graph);
+
+
+
+            }
+            else{
+                alert('first time ,please click load');
+                $scope.hide_diagram=false;
+
+            }
+        }
+
+
+        $scope.load=function() {
+
+            $scope.init();
+
+            var a={ "class": "go.GraphLinksModel",
+                "nodeDataArray": [
+                    {"category":"Rectangledaas", "text":"daas.inventory", "key":"csfs100101", "demokey":"csfs100101", "loc":"-601.9610283430231 -412.5255813953484"},
+                    {"category":"Start", "text":"Start", "key":"Start", "loc":"-808.9610283430227 -412.5255813953486"},
+                    {"category":"Rectangledaas", "text":"daas.fullextract", "key":"csfs100102", "demokey":"csfs100102", "loc":"-365.9610283430234 -412.5255813953489"},
+                    {"category":"Rectangledaas", "text":"daas.classify", "key":"csfs100103", "demokey":"csfs100103", "loc":"-158.96102834302283 -412.5255813953487"},
+                    {"category":"Rectangledaas", "text":"daas.index", "key":"csfs100104", "demokey":"csfs100104", "loc":"13.038971656977125 -412.52558139534864"},
+                    {"category":"Rectangledaas", "text":"daas.split_merge", "key":"csfs100105", "demokey":"csfs100105", "loc":"187.03897165697697 -412.52558139534847"},
+                    {"category":"Rectangledaas", "text":"daas.extract", "key":"csfs100106", "demokey":"csfs100106", "loc":"610.0389716569767 -412.52558139534904"},
+                    {"category":"Rectangledaas", "text":"daas.batch", "key":"csfs100107", "demokey":"csfs100107", "loc":"609.0389716569767 -321.5255813953487"},
+                    {"category":"Rectangledaas", "text":"daas.keywise", "key":"csfs100108", "demokey":"csfs100108", "loc":"196.71084665697686 -321.73488372093027"},
+                    {"category":"End", "text":"End", "key":"End", "loc":"-816.9984556686043 -322.7348837209302"}
+                ],
+                "linkDataArray": [
+                    {"from":"Start", "to":"csfs100101", "points":[-783.7517260174415,-412.5255813953488,-773.7517260174415,-412.5255813953488,-724.2370890548091,-412.5255813953488,-724.2370890548091,-412.5255813953483,-674.7224520921768,-412.5255813953483,-664.7224520921768,-412.5255813953483]},
+                    {"from":"csfs100102", "to":"csfs100103", "points":[-301.1996045938695,-412.5255813953487,-291.1996045938695,-412.5255813953487,-258.2110283430231,-412.5255813953487,-258.2110283430231,-412.5255813953487,-225.22245209217672,-412.5255813953487,-215.22245209217672,-412.5255813953487]},
+                    {"from":"csfs100103", "to":"csfs100104", "points":[-102.69960459386877,-412.5255813953487,-92.69960459386877,-412.5255813953487,-69.21102834302282,-412.5255813953487,-69.21102834302282,-412.525581395349,-45.722452092176866,-412.525581395349,-35.722452092176866,-412.525581395349]},
+                    {"from":"csfs100104", "to":"csfs100105", "points":[61.800395406131074,-412.525581395349,71.80039540613107,-412.525581395349,89.0389716569771,-412.525581395349,89.0389716569771,-412.52558139534864,106.27754790782312,-412.52558139534864,116.27754790782312,-412.52558139534864]},
+                    {"from":"csfs100105", "to":"csfs100106", "points":[257.80039540613103,-412.52558139534864,267.80039540613103,-412.52558139534864,407.03897165697697,-412.52558139534864,407.03897165697697,-412.52558139534875,546.277547907823,-412.52558139534875,556.277547907823,-412.52558139534875]},
+                    {"from":"csfs100106", "to":"csfs100107", "points":[610.038971656977,-393.4641576461948,610.038971656977,-383.4641576461948,610.038971656977,-367.0255813953488,609.0389716569769,-367.0255813953488,609.0389716569769,-350.58700514450277,609.0389716569769,-340.58700514450277]},
+                    {"from":"csfs100107", "to":"csfs100108", "points":[559.7775479078228,-321.5255813953488,549.7775479078228,-321.5255813953488,406.87490915697686,-321.5255813953488,406.87490915697686,-321.7348837209302,263.97227040613086,-321.7348837209302,253.97227040613086,-321.7348837209302]},
+                    {"from":"csfs100101", "to":"csfs100102", "points":[-539.1996045938688,-412.5255813953483,-529.1996045938688,-412.5255813953483,-484.9610283430231,-412.5255813953483,-484.9610283430231,-412.5255813953487,-440.7224520921774,-412.5255813953487,-430.7224520921774,-412.5255813953487]},
+                    {"from":"csfs100108", "to":"End", "points":[139.4494229078229,-321.7348837209302,129.4494229078229,-321.7348837209302,-328.3500977757395,-321.7348837209302,-328.3500977757395,-322.73488372093027,-786.1496184593019,-322.73488372093027,-796.1496184593019,-322.73488372093027]}
+                ]};
+
+            micro_process_diagram.model=go.Model.fromJson(a);
+            //micro_process_diagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
+
+        };
+
+
+
 
 
 

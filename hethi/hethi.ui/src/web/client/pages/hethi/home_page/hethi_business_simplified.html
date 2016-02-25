@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="divider-lg"></div>
+
+    <div class="fixedMargin-menu fixed" data-ng-show="megaFixed">
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="hethi_home_menu">
+                    <div class="row text-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3 menu-border">
+                            <a data-ng-click="GotoNetwork()" class="snav-label {{networkActive}}">
+                                <span class="fa fa-signal" style="font-size: 25px"></span> <span>hethi business network </span>
+                                <span class="fa fa-angle-down" style="font-weight: bolder"></span>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 menu-border">
+                            <a data-ng-click="GotoDesignStudio()" class="snav-label {{designStudioActive}}">
+                                <span class="fa fa-bar-chart" style="font-size: 25px"></span> <span>interactive design studio </span>
+                                <span class="fa fa-angle-down" style="font-weight: bolder"></span>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 menu-border">
+                            <a data-ng-click="GotoPremises()" class="snav-label {{premiseActive}}">
+                                <span class="fa fa-mixcloud" style="font-size: 25px"></span> <span>BPaaS on cloud & on premises </span>
+                                <span class="fa fa-angle-down" style="font-weight: bolder"></span>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 menu-border">
+                            <a data-ng-click="GotoDelivery()" class="snav-label {{deliveryActive}}">
+                                <span class="fa fa-sitemap" style="font-size: 25px"></span> <span>self service workflow </span>
+                                <span class="fa fa-angle-down" style="font-weight: bolder"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div style="padding-top: 2em">
+
+        <section data-ng-show="sec1">
+            <div data-ng-include="'pages/hethi/home_page/hethi_cloudplug.html'"></div>
+        </section>
+
+        <section data-ng-show="sec2">
+            <div data-ng-include="'pages/hethi/home_page/hethi_cloudplay.html'"></div>
+        </section>
+
+        <section data-ng-show="sec3">
+            <div data-ng-include="'pages/hethi/home_page/hethi_bpaas_mpc.html'"></div>
+        </section>
+
+        <section data-ng-show="sec4">
+            <div data-ng-include="'pages/hethi/home_page/hethi_bpaas_studio.html'"></div>
+        </section>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
