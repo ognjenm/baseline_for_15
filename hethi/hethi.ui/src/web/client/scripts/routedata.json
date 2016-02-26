@@ -328,8 +328,17 @@
             "KeyName":"/verifyUser",
             "PageUrls":"pages/userVerification.html",
             "Controller":"userVerificationController"
+        },
+        {
+            "KeyName":"/freemium",
+            "PageUrls":"pages/roles/user/freemium/freemium.html",
+            "Controller":"hethi_home_Controller"
+        },
+        {
+            "KeyName":"/exception_workflow",
+            "PageUrls":"pages/exception-Copy.html",
+            "Controller":"exceptionController"
         }
-
 
     ]
 }

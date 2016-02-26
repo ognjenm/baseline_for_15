@@ -180,12 +180,72 @@
     top: 40%;
     text-align: left;
 }
-.callbacks .caption-left span{
-    /*font-size: 1.3em !important;*/
-    /*background: #222 !important;*/
-    /*background: rgba(0,0,0,.4) !important;*/
-    /*padding: .32em !important;*/
-    /*color: #fff !important;*/
+.callbacks .caption-botcamp{
+    display: block;
+    position: absolute;
+    z-index: 2;
+    font-size: 3.5em;
+    text-shadow: none;
+    color: rgb(191, 189, 189);
+    font-family: 'HelveticaLTStd-Roman',sans-serif;
+    left: 27%;
+    right: 0;
+    padding-left: 10px;
+    margin: 0;
+    width: 100%;
+    bottom: 13%;
+    text-align: left;
+}
+.callbacks .caption-botcamp-sub{
+    display: block;
+    position: absolute;
+    z-index: 2;
+    font-size: 22px;
+    text-shadow: none;
+    color: #B9BABB;
+    font-family: 'HelveticaLTStd-Roman',sans-serif;
+    left: 32%;
+    right: 0;
+    /* bottom: 0; */
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 0;
+    max-width: none;
+    width: 100%;
+    bottom: 9%;
+    text-align: left;
+}
+.callbacks .caption-bpaasStudio{
+    display: block;
+    position: absolute;
+    z-index: 2;
+    font-size: 3.5em;
+    text-shadow: none;
+    color: rgb(191, 189, 189);
+    font-family: 'HelveticaLTStd-Roman',sans-serif;
+    left: 8%;
+    right: 0;
+    padding-left: 10px;
+    margin: 0;
+    width: 100%;
+    text-align: left;
+    top: 58.5%;
+}
+.callbacks .caption-bpaasStudio-sub{
+    display: block;
+    position: absolute;
+    z-index: 2;
+    font-size: 25px;
+    text-shadow: none;
+    color: rgb(191, 189, 189);
+    font-family: 'HelveticaLTStd-Roman',sans-serif;
+    left: 15%;
+    right: 0;
+    padding-left: 10px;
+    margin: 0;
+    width: 100%;
+    text-align: left;
+    bottom: 20.5%;
 }
 .callbacks .caption-left-content{
     display: block;

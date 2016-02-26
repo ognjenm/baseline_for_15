@@ -74,25 +74,24 @@ hethi.run(function($rootScope,$location,$http,$route,logger){
         });
 
     };
-
     $rootScope.refillRoute();
 
-    $rootScope.spring_rest_service='http://sys1094-pc:9999';
+    $rootScope.spring_rest_service='http://user-pc:9999';
+
+
+    //$rootScope.spring_rest_service='http://server:999';
 
     $rootScope.createCookie=function(name,value,days) {
-        var expires = "";
         if (days) {
-
             var date = new Date();
             date.setTime(date.getTime()+(days*24*60*60*1000));
-            expires = "; expires="+date.toGMTString();
+            var expires = "; expires="+date.toGMTString();
         }
-
+        else var expires = "";
         document.cookie = name+"="+value+expires+"; path=/";
     };
 
     $rootScope.readCookie=function(name) {
-
         var nameEQ = name + "=";
         var ca = document.cookie.split(';');
         for(var i=0;i < ca.length;i++) {

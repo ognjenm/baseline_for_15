@@ -2,48 +2,71 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div class = "table-filters row ">
+        <div class = "table-filters ">
+            <div class="row" style="border-bottom: 1px solid rgba(162, 122, 42, 0.39);margin-bottom: 15px;">
+                <div class="col-md-6">
+                    <label>business mode </label>
+                    <!--<ul class="text-lowercase nav nav-boxed nav-justified tabbaable ver-horizontal-menu" ng-switch="business_mode">-->
+                        <!--<li class="active">-->
+                            <!--<a data-toggle="tab" href="#" data-ng-model="business_mode" data-ng-click="business_mode = 'on_offer';set_selected_b_mode('on_offer')">-->
+                                <!--on offer-->
+                            <!--</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a data-toggle="tab" href="#" data-ng-model="business_mode" data-ng-click="business_mode = 'on_offer';set_selected_b_mode('on_board')">-->
+                                <!--on board-->
+                            <!--</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
 
-            <div class="col-md-4 col-sm-12 text-center">
-                <label>business mode </label>
-                <div class="form-group" ng-switch="business_mode">
+                    <div class="form-group" ng-switch="business_mode">
 
-                    <div class="btn-group ">
-                        <button type="button" class="btn btn-line-info " data-ng-click="business_mode = 'on_offer';set_selected_b_mode('on_offer')" data-ng-model="business_mode" btn-radio="'on_offer'" style="font-size: 12px"> on offer</button>
-                        <button type="button" class="btn btn-line-info " data-ng-click="business_mode = 'on_board';set_selected_b_mode('on_board')"  data-ng-model="business_mode" btn-radio="'on_board'" style="font-size: 12px"> on board </button>
+                        <div class="btn-group ">
+                            <button type="button" class="btn btn-w-md btn-line-info " data-ng-click="business_mode = 'on_offer';set_selected_b_mode('on_offer')" data-ng-model="business_mode" btn-radio="'on_offer'" style="font-size: 12px"> on offer</button>
+                            <button type="button" class="btn btn-w-md btn-line-info " data-ng-click="business_mode = 'on_board';set_selected_b_mode('on_board')"  data-ng-model="business_mode" btn-radio="'on_board'" style="font-size: 12px"> on board </button>
+                        </div>
                     </div>
-
-                    <select ng-switch-when="on_offer" class = "form-control input-round" ng-change="selectedOfferChanged(selectedOffer);" data-ng-model="selectedOffer" data-ng-options="item as item.offer_name for item in business_modes">
-                        <option value=""> select an offer</option>
-                    </select>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-12 text-center">
 
-            <div class="col-md-4 col-sm-12 text-center">
-                <label>search </label>
-                <div class="input-group">
-                    <input type = "text" class = "form-control input-round text-center " data-ng-model="searchKeywordsIndexer"
-                           data-ng-keyup="searchIndexer()" placeholder="search" />
+                    <div class="form-group" ng-switch="business_mode">
+                        <label ng-switch-when="on_offer">on offer </label>
+                        <!--<div class="btn-group ">-->
+                            <!--<button type="button" class="btn btn-line-info " data-ng-click="business_mode = 'on_offer';set_selected_b_mode('on_offer')" data-ng-model="business_mode" btn-radio="'on_offer'" style="font-size: 12px"> on offer</button>-->
+                            <!--<button type="button" class="btn btn-line-info " data-ng-click="business_mode = 'on_board';set_selected_b_mode('on_board')"  data-ng-model="business_mode" btn-radio="'on_board'" style="font-size: 12px"> on board </button>-->
+                        <!--</div>-->
+
+                        <select ng-switch-when="on_offer" class = "form-control input-hethi" ng-change="selectedOfferChanged(selectedOffer);" data-ng-model="selectedOffer" data-ng-options="item as item.offer_name for item in business_modes">
+                            <option value=""> select an offer</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-12 text-center">
+                    <label>search </label>
+                    <div class="input-group">
+                        <input type = "text" class = "form-control input-hethi text-center " data-ng-model="searchKeywordsIndexer"
+                               data-ng-keyup="searchIndexer()" placeholder="search" />
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-default"  style="border-top-right-radius: 48%;border-bottom-right-radius: 48%" type="button"><span class="fa fa-search"></span></button>
                                                 </span>
 
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-sm-12 text-center">
+                    <label>assign to business authority</label>
+                    <div class="form-group">
+                        <select class = "form-control input-hethi" ng-change="selectedArtistChanged(assigned_artist);" ng-model="assigned_artist"   data-ng-options="item as item.user_name for item in artistData" >
+                            <option value=""> select the business  authority to assign</option>
+                        </select>
+
+                    </div>
                 </div>
             </div>
 
-            <div class="col-md-4 col-sm-12 text-right">
-
-
-
-
-                <label>assign to business authority : </label>
-                <div class="form-group">
-                    <select class = "form-control input-round" ng-change="selectedArtistChanged(assigned_artist);" ng-model="assigned_artist"   data-ng-options="item as item.user_name for item in artistData" >
-                        <option value=""> select the business  authority to assign</option>
-                    </select>
-
-                </div>
-            </div>
         </div>
 
         <div class="divider-md"></div>
@@ -52,7 +75,7 @@
 
         <div class="table-responsive">
             <table class="table table-bordered table-striped table-responsive hethi_content_table">
-                <thead class="text-lowercase" style="background-color: #000000;color: #ffffff">
+                <thead class="text-lowercase thead-bg">
                 <tr>
                     <th class="text-center">
                         <div class="thSn">

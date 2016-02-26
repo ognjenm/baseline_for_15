@@ -496,9 +496,8 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
     }
 }])
     .controller('OperationsPartnerController', ['$http','$scope','$filter','$location','$rootScope','logger','base64', function ($http,$scope,$filter,$location,$rootScope,logger,base64) {
-
     var qs = $location.$$search;
-    $scope.op_tabs=[{name:'manage_offers', isActive:''},{ name:'classify_source', isActive:''},{ name:'impersonate', isActive:''},{name:'initiate_implementation', isActive:''}];
+    $scope.op_tabs=[{name:'manage_offers', isActive:'',icon:'cubes'},{ name:'classify_source', isActive:'',icon:'object-group'},{ name:'impersonate', isActive:'',icon:'diamond'},{name:'initiate_implementation', isActive:'',icon:'cogs'}];
     $scope.selectOPTab=function(tab){
         $scope.selectedOPTab=tab;
         //assign selected tab to query string
@@ -527,7 +526,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
     else
     {
         //open default tab here
-        //$scope.selectOPTab('manage_offers');
+        $scope.selectOPTab('manage_offers');
     };
 
     $scope.classify_source_tabs={on_offer:'', on_board:''};

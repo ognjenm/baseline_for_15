@@ -6,7 +6,7 @@
                 <li ng-repeat=" tabs in op_tabs">
 
                     <a href="#" ng-switch="tabs.name" data-ng-click="selectOPTab(tabs.name)">
-                        <i class="fa fa-sitemap ul_round_{{tabs.isActive}}"></i>
+                        <i class="fa fa-{{tabs.icon}} ul_round_{{tabs.isActive}}"></i>
                         <span ng-switch-default="">{{tabs.name}}</span>
                         <span ng-switch-when="initiate_implementation"> implementation</span>
                     </a>
