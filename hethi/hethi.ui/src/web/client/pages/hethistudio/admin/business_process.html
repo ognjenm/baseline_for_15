@@ -204,7 +204,7 @@
                                      <div class="text-center ">
 
                                      <div>
-                                         <span class="mouse_point rule_box color-blue-1">
+                                         <span class="mouse_point rule_box color-blue-1" ng-click="setRuleForm('daas')" >
                                                  data extraction rule
                                              </span>&nbsp;
                                          <!--</div>-->
@@ -229,7 +229,7 @@
                          </div>
 
                          <div ng-hide="showRuleForm" ng-switch="formVariable">
-                             <div ng-switch-when="bpaas">
+                             <div ng-switch-when="on">
                                  <form class="form-horizontal"  data-ng-submit="addNewRule(r)">
                                      <div class="wizard-container margin-top-10">
 
@@ -360,30 +360,31 @@
                                                                  <div class="panel panel-body ">
                                                                      <div class="divider-md"></div>
                                                                      <div ng-show="ruleType == 'simple'">
-                                                                             <div class="row ">
-
+                                                                             <div class="row " ng-if="$last" ng-repeat="rule in dynamicRule" ng-init="outerIndex=$index">
                                                                                  <div class="col-md-6">
                                                                                      <div ng-repeat="fd in rule.fieldArray" class="margin-bottom-10">
-                                                                                         <div class="row">
-                                                                                             <div class="col-md-2">
-                                                                                                 <label>Field <span ng-if="rule.fieldArray.length>1">{{$index+1}}</span></label>
+                                                                                         <div class="row" >
+                                                                                             <div class="col-md-1">
+                                                                                                 <label>Field </label>
                                                                                              </div>
-                                                                                             <div class="col-md-4">
-                                                                                                 <select ng-required="showSingle" ng-change="setFieldKey()"  ng-model="fd.field" class="form-control">
+                                                                                             <div class="col-md-3">
+                                                                                                 <select ng-change="setFieldKey()"  ng-model="fd.field" class="form-control">
                                                                                                      <option value="">select field</option>
                                                                                                      <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
                                                                                                  </select>
                                                                                              </div>
-                                                                                             <div class="col-md-4">
+                                                                                             <div class="col-md-5">
                                                                                                  <div class="btn-group">
-                                                                                                     <button ng-click="fd.tableIndex=true" ng-class="fd.tableIndex?'btn btn-success':'btn btn-line-success'" btn-radio="'table'"  ng-model="r.field_type">in table</button>
-                                                                                                     <button ng-click="fd.tableIndex=false" ng-class="fd.tableIndex?'btn btn-line-success':'btn btn-success'" btn-radio="'header'"  ng-model="r.field_type">in header</button>
+                                                                                                     <button ng-click="fd.tableIndex=true" ng-class="fd.tableIndex?'active btn btn-line-primary':'btn btn-line-primary'" btn-radio="'table'"  ng-model="r.field_type">in table</button>
+                                                                                                     <button ng-click="fd.tableIndex=false" ng-class="fd.tableIndex?'btn btn-line-primary':'active btn btn-line-primary'" btn-radio="'header'"  ng-model="r.field_type">not in table</button>
                                                                                                  </div>
 
                                                                                              </div>
-                                                                                             <!--<div class="col-md-2">-->
-                                                                                                 <!--<span ng-if="rule.fieldArray.length>1" ng-click="rule.fieldArray.splice($index,1)" class="btn_hethi btn-danger"><i class="fa fa-remove"></i></span>-->
-                                                                                             <!--</div>-->
+                                                                                             <div class="col-md-3">
+                                                                                                 <span ng-if="rule.fieldArray.length > 1" ng-click="rule.fieldArray.splice($index,1)" class="btn_hethi btn-danger">
+                                                                                                     <i class="fa fa-remove"></i></span>
+                                                                                                 <span ng-if="$last" ng-click="addNewField($index,outerIndex)" class="btn_hethi btn-info"><i class="fa fa-plus"></i></span>
+                                                                                             </div>
                                                                                          </div>
                                                                                      </div>
 
@@ -391,30 +392,23 @@
                                                                                      <div class="divider-md"></div>
 
                                                                                      <div class="row">
-                                                                                         <!--<div ng-show="isLookUp">-->
-                                                                                             <!--<div class="col-md-12 text-center">-->
-                                                                                                 <!--<button type="button" class="btn_hethi btn-info" data-ng-click="addNewField()">-->
-                                                                                                     <!--Add new field to list-->
-                                                                                                 <!--</button>-->
-                                                                                             <!--</div>-->
-                                                                                         <!--</div>-->
-                                                                                         <div ng-hide="isLookUp">
+                                                                                         <div >
                                                                                              <div class="col-md-1">
                                                                                                  <label>Has</label>
                                                                                              </div>
-                                                                                             <div class="col-md-5">
+                                                                                             <div class="col-md-6">
                                                                                                  <div class="btn-group">
-                                                                                                     <button ng-class="isField=='custom'?'btn btn-success':'btn btn-line-success'" ng-click="isField='custom'">custom value</button>
+                                                                                                     <button ng-class="isField=='custom'?'active btn btn-line-primary':'btn btn-line-primary'" ng-click="isField='custom'">custom value</button>
                                                                                                      <!--<button ng-class="isField=='lookup'?'btn btn-success':'btn btn-line-success'" ng-click="isField='lookup'">lookup value</button>-->
-                                                                                                     <button ng-class="isField=='field'?'btn btn-success':'btn btn-line-success'" ng-click="isField='field'">field value</button>
+                                                                                                     <button ng-class="isField=='field'?'active btn btn-line-primary':'btn btn-line-primary'" ng-click="isField='field'">field value</button>
                                                                                                  </div>
                                                                                              </div>
-                                                                                             <div ng-if="isField=='custom'" class="col-md-6">
+                                                                                             <div ng-if="isField=='custom'" class="col-md-5">
                                                                                                  <!--<input ng-change="addCriteria(rules.condition)" type="text" ng-model="rules.condition" class="form-control">-->
 
-                                                                                                 <input  placeholder="criteria" type="text" ng-model="rule.condition" class="form-control">
+                                                                                                 <input  placeholder="enter custom input here" type="text" ng-model="rule.condition" class="form-control">
                                                                                              </div>
-                                                                                             <div ng-if="isField=='field'" class="col-md-6">
+                                                                                             <div ng-if="isField=='field'" class="col-md-5">
                                                                                                  <select   ng-model="rule.condition" class="form-control">
                                                                                                      <option value="">select field</option>
                                                                                                      <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
@@ -425,14 +419,14 @@
                                                                                      </div>
                                                                                      <div class="divider-md"></div>
 
-                                                                                     <div class="row " ng-hide="isLookUp">
+                                                                                     <div class="row margin-bottom-20" >
                                                                                          <div class="col-md-3">
                                                                                              <label>Default value</label>
                                                                                          </div>
                                                                                          <div class="col-md-5">
                                                                                              <div class="btn-group">
-                                                                                                 <button ng-class="isRequired?'btn btn-success':'btn btn-line-success'" ng-click="isRequired=!isRequired">not required</button>
-                                                                                                 <button ng-class="isRequired?'btn btn-line-success':'btn btn-success'" ng-click="isRequired=!isRequired">required</button>
+                                                                                                 <button ng-class="isRequired?'active btn btn-line-primary':'btn btn-line-primary'" ng-click="isRequired=!isRequired">not required</button>
+                                                                                                 <button ng-class="isRequired?'btn btn-line-primary':'active btn btn-line-primary'" ng-click="isRequired=!isRequired">required</button>
                                                                                              </div>
                                                                                          </div>
                                                                                          <div ng-show="!isRequired" class="col-md-4">
@@ -451,7 +445,7 @@
                                                                                              <label ng-if="$first">Operation</label>
                                                                                          </div>
                                                                                          <div class="col-md-4">
-                                                                                             <select ng-change="selectOperators(id)" ng-model="id"  class=" form-control " ng-required="showSingle">
+                                                                                             <select ng-change="selectOperators(id)" ng-model="id"  class=" form-control " >
                                                                                                  <option value="">operations</option>
                                                                                                  <option ng-if="key != 'Look Up'" ng-repeat="(key,value) in typeOfOperators" value="{{key}}">{{key}}</option>
                                                                                              </select>
@@ -463,7 +457,7 @@
                                                                                                      <option value="">operator</option>
                                                                                                      <option ng-repeat="opera in operators" value="{{opera}}">{{opera.operation_name}}</option>
                                                                                                  </select>
-                                                                                                 <span ng-if="$last" ng-click="addNewOperations($index,outerIndex)" class="mouse_point input-group-addon"  data-placement="bottom"
+                                                                                                 <span ng-if="$last" ng-click="addNewOperation($index,outerIndex)" class="mouse_point input-group-addon"  data-placement="bottom"
                                                                                                       title="Add New Operation">
                                                                                                       <span class="fa fa-plus"></span>
                                                                                                  </span>
@@ -478,18 +472,74 @@
                                                                                      </div>
 
                                                                                  </div>
-                                                                             </div>
-                                                                             <div class="row ">
-                                                                                 <div class="col-md-12">
-                                                                                     <div class="text-center">
-                                                                                         <button ng-if="$last" type="button" ng-click="addNewCondition($index,'&&')" class="btn-w-md btn_hethi btn-primary ">save condition</button>
-                                                                                         <!--<button ng-if="$last" type="button" ng-click="addNewCondition($index,'||')" class="btn_hethi btn-info"><i class="fa fa-plus-circle"></i> OR Condition</button>-->
+                                                                                 <div class="row ">
+                                                                                     <div class="col-md-12">
+                                                                                         <div class="text-center">
+                                                                                             <button type="button" ng-click="addNewCondition($index,'&&')" class="btn-w-md btn_hethi btn-primary ">save condition</button>
+                                                                                             <!--<button ng-if="$last" type="button" ng-click="addNewCondition($index,'||')" class="btn_hethi btn-info"><i class="fa fa-plus-circle"></i> OR Condition</button>-->
+                                                                                         </div>
                                                                                      </div>
                                                                                  </div>
                                                                              </div>
+
                                                                          </div>
                                                                      <div ng-show="ruleType == 'computation'" >
                                                                          <div ng-repeat="rule in dynamicRules" ng-init="outerIndex=$index" ng-if="$last">
+                                                                             <div class="opBlock margin-bottom-20">
+                                                                                 <div class="row margin-bottom-20 col-md-offset-1">
+                                                                                     <div class="col-md-3">
+                                                                                         <span>apply logical operation</span>
+                                                                                     </div>
+                                                                                     <div class="col-md-6">
+                                                                                         <div class="input-group">
+                                                                                             <input type="text" readonly class="form-control" ng-model="rule.opera">
+                                                                                     <span type="button" class="btn btn-danger input-group-addon " style="color: #ffffff" data-toggle="modal" data-target="#operationPalette">
+                                                                                         <i class="fa fa-search"></i> browse
+                                                                                     </span>
+                                                                                         </div>
+
+                                                                                     </div>
+
+                                                                                 </div>
+                                                                                 <div class="row margin-bottom-20 col-md-offset-1"  ng-show="requireValue">
+                                                                                     <div class="col-md-3">
+                                                                                         <span>{{customInfo}}</span>
+                                                                                     </div>
+
+                                                                                     <div class="col-md-3">
+                                                                                         <select ng-if="btnType1 == 'field'"  ng-model="rule.outputEntity" class="form-control">
+                                                                                             <option value="">select field</option>
+                                                                                             <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                                                         </select>
+                                                                                         <input ng-if="btnType1 == 'custom'"  ng-model="rule.customInput" type="text" class="form-control" placeholder="enter value">
+
+                                                                                         <div ng-if="btnType1 == 'calendar'" class="input-group ui-datepicker">
+                                                                                             <input type="text"
+                                                                                                    class="form-control"
+                                                                                                    datepicker-popup="{{format}}"
+                                                                                                    ng-model="rule.condition1"
+                                                                                                    is-open="opened"
+                                                                                                    min="minDate"
+                                                                                                    datepicker-options="dateOptions"
+                                                                                                    ng-required="true"
+                                                                                                    close-text="Close">
+                                                                                             <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
+                                                                                         </div>
+
+                                                                                     </div>
+                                                                                     <div class="col-md-3">
+                                                                                         <div class="btn-group" ng-if="custom_type_options.length > 0">
+                                                                                             <button type="button" btn-radio="{{$index}}" ng-class="op.status == 1 ?'active btn btn-line-primary':'btn btn-line-primary'"
+                                                                                                     ng-repeat="op in custom_type_options" data-ng-click="selectOption($index)">{{op.option}}</button>
+                                                                                         </div>
+                                                                                     </div>
+                                                                                     <div class="col-md-1">
+                                                                                 <span ng-if="btnType1 == 'custom' && !messageFlag" ng-class="!messageFlag?'text-success':'text-danger'">
+                                                                                     {{message_text}}</span>
+                                                                                     </div>
+
+                                                                                 </div>
+                                                                             </div>
                                                                              <div class="cardPack margin-bottom-20">
                                                                                  <div ng-repeat="input in rule.inputFields"  style="padding: 5px">
                                                                                      <div class="row col-md-offset-1">
@@ -502,7 +552,7 @@
                                                                                              </div>
                                                                                              <div class="row margin-bottom-20">
                                                                                                  <div class="col-md-2">
-                                                                                                     <span >form entity</span>
+                                                                                                     <span >on form entity</span>
                                                                                                  </div>
 
                                                                                                  <div class="col-md-3">
@@ -575,61 +625,7 @@
                                                                              </div>
 
 
-                                                                             <div class="opBlock margin-bottom-20">
-                                                                                 <div class="row margin-bottom-20 col-md-offset-1">
-                                                                                     <div class="col-md-3">
-                                                                                         <span>apply logical operation</span>
-                                                                                     </div>
-                                                                                     <div class="col-md-6">
-                                                                                         <div class="input-group">
-                                                                                             <input type="text" readonly class="form-control" ng-model="rule.opera">
-                                                                                     <span type="button" class="btn btn-danger input-group-addon " style="color: #ffffff" data-toggle="modal" data-target="#operationPalette">
-                                                                                         <i class="fa fa-search"></i> browse
-                                                                                     </span>
-                                                                                         </div>
 
-                                                                                     </div>
-
-                                                                                 </div>
-                                                                                 <div class="row margin-bottom-20 col-md-offset-1"  ng-show="requireValue">
-                                                                                     <div class="col-md-3">
-                                                                                         <span>{{customInfo}}</span>
-                                                                                     </div>
-
-                                                                                     <div class="col-md-3">
-                                                                                         <select ng-if="btnType1 == 'field'"  ng-model="rule.outputEntity" class="form-control">
-                                                                                             <option value="">select field</option>
-                                                                                             <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
-                                                                                         </select>
-                                                                                         <input ng-if="btnType1 == 'custom'"  ng-model="rule.customInput" type="text" class="form-control" placeholder="enter value">
-
-                                                                                         <div ng-if="btnType1 == 'calendar'" class="input-group ui-datepicker">
-                                                                                             <input type="text"
-                                                                                                    class="form-control"
-                                                                                                    datepicker-popup="{{format}}"
-                                                                                                    ng-model="rule.condition1"
-                                                                                                    is-open="opened"
-                                                                                                    min="minDate"
-                                                                                                    datepicker-options="dateOptions"
-                                                                                                    ng-required="true"
-                                                                                                    close-text="Close">
-                                                                                             <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
-                                                                                         </div>
-
-                                                                                     </div>
-                                                                                     <div class="col-md-3">
-                                                                                         <div class="btn-group" ng-if="custom_type_options.length > 0">
-                                                                                             <button type="button" btn-radio="{{$index}}" ng-class="op.status == 1 ?'active btn btn-line-primary':'btn btn-line-primary'"
-                                                                                                     ng-repeat="op in custom_type_options" data-ng-click="selectOption($index)">{{op.option}}</button>
-                                                                                         </div>
-                                                                                     </div>
-                                                                                     <div class="col-md-1">
-                                                                                 <span ng-if="btnType1 == 'custom' && !messageFlag" ng-class="!messageFlag?'text-success':'text-danger'">
-                                                                                     {{message_text}}</span>
-                                                                                     </div>
-
-                                                                                 </div>
-                                                                             </div>
                                                                          </div>
 
 
@@ -655,13 +651,30 @@
                                                                              <span ng-hide="showList">hide <i  class="fa fa-hand-o-up"></i></span>
                                                                          </div>
                                                                      </div>
-                                                                     <div ng-hide="showList" ng-show="!errorStatus" ng-if="rule1.condition_statement != undefined && created" style="padding: 5px"  class="margin-bottom-5 bg_txt"
+                                                                     <div ng-if="ruleType == 'computation'" ng-hide="showList" ng-show="!errorStatus" ng-if="rule1.condition_statement != undefined && created" style="padding: 5px"  class="margin-bottom-5 bg_txt"
                                                                           data-ng-repeat="rule1 in dynamicRules">
 
                                                                          <div class="row margin-top-10 margin-bottom-20 ">
 
-                                                                             <div class="col-md-6">
-                                                                                 <span>{{$index+1}} apply <i class="text-primary h5">{{rule1.opera}}</i> for <i class="text-primary h5">{{rule1.condition_statement}}</i></span>
+                                                                             <div class="col-md-6" >
+                                                                                 <span >{{$index+1}} apply <i class="text-primary h5">{{rule1.opera}}</i> for <i class="text-primary h5">{{rule1.condition_statement}}</i></span>
+
+                                                                             </div>
+                                                                             <div class="col-md-2">
+                                                                                 <span ng-if="!$first" data-ng-click="removeCondition($index)" class="btn_hethi_square btn-danger">
+                                                                                     <i class="fa fa-remove"></i></span>
+                                                                             </div>
+                                                                         </div>
+                                                                     </div>
+                                                                     <div  ng-hide="showList" ng-show="!errorStatus" ng-if="rule1.condition_statement != undefined && created && ruleType == 'simple'" style="padding: 5px"
+                                                                           class="margin-bottom-5 bg_txt"
+                                                                          data-ng-repeat="rule1 in dynamicRule">
+
+                                                                         <div class="row margin-top-10 margin-bottom-20 ">
+
+                                                                             <div class="col-md-6" >
+                                                                                 <span >{{$index+1}} {{rule1.condition_statement}} </span>
+
                                                                              </div>
                                                                              <div class="col-md-2">
                                                                                  <span ng-if="!$first" data-ng-click="removeCondition($index)" class="btn_hethi_square btn-danger">

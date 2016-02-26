@@ -659,6 +659,25 @@ Form wizard
     outline: none !important;
 
 }
+
+.btn.blue {
+    color: white;
+    text-shadow: none;
+    background-color: #0072C6;
+    /*background-color: #4d90fe;*/
+}
+.btn.blue:hover,
+.btn.blue:focus,
+.btn.blue:active,
+.btn.blue.active,
+.btn.blue[disabled],
+.btn.blue.disabled {
+    background-color: rgba(0, 129, 222, 0.91);
+    /*background-color: #0362fd !important;*/
+    color: #fff !important;
+    outline: none !important;
+}
+
 .a_none a{
     text-decoration: none;
 }
@@ -836,6 +855,13 @@ Metro icons
 }
 
 /*Horizontal Inline Menu*/
+@media (min-width: 768px){
+    .nav-justified>li {
+        display: table-cell !important;
+        width: 1% !important;
+    }
+}
+
 
 .ver-horizontal-menu {
     padding: 0;
@@ -868,19 +894,24 @@ Metro icons
 }
 
 .ver-horizontal-menu li a {
-    font-size: 16px;
-    /*color:#557386;*/
-    color: #DDE5EA;
-    display:block;
-    /*background:#f0f6fa;*/
-    background-color: #350B0B;
-    border-left:solid 2px #c4d5df;
+    /*font-size: 16px;*/
+    /*/!*color:#557386;*!/*/
+    /*color: #DDE5EA;*/
+    /*display:block;*/
+    /*/!*background:#f0f6fa;*!/*/
+    /*background-color: #350B0B;*/
+    /*border-left:solid 2px #c4d5df;*/
 
-    /*transition: all 1.0s ease-in-out;*/
-    /*-o-transition: all 1.0s ease-in-out;*/
-    /*-ms-transition: all 1.0s ease-in-out;*/
-    /*-moz-transition: all 1.0s ease-in-out;*/
-    /*-webkit-transition: all 1.0s ease-in-out;*/
+    font-size: 16px;
+    color: #333;
+    display: block;
+    background-color: #e8e8e8;
+    border-left: solid 2px #c4d5df;
+    transition: all 1.0s ease-in-out;
+    -o-transition: all 1.0s ease-in-out;
+    -ms-transition: all 1.0s ease-in-out;
+     -moz-transition: all 1.0s ease-in-out;
+     -webkit-transition: all 1.0s ease-in-out;
 
 
 }
@@ -1508,8 +1539,8 @@ and (max-width: 1280px){
     background-color: transparent;
     /*border-color:white;*/
     /*border: 2px double #009efb !important;*/
-    border: #009efb 4px dashed;
-    border-bottom: #009efb 4px solid;
+    border: goldenrod 4px dashed;
+    border-bottom: goldenrod 4px solid;
     border-top-style: ridge;
     font-weight: bold;
     border-radius: 0px !important;
@@ -1518,7 +1549,8 @@ and (max-width: 1280px){
 {
     /*color:#767676;*/
     color: #fff;
-    background-color:#009efb;
+    /*background-color:#009efb;*/
+    background-color: goldenrod;
     transition: 0.5s all ease;
     -webkit-transition: 0.5s all ease;
     -moz-transition: 0.5s all ease;

@@ -1094,7 +1094,9 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
     $scope.formVariable='';
     $scope.showRuleForm=true;
     $scope.setRuleForm=function(form){
-        $scope.formVariable=form;
+        $scope.formVariable='on';
+        if(form == 'daas') $scope.ruleType='simple';
+        else if(form == 'bpass') $scope.ruleType='computation';
         $scope.showRuleForm=false;
     };
     $scope.showList=true;
@@ -1108,6 +1110,12 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                 fun.functions.push({id:'opera'+fun.functions.length,status:false})
             }
         });
+    };
+    $scope.addNewOperation=function(index,outerIndexVal){
+        //$scope.dynamicRule.push({id:$scope.dynamicRule+1,status:false,
+        //    functions:[{id:'opera'+1,status:true}],
+        //    fieldArray:[{id:1,status:true,tableIndex:false}]})
+        $scope.dynamicRule[outerIndexVal].functions.push({id:'opera'+1,status:true});
     };
 
     $scope.setFieldKey=function(){
@@ -1123,9 +1131,9 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         });
     };
 
-    $scope.addNewField=function(){
+    $scope.addNewField=function(index,outerIndex){
 
-        $scope.dynamicRule[0].fieldArray.push({id:$scope.dynamicRule[0].fieldArray.length+1,
+        $scope.dynamicRule[outerIndex].fieldArray.push({id:$scope.dynamicRule[outerIndex].fieldArray.length+1,
             status:true,tableIndex:false});
 
     };
@@ -1153,7 +1161,6 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
     $scope.conditionList='';
 
     $scope.addNewCondition=function(index,symbol){
-        console.log(index);
         $scope.created = true;
         if($scope.funType == 5 )
             $scope.dynamicRule[index].operator = symbol;
@@ -1412,15 +1419,15 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
     };
     $scope.dynamicRules=[{'id':1,status:false,inputFields:[{id:1,status:false,tableRequired:false}]}];
     $scope.setCondition=function(){
-        var arrayLength=$scope.dynamicRules.length;
-        var jsonArray={};
-        jsonArray['inputs']='[';
-        jsonArray['custom_inputs']={};
-        jsonArray['output']='{';
-        var message='';
-        var conditions='';
-        $scope.errorMessage=[];
-        $scope.dynamicRules.forEach(function(data,i){
+          var arrayLength=$scope.dynamicRules.length;
+          var jsonArray={};
+          jsonArray['inputs']='[';
+          jsonArray['custom_inputs']={};
+          jsonArray['output']='{';
+          var message='';
+          var conditions='';
+          $scope.errorMessage=[];
+          $scope.dynamicRules.forEach(function(data,i){
                 jsonArray['operation'] = data.opera;
                 var input='{';
                 data.inputFields.forEach(function(rows,i){
@@ -1447,7 +1454,6 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                     input=input+'"mxml1":"'+lookupEntity+'",';
                     input=input+'"lookupTable":"'+lookup+'"}';
                 });
-
                 jsonArray['inputs']=jsonArray['inputs']+input+"]";
                 if($scope.custom_type_options.length == 0){
                     jsonArray['custom_inputs']['type']='first';
@@ -1489,45 +1495,41 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                 else{
                     conditions=conditions+' , ip.home('+temp+')';
                 }
-        });
-        $scope.error_input=[];
-        $scope.errorKeys='';
-        var errorFlag= 0,outputFlag=0;
-        $scope.expression_key.forEach(function(exp,i){
-            errorFlag=0;
-            $scope.errorMessage.forEach(function(error,j){
-                if(error.errorKey.lastIndexOf(exp.exp_key) > -1){
-                    errorFlag=1;
-                    if(i==0) message=message+error.errorKey;
-                    else  message=message+","+error.errorKey
-                }
-            });
-            if(errorFlag == 0){
-                outputFlag=1;
-                if(i==0) $scope.errorKeys=$scope.errorKeys+exp.exp_key;
-                else $scope.errorKeys=$scope.errorKeys+","+exp.exp_key;
-                $scope.error_input.push({key:exp.exp_key})
-            }
-        });
-        if(outputFlag == 0){
-            if($scope.rules_type == 'header')
-                $scope.conditionList="ip:iPost and form:ixsd_"+$scope.efs+'('+conditions+')';
-            else if($scope.rules_type == 'table')
-                $scope.conditionList="ip:iPost and form:ixsd_"+$scope.efs+'_lineitem('+conditions+')';
-            $scope.created=true;
-            $scope.errorStatus=false;
-            $scope.errorList=false;
-            var len=$scope.dynamicRules.length;
-            $scope.dynamicRules[len-1].condition_statement = message;
-            $scope.dynamicRules.push({'id': $scope.dynamicRules.length+1,status:false,inputFields:[{id:1,status:false,tableRequired:false}]});
-            $scope.requireValue=0;
-        }
-        else{
-            $scope.errorStatus=true;
-            $scope.created=false;
-            var len=$scope.dynamicRules.length;
-            $scope.dynamicRules[len-1].condition_statement = undefined;
-        }
+          });
+          $scope.errorKeys='';
+          var errorFlag= 0,outputFlag=0;
+          $scope.expression_key.forEach(function(exp,i){
+               errorFlag=0;
+               $scope.errorMessage.forEach(function(error,j){
+                    if(error.errorKey.lastIndexOf(exp.exp_key) > -1){
+                        errorFlag=1;
+                        if(i==0) message=message+error.errorKey;
+                        else if(message.lastIndexOf(error.errorKey) == -1)  message=message+","+error.errorKey
+                    }
+               });
+               if(errorFlag == 0){
+                    outputFlag=1;
+                    if(i==0) $scope.errorKeys=$scope.errorKeys+exp.exp_key;
+                    else $scope.errorKeys=$scope.errorKeys+","+exp.exp_key;
+               }
+          });
+          if(outputFlag == 0){
+              if($scope.rules_type == 'header')
+                  $scope.conditionList="ip:iPost and form:ixsd_"+$scope.efs+'('+conditions+')';
+              else if($scope.rules_type == 'table')
+                  $scope.conditionList="ip:iPost and form:ixsd_"+$scope.efs+'_lineitem('+conditions+')';
+              $scope.created=true;
+              $scope.errorStatus=false;
+              $scope.errorList=false;
+              $scope.dynamicRules[arrayLength-1].condition_statement = message;
+              $scope.dynamicRules.push({'id': $scope.dynamicRules.length+1,status:false,inputFields:[{id:1,status:false,tableRequired:false}]});
+              $scope.requireValue=0;
+          }
+          else{
+              $scope.errorStatus=true;
+              $scope.created=false;
+              $scope.dynamicRules[arrayLength-1].condition_statement = undefined;
+          }
     };
     $scope.change=function(){
         $scope.errorList=!$scope.errorList;

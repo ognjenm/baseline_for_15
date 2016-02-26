@@ -23,6 +23,7 @@ import net.sourceforge.tess4j.TesseractException;
 
 //import org.opencv.core.Mat;
 public class ImageProcessesingServices {
+	static String imageSourcePath="D:\\Images\\Downloads\\invoice\\";
 
 	public static String getFullOCR(String filename)
 			throws IOException, MagicParseException, MagicMatchNotFoundException, MagicException, TesseractException {
@@ -89,43 +90,47 @@ public class ImageProcessesingServices {
 	public static void main(String args[]) throws IOException, MagicParseException, MagicMatchNotFoundException,
 			MagicException, TesseractException, ParseException, JSONException {
 
-		// ImageProcessesingServices imgProcess=new ImageProcessesingServices();
+		/*// ImageProcessesingServices imgProcess=new ImageProcessesingServices();
 
-		/**
+		*//**
 		 * OCR
-		 */
+		 *//*
 
-		/**
+		*//**
 		 * 
 		 * @processImage(string imageFileLocation) return
 		 * imageFile(StandanrdSize)
 		 * 
-		 */
+		 *//*
 		String filePath = "D:/CloudPrint/";
 
 		String inputpdfFile = ImageProcessesingServices.getFullOCR("vis6016564511235580755.pdf");
 
-		/*try {
+		try {
 			Thread.sleep(20000);
 		} catch (InterruptedException ie) {
 			// Handle exception
 		}
-*/
+
 		//System.out.println("input pdf file   ===== > " + inputpdfFile);
 
-		/**
+		*//**
 		 * Extraction
 		 * 
-		 */
+		 *//*
 		
-		/*String inputpdfFile="sample_4.pdf";
+		String inputpdfFile="sample_4.pdf";
 		
 		
 		// String inputpdfFile="image/invoice_1.pdf";
 		String inputJsonFile = "mxml.json";
 		ReadJson.jsonHandler(inputJsonFile, inputpdfFile,"new.jpg");
-		System.out.println("The Extraction completed successfully...");*/
+		System.out.println("The Extraction completed successfully...");
+		*/
 		
+		
+		
+		//String inputpdfFile = ImageProcessesingServices.getFullOCR(imageSourcePath+"new.jpg");
 	}
 
 }

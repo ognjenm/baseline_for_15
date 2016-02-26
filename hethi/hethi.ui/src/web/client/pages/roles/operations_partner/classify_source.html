@@ -1,39 +1,39 @@
-<div >
+<div>
     <h3  class="text-center"> <label>classify source</label></h3>
     <hr>
     <div class="row" >
         <div class="col-md-12">
             <div class = "table-filters row">
-                <div class="col-md-2 ">
-
-                    <ul class="nav nav-boxed tabbable admin-ver-horizontal-menu">
-                        <li class="" ng-class="classify_source_tabs.on_offer"><a href="#" data-toggle="tab" data-ng-click="set_classify_source_tab('on_offer')">on offer</a></li>
+                <div class="col-md-6 ">
+                    <ul class="text-lowercase nav nav-boxed nav-justified tabbaable ver-horizontal-menu">
+                        <li class="active">
+                            <a data-toggle="tab" href="#" data-ng-click="set_classify_source_tab('on_offer')">
+                                on offer
+                            </a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#" data-ng-click="set_classify_source_tab('on_board')">
+                                on board
+                            </a>
+                        </li>
                     </ul>
 
                 </div>
-                <div class="col-md-2">
 
-                    <ul class="nav nav-boxed tabbable admin-ver-horizontal-menu">
-                        <li class="" ng-class="classify_source_tabs.on_board"><a href="#" data-toggle="tab" data-ng-click="set_classify_source_tab('on_board')">on board</a></li>
-                    </ul>
-
-                </div>
-                <div class="col-md-2">
-
-                </div>
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <div class="input-group">
-                        <input type = "text" class = "form-control input-round" data-ng-model="searchKeywordsIndexer"
+                        <input type = "text" class = "form-control input-hethi" data-ng-model="searchKeywordsIndexer"
                                data-ng-keyup="searchIndexer()" placeholder="search" />
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-default"  style="border-top-right-radius: 48%;border-bottom-right-radius: 48%" type="button"><span class="fa fa-search"></span></button>
                                                 </span>
 
                     </div><!-- /input-group -->
-                </div><!-- /.col-lg-6 -->
-            </div><!-- /.row -->
+                </div>
 
-            <div class="divider-md"></div>
+            </div>
+
+            <div class="divider"></div>
 
             <div ng-switch="classify_source_tab">
                 <div ng-switch-when="on_offer">
@@ -43,7 +43,7 @@
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-stripped  hethi_content_table ">
-                                    <thead class="text-lowercase table-bg-info">
+                                    <thead class="text-lowercase thead-bg">
                                     <tr>
                                         <th class="text-center">
                                             <div class="thSn">

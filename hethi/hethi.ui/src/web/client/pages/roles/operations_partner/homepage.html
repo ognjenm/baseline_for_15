@@ -1,41 +1,25 @@
 <div data-ng-controller="OperationsPartnerController">
-    <div class="row">
 
-        <div class="col-md-12">
+    <div class="container">
+        <div class="fixed rounded_item_fixed">
+            <ul class="round-topics-fixed">
+                <li ng-repeat=" tabs in op_tabs">
 
-            <div style="margin-top: 160px;">
+                    <a href="#" ng-switch="tabs.name" data-ng-click="selectOPTab(tabs.name)">
+                        <i class="fa fa-sitemap ul_round_{{tabs.isActive}}"></i>
+                        <span ng-switch-default="">{{tabs.name}}</span>
+                        <span ng-switch-when="initiate_implementation"> implementation</span>
+                    </a>
+                </li>
 
-                <div class="col-sm-6 col-md-3 " ng-repeat=" tabs in op_tabs">
-                    <div class="col-md-10 col-md-offset-1">
-                        <div class="row home-page" >
-                            <div class="services clearfix">
-                                <div class="service_item service_two span4">
-                                    <!--background-color:#7cc0fc; detail_{{$index}}-->
-                                    <div class="detail  " style="background-color:#7cc0fc;"  data-ng-click="selectOPTab(tabs.name)">
-                                        <div ng-switch="tabs.name">
-                                            <h2 ng-switch-default="" > {{tabs.name}}</h2>
-                                            <h2 ng-switch-when="initiate_implementation"> implementation</h2>
-                                            <!--<span ng-show="value" class="service_item  detail_{{value}}  " >_____________________</span>-->
-                                        </div>
-
-                                        <p></p>
-                                        <a href="" data-ng-click="selectOPTab(tabs.name)" class="detail_{{tabs.isActive}}" style="font-weight: 900; "><b>____</b></a>
-                                    </div>
-                                    <img class="shadow" src="styles/img/service_shadow.png" alt="" border="0">
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
+            </ul>
         </div>
     </div>
-    <div class="row">
-        <HR>
-        <div class="col-md-12" id="details_div" >
+
+
+
+    <section id="details_div">
+        <div class="container-fluid">
             <div ng-switch="selectedOPTab">
                 <div ng-switch-default="">
                     <h3  class="text-center"> <label>{{selectedOPTab}} </label></h3>
@@ -53,9 +37,9 @@
                 <div ng-switch-when="initiate_implementation">
                     <data-ng-include src="'pages/roles/operations_partner/implementation.html'"/>
                 </div>
+            </div>
         </div>
+    </section>
 
 
-    </div>
-</div>
 </div>

@@ -1,40 +1,51 @@
 <div>
     <div data-ng-controller="admin_home_controller" class="text-lowercase">
 
+        <div class="divider-lg"></div>
         <div class="row">
-            <div class="col-md-12">
-                <!-- <div class="text-center">
-                     <button ng-repeat="row in services" type="button" class="btn_hethi btn_hethi-lg blue-btngrp " ng-class="row.status ? 'active-btngrp-blue':'inactive-btngrp-blue'"  data-ng-model="row.status" data-ng-click="row.status=!row.status"  style="margin-left: 2px">
-                         {{row.master_service}}
-                     </button>
-                 </div>-->
-                <div class="divider"></div>
-                <div class="text-center">
-                    <button type="button" ng-click="selectbpsnew();" class="btn_hethi btn_hethi-round btn-success">&nbsp;&nbsp;&nbsp; Create New Offer &nbsp;&nbsp;&nbsp;</button>
+            <div class="col-md-8">
+
+                <div class="">
+                    <button type="button" ng-click="selectbpsnew();" class="btn_hethi btn_hethi-round btn-info">&nbsp;&nbsp;&nbsp; Create New Offer &nbsp;&nbsp;&nbsp;</button>
 
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3 col-md-offset-9">
-                <div class="pull-right">
+            <div class="col-md-4">
+                <div class="">
 
                     <div class="input-group">
 
-                        <input type="text"   placeholder="Select Offer Name" required="" typeahead="users as users.offer_name for users in offerlist | filter:$viewValue | limitTo:10" class="form-control ng-pristine ng-invalid ng-invalid-required" ng-model="offerName" aria-autocomplete="list" aria-expanded="false" aria-owns="typeahead-00H-7962">
+                        <input type="text" placeholder="Select Offer Name" required="" typeahead="users as users.offer_name for users in offerlist | filter:$viewValue | limitTo:10" class="form-control ng-pristine ng-invalid ng-invalid-required input-hethi" ng-model="offerName" aria-autocomplete="list" aria-expanded="false" aria-owns="typeahead-00H-7962">
+                                                <span class="input-group-btn " data-toggle="tooltip" data-placement="bottom" title="Search Offer">
+                                                    <button class="btn btn-default"  style="border-top-right-radius: 48%;border-bottom-right-radius: 48%" type="button"><span class="fa fa-search"></span></button>
+                                                </span>
+                        <!--<span class="mouse_point input-group-addon" data-toggle="tooltip" data-placement="bottom"-->
+                        <!--title="Search Offer">-->
+                        <!--<span class="fa fa-search" ></span>-->
 
-                       <span class="mouse_point input-group-addon" data-toggle="tooltip" data-placement="bottom"
-                             title="Search Offer">
-                            <span class="fa fa-search"></span>
-
-                       </span>
+                        <!--</span>-->
 
                     </div>
                 </div>
             </div>
 
         </div>
+
+        <!--<div class="row">-->
+            <!--<div class="col-md-4 col-md-offset-8">-->
+                <!--<div class="pull-right">-->
+
+                    <!--<div class="input-group">-->
+
+                        <!--<input type="text" placeholder="Select Offer Name" required="" typeahead="users as users.offer_name for users in offerlist | filter:$viewValue | limitTo:10" class="form-control ng-pristine ng-invalid ng-invalid-required input-hethi" ng-model="offerName" aria-autocomplete="list" aria-expanded="false" aria-owns="typeahead-00H-7962">-->
+                                                <!--<span class="input-group-btn " data-toggle="tooltip" data-placement="bottom" title="Search Offer">-->
+                                                    <!--<button class="btn btn-default"  style="border-top-right-radius: 48%;border-bottom-right-radius: 48%" type="button"><span class="fa fa-search"></span></button>-->
+                                                <!--</span>-->
+                      <!-- -->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
 
 
@@ -102,7 +113,7 @@
                                     </div>
 
 
-                                    <div class="row" style="border-top: 2px solid #e96351; padding-top: 10px;">
+                                    <div class="row" style="border-top: 2px solid rgba(162, 122, 42, 0.39); padding-top: 10px;">
                                         <div class="col-md-12">
                                             <div class="pull-right">
                                                 <button type="button" class="text-lowercase btn_hethi btn-primary" data-ng-click="findNextTab($index)">&nbsp;&nbsp;Next&nbsp;&nbsp;</button>
@@ -174,11 +185,11 @@
                                         </div>
                                         <div class="divider"></div>
 
-                                        <div class="row margin-top-5" style="border-top: 2px solid #e96351; padding-top: 10px;">
+                                        <div class="row margin-top-5" style="border-top: 3px solid rgba(162, 122, 42, 0.39); padding-top: 10px;">
                                             <div class="col-md-12">
                                                 <div class="text-center">
-                                                    <button type="button" data-ng-click="assignClick()" class="text-lowercase btn_hethi btn-info">&nbsp;&nbsp;Preview RFI&nbsp;&nbsp;</button>
-                                                    <button type="submit"  class="text-lowercase btn_hethi btn-success">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+                                                    <button type="button" data-ng-click="assignClick()" class="text-lowercase btn-w-md btn_hethi btn-success">Preview RFI</button>
+                                                    <button type="submit"  class="text-lowercase btn-w-md btn_hethi blue">Save</button>
                                                 </div>
                                             </div>
                                         </div>

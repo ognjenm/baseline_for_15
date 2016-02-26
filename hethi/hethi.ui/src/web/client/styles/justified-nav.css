@@ -573,7 +573,10 @@ a:hover.back-to-top {
 
 /*---top-nav----*/
 .top-nav{
-    background-color: #224361   ;
+    background-color: #224361;
+
+    /*background-color: rgba(0, 28, 51, 0.39);*/
+
   /*background-color: rgba(2, 22, 39, 0.32);*/
 
     /*background-color: rgba(6, 6, 6, 0.36);*/

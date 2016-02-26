@@ -43,8 +43,12 @@ hethi.controller('NewHomeController', ['$http','$scope','$location','$rootScope'
     $scope.pageClass = 'page-home';
     //Accordion
     $scope.oneAtATime = true;
-
-
+    $rootScope.megaFixed=true;
+$rootScope.hideMegaMenu=function(){
+  $rootScope.megaFixed=false;
+    $scope.BpaaSActive="";
+    $scope.SimplifiedActive="";
+};
     //Banner Read More
 
     $scope.getHethiCloudPlug=function(){
@@ -112,14 +116,14 @@ hethi.controller('NewHomeController', ['$http','$scope','$location','$rootScope'
 
     //Mega Menu
     $scope.showPlatformBPaaS=false;
-    $scope.showBusinessSimplified=true;
-    $scope.SimplifiedActive="active";
+    $scope.showBusinessSimplified=false;
+    $scope.SimplifiedActive="";
 
     $scope.getBusinessSimplified=function(){
         $('html, body').animate({
             scrollTop: $("#section2").offset().top -150
         }, 1000);
-
+        $rootScope.megaFixed=true;
         //$('html,body').animate({scrollTop:$("#section3").offset().top},900);
 
 
@@ -141,7 +145,7 @@ hethi.controller('NewHomeController', ['$http','$scope','$location','$rootScope'
         $('html, body').animate({
             scrollTop: $("#section1").offset().top -150
         }, 1000);
-
+        $rootScope.megaFixed=true;
         $scope.BpaaSActive="active";
 
         $scope.SimplifiedActive="";
@@ -165,11 +169,23 @@ hethi.controller('NewHomeController', ['$http','$scope','$location','$rootScope'
     $scope.designStudioActive="";
     $scope.premiseActive="";
     $scope.deliveryActive="";
+
+    $scope.hethiColNwPActive="hethiColMenuActive";
+    $scope.hethiColDsActive="";
+    $scope.hethiColPmActive="";
+    $scope.hethiColDrActive="";
+
     $scope.GotoNetwork=function(){
         $scope.sec1=true;
         $scope.sec2=false;
         $scope.sec3=false;
         $scope.sec4=false;
+
+        $scope.hethiColNwPActive="hethiColMenuActive";
+        $scope.hethiColDsActive="";
+        $scope.hethiColPmActive="";
+        $scope.hethiColDrActive="";
+
         $scope.networkActive="snav-label-selected";
         $scope.designStudioActive="";
         $scope.premiseActive="";
@@ -180,6 +196,12 @@ hethi.controller('NewHomeController', ['$http','$scope','$location','$rootScope'
         $scope.sec2=true;
         $scope.sec3=false;
         $scope.sec4=false;
+
+        $scope.hethiColNwPActive="";
+        $scope.hethiColDsActive="hethiColMenuActive";
+        $scope.hethiColPmActive="";
+        $scope.hethiColDrActive="";
+
         $scope.networkActive="";
         $scope.designStudioActive="snav-label-selected";
         $scope.premiseActive="";
@@ -190,9 +212,15 @@ hethi.controller('NewHomeController', ['$http','$scope','$location','$rootScope'
         $scope.sec2=false;
         $scope.sec3=true;
         $scope.sec4=false;
+
+        $scope.hethiColNwPActive="";
+        $scope.hethiColDsActive="";
+        $scope.hethiColPmActive="hethiColMenuActive";
+        $scope.hethiColDrActive="";
+
         $scope.networkActive="";
         $scope.designStudioActive="";
-        $scope.premiseActive="";
+        $scope.premiseActive="snav-label-selected";
         $scope.deliveryActive="";
     };
     $scope.GotoDelivery=function(){
@@ -200,10 +228,71 @@ hethi.controller('NewHomeController', ['$http','$scope','$location','$rootScope'
         $scope.sec2=false;
         $scope.sec3=false;
         $scope.sec4=true;
+
+        $scope.hethiColNwPActive="";
+        $scope.hethiColDsActive="";
+        $scope.hethiColPmActive="";
+        $scope.hethiColDrActive="hethiColMenuActive";
+
         $scope.networkActive="";
         $scope.designStudioActive="";
         $scope.premiseActive="";
         $scope.deliveryActive="snav-label-selected";
+    };
+
+    // the angularjs for BPaaS platform services CODE for ng-show and ng-hide begins here
+    $scope.enrollProcessActive="snav-label-selected";
+    $scope.invoiceProcessActive="";
+    $scope.PartnerProcessActive="";
+
+    $scope.enrollProcessSection=true;
+    $scope.invoiceProcessSection=false;
+    $scope.partnerProcessSection=false;
+
+    $scope.hethiColEPActive="hethiColMenuActive";
+    $scope.hethiColIPActive="";
+    $scope.hethiColPPActive="";
+    $scope.GetEnrollProcessPay=function(){
+
+        $scope.hethiColEPActive="hethiColMenuActive";
+        $scope.hethiColIPActive="";
+        $scope.hethiColPPActive="";
+
+        $scope.enrollProcessActive="snav-label-selected";
+        $scope.invoiceProcessActive="";
+        $scope.PartnerProcessActive="";
+
+        $scope.enrollProcessSection=true;
+        $scope.invoiceProcessSection=false;
+        $scope.partnerProcessSection=false;
+    };
+    $scope.GetInvoiceProcessPay=function(){
+
+        $scope.hethiColEPActive="";
+        $scope.hethiColIPActive="hethiColMenuActive";
+        $scope.hethiColPPActive="";
+
+        $scope.enrollProcessActive="";
+        $scope.invoiceProcessActive="snav-label-selected";
+        $scope.PartnerProcessActive="";
+
+        $scope.enrollProcessSection=false;
+        $scope.invoiceProcessSection=true;
+        $scope.partnerProcessSection=false;
+    };
+    $scope.GetPartnerProcessPay=function(){
+
+        $scope.hethiColEPActive="";
+        $scope.hethiColIPActive="";
+        $scope.hethiColPPActive="hethiColMenuActive";
+
+        $scope.enrollProcessActive="";
+        $scope.invoiceProcessActive="";
+        $scope.PartnerProcessActive="snav-label-selected";
+
+        $scope.enrollProcessSection=false;
+        $scope.invoiceProcessSection=false;
+        $scope.partnerProcessSection=true;
     };
 
     $scope.free=function(){
@@ -235,6 +324,138 @@ hethi.controller('NewHomeController', ['$http','$scope','$location','$rootScope'
         $scope.complaince="complaince";
         $scope.OrganisationStructure="organization structure";
 
+//        owl carousal
+
+        $scope.items=[
+            {
+                name:"BpaaS_service",description:"BpaaS_service_description_short",image:"images/industry/retail.jpg"
+            },
+            {
+                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/manufacturing.jpg"
+            }, {
+                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/healthcare.jpg"
+            }, {
+                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/onlineBanking.jpg"
+            }, {
+                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/lifeInsurance.jpg"
+            }
+        ];
+        $scope.BpaaS_service_industry_list=[
+            {indus_service:"bpaas services",fa:"fa-shopping-cart"},{indus_service:"locale management",fa:"fa-building"},
+            {indus_service:"organization structure",fa:"fa-medkit"},{indus_service:"service level agreement",fa:"fa-bank"},
+            {indus_service:"complaince",fa:"fa-cog"}
+        ];
+
+//        ng show and ng hide angular code starts here the CODE begins here
+        $scope.bpServices=false;
+        $scope.lmServices=false;
+        $scope.ogServices=false;
+        $scope.slaServices=false;
+        $scope.cmpServices=false;
+
+        $scope.bpS=function(){
+
+            $scope.bpServices=true;
+            $scope.lmServices=false;
+            $scope.ogServices=false;
+            $scope.slaServices=false;
+            $scope.cmpServices=false;
+
+            $scope.bpSRoundActive="ul_round_active";
+            $scope.lmSRoundActive="";
+            $scope.ogSRoundActive="";
+            $scope.slARoundActive="";
+            $scope.cmPRoundActive="";
+
+            $scope.item_head=false;
+
+            $scope.it_fixed="fixed";
+            $scope.it_rd_fixed="rounded_item_fixed";
+
+            $scope.round="";
+            $scope.fixed_round="round-topics-fixed";
+        };
+        $scope.lmS=function(){
+            $scope.bpServices=false;
+            $scope.lmServices=true;
+            $scope.ogServices=false;
+            $scope.slaServices=false;
+            $scope.cmpServices=false;
+
+            $scope.bpSRoundActive="";
+            $scope.lmSRoundActive="ul_round_active";
+            $scope.ogSRoundActive="";
+            $scope.slARoundActive="";
+            $scope.cmPRoundActive="";
+
+            $scope.item_head=false;
+            $scope.it_fixed="fixed";
+            $scope.it_rd_fixed="rounded_item_fixed";
+            $scope.round="";
+            $scope.fixed_round="round-topics-fixed";
+        };
+        $scope.ogS=function(){
+            $scope.bpServices=false;
+            $scope.lmServices=false;
+            $scope.ogServices=true;
+            $scope.slaServices=false;
+            $scope.cmpServices=false;
+
+            $scope.bpSRoundActive="";
+            $scope.lmSRoundActive="";
+            $scope.ogSRoundActive="ul_round_active";
+            $scope.slARoundActive="";
+            $scope.cmPRoundActive="";
+
+            $scope.item_head=false;
+            $scope.it_fixed="fixed";
+            $scope.it_rd_fixed="rounded_item_fixed";
+            $scope.round="";
+            $scope.fixed_round="round-topics-fixed";
+        };
+        $scope.slA=function(){
+            $scope.bpServices=false;
+            $scope.lmServices=false;
+            $scope.ogServices=false;
+            $scope.slaServices=true;
+            $scope.cmpServices=false;
+
+            $scope.bpSRoundActive="";
+            $scope.lmSRoundActive="";
+            $scope.ogSRoundActive="";
+            $scope.slARoundActive="ul_round_active";
+            $scope.cmPRoundActive="";
+
+            $scope.item_head=false;
+            $scope.it_fixed="fixed";
+            $scope.it_rd_fixed="rounded_item_fixed";
+            $scope.round="";
+            $scope.fixed_round="round-topics-fixed";
+        };
+        $scope.cmP=function(){
+            $scope.bpServices=false;
+            $scope.lmServices=false;
+            $scope.ogServices=false;
+            $scope.slaServices=false;
+            $scope.cmpServices=true;
+
+            $scope.bpSRoundActive="";
+            $scope.lmSRoundActive="";
+            $scope.ogSRoundActive="";
+            $scope.slARoundActive="";
+            $scope.cmPRoundActive="ul_round_active";
+
+            $scope.item_head=false;
+            $scope.it_fixed="fixed";
+            $scope.it_rd_fixed="rounded_item_fixed";
+            $scope.round="";
+            $scope.fixed_round="round-topics-fixed";
+        };
+
+
+
+//        ng show and ng hide angular CODE ends here
+
 //ng show
         $scope.rfiTab=1;
         $scope.selectRFI=function(step){
@@ -250,77 +471,72 @@ hethi.controller('NewHomeController', ['$http','$scope','$location','$rootScope'
         };
 
         $(document).ready(function() {
+            $("#owl-demo").owlCarousel({
+                //autoPlay: 3000,
+                items : 3,
+                itemsDesktop : [1199,3],
+                itemsDesktopSmall : [979,3],
+                pagination:false,
+                navigation: true,
+                navigationText: [
+                    "<i class='fa fa-chevron-left icon-white'></i>",
+                    "<i class='fa fa-chevron-right icon-white'></i>"
+                ]
+                //Call beforeInit callback, elem parameter point to $("#owl-demo")
+                //beforeInit : function(elem){
+                //    random(elem);
+                //}
 
-$("#owl-demo").owlCarousel({
-    //autoPlay: 3000,
-    items : 3,
-    itemsDesktop : [1199,3],
-    itemsDesktopSmall : [979,3],
-    pagination:false,
-    navigation: true,
-    navigationText: [
-        "<i class='fa fa-chevron-left icon-white'></i>",
-        "<i class='fa fa-chevron-right icon-white'></i>"
-    ]
-    //Call beforeInit callback, elem parameter point to $("#owl-demo")
-    //beforeInit : function(elem){
-    //    random(elem);
-    //}
-
-});
-
-
-
+            });
         });
 
         $scope.captureChannel=[
-{name:'email',value:'no'},
-{name:'fax',value:'no'},
-{name:'email',value:'no'},
-{name:'PDF',value:'no'},
-{name:'MS-WORD',value:'no'}
-
+            {name:'email',value:'no'},
+            {name:'fax',value:'no'},
+            {name:'email',value:'no'},
+            {name:'PDF',value:'no'},
+            {name:'MS-WORD',value:'no'}
         ];
 
         $scope.captureSource=[
-{name:'TIFF',value:'no'},
-{name:'ANSI',value:'no'},
-{name:'EDIFACT',value:'no'},
-{name:'JPEG',value:'no'}
-
+            {name:'TIFF',value:'no'},
+            {name:'ANSI',value:'no'},
+            {name:'EDIFACT',value:'no'},
+            {name:'JPEG',value:'no'}
         ];
 
         //    Define output services
 
         $scope.outputContent=[
-{name:'ANSI',value:'no'},
-{name:'EDIFACT',value:'no'}
-
+            {name:'ANSI',value:'no'},
+            {name:'EDIFACT',value:'no'}
         ];
 
         $scope.outputChannel=[
-{name:'email',value:'no'},
-{name:'webservice',value:'no'},
-{name:'email',value:'no'},
-{name:'fax',value:'no'}
-
+            {name:'email',value:'no'},
+            {name:'webservice',value:'no'},
+            {name:'email',value:'no'},
+            {name:'fax',value:'no'}
         ];
 
         $scope.queues=false;
 
         $scope.showQueues=function(){
-$scope.queues = $scope.queues ? false : true;
-
-
+            $scope.queues = $scope.queues ? false : true;
         };
         $scope.rules=false;
         $scope.showRules=function(){
-$scope.rules = $scope.rules ? false : true;
-
+            $scope.rules = $scope.rules ? false : true;
         };
 
+
         $scope.platform_as_services=false;
+
+
+        $scope.item_head=true;
         $scope.showRFIscreen=function(){
+
+
 
             //$scope.rfi_form=true;
             $('html, body').animate({
@@ -332,177 +548,165 @@ $scope.rules = $scope.rules ? false : true;
 
         //    Services and delivery
 
-        $scope.bpaasData=[
-{
-    name:'PO inventory'
-},
-{
-    name:'PO expense'
-},
-{
-    name:'NPO'
-},
-{
-    name:'NPO-Travel & Expense'
-},
-{
-    name:'NPO-Claim & Reimbursements'
-}
+        $scope.bpaasData=[{name:'PO inventory'},{name:'PO expense'},{name:'NPO'},
+            {name:'NPO-Travel & Expense'},{name:'NPO-Claim & Reimbursements'}
         ];
 
         $scope.countries = [
-{name: 'Afghanistan', code: 'AF'},{name: 'Åland Islands', code: 'AX'},{name: 'Albania', code: 'AL'},{name: 'Algeria', code: 'DZ'},{name: 'American Samoa', code: 'AS'},{name: 'Andorra', code: 'AD'},{name: 'Angola', code: 'AO'},{name: 'Anguilla', code: 'AI'},{name: 'Antarctica', code: 'AQ'},{name: 'Antigua and Barbuda', code: 'AG'},{name: 'Argentina', code: 'AR'},{name: 'Armenia', code: 'AM'},{name: 'Aruba', code: 'AW'},{name: 'Australia', code: 'AU'},{name: 'Austria', code: 'AT'},{name: 'Azerbaijan', code: 'AZ'},{name: 'Bahamas', code: 'BS'},{name: 'Bahrain', code: 'BH'},{name: 'Bangladesh', code: 'BD'},{name: 'Barbados', code: 'BB'},{name: 'Belarus', code: 'BY'},{name: 'Belgium', code: 'BE'},{name: 'Belize', code: 'BZ'},{name: 'Benin', code: 'BJ'},{name: 'Bermuda', code: 'BM'},{name: 'Bhutan', code: 'BT'},{name: 'Bolivia', code: 'BO'},{name: 'Bosnia and Herzegovina', code: 'BA'},{name: 'Botswana', code: 'BW'},{name: 'Bouvet Island', code: 'BV'},{name: 'Brazil', code: 'BR'},{name: 'British Indian Ocean Territory', code: 'IO'},{name: 'Brunei Darussalam', code: 'BN'},{name: 'Bulgaria', code: 'BG'},{name: 'Burkina Faso', code: 'BF'},{name: 'Burundi', code: 'BI'},{name: 'Cambodia', code: 'KH'},{name: 'Cameroon', code: 'CM'},{name: 'Canada', code: 'CA'},{name: 'Cape Verde', code: 'CV'},{name: 'Cayman Islands', code: 'KY'},{name: 'Central African Republic', code: 'CF'},{name: 'Chad', code: 'TD'},{name: 'Chile', code: 'CL'},{name: 'China', code: 'CN'},{name: 'Christmas Island', code: 'CX'},{name: 'Cocos (Keeling) Islands', code: 'CC'},{name: 'Colombia', code: 'CO'},{name: 'Comoros', code: 'KM'},{name: 'Congo', code: 'CG'},{name: 'Congo, The Democratic Republic of the', code: 'CD'},{name: 'Cook Islands', code: 'CK'},{name: 'Costa Rica', code: 'CR'},{name: 'Cote D\'Ivoire', code: 'CI'},{name: 'Croatia', code: 'HR'},{name: 'Cuba', code: 'CU'},{name: 'Cyprus', code: 'CY'},{name: 'Czech Republic', code: 'CZ'},{name: 'Denmark', code: 'DK'},{name: 'Djibouti', code: 'DJ'},{name: 'Dominica', code: 'DM'},{name: 'Dominican Republic', code: 'DO'},{name: 'Ecuador', code: 'EC'},{name: 'Egypt', code: 'EG'},{name: 'El Salvador', code: 'SV'},{name: 'Equatorial Guinea', code: 'GQ'},{name: 'Eritrea', code: 'ER'},{name: 'Estonia', code: 'EE'},{name: 'Ethiopia', code: 'ET'},{name: 'Falkland Islands (Malvinas)', code: 'FK'},{name: 'Faroe Islands', code: 'FO'},{name: 'Fiji', code: 'FJ'},{name: 'Finland', code: 'FI'},{name: 'France', code: 'FR'},{name: 'French Guiana', code: 'GF'},{name: 'French Polynesia', code: 'PF'},{name: 'French Southern Territories', code: 'TF'},{name: 'Gabon', code: 'GA'},{name: 'Gambia', code: 'GM'},{name: 'Georgia', code: 'GE'},{name: 'Germany', code: 'DE'},{name: 'Ghana', code: 'GH'},{name: 'Gibraltar', code: 'GI'},{name: 'Greece', code: 'GR'},{name: 'Greenland', code: 'GL'},{name: 'Grenada', code: 'GD'},{name: 'Guadeloupe', code: 'GP'},{name: 'Guam', code: 'GU'},{name: 'Guatemala', code: 'GT'},{name: 'Guernsey', code: 'GG'},{name: 'Guinea', code: 'GN'},{name: 'Guinea-Bissau', code: 'GW'},
-{name: 'Guyana', code: 'GY'},
-{name: 'Haiti', code: 'HT'},
-{name: 'Heard Island and Mcdonald Islands', code: 'HM'},
-{name: 'Holy See (Vatican City State)', code: 'VA'},
-{name: 'Honduras', code: 'HN'},
-{name: 'Hong Kong', code: 'HK'},
-{name: 'Hungary', code: 'HU'},
-{name: 'Iceland', code: 'IS'},
-{name: 'India', code: 'IN'},
-{name: 'Indonesia', code: 'ID'},
-{name: 'Iran, Islamic Republic Of', code: 'IR'},
-{name: 'Iraq', code: 'IQ'},
-{name: 'Ireland', code: 'IE'},
-{name: 'Isle of Man', code: 'IM'},
-{name: 'Israel', code: 'IL'},
-{name: 'Italy', code: 'IT'},
-{name: 'Jamaica', code: 'JM'},
-{name: 'Japan', code: 'JP'},
-{name: 'Jersey', code: 'JE'},
-{name: 'Jordan', code: 'JO'},
-{name: 'Kazakhstan', code: 'KZ'},
-{name: 'Kenya', code: 'KE'},
-{name: 'Kiribati', code: 'KI'},
-{name: 'Korea, Democratic People\'s Republic of', code: 'KP'},
-{name: 'Korea, Republic of', code: 'KR'},
-{name: 'Kuwait', code: 'KW'},
-{name: 'Kyrgyzstan', code: 'KG'},
-{name: 'Lao People\'s Democratic Republic', code: 'LA'},
-{name: 'Latvia', code: 'LV'},
-{name: 'Lebanon', code: 'LB'},
-{name: 'Lesotho', code: 'LS'},
-{name: 'Liberia', code: 'LR'},
-{name: 'Libyan Arab Jamahiriya', code: 'LY'},
-{name: 'Liechtenstein', code: 'LI'},
-{name: 'Lithuania', code: 'LT'},
-{name: 'Luxembourg', code: 'LU'},
-{name: 'Macao', code: 'MO'},
-{name: 'Macedonia, The Former Yugoslav Republic of', code: 'MK'},
-{name: 'Madagascar', code: 'MG'},
-{name: 'Malawi', code: 'MW'},
-{name: 'Malaysia', code: 'MY'},
-{name: 'Maldives', code: 'MV'},
-{name: 'Mali', code: 'ML'},
-{name: 'Malta', code: 'MT'},
-{name: 'Marshall Islands', code: 'MH'},
-{name: 'Martinique', code: 'MQ'},
-{name: 'Mauritania', code: 'MR'},
-{name: 'Mauritius', code: 'MU'},
-{name: 'Mayotte', code: 'YT'},
-{name: 'Mexico', code: 'MX'},
-{name: 'Micronesia, Federated States of', code: 'FM'},
-{name: 'Moldova, Republic of', code: 'MD'},
-{name: 'Monaco', code: 'MC'},
-{name: 'Mongolia', code: 'MN'},
-{name: 'Montserrat', code: 'MS'},
-{name: 'Morocco', code: 'MA'},
-{name: 'Mozambique', code: 'MZ'},
-{name: 'Myanmar', code: 'MM'},
-{name: 'Namibia', code: 'NA'},
-{name: 'Nauru', code: 'NR'},
-{name: 'Nepal', code: 'NP'},
-{name: 'Netherlands', code: 'NL'},
-{name: 'Netherlands Antilles', code: 'AN'},
-{name: 'New Caledonia', code: 'NC'},
-{name: 'New Zealand', code: 'NZ'},
-{name: 'Nicaragua', code: 'NI'},
-{name: 'Niger', code: 'NE'},
-{name: 'Nigeria', code: 'NG'},
-{name: 'Niue', code: 'NU'},
-{name: 'Norfolk Island', code: 'NF'},
-{name: 'Northern Mariana Islands', code: 'MP'},
-{name: 'Norway', code: 'NO'},
-{name: 'Oman', code: 'OM'},
-{name: 'Pakistan', code: 'PK'},
-{name: 'Palau', code: 'PW'},
-{name: 'Palestinian Territory, Occupied', code: 'PS'},
-{name: 'Panama', code: 'PA'},
-{name: 'Papua New Guinea', code: 'PG'},
-{name: 'Paraguay', code: 'PY'},
-{name: 'Peru', code: 'PE'},
-{name: 'Philippines', code: 'PH'},
-{name: 'Pitcairn', code: 'PN'},
-{name: 'Poland', code: 'PL'},
-{name: 'Portugal', code: 'PT'},
-{name: 'Puerto Rico', code: 'PR'},
-{name: 'Qatar', code: 'QA'},
-{name: 'Reunion', code: 'RE'},
-{name: 'Romania', code: 'RO'},
-{name: 'Russian Federation', code: 'RU'},
-{name: 'Rwanda', code: 'RW'},
-{name: 'Saint Helena', code: 'SH'},
-{name: 'Saint Kitts and Nevis', code: 'KN'},
-{name: 'Saint Lucia', code: 'LC'},
-{name: 'Saint Pierre and Miquelon', code: 'PM'},
-{name: 'Saint Vincent and the Grenadines', code: 'VC'},
-{name: 'Samoa', code: 'WS'},
-{name: 'San Marino', code: 'SM'},
-{name: 'Sao Tome and Principe', code: 'ST'},
-{name: 'Saudi Arabia', code: 'SA'},
-{name: 'Senegal', code: 'SN'},
-{name: 'Serbia and Montenegro', code: 'CS'},
-{name: 'Seychelles', code: 'SC'},
-{name: 'Sierra Leone', code: 'SL'},
-{name: 'Singapore', code: 'SG'},
-{name: 'Slovakia', code: 'SK'},
-{name: 'Slovenia', code: 'SI'},
-{name: 'Solomon Islands', code: 'SB'},
-{name: 'Somalia', code: 'SO'},
-{name: 'South Africa', code: 'ZA'},
-{name: 'South Georgia and the South Sandwich Islands', code: 'GS'},
-{name: 'Spain', code: 'ES'},
-{name: 'Sri Lanka', code: 'LK'},
-{name: 'Sudan', code: 'SD'},
-{name: 'Suriname', code: 'SR'},
-{name: 'Svalbard and Jan Mayen', code: 'SJ'},
-{name: 'Swaziland', code: 'SZ'},
-{name: 'Sweden', code: 'SE'},
-{name: 'Switzerland', code: 'CH'},
-{name: 'Syrian Arab Republic', code: 'SY'},
-{name: 'Taiwan, Province of China', code: 'TW'},
-{name: 'Tajikistan', code: 'TJ'},
-{name: 'Tanzania, United Republic of', code: 'TZ'},
-{name: 'Thailand', code: 'TH'},
-{name: 'Timor-Leste', code: 'TL'},
-{name: 'Togo', code: 'TG'},
-{name: 'Tokelau', code: 'TK'},
-{name: 'Tonga', code: 'TO'},
-{name: 'Trinidad and Tobago', code: 'TT'},
-{name: 'Tunisia', code: 'TN'},
-{name: 'Turkey', code: 'TR'},
-{name: 'Turkmenistan', code: 'TM'},
-{name: 'Turks and Caicos Islands', code: 'TC'},
-{name: 'Tuvalu', code: 'TV'},
-{name: 'Uganda', code: 'UG'},
-{name: 'Ukraine', code: 'UA'},
-{name: 'United Arab Emirates', code: 'AE'},
-{name: 'United Kingdom', code: 'GB'},
-{name: 'United States', code: 'US'},
-{name: 'United States Minor Outlying Islands', code: 'UM'},
-{name: 'Uruguay', code: 'UY'},
-{name: 'Uzbekistan', code: 'UZ'},
-{name: 'Vanuatu', code: 'VU'},
-{name: 'Venezuela', code: 'VE'},
-{name: 'Vietnam', code: 'VN'},
-{name: 'Virgin Islands, British', code: 'VG'},
-{name: 'Virgin Islands, U.S.', code: 'VI'},
-{name: 'Wallis and Futuna', code: 'WF'},
-{name: 'Western Sahara', code: 'EH'},
-{name: 'Yemen', code: 'YE'},
-{name: 'Zambia', code: 'ZM'},
-{name: 'Zimbabwe', code: 'ZW'}
+
+            {name: 'Afghanistan', code: 'AF'},{name: 'Åland Islands', code: 'AX'},{name: 'Albania', code: 'AL'},{name: 'Algeria', code: 'DZ'},{name: 'American Samoa', code: 'AS'},{name: 'Andorra', code: 'AD'},{name: 'Angola', code: 'AO'},{name: 'Anguilla', code: 'AI'},{name: 'Antarctica', code: 'AQ'},{name: 'Antigua and Barbuda', code: 'AG'},{name: 'Argentina', code: 'AR'},{name: 'Armenia', code: 'AM'},{name: 'Aruba', code: 'AW'},{name: 'Australia', code: 'AU'},{name: 'Austria', code: 'AT'},{name: 'Azerbaijan', code: 'AZ'},{name: 'Bahamas', code: 'BS'},{name: 'Bahrain', code: 'BH'},{name: 'Bangladesh', code: 'BD'},{name: 'Barbados', code: 'BB'},{name: 'Belarus', code: 'BY'},{name: 'Belgium', code: 'BE'},{name: 'Belize', code: 'BZ'},{name: 'Benin', code: 'BJ'},{name: 'Bermuda', code: 'BM'},{name: 'Bhutan', code: 'BT'},{name: 'Bolivia', code: 'BO'},{name: 'Bosnia and Herzegovina', code: 'BA'},{name: 'Botswana', code: 'BW'},{name: 'Bouvet Island', code: 'BV'},{name: 'Brazil', code: 'BR'},{name: 'British Indian Ocean Territory', code: 'IO'},{name: 'Brunei Darussalam', code: 'BN'},{name: 'Bulgaria', code: 'BG'},{name: 'Burkina Faso', code: 'BF'},{name: 'Burundi', code: 'BI'},{name: 'Cambodia', code: 'KH'},{name: 'Cameroon', code: 'CM'},{name: 'Canada', code: 'CA'},{name: 'Cape Verde', code: 'CV'},{name: 'Cayman Islands', code: 'KY'},{name: 'Central African Republic', code: 'CF'},{name: 'Chad', code: 'TD'},{name: 'Chile', code: 'CL'},{name: 'China', code: 'CN'},{name: 'Christmas Island', code: 'CX'},{name: 'Cocos (Keeling) Islands', code: 'CC'},{name: 'Colombia', code: 'CO'},{name: 'Comoros', code: 'KM'},{name: 'Congo', code: 'CG'},{name: 'Congo, The Democratic Republic of the', code: 'CD'},{name: 'Cook Islands', code: 'CK'},{name: 'Costa Rica', code: 'CR'},{name: 'Cote D\'Ivoire', code: 'CI'},{name: 'Croatia', code: 'HR'},{name: 'Cuba', code: 'CU'},{name: 'Cyprus', code: 'CY'},{name: 'Czech Republic', code: 'CZ'},{name: 'Denmark', code: 'DK'},{name: 'Djibouti', code: 'DJ'},{name: 'Dominica', code: 'DM'},{name: 'Dominican Republic', code: 'DO'},{name: 'Ecuador', code: 'EC'},{name: 'Egypt', code: 'EG'},{name: 'El Salvador', code: 'SV'},{name: 'Equatorial Guinea', code: 'GQ'},{name: 'Eritrea', code: 'ER'},{name: 'Estonia', code: 'EE'},{name: 'Ethiopia', code: 'ET'},{name: 'Falkland Islands (Malvinas)', code: 'FK'},{name: 'Faroe Islands', code: 'FO'},{name: 'Fiji', code: 'FJ'},{name: 'Finland', code: 'FI'},{name: 'France', code: 'FR'},{name: 'French Guiana', code: 'GF'},{name: 'French Polynesia', code: 'PF'},{name: 'French Southern Territories', code: 'TF'},{name: 'Gabon', code: 'GA'},{name: 'Gambia', code: 'GM'},{name: 'Georgia', code: 'GE'},{name: 'Germany', code: 'DE'},{name: 'Ghana', code: 'GH'},{name: 'Gibraltar', code: 'GI'},{name: 'Greece', code: 'GR'},{name: 'Greenland', code: 'GL'},{name: 'Grenada', code: 'GD'},{name: 'Guadeloupe', code: 'GP'},{name: 'Guam', code: 'GU'},{name: 'Guatemala', code: 'GT'},{name: 'Guernsey', code: 'GG'},{name: 'Guinea', code: 'GN'},{name: 'Guinea-Bissau', code: 'GW'},
+            {name: 'Guyana', code: 'GY'},
+            {name: 'Haiti', code: 'HT'},
+            {name: 'Heard Island and Mcdonald Islands', code: 'HM'},
+            {name: 'Holy See (Vatican City State)', code: 'VA'},
+            {name: 'Honduras', code: 'HN'},
+            {name: 'Hong Kong', code: 'HK'},
+            {name: 'Hungary', code: 'HU'},
+            {name: 'Iceland', code: 'IS'},
+            {name: 'India', code: 'IN'},
+            {name: 'Indonesia', code: 'ID'},
+            {name: 'Iran, Islamic Republic Of', code: 'IR'},
+            {name: 'Iraq', code: 'IQ'},
+            {name: 'Ireland', code: 'IE'},
+            {name: 'Isle of Man', code: 'IM'},
+            {name: 'Israel', code: 'IL'},
+            {name: 'Italy', code: 'IT'},
+            {name: 'Jamaica', code: 'JM'},
+            {name: 'Japan', code: 'JP'},
+            {name: 'Jersey', code: 'JE'},
+            {name: 'Jordan', code: 'JO'},
+            {name: 'Kazakhstan', code: 'KZ'},
+            {name: 'Kenya', code: 'KE'},
+            {name: 'Kiribati', code: 'KI'},
+            {name: 'Korea, Democratic People\'s Republic of', code: 'KP'},
+            {name: 'Korea, Republic of', code: 'KR'},
+            {name: 'Kuwait', code: 'KW'},
+            {name: 'Kyrgyzstan', code: 'KG'},
+            {name: 'Lao People\'s Democratic Republic', code: 'LA'},
+            {name: 'Latvia', code: 'LV'},
+            {name: 'Lebanon', code: 'LB'},
+            {name: 'Lesotho', code: 'LS'},
+            {name: 'Liberia', code: 'LR'},
+            {name: 'Libyan Arab Jamahiriya', code: 'LY'},
+            {name: 'Liechtenstein', code: 'LI'},
+            {name: 'Lithuania', code: 'LT'},
+            {name: 'Luxembourg', code: 'LU'},
+            {name: 'Macao', code: 'MO'},
+            {name: 'Macedonia, The Former Yugoslav Republic of', code: 'MK'},
+            {name: 'Madagascar', code: 'MG'},
+            {name: 'Malawi', code: 'MW'},
+            {name: 'Malaysia', code: 'MY'},
+            {name: 'Maldives', code: 'MV'},
+            {name: 'Mali', code: 'ML'},
+            {name: 'Malta', code: 'MT'},
+            {name: 'Marshall Islands', code: 'MH'},
+            {name: 'Martinique', code: 'MQ'},
+            {name: 'Mauritania', code: 'MR'},
+            {name: 'Mauritius', code: 'MU'},
+            {name: 'Mayotte', code: 'YT'},
+            {name: 'Mexico', code: 'MX'},
+            {name: 'Micronesia, Federated States of', code: 'FM'},
+            {name: 'Moldova, Republic of', code: 'MD'},
+            {name: 'Monaco', code: 'MC'},
+            {name: 'Mongolia', code: 'MN'},
+            {name: 'Montserrat', code: 'MS'},
+            {name: 'Morocco', code: 'MA'},
+            {name: 'Mozambique', code: 'MZ'},
+            {name: 'Myanmar', code: 'MM'},
+            {name: 'Namibia', code: 'NA'},
+            {name: 'Nauru', code: 'NR'},
+            {name: 'Nepal', code: 'NP'},
+            {name: 'Netherlands', code: 'NL'},
+            {name: 'Netherlands Antilles', code: 'AN'},
+            {name: 'New Caledonia', code: 'NC'},
+            {name: 'New Zealand', code: 'NZ'},
+            {name: 'Nicaragua', code: 'NI'},
+            {name: 'Niger', code: 'NE'},
+            {name: 'Nigeria', code: 'NG'},
+            {name: 'Niue', code: 'NU'},
+            {name: 'Norfolk Island', code: 'NF'},
+            {name: 'Northern Mariana Islands', code: 'MP'},
+            {name: 'Norway', code: 'NO'},
+            {name: 'Oman', code: 'OM'},
+            {name: 'Pakistan', code: 'PK'},
+            {name: 'Palau', code: 'PW'},
+            {name: 'Palestinian Territory, Occupied', code: 'PS'},
+            {name: 'Panama', code: 'PA'},
+            {name: 'Papua New Guinea', code: 'PG'},
+            {name: 'Paraguay', code: 'PY'},
+            {name: 'Peru', code: 'PE'},
+            {name: 'Philippines', code: 'PH'},
+            {name: 'Pitcairn', code: 'PN'},
+            {name: 'Poland', code: 'PL'},
+            {name: 'Portugal', code: 'PT'},
+            {name: 'Puerto Rico', code: 'PR'},
+            {name: 'Qatar', code: 'QA'},
+            {name: 'Reunion', code: 'RE'},
+            {name: 'Romania', code: 'RO'},
+            {name: 'Russian Federation', code: 'RU'},
+            {name: 'Rwanda', code: 'RW'},
+            {name: 'Saint Helena', code: 'SH'},
+            {name: 'Saint Kitts and Nevis', code: 'KN'},
+            {name: 'Saint Lucia', code: 'LC'},
+            {name: 'Saint Pierre and Miquelon', code: 'PM'},
+            {name: 'Saint Vincent and the Grenadines', code: 'VC'},
+            {name: 'Samoa', code: 'WS'},
+            {name: 'San Marino', code: 'SM'},
+            {name: 'Sao Tome and Principe', code: 'ST'},
+            {name: 'Saudi Arabia', code: 'SA'},
+            {name: 'Senegal', code: 'SN'},
+            {name: 'Serbia and Montenegro', code: 'CS'},
+            {name: 'Seychelles', code: 'SC'},
+            {name: 'Sierra Leone', code: 'SL'},
+            {name: 'Singapore', code: 'SG'},
+            {name: 'Slovakia', code: 'SK'},
+            {name: 'Slovenia', code: 'SI'},
+            {name: 'Solomon Islands', code: 'SB'},
+            {name: 'Somalia', code: 'SO'},
+            {name: 'South Africa', code: 'ZA'},
+            {name: 'South Georgia and the South Sandwich Islands', code: 'GS'},
+            {name: 'Spain', code: 'ES'},
+            {name: 'Sri Lanka', code: 'LK'},
+            {name: 'Sudan', code: 'SD'},
+            {name: 'Suriname', code: 'SR'},
+            {name: 'Svalbard and Jan Mayen', code: 'SJ'},
+            {name: 'Swaziland', code: 'SZ'},
+            {name: 'Sweden', code: 'SE'},
+            {name: 'Switzerland', code: 'CH'},
+            {name: 'Syrian Arab Republic', code: 'SY'},
+            {name: 'Taiwan, Province of China', code: 'TW'},
+            {name: 'Tajikistan', code: 'TJ'},
+            {name: 'Tanzania, United Republic of', code: 'TZ'},
+            {name: 'Thailand', code: 'TH'},
+            {name: 'Timor-Leste', code: 'TL'},
+            {name: 'Togo', code: 'TG'},
+            {name: 'Tokelau', code: 'TK'},
+            {name: 'Tonga', code: 'TO'},
+            {name: 'Trinidad and Tobago', code: 'TT'},
+            {name: 'Tunisia', code: 'TN'},
+            {name: 'Turkey', code: 'TR'},
+            {name: 'Turkmenistan', code: 'TM'},
+            {name: 'Turks and Caicos Islands', code: 'TC'},
+            {name: 'Tuvalu', code: 'TV'},
+            {name: 'Uganda', code: 'UG'},
+            {name: 'Ukraine', code: 'UA'},
+            {name: 'United Arab Emirates', code: 'AE'},
+            {name: 'United Kingdom', code: 'GB'},
+            {name: 'United States', code: 'US'},
+            {name: 'United States Minor Outlying Islands', code: 'UM'},
+            {name: 'Uruguay', code: 'UY'},
+            {name: 'Uzbekistan', code: 'UZ'},
+            {name: 'Vanuatu', code: 'VU'},
+            {name: 'Venezuela', code: 'VE'},
+            {name: 'Vietnam', code: 'VN'},
+            {name: 'Virgin Islands, British', code: 'VG'},
+            {name: 'Virgin Islands, U.S.', code: 'VI'},
+            {name: 'Wallis and Futuna', code: 'WF'},
+            {name: 'Western Sahara', code: 'EH'},
+            {name: 'Yemen', code: 'YE'},
+            {name: 'Zambia', code: 'ZM'},
+            {name: 'Zimbabwe', code: 'ZW'}
+
         ];
 
 
@@ -518,88 +722,23 @@ $rootScope.getRfiForm=function(){
 
 };
 
-        $(document).ready(function() {
-
-$("#owl-demo").owlCarousel({
-    //autoPlay: 3000,
-    items : 4,
-    itemsDesktop : [1199,3],
-    itemsDesktopSmall : [979,3],
-    pagination:false,
-    navigation: true,
-    navigationText: [
-        "<i class='fa fa-chevron-left icon-white'></i>",
-        "<i class='fa fa-chevron-right icon-white'></i>"
-    ]
-    //Call beforeInit callback, elem parameter point to $("#owl-demo")
-    //beforeInit : function(elem){
-    //    random(elem);
-    //}
-
-});
-
-
-           $scope.options1= {items : 4,
-    itemsDesktop : [1199,3],
-    itemsDesktopSmall : [979,3],
-    pagination:false,
-    navigation: true,
-    navigationText: ["<i class='fa fa-chevron-left icon-white'></i>",
-    "<i class='fa fa-chevron-right icon-white'></i>"]};
-$("#owl-demo1").owlCarousel({
-    //autoPlay: 3000,
-    items : 4,
-    itemsDesktop : [1199,3],
-    itemsDesktopSmall : [979,3],
-    pagination:false,
-    navigation: true,
-    navigationText: [
-        "<i class='fa fa-chevron-left icon-white'></i>",
-        "<i class='fa fa-chevron-right icon-white'></i>"
-    ]
-    //Call beforeInit callback, elem parameter point to $("#owl-demo")
-    //beforeInit : function(elem){
-    //    random(elem);
-    //}
-
-});
-
-$("#existing-customer-owl-demo").owlCarousel({
-    //autoPlay: 3000,
-    items : 3,
-    itemsDesktop : [1199,3],
-    itemsDesktopSmall : [979,3],
-    pagination:false,
-    navigation: true,
-    navigationText: [
-        "<i class='fa fa-chevron-left icon-white'></i>",
-        "<i class='fa fa-chevron-right icon-white'></i>"
-    ]
-    //Call beforeInit callback, elem parameter point to $("#owl-demo")
-    //beforeInit : function(elem){
-    //    random(elem);
-    //}
-
-});
-$("#existing-customer-content-owl-demo").owlCarousel({
-    //autoPlay: 3000,
-    items : 4,
-    itemsDesktop : [1199,3],
-    itemsDesktopSmall : [979,3],
-    pagination:false,
-    navigation: true,
-    navigationText: [
-        "<i class='fa fa-chevron-left icon-white'></i>",
-        "<i class='fa fa-chevron-right icon-white'></i>"
-    ]
-    //Call beforeInit callback, elem parameter point to $("#owl-demo")
-    //beforeInit : function(elem){
-    //    random(elem);
-    //}
-
-});
-
-        });
+      $scope.items=[
+          {
+              name:"BpaaS_service",description:"BpaaS_service_description_short",image:"images/industry/retail.jpg"
+          },
+          {
+              name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/manufacturing.jpg"
+          }, {
+              name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/healthcare.jpg"
+          }, {
+              name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/onlineBanking.jpg"
+          }, {
+              name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/lifeInsurance.jpg"
+          }
+      ];
+      $scope.BpaaS_service_industry_list=[
+          {indus_service:"retail",fa:"fa-shopping-cart"},{indus_service:"manufacturing",fa:"fa-building"},{indus_service:"health care",fa:"fa-medkit"},{indus_service:"banking",fa:"fa-bank"}
+      ];
 
 
 
@@ -608,9 +747,9 @@ $("#existing-customer-content-owl-demo").owlCarousel({
 
         $scope.itemClass = "h_box";
 
-        //$('#owl-demo .item div').addClass('h_box');
-
+        $scope.mainslider = true;
         $scope.showMainSlider=function(){
+
             $(window).ready(function(){
                 $('html, body').animate({
                     scrollTop: $("#freeSlider").offset().top -90
@@ -619,249 +758,191 @@ $("#existing-customer-content-owl-demo").owlCarousel({
             $scope.one = false;
             $scope.mainslider = false;
 
-$scope.one = false;
-$scope.mainslider = false;
+            $scope.one = false;
+            $scope.mainslider = false;
         };
 
         $scope.showOne = function (){
-            //$(window).ready(function(){
-            //    $('html, body').animate({
-            //        scrollTop: $("#industry").offset().top -10
-            //    }, 1000);
-            //});
-//$(window).ready(function(){
-//    $('html, body').animate({
-//        scrollTop: $("#scroll_slider_content").offset().top -0
-//    }, 10000);
-//});
 
             $scope.one =true;
             $scope.mainslider = true;
 
-
         };
         $scope.one = false;
 
-        //Slider Contents Visible and Invisible Code
         $scope.IsVisible = false;
         $scope.ShowHide = function () {
-//If DIV is visible it will be hidden and vice versa.
-$scope.IsVisible = $scope.IsVisible ? false : true;
+            $scope.IsVisible = $scope.IsVisible ? false : true;
 
         };
-        //$(window).ready(function(){
-        //    $('html, body').animate({
-        //        scrollTop: $("#scroll_slider_content").offset().top -0
-        //    }, 10000);
-        //});
+
 
         $scope.GotoUpload=function(){
-$scope.uploadForm=true;
-$scope.one=false;
-//$scope.downloadCloudPlug=true;
-$scope.showCSP=true;
+
+
+            $('html, body').animate({
+
+                scrollTop: $("#formUpload").offset().top -90
+            }, 1000);
+            $scope.uploadForm=true;
+            $scope.one=false;
+            $scope.showCSP=true;
         };
         $scope.uploadForm=false;
         $scope.downloadCloudPlug=false;
-
+        $scope.existingCustomerItem=true;
         $scope.GotoCSP=function(){
-//alert("dfsf")
-$scope.one=false;
-$scope.downloadCloudPlug=false;
-$scope.showCSP=true;
+
+            $('html, body').animate({
+
+                scrollTop: $("#formCSP").offset().top -90
+            }, 1000);
+            $scope.existingCustomerItem=false;
+            $scope.one=false;
+            $scope.downloadCloudPlug=false;
+            $scope.showCSP=true;
 
         };
         $scope.connectSP=true;
         $scope.ConnectServicePartner=function(){
-$scope.connectSP=false;
-$scope.uploadForms=true;
-$scope.RFI=false;
+
+            $scope.connectSP=false;
+            $scope.uploadForms=true;
+            $scope.RFI=false;
         };
         $scope.generateRFI=function(){
-$scope.connectSP=false;
-$scope.uploadForms=false;
-$scope.RFI=true;
+            $(document).ready(function(){
+                $(this).scrollTop(0);
+            });
+            $scope.connectSP=false;
+            $scope.uploadForms=false;
+            $scope.RFI=true;
         };
         $scope.proceedSubmit=function(){
-$scope.connectSP=false;
-$scope.uploadForms=false;
-$scope.RFI=false;
-$scope.ProceedToSubmit=true;
+            $(document).ready(function(){
+                $(this).scrollTop(0);
+            });
+            $scope.connectSP=false;
+            $scope.uploadForms=false;
+            $scope.RFI=false;
+            $scope.ProceedToSubmit=true;
         };
     }])
+
     .controller('FreeController', ['$http','$scope','$location','$rootScope','$route','logger', function ($http,$scope,$location,$rootScope,$route,logger){
 
+        $scope.items=[
+            {
+                name:"BpaaS_service",description:"BpaaS_service_description_short",image:"images/industry/retail.jpg"
+            },
+            {
+                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/manufacturing.jpg"
+            }, {
+                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/healthcare.jpg"
+            }, {
+                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/onlineBanking.jpg"
+            }, {
+                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/lifeInsurance.jpg"
+            }
+        ];
+        $scope.BpaaS_service_industry_list=[
+            {indus_service:"retail",fa:"fa-shopping-cart"},{indus_service:"manufacturing",fa:"fa-building"},{indus_service:"health care",fa:"fa-medkit"},{indus_service:"banking",fa:"fa-bank"}
+        ];
 
         $scope.pageClass = 'page-about';
         //$scope.hideSliderclass1='slider_1_class';
         var input = {
-'customer_id': $rootScope.loginedUserData.customer_id
+            'customer_id': $rootScope.loginedUserData.customer_id
         };
 
         $http({
-method: 'POST',
-url: $rootScope.spring_rest_service + '/load_home_content',
-dataType: 'jsonp',
-data: input
+            method: 'POST',
+            url: $rootScope.spring_rest_service + '/load_home_content',
+            dataType: 'jsonp',
+            data: input
         }).success(function (data) {
 
 
-if (data[0][0].result == "Success") {
-    $scope.business_process_list = data[0];
-    $scope.BpaaS_Service_categories = _.groupBy($scope.business_process_list, function (elemet) {
-        return elemet.BpaaS_id;
-    });
-    $scope.BpaaS_Service_List = [];
-    var i = 0;
-    for (var Service_key in $scope.BpaaS_Service_categories) {
-        i++;
-        $scope.BpaaS_Service_List_industry = [];
-        $scope.BpaaS_Service_categories_currentRow = $scope.BpaaS_Service_categories[Service_key];
-        var currentRow = $scope.BpaaS_Service_categories_currentRow[0];
-        $scope.BpaaS_Service_categories_industry_list = _.groupBy($scope.BpaaS_Service_categories_currentRow, function (elemet) {
-return elemet.indus_id;
+            if (data[0][0].result == "Success") {
+                $scope.business_process_list = data[0];
+                $scope.BpaaS_Service_categories = _.groupBy($scope.business_process_list, function (elemet) {
+                    return elemet.BpaaS_id;
+                });
+                $scope.BpaaS_Service_List = [];
+                var i = 0;
+                for (var Service_key in $scope.BpaaS_Service_categories) {
+                    i++;
+                    $scope.BpaaS_Service_List_industry = [];
+                    $scope.BpaaS_Service_categories_currentRow = $scope.BpaaS_Service_categories[Service_key];
+                    var currentRow = $scope.BpaaS_Service_categories_currentRow[0];
+                    $scope.BpaaS_Service_categories_industry_list = _.groupBy($scope.BpaaS_Service_categories_currentRow, function (elemet) {
+                        return elemet.indus_id;
+                    });
+                    for (var industry_key in $scope.BpaaS_Service_categories_industry_list) {
+                        $scope.BpaaS_Service_List_industry_forms = [];
+                        $scope.BpaaS_Service_categories_industry_list_currentRow = $scope.BpaaS_Service_categories_industry_list[industry_key];
+                        var industry_currentRow = $scope.BpaaS_Service_categories_industry_list_currentRow[0];
+
+                        $scope.BpaaS_Service_categories_industry_form_list = _.groupBy($scope.BpaaS_Service_categories_industry_list_currentRow, function (elemet) {
+                            return elemet.efslob_id;
+                        });
+                        for (var efslob_key in $scope.BpaaS_Service_categories_industry_form_list) {
+                            $scope.BpaaS_Service_categories_industry_form_list_currentRow = $scope.BpaaS_Service_categories_industry_form_list[efslob_key];
+                            var efslob__currentRow = $scope.BpaaS_Service_categories_industry_form_list_currentRow[0];
+                            $scope.BpaaS_Service_categories_industry_form_list_currentRow.forEach(function (row) {
+                                $scope.BpaaS_Service_List_industry_forms.push(row);
+                            });
+
+
+                        }
+                        var industryData = {
+                            indus_service: industry_currentRow.indus_service,
+                            industry_decription_short: industry_currentRow.industry_decription_short,
+                            industry_decription_long: industry_currentRow.industry_decription_long,
+                            industry_image_id: industry_currentRow.industry_image_id,
+                            industry_status: industry_currentRow.industry_status,
+                            industry_image_type_id: industry_currentRow.industry_image_type_id,
+                            industry_image_path: industry_currentRow.industry_image_path,
+                            industry_image_alt_text: industry_currentRow.industry_image_alt_text,
+                            industry_form_list: $scope.BpaaS_Service_List_industry_forms
+                        }
+                        $scope.BpaaS_Service_List_industry.push(industryData);
+
+
+                    }
+                    var active_class = false;
+                    if (i == 1) {
+                        active_class = true;
+                    }
+                    else {
+
+                    }
+                    var data = {
+                        BpaaS_id: Service_key,
+                        BpaaS_service: currentRow.BpaaS_service,
+                        BpaaS_service_image_id: currentRow.BpaaS_service_image_id,
+                        BpaaS_service_description_short: currentRow.BpaaS_service_description_short,
+                        BpaaS_service_description_long: currentRow.BpaaS_service_description_long,
+                        BpaaS_service_status: currentRow.BpaaS_service_status,
+                        BpaaS_service_image_type_id: currentRow.BpaaS_service_image_type_id,
+                        BpaaS_service_image_path: currentRow.BpaaS_service_image_path,
+                        BpaaS_service_image_alt_text: currentRow.BpaaS_service_image_alt_text,
+                        BpaaS_service_industry_list: $scope.BpaaS_Service_List_industry,
+                        class: active_class
+                    };
+
+                    $scope.BpaaS_Service_List.push(data);
+
+                }
+                //logger.log(JSON.stringify( $scope.BpaaS_Service_List))
+                $scope.selectedBpaaS = $scope.BpaaS_Service_List[0];
+                $scope.selectedIndustryList=$scope.selectedBpaaS.BpaaS_service_industry_list[0];
+                $scope.selectedBpaaS.BpaaS_service_industry_list[0].class=true;
+            }
+            else {
+                $scope.business_process_list = false;
+            }
         });
-        for (var industry_key in $scope.BpaaS_Service_categories_industry_list) {
-$scope.BpaaS_Service_List_industry_forms = [];
-$scope.BpaaS_Service_categories_industry_list_currentRow = $scope.BpaaS_Service_categories_industry_list[industry_key];
-var industry_currentRow = $scope.BpaaS_Service_categories_industry_list_currentRow[0];
-
-$scope.BpaaS_Service_categories_industry_form_list = _.groupBy($scope.BpaaS_Service_categories_industry_list_currentRow, function (elemet) {
-    return elemet.efslob_id;
-});
-for (var efslob_key in $scope.BpaaS_Service_categories_industry_form_list) {
-    $scope.BpaaS_Service_categories_industry_form_list_currentRow = $scope.BpaaS_Service_categories_industry_form_list[efslob_key];
-    var efslob__currentRow = $scope.BpaaS_Service_categories_industry_form_list_currentRow[0];
-    $scope.BpaaS_Service_categories_industry_form_list_currentRow.forEach(function (row) {
-        $scope.BpaaS_Service_List_industry_forms.push(row);
-    });
-
-
-}
-var industryData = {
-    indus_service: industry_currentRow.indus_service,
-    industry_decription_short: industry_currentRow.industry_decription_short,
-    industry_decription_long: industry_currentRow.industry_decription_long,
-    industry_image_id: industry_currentRow.industry_image_id,
-    industry_status: industry_currentRow.industry_status,
-    industry_image_type_id: industry_currentRow.industry_image_type_id,
-    industry_image_path: industry_currentRow.industry_image_path,
-    industry_image_alt_text: industry_currentRow.industry_image_alt_text,
-    industry_form_list: $scope.BpaaS_Service_List_industry_forms
-}
-$scope.BpaaS_Service_List_industry.push(industryData);
-
-
-        }
-        var active_class = false;
-        if (i == 1) {
-active_class = true;
-        }
-        else {
-
-        }
-        var data = {
-BpaaS_id: Service_key,
-BpaaS_service: currentRow.BpaaS_service,
-BpaaS_service_image_id: currentRow.BpaaS_service_image_id,
-BpaaS_service_description_short: currentRow.BpaaS_service_description_short,
-BpaaS_service_description_long: currentRow.BpaaS_service_description_long,
-BpaaS_service_status: currentRow.BpaaS_service_status,
-BpaaS_service_image_type_id: currentRow.BpaaS_service_image_type_id,
-BpaaS_service_image_path: currentRow.BpaaS_service_image_path,
-BpaaS_service_image_alt_text: currentRow.BpaaS_service_image_alt_text,
-BpaaS_service_industry_list: $scope.BpaaS_Service_List_industry,
-class: active_class
-        };
-
-        $scope.BpaaS_Service_List.push(data);
-
-    }
-    //logger.log(JSON.stringify( $scope.BpaaS_Service_List))
-    $scope.selectedBpaaS = $scope.BpaaS_Service_List[0];
-    $scope.selectedIndustryList=$scope.selectedBpaaS.BpaaS_service_industry_list[0];
-    $scope.selectedBpaaS.BpaaS_service_industry_list[0].class=true;
-}
-else {
-    $scope.business_process_list = false;
-}
-        });
-
-        //$(document).ready(function() {
-        //
-        //    $("#owl-demo").owlCarousel({
-        //        //autoPlay: 3000,
-        //        items : 4,
-        //        itemsDesktop : [1199,3],
-        //        itemsDesktopSmall : [979,3],
-        //        pagination:false,
-        //        navigation: true,
-        //        navigationText: [
-        //"<i class='fa fa-chevron-left icon-white'></i>",
-        //"<i class='fa fa-chevron-right icon-white'></i>"
-        //        ]
-        //        //Call beforeInit callback, elem parameter point to $("#owl-demo")
-        //        //beforeInit : function(elem){
-        //        //    random(elem);
-        //        //}
-        //
-        //    });
-        //
-        //    $("#owl-demo1").owlCarousel({
-        //        //autoPlay: 3000,
-        //        items : 4,
-        //        itemsDesktop : [1199,3],
-        //        itemsDesktopSmall : [979,3],
-        //        pagination:false,
-        //        navigation: true,
-        //        navigationText: [
-        //"<i class='fa fa-chevron-left icon-white'></i>",
-        //"<i class='fa fa-chevron-right icon-white'></i>"
-        //        ]
-        //        //Call beforeInit callback, elem parameter point to $("#owl-demo")
-        //        //beforeInit : function(elem){
-        //        //    random(elem);
-        //        //}
-        //
-        //    });
-        //
-        //    $("#existing-customer-owl-demo").owlCarousel({
-        //        //autoPlay: 3000,
-        //        items : 3,
-        //        itemsDesktop : [1199,3],
-        //        itemsDesktopSmall : [979,3],
-        //        pagination:false,
-        //        navigation: true,
-        //        navigationText: [
-        //"<i class='fa fa-chevron-left icon-white'></i>",
-        //"<i class='fa fa-chevron-right icon-white'></i>"
-        //        ]
-        //        //Call beforeInit callback, elem parameter point to $("#owl-demo")
-        //        //beforeInit : function(elem){
-        //        //    random(elem);
-        //        //}
-        //
-        //    });
-        //    $("#existing-customer-content-owl-demo").owlCarousel({
-        //        //autoPlay: 3000,
-        //        items : 4,
-        //        itemsDesktop : [1199,3],
-        //        itemsDesktopSmall : [979,3],
-        //        pagination:false,
-        //        navigation: true,
-        //        navigationText: [
-        //"<i class='fa fa-chevron-left icon-white'></i>",
-        //"<i class='fa fa-chevron-right icon-white'></i>"
-        //        ]
-        //        //Call beforeInit callback, elem parameter point to $("#owl-demo")
-        //        //beforeInit : function(elem){
-        //        //    random(elem);
-        //        //}
-        //
-        //    });
-        //
-        //});
-
 
 
         $scope.class = "center_div";
@@ -869,7 +950,6 @@ else {
 
         $scope.itemClass = "h_box";
 
-        //$('#owl-demo .item div').addClass('h_box');
 
         $scope.showMainSlider=function(){
             //$(window).ready(function(){
@@ -902,25 +982,20 @@ else {
         };
         $scope.one = false;
 
-        //Slider Contents Visible and Invisible Code
         $scope.IsVisible = false;
         $scope.ShowHide = function () {
-//If DIV is visible it will be hidden and vice versa.
-$scope.IsVisible = $scope.IsVisible ? false : true;
+            $scope.IsVisible = $scope.IsVisible ? false : true;
 
-        }
-        //$(window).ready(function(){
-        //    $('html, body').animate({
-        //        scrollTop: $("#scroll_slider_content").offset().top -0
-        //    }, 10000);
-        //});
+        };
+
         $scope.selectedFormsChanged=function(item){
             $scope.selectedForms=item;
-        }
+        };
         $scope.selectedIndustryListChanged=function(item){
             $scope.selectedIndustryList=item;
-        }
+        };
         $scope.GotoUpload=function(c){
+
             $('html, body').animate({
 
                 scrollTop: $("#formUpload").offset().top -90
@@ -932,39 +1007,50 @@ $scope.IsVisible = $scope.IsVisible ? false : true;
             //$scope.selectedIndustry=
             $scope.downloadCloudPlug=true;
 
-        }
+        };
+        $scope.downloadExistCloudPlug=false;
+        $scope.GotoExistUpload=function(){
+            $('html, body').animate({
+
+                scrollTop: $("#existCloudPlug").offset().top -90
+            }, 1000);
+            $scope.downloadExistCloudPlug=true;
+            $scope.mainslider=true;
+        };
         $scope.UploadImage=function(files) {
             //alert($scope.selectedForms)
-if($rootScope.loginedUserData == ''||$rootScope.loginedUserData == undefined)
-    logger.logError("Please Login And Continue...");
-else if($scope.selectedIndustryList == null)
-    logger.logError("Select an Industry and Upload again");
-else if($scope.selectedForms == undefined||$scope.selectedForms == null)
-    logger.logError("Select a Form and Upload again");
-else {
+            if($rootScope.loginedUserData == ''||$rootScope.loginedUserData == undefined)
+                logger.logError("Please Login And Continue...");
+            else if($scope.selectedIndustryList == null)
+                logger.logError("Select an Industry and Upload again");
+            else if($scope.selectedForms == undefined||$scope.selectedForms == null)
+                logger.logError("Select a Form and Upload again");
+            else {
 
-    var fd = new FormData();
-    fd.append("file", files[0]);
-    fd.append("user_id", $rootScope.loginedUserData.user_id);
-    fd.append("customer_id", $rootScope.loginedUserData.customer_id);
-    fd.append("efs_uin", $scope.selectedForms.efs_uin);
-    $scope.loading = true;
+                var fd = new FormData();
+                fd.append("file", files[0]);
+                fd.append("user_id", $rootScope.loginedUserData.user_id);
+                fd.append("customer_id", $rootScope.loginedUserData.customer_id);
+                fd.append("efs_uin", $scope.selectedForms.efs_uin);
+                $scope.loading = true;
 
-    $http.post($rootScope.spring_rest_service + '/dupload', fd, {
-        transformRequest: angular.identity,
-        headers: {"Content-Type": undefined}
-    }).success(function (res) {
-        $scope.loading = false;
+                $http.post($rootScope.spring_rest_service + '/dupload', fd, {
+                    transformRequest: angular.identity,
+                    headers: {"Content-Type": undefined}
+                }).success(function (res) {
+                    $scope.loading = false;
 
-        logger.log(JSON.stringify(res[0][0].result))
-        //$scope.GoToHome = true;
-        $location.path('/free');
-        $route.reload();
+                    logger.log(JSON.stringify(res[0][0].result))
+                    //$scope.GoToHome = true;
+                    $location.path('/free');
+                    $route.reload();
 
-    });
-}
+                });
+            }
         }
+
     }])
+
     .directive("owlCarousel", function() {
         return {
 restrict: 'E',

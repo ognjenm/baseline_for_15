@@ -48,7 +48,7 @@ public class WriteToFile {
 		filepath=currentDir+filepath;
 		File folder = new File(filepath);
 		String fileType=FilenameUtils.getExtension(filepath);
-		String newDir = filepath.substring(filepath.lastIndexOf("/") + 1, filepath.lastIndexOf(".")) + timestamp+"."+fileType;
+		String newDir = filepath.substring(filepath.lastIndexOf("/") + 1, filepath.lastIndexOf(".")) +"_"+timestamp+"."+fileType;
 		newDir.replace('\\', '/');
 		final File newFolder = new File(folder.getParent() + "/" + newDir);
 		folder.renameTo(newFolder);

@@ -516,8 +516,8 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
         });
 
         $('html, body').animate({
-            scrollTop: $("#details_div").offset().top -100
-        }, 1100);
+            scrollTop: $("#details_div").offset().top -90
+        }, 1000);
     };
 
     if (qs.setTab != undefined){

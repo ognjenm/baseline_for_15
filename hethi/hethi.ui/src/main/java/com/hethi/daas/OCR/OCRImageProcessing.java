@@ -29,6 +29,7 @@ public class OCRImageProcessing {
 		System.out.println("TESSDATA PATH "+properties.getProperty("tessdataPath"));
 		list.add(RenderedFormat.PDF);
 		list.add(RenderedFormat.HOCR);
+		list.add(RenderedFormat.BOX);
 	
 		tessaractInstance.setDatapath(properties.getProperty("tessdataPath"));
 		tessaractInstance.setLanguage("eng");

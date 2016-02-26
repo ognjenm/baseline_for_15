@@ -91,7 +91,7 @@ public class DataExtraction {
 		
 		
 		String outfilelocation = imagePath.substring(0,imagePath.lastIndexOf("."));
-		String fileName = imagePath.substring(imagePath.lastIndexOf("\\"),imagePath.lastIndexOf("."));
+		//String fileName = imagePath.substring(imagePath.lastIndexOf("/"),imagePath.lastIndexOf("."));
 		
 		//String outfilelocation=imagePath.lastIndexOf(".")
 		
@@ -99,7 +99,8 @@ public class DataExtraction {
 		
 		
         // Tesseract1 instance = new Tesseract1(); // JNA Direct Mapping
-		Rectangle rect =new Rectangle(x1, y1, x2, y2);
+		System.out.println("in ocr method");
+		Rectangle rect =new Rectangle(x1, y1, x2-x1, y2-y1);
         try {
             String result = instance.doOCR(imageFile,rect);
             System.out.println(result);
@@ -134,18 +135,20 @@ public class DataExtraction {
     	
     	
     	// DataExtraction.getFullOcr("resource\\Image\\new.jpg");
-    	 String hocr="resource//newhocr.json";
+    	/* String hocr="resource//newhocr.json";
     	 
     	 List<Span> positionList=ReadHocr.parseHocr(hocr);
     	 DataExtraction dataExtraction=new DataExtraction();
-    	 dataExtraction.checkExtract(positionList);
+    	 dataExtraction.checkExtract(positionList);*/
  		
  		//DataExtraction.getFullOcr("resource\\Image\\new.jpg", 228,827,239-228,840-827);
                 
        // DataExtraction.pdftoText(80,139,494,209, "output//slide_90.pdf");
         //42,219,349,36
         //219,42,36,349
+    	 DataExtraction.getFullOcr("multipage-pdf_merged.tiff",207,277,675,243);
         System.out.println("Extraction completed ");
+        
     }
     
  

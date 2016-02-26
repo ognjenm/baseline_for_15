@@ -293,15 +293,7 @@
 	position: relative;
 }
 
-.note {
-	color: #333;
-	position: relative;
-	margin: 0 auto;
-	padding: 10px;
-	font-family: Satisfy;
-	font-size: 20px;
-	box-shadow: 0 10px 10px 2px rgba(0,0,0,0.3);
-}
+
 .color-tag {
 	background: lightskyblue;
 	-webkit-transform: rotate(2deg);
@@ -400,3 +392,18 @@ transform: rotate(45deg);
 			   -ms-transform: rotate(2deg);
 			   transform: rotate(2deg);
 		   }
+
+ .opBlock{
+			   background-color: lightcyan;
+			   padding-top: 15px;
+			   border: 1px solid lightskyblue;
+}
+.note {
+	color: #333;
+	position: relative;
+	margin: 0 auto;
+	padding: 10px;
+	font-family: Satisfy;
+	/*font-size: 20px;*/
+	box-shadow: 0 10px 10px 2px rgba(0,0,0,0.3);
+}

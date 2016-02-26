@@ -14,6 +14,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.util.PDFImageWriter;
 
 import com.hethi.daas.ImageIO.ImageProcessesingServices;
+import com.hethi.rest.utility.PDFUtility;
 
 import net.sourceforge.tess4j.TesseractException;
 import net.sourceforge.tess4j.util.PdfUtilities;
@@ -81,13 +82,7 @@ public class PDFImageProcessing {
 			
 			public void convertPdfToImage( String password, String inputFile, String outputPath, String imageFormat, int startPage, int endPage, String color) throws Exception
 		    {
-		        /*String password = "";
-		        String pdfFile = "f:/sample_invoice.pdf";
-		        String outputPrefix = "F:/";
-		        String imageFormat = "jpg";
-		        int startPage = 1;
-		        int endPage = Integer.MAX_VALUE;
-		        String color = "rgb";*/
+		       
 		        int resolution;
 		        try
 		        {
@@ -164,11 +159,24 @@ public class PDFImageProcessing {
 		                PDFImageWriter imageWriter = new PDFImageWriter();
 		                boolean success = imageWriter.writeImage(document, imageFormat, password,
 		                        startPage, endPage, outputPath, imageType, 72);
-		                for(int i=1;i<=endPage-startPage+1;i++){
-		                ImageProcessesingServices.getFullOCR(outputPath+i+"."+imageFormat);
-		                }
-		                File image=new File(outputPath+"1."+imageFormat);
-		                image.renameTo(new File(outputPath+"."+imageFormat));
+		               
+		                /**
+		                 * Identify The Pdf is Scanned one or not
+		                 * 
+		                 */
+		                
+		                
+		                PDFUtility utility=new PDFUtility();
+						boolean isScanned=utility.isScannedPDF(inputFile);
+							if(isScanned){
+								System.out.println("in pdf to image ");
+				                for(int i=1;i<=endPage-startPage+1;i++){
+				                	
+				                ImageProcessesingServices.getFullOCR(outputPath+i+"."+imageFormat);
+				                }
+							}
+		               /* File image=new File(outputPath+"1."+imageFormat);
+		                image.renameTo(new File(outputPath+"."+imageFormat));*/
 		                if (!success)
 		                {
 		                    System.err.println( "Error: no writer found for image format '"
@@ -207,10 +215,10 @@ public class PDFImageProcessing {
 		    }
 			
 			
-			
+			/*
 			public static void main(String args[]) throws Exception{
 				PDFImageProcessing pdfImg=new PDFImageProcessing();
-				pdfImg.convertPdfToImage("","vis4931907328777416161.pdf", null,"jpg", 1, 4, "rgb");
-			}
+				pdfImg.convertPdfToImage("","grayscale1456313263510.pdf", null,"jpg", 1, 1, "rgb");
+			}*/
 			
 }

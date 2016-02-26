@@ -37,6 +37,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import com.google.gson.Gson;
+import com.hethi.daas.Mapping.ClassifyModel;
 import com.hethi.rest.repo.WorkflowRepo;
 
 
@@ -461,6 +462,60 @@ public class QueryExecutors {
 		return fileNames;
 	}
 	
-	
+	public void insertClassifyStatus(String sql) 
+	{
+		System.out.println("Inside DB");
+	   // ArrayList<ClassifyModel> indexs = new ArrayList<ClassifyModel>();
+	   
+	    try {
+	    	Connection conn=null;
+			conn = DriverManager.getConnection(url, user, password);
+	        Statement statement = conn.createStatement();
+	        statement.executeUpdate(sql); 
+	        conn.close();
+	    } catch (Exception e) {
+	        System.out.println(e);
+	    }
+	    
+	}
 	 	
+	
+	
+	
+	
+	
+	@SuppressWarnings("null")
+	public ArrayList<ClassifyModel> getAllUfs_UInByCustomer(String sql) 
+	{
+		System.out.println("Inside DB");
+	    ArrayList<ClassifyModel> indexs = new ArrayList<ClassifyModel>();
+	    Connection c;
+	    try {
+	    	Connection conn=null;
+			conn = DriverManager.getConnection(url, user, password);
+	        Statement statement = conn.createStatement();
+	        ResultSet rs = statement.executeQuery(sql);
+	        while (rs.next()) {
+	        	ClassifyModel index = new ClassifyModel();
+	        	index.setCustomer_id(rs.getInt("Customer_id"));
+	        	index.setData_expected_content(rs.getString("data_expected_content"));
+	        	index.setData_position_height(rs.getString("Data_position_height"));
+	        	index.setData_position_left(rs.getString("Data_position_left"));
+	        	index.setData_position_top(rs.getString("Data_position_top"));
+	        	index.setData_position_width(rs.getString("Data_position_width"));
+	        	index.setEfs_uin(rs.getString("Efs_uin"));
+	        	indexs.add(index);
+	        }
+
+	        rs.close();
+	    } catch (Exception e) {
+	        System.out.println(e);
+	    }
+	    return indexs;
+	}
+	
+		
+	
+	
+	
 }
