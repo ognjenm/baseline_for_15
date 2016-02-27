@@ -1,12 +1,29 @@
 package com.hethi.domain;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import com.google.gson.Gson;
+import com.hethi.utils.QueryExecutors;
 
 
 public class iPost {
@@ -262,4 +279,188 @@ public class iPost {
 	     return gson.toJson(this);   	
       
     }
+    
+    
+// **********************   start boolean parser methods for rule   **************************************;
+    
+    
+	public boolean home(String jsonString) throws InstantiationException, IllegalAccessException,
+	   ClassNotFoundException, SQLException, IOException, ParseException, java.text.ParseException, ScriptException{
+		
+		JSONObject jsonOb=(JSONObject)new JSONParser().parse(jsonString);
+		String operation=jsonOb.get("expression_type").toString();
+		String sql="select * from rule_operations where operation_name='"+operation+"'";
+		QueryExecutors exec=new QueryExecutors();
+		ArrayList<ArrayList> resultArray=exec.callProcedure(sql);
+		ArrayList<Map<String,String>> array2=resultArray.get(0);
+		Map<String,String> mapObj=array2.get(0);
+		String operationType=mapObj.get("operation_type");
+		String expression=mapObj.get("operation_expression");
+		String exp_inputs=mapObj.get("expression_input");
+		if(operationType.equals("computation")){
+			return computationExpression(jsonOb, expression,exp_inputs);
+		}
+		else{
+			return lookupExpression(jsonOb, expression,exp_inputs);
+		}
+	}
+	public  boolean computationExpression(JSONObject jsonString,String expression,String exp_inputs) throws InstantiationException, IllegalAccessException,
+	   ClassNotFoundException, SQLException, IOException, ParseException, java.text.ParseException, ScriptException{
+		
+		ScriptEngineManager mgr = new ScriptEngineManager();
+     ScriptEngine engine1 = mgr.getEngineByName("javascript");
+     ScriptEngine engine = mgr.getEngineByName("groovy");
+     String[] inputArray=exp_inputs.split(",");
+     int flag=0,exceptionFlag=0;
+     JSONObject ouputFields=null;
+     JSONObject jsonObject=jsonString;
+     String expression_type=jsonObject.get("expression_type").toString();
+     JSONArray inputFields=(JSONArray) new JSONParser().parse(String.valueOf(jsonObject.get("inputs")));
+     JSONObject customInputs=(JSONObject) new JSONParser().parse(jsonObject.get("custom_inputs").toString());
+     try{
+        ouputFields=(JSONObject) new JSONParser().parse(jsonObject.get("output").toString());
+     }
+     catch(Exception e){ exceptionFlag=1; }
+     if(searchArray(inputFields, engine, engine1, inputArray,flag) == 0 && exceptionFlag == 0){
+     	
+     }
+     searchObj(ouputFields, engine, engine1, inputArray,flag);
+     flag=0;
+ 	searchObj(customInputs, engine, engine1, inputArray,flag);
+     JSONObject expressionObj=(JSONObject)new JSONParser().parse(expression);
+     expression=expressionObj.get(expression_type).toString();
+     expression=expression.replace("\\", "");
+     System.out.println(expression);
+     boolean value=(boolean) engine.eval(expression);
+	    return value;
+	}
+	public boolean lookupExpression(JSONObject jsonString,String operation,String exp_inputs) throws InstantiationException, IllegalAccessException,
+	   ClassNotFoundException, SQLException, IOException, ParseException, java.text.ParseException{
+		
+		JSONObject jsonObject=(jsonString);
+		JSONArray inputFields=(JSONArray)jsonObject.get("inputs");
+		String condition="",value="",column="",table="";
+		String[] inputArray=exp_inputs.split(",");
+		for(int i=0;i<inputFields.size();i++){
+			JSONObject json=(JSONObject)inputFields.get(i);
+			value="";column="";
+			for (Iterator iterator = ((HashMap)json ).keySet().iterator(); iterator.hasNext();){
+				String key = (String) iterator.next();
+				for(int j=0;j<inputArray.length;j++){
+					if(key.lastIndexOf(inputArray[j]) > -1){
+						value=json.get(key).toString();
+					}
+					else if(key.equals("mxml1")){
+						column=json.get(key).toString();
+					}
+					else if(key.startsWith("lookup")){
+						table=json.get(key).toString();
+					}
+				}
+			}
+			if(i==0)
+			    condition=condition+" "+column+"=\""+value+"\"";
+			else
+				condition=condition+" and "+column+"=\""+value+"\"";
+		}
+		String sql="select * from "+table+" where "+condition +";";
+		System.out.println(sql);
+		return executeQuery(sql);
+	}
+	public boolean executeQuery(String sql){
+		try{
+			Connection conn=null;
+			conn = DriverManager.getConnection("jdbc:mysql://server:3306/hethi", "root", "password");
+			Statement st=conn.createStatement();
+			ResultSet rst =st.executeQuery(sql);
+			if(rst.next()){
+			   return true;
+			}
+		}
+		catch(Exception e){
+			
+		}
+		return  false;
+	}
+	public int searchArray(JSONArray inputFields,ScriptEngine engine,ScriptEngine engine1,String[] inputArray,int flag) throws NumberFormatException, ScriptException{
+		
+		int status;
+		String table="";
+		for(int i=0;i<inputFields.size();i++){
+			status=0;
+     	JSONObject json=(JSONObject)inputFields.get(i);
+     	if(!json.get("lookuptable").toString().equals("")) {
+     		table=json.get("lookuptable").toString();
+     		status = 1;
+     	}
+     	for (Iterator iterator = ((HashMap)json ).keySet().iterator(); iterator.hasNext();){
+ 			String key = (String) iterator.next();
+ 			System.out.println(key);
+ 			for(int j=0;j<inputArray.length;j++){
+ 				if(key.lastIndexOf(inputArray[j]) > -1){
+ 					flag=1;
+ 					if(inputArray[j].startsWith("mxml")){
+ 						status++;
+ 						if(status == 1){
+ 							String sql="select "+json.get(key).toString()+" from "+table;
+ 						}
+ 					}
+ 					
+ 					engine1.put(key, json.get(key).toString());
+ 					if(!(boolean) engine1.eval("isNaN("+key+")")){
+ 						engine.put(key, Integer.parseInt(json.get(key).toString()));
+ 					}
+ 					else{
+ 						try{
+ 							SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+ 						    Date date = dt.parse(json.get(key).toString());
+ 						    SimpleDateFormat dt1 = new SimpleDateFormat("yyyy/MM/dd");
+ 							engine.put(key, dt1.format(date).toString());
+ 						}
+ 						catch(Exception e){
+ 							engine.put(key, json.get(key).toString());
+ 						}
+ 					}
+ 				}
+ 			}
+ 		}
+     }
+		return flag;
+	}
+	public int searchObj(JSONObject json,ScriptEngine engine,ScriptEngine engine1,String[] inputArray,int flag) throws NumberFormatException, ScriptException{
+		for (Iterator iterator = ((HashMap)json ).keySet().iterator(); iterator.hasNext();){
+			String key = (String) iterator.next();
+			for(int j=0;j<inputArray.length;j++){
+				if(inputArray[j].equals(key)){
+					flag=1;
+					engine1.put(key, json.get(key).toString());
+					if(!(boolean) engine1.eval("isNaN("+key+")")){
+						engine.put(key, Integer.parseInt(json.get(key).toString()));
+					}
+					else{
+						try{
+							SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
+						    Date date = dt.parse(json.get(key).toString());
+						    SimpleDateFormat dt1 = new SimpleDateFormat("yyyy/MM/dd");
+							engine.put(key, dt1.format(date).toString());
+						}
+						catch(Exception e){
+							engine.put(key, json.get(key).toString());
+						}
+					}
+				}
+			}
+		}
+		return flag;
+	}
+	
+    
+// **********************   end boolean parser methods for rule   **************************************;
+	    
+    
+    
+    
+    
+    
+    
 }

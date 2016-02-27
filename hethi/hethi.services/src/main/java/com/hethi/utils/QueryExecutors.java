@@ -27,6 +27,8 @@ import org.hibernate.cfg.Configuration;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import com.hethi.daas.ClassifyModel;
+
 
 
 
@@ -342,7 +344,7 @@ public class QueryExecutors {
 	
 	
 	@SuppressWarnings("null")
-	public String getAllUfs_UInByCustomer(String sql) 
+	public ArrayList<ClassifyModel> getAllUfs_UInByCustomer(String sql) 
 	{
 //		System.out.println("Inside DB");
 //	    ArrayList<ClassifyModel> indexs = new ArrayList<ClassifyModel>();

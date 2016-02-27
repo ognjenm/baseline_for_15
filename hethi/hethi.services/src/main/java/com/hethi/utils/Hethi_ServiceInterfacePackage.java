@@ -40,7 +40,8 @@ public class Hethi_ServiceInterfacePackage implements Hethi_SeviceInterface {
 			String sfs_uin =json.get("sfs_uin").toString();
 			String current_channel =json.get("current_channel").toString();
 			String uid = json.get("uid").toString();
-			String filePath=json.get("source_document_path_local").toString();
+//			String filePath=json.get("source_document_path_local").toString();
+			String filePath="";
 			
 			String din="1";
 			
@@ -78,7 +79,7 @@ public class Hethi_ServiceInterfacePackage implements Hethi_SeviceInterface {
 	        ipost.setSource_document_path_local( filePath);
 	        
 
-	        
+	        System.out.println("\n ipost data : " + ipost.toString());
 	     
 	       org.springframework.messaging.Message   <String> messageData= MessageBuilder.withPayload( ipost.toString())
               .setHeader("NextQue",current_channel)

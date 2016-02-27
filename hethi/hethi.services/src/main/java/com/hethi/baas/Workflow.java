@@ -37,6 +37,8 @@ public class Workflow {
 		 System.out.println(log);
 		 System.out.println(""+SEPARATOR);
 		 System.out.println(" \n ");
+		 System.out.println(messageContent);
+		 System.out.println(""+SEPARATOR);
 		 System.out.println(" \n ");
 		 
 		    iPost ipost=new iPost(data);
