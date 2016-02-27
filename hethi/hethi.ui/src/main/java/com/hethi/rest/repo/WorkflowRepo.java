@@ -426,6 +426,7 @@ public class WorkflowRepo {
 				// System.out.println(fileNames.get(index).toString() + " is the
 				// table name");
 				String className = "com.hethi.rest.model." + fileNames1.get(index11).toString();
+				System.out.println("className table  ====> "+className);
 				Object classObj = Class.forName(className).newInstance();
 				Object classNewObj = null;
 				int flag = 0;
@@ -477,11 +478,14 @@ public class WorkflowRepo {
 
 			for (int index = 0; index < linitem_json_rootObj.size(); index++) {
 				JSONArray jsonObjarray = (JSONArray) linitem_json_rootObj.get(index);
+				System.out.println("linitem_json_rootObj=====<<<<<> 1 "+index +" "+ linitem_json_rootObj.toString());
 
 				for (int index1 = 0; index1 < jsonObjarray.size() - 1; index1++) {
-					lineitemString1 = new HashMap<String, String>();
+					//lineitemString1 = new HashMap<String, String>();
 					JSONObject jsonObj1 = (JSONObject) jsonObjarray.get(index1);
 
+					System.out.println("jsonObj1=====<<<<<> 1 "+index +" "+ jsonObj1.toString());
+					
 					lineitemString = WorkflowRepo.parse(jsonObj1, lineitemString);
 					System.out.println("return value===" + lineitemString);
 					Set keys = lineitemString.keySet();
@@ -492,19 +496,22 @@ public class WorkflowRepo {
 						lineitemString1.put(key, value);
 
 					}
+					
 
 				}
 
 				String outputJsonlineitem = gson.toJson(lineitemString1);
 				JSONObject lineobj = (JSONObject) new JSONParser().parse(outputJsonlineitem);
-				System.out.println("final jsonlineitem string ==>" + lineobj.toString());
+				System.out.println("final jsonlineitem string ==>" +index +" " + lineobj.toString());
 
 				ArrayList<String> fileNames = fileObject.listFilesToInsert(lineobj.get("efs_uin").toString());
-				int index1 = 0;
-				System.out.println("fileNames size  ==> " + fileNames);
+				String lineitemname = "ixsd_"+lineitemclsname+"_lineitem";
+				System.out.println("fileNames name  ==> " + lineitemname);
+				System.out.println("Chech if condision ===>"+fileNames.get(1));
 
-				while (index1 < fileNames.size()) {					
-					String className = "com.hethi.rest.model." + fileNames1.get(index11).toString();
+				if(lineitemname.equalsIgnoreCase(fileNames.get(1)) ) {					
+					String className = "com.hethi.rest.model." + lineitemname;
+					System.out.println("className line item  ====> "+className);
 					Object classObj = Class.forName(className).newInstance();
 					Object classNewObj = null;
 					int flag = 0;
@@ -543,7 +550,7 @@ public class WorkflowRepo {
 					tempSession.getTransaction().commit();
 					tempSession.close();
 
-					index11++;
+					
 				}
 
 			}

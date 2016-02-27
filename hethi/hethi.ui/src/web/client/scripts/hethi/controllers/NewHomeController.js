@@ -45,7 +45,10 @@ hethi.controller('NewHomeController', ['$http','$scope','$location','$rootScope'
     $scope.oneAtATime = true;
     $rootScope.megaFixed=true;
 $rootScope.hideMegaMenu=function(){
+
   $rootScope.megaFixed=false;
+
+    $rootScope.navcolor='';
     $scope.BpaaSActive="";
     $scope.SimplifiedActive="";
 };
@@ -125,7 +128,7 @@ $rootScope.hideMegaMenu=function(){
         }, 1000);
         $rootScope.megaFixed=true;
         //$('html,body').animate({scrollTop:$("#section3").offset().top},900);
-
+        $rootScope.navcolor='topnavcolor';
 
         $scope.BpaaSActive="";
 
@@ -145,6 +148,7 @@ $rootScope.hideMegaMenu=function(){
         $('html, body').animate({
             scrollTop: $("#section1").offset().top -150
         }, 1000);
+        $rootScope.navcolor='topnavcolor';
         $rootScope.megaFixed=true;
         $scope.BpaaSActive="active";
 
@@ -328,16 +332,12 @@ $rootScope.hideMegaMenu=function(){
 
         $scope.items=[
             {
-                name:"BpaaS_service",description:"BpaaS_service_description_short",image:"images/industry/retail.jpg"
+                name:"services & delivery",description:"BpaaS_service_description_short",image:"images/industry/retail.jpg"
             },
             {
-                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/manufacturing.jpg"
+                name:"platform as a service",description:"BpaaS_PO_service_description_short",image:"images/industry/manufacturing.jpg"
             }, {
-                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/healthcare.jpg"
-            }, {
-                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/onlineBanking.jpg"
-            }, {
-                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/lifeInsurance.jpg"
+                name:"infrastructure as a service",description:"BpaaS_PO_service_description_short",image:"images/industry/healthcare.jpg"
             }
         ];
         $scope.BpaaS_service_industry_list=[
@@ -831,23 +831,35 @@ $rootScope.getRfiForm=function(){
 
     .controller('FreeController', ['$http','$scope','$location','$rootScope','$route','logger', function ($http,$scope,$location,$rootScope,$route,logger){
 
-        $scope.items=[
+
+        $scope.isExistingCustomer=false;
+        $scope.existingCustomerMenu=[
             {
-                name:"BpaaS_service",description:"BpaaS_service_description_short",image:"images/industry/retail.jpg"
+                id:1,
+                name:"my BPaaS",
+                description:"Load your forms, uploaded,upload form  ,download cloudplug  ",image:"images/industry/retail.jpg",
+                sub_menu:[
+                    {
+                        id:1.1,
+                        name:"Download cloudplug",
+                        description:"Load your forms, uploaded,upload form  ,download cloudplug  ",image:"images/industry/retail.jpg"
+                    },
+                    {
+                        id:1.2, name:"Try more forms / EDI ",description:"try  new forms,",image:"images/industry/POInventory.jpg"
+                    }
+                    ]
             },
             {
-                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/manufacturing.jpg"
-            }, {
-                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/healthcare.jpg"
-            }, {
-                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/onlineBanking.jpg"
-            }, {
-                name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/lifeInsurance.jpg"
+                id:2, name:"Try more forms / EDI ",description:"try  new forms,",image:"images/industry/POInventory.jpg"
+            },
+            {
+                id:3, name:"find a business partner ",description:"find new  business partner  ",image:"images/ui/DentalPatientforms.jpg"
             }
         ];
         $scope.BpaaS_service_industry_list=[
             {indus_service:"retail",fa:"fa-shopping-cart"},{indus_service:"manufacturing",fa:"fa-building"},{indus_service:"health care",fa:"fa-medkit"},{indus_service:"banking",fa:"fa-bank"}
         ];
+
 
         $scope.pageClass = 'page-about';
         //$scope.hideSliderclass1='slider_1_class';
@@ -944,6 +956,41 @@ $rootScope.getRfiForm=function(){
             }
         });
 
+        $scope.load_customer_uploaded_forms=function(){
+
+            $http({
+                method: 'POST',
+                url: $rootScope.spring_rest_service+'/load_customer_uploaded_forms',
+                dataType:'jsonp',
+                data: $rootScope.loginedUserData
+
+            }).success(function(data){
+                if($rootScope.isSigned){
+                    $scope.customer_uploaded_list=data[2];
+                    $scope.customer_uploaded_list.forEach(function(row){
+                        row.files=[];
+                        data[3].forEach(function(r){
+                            if(r.upload_id==row.upload_id){
+                                row.files.push(r);
+                            }
+
+                        });
+                    });
+
+
+                }
+                else
+                {
+                    logger.logError('no previous uploads for this customer ');
+                    $scope.customer_uploaded_list=false;
+                }
+            })
+
+        };
+
+
+        $scope.load_customer_uploaded_forms();
+
 
         $scope.class = "center_div";
         $scope.slider="freeSlider";
@@ -979,6 +1026,9 @@ $rootScope.getRfiForm=function(){
             //$scope.mainslider = true;
 
 
+        };
+        $scope.setMainTab = function (data){
+            $scope.mainTab = data;
         };
         $scope.one = false;
 

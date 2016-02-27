@@ -217,6 +217,11 @@ ul.topics li a:focus i {
     -o-transition: background-color .4s ease-in-out;
     transition: background-color .4s ease-in-out
 }
+.topics-active{
+    color: #8792a4 !important;
+    background: #e1e1e1 !important;
+    border-radius: 50%;
+}
 
 .page-header-item {
     padding-bottom: 0;

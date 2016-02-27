@@ -1,0 +1,165 @@
+<div id="ruleModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg" >
+        <div class="modal-content">
+            <div>
+                <div class="modal-header">
+                    <span class="fa fa-close ash-c pull-right mouse_point" data-dismiss="modal" aria-hidden="true"></span>
+
+                    <h4 class="modal-title text-center">Rule Properties</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-body panel">
+                        <div class="page-header">
+                            <a class=" pull-right mouse_point text-small" data-ng-click="open_process_list=!open_process_list"> Change process</a>
+                            <h4 class="modal-title text-center">{{selected_workflow_process.text}}</h4>
+                        </div>
+                        <section >
+                            <form class="form-horizontal text-center form-validation" name="form_constraints" >
+                                <div class="row">
+
+                                    <div class="row margin-top-10" ng-show="open_process_list" >
+                                        <div class="col-md-4 ">
+                                            <label class="control-label">Select Process </label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select class="form-control" ng-model="selected_efs_uin" required="" ng-change="selected_process_changed()">
+                                                <option value=""> Select Process </option>
+                                                <optgroup ng-repeat="(key,value) in Process_grouped" label="{{key}}">
+                                                    <option  ng-repeat="item in value" value="{{item}}">{{item.hethi_subservicecode}} </option>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row margin-top-10" >
+                                        <form  data-ng-submit="">
+
+                                            <div class="col-md-4 ">
+                                                <label class="control-label"> Select State  </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control" ng-model="selected_state" name="select" required="">
+                                                    <option value=""> Select State</option>
+                                                    <option data-ng-repeat="state  in hethi_service_micro_process_status_list" value="{{state.status_id}}"> {{state.status_text}} </option>
+                                                </select>
+                                            </div>
+
+
+                                        </form>
+
+
+                                    </div>
+                                    <div class="row margin-top-10" >
+                                        <form  data-ng-submit="">
+
+                                            <div class="col-md-4 ">
+                                                <label class="control-label"> Select Execution Event   </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control" ng-model="selected_execution_event" name="select" required="">
+                                                    <option value=""> Select Execution Event </option>
+                                                    <option value="0"> Before  State</option>
+                                                    <option value="2"> On State</option>
+                                                    <option value="3"> After State</option>
+                                                </select>
+                                            </div>
+
+
+                                        </form>
+
+
+                                    </div>
+
+                                    <div class="row margin-top-10" >
+                                        <form  data-ng-submit="">
+
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Select Workset </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control" ng-model="selected_workset" name="select" required="">
+                                                    <option value=""> Select Workset</option>
+                                                    <option data-ng-repeat="ws in cruleworkset_list" value="{{ws.workset_id}}"> {{ws.workset_name}} </option>
+                                                </select>
+                                            </div>
+
+
+                                        </form>
+
+
+                                    </div>
+                                    <div class="row margin-top-10" >
+                                        <form  data-ng-submit="">
+
+                                            <div class="col-md-4 ">
+                                                <label class="control-label">Select Ruleset </label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-control" ng-model="selected_ruleset" name="select" required="">
+                                                    <option value=""> Select Ruleset</option>
+                                                    <option data-ng-repeat="rs in cruleset_list | filter:{'workset_id':selected_workset}" value="{{rs.cruleset_id}}"> {{rs.crulesset_name}} </option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-2 ">
+                                                <button class="btn btn-sm btn_hethi btn-success" type="submit" data-ng-click="addNewRuleForProcess(selected_ruleset)" > Save </button>
+                                            </div>
+
+                                        </form>
+
+
+                                    </div>
+
+
+
+
+
+                                    <div class="row margin-top-10" ng-show="rules_for_selected_process" >
+                                        <div class="col-md-12 ">
+                                            <h4> Available workset</h4>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered hethi_content_table">
+                                                    <thead style="background-color: rgba(255,175,194,0.20);">
+
+                                                    <tr class="text-center">
+                                                        <th class="text-center"> </th>
+                                                        <th class="text-center">#</th>
+                                                        <th class="text-center">workset_name</th>
+                                                        <th class="text-center">rule_name</th>
+                                                        <th class="text-center">rule_condition</th>
+                                                        <th class="text-center">rule_action</th>
+                                                    </tr>
+                                                    </thead>
+
+
+                                                    <tbody ng-repeat="rules in rules_for_selected_process">
+
+                                                    <tr>
+
+                                                        <td> <button type="button" class="btn btn-success " data-ng-click="deleteRuleForProcess(rules);"> <span class="fa fa-trash"></span></button> </td>
+                                                        <td>{{$index+1}}</td>
+                                                        <td>{{rules.workset_name}}</td>
+                                                        <td>{{rules.rule_name}}</td>
+                                                        <td>{{rules.rule_condition}}</td>
+                                                        <td>{{rules.rule_action}}</td>
+
+                                                    </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </section>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

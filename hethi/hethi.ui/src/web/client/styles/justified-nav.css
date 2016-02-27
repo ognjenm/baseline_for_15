@@ -127,8 +127,8 @@ html, body{
 }
 
 .snav-label-selected {
-    color: #005471 !important;
-    /*color: #44479A !important;*/
+    /*color: #005471 !important;*/
+    color: #fff !important;
 }
 
 .snav-label {
@@ -573,8 +573,8 @@ a:hover.back-to-top {
 
 /*---top-nav----*/
 .top-nav{
-    background-color: #224361;
-
+    /*background-color: #224361;*/
+    background-color: rgba(0, 0, 0, 0.37);
     /*background-color: rgba(0, 28, 51, 0.39);*/
 
   /*background-color: rgba(2, 22, 39, 0.32);*/
@@ -753,5 +753,7 @@ span.glyphicon.glyphicon-camera{
     color: #999;
     line-height: 1.8em;
 }
-
+.topnavcolor{
+    background-color: #224361 !important;
+}
 

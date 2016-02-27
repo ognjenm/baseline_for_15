@@ -1,0 +1,118 @@
+<mxsd>
+	<efsuin_demography>
+		<type> </type>
+		<efsuin>  </efsuin>
+		<industry>  </industry>
+		<bpaas>  </bpaas>
+		<formtype> </formtype>
+		<totalpages> </totalpages>
+		<formowner> </formowner>
+		<version> </version>
+		<createddatatime> </createddatatime>
+		<author> </author>
+		<ixsdlocation> </ixsdlocation>
+		<ixsdversion> </ixsdversion>
+	</efsuin_demography>
+	<efsuin_snippet>
+		<segment>
+			<name> </name>
+			<position>
+				<top> </top>
+				<left> </left>
+				<width> </width>
+				<height> </height>
+			</position>
+		</segment>
+	</efsuin_snippet>
+	<efsuin_form>
+		<page pageno="1">
+			<header>
+				<group name="header">
+					<field>
+
+					</field>
+				</group>
+			</header>
+			<footer>
+				<group  name="summary">
+					<field>
+
+					</field>
+				</group>
+			</footer>
+			<body>
+				<group  name="lineitem">
+					<field>
+
+					</field>
+					<fieldlist>
+						<field>
+
+						</field>
+					</fieldlist>
+				</group>
+			</body>
+		</page>
+		<page pageno="2">
+			<header>
+				<group name="header">
+					<field>
+
+					</field>
+				</group>
+			</header>
+			<footer>
+				<group  name="summary">
+					<field>
+
+					</field>
+				</group>
+			</footer>
+			<body>
+				<group  name="lineitem">
+					<field>
+
+					</field>
+					<fieldlist>
+						<field>
+
+						</field>
+					</fieldlist>
+				</group>
+			</body>
+		</page>
+		<page pageno="3">
+			<header>
+				<group name="header">
+					<field>
+
+					</field>
+				</group>
+			</header>
+			<footer>
+				<group  name="summary">
+					<field>
+
+					</field>
+				</group>
+			</footer>
+			<body>
+				<group  name="lineitem">
+					<field>
+
+					</field>
+					<fieldlist>
+						<field>
+
+						</field>
+					</fieldlist>
+				</group>
+			</body>
+		</page>
+	</efsuin_form>
+	<efsuin_classify>
+
+	</efsuin_classify>
+</mxsd>
+
+

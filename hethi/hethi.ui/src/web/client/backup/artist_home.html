@@ -1,0 +1,2032 @@
+<div data-ng-controller="hethi_artist_home_Controller">
+
+
+    <div class="" data-ng-switch="hethi_artist_home">
+
+
+        <div class="" data-ng-switch-default="">
+            <!--<select ng-model="one">-->
+            <!--<option value="1">One</option>-->
+            <!--<option value="1">One</option>-->
+            <!--<option value="1">One</option>-->
+            <!--<option value="1">One</option>-->
+            <!--</select>-->
+
+            <div class="counter_head">
+                <div class="row">
+                    <div class="col-md-12">
+                        Extract <span class="pull-right"><a href="/" data-ng-click="selectClientTab('dashboard')" class="btn_hethi btn-danger" type="button">Close</a> </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="input-group">
+                        <input type = "text" class = "form-control input-round" ng-model="sVal" placeholder="Search Customer Name, BPS, Industry" typeahead="user as user.customer_name + ' ('+user.form_type +',' +user.indus_service +','+ user.BPaaS_service + ')'    for user in hethi_artist_task_list|filter:$viewValue" />
+                    <span class="input-group-btn">
+                        <button data-ng-click="startFormPlay(sVal)"class="btn btn-default"  style="border-top-right-radius: 48%;border-bottom-right-radius: 48%" type="button"><span class="fa fa-search"></span></button>
+                    </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="divider-md"></div>
+
+            <div class="table-dynamic">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                        <thead style="background-color: #000000;color: #ffffff">
+                        <tr>
+                            <th class="text-center">
+                                <div class="thSn">
+                                    #
+                                </div>
+                            </th>
+
+                            <th style="width:300px" >
+                                <div class="th">
+                                    Customer
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th">
+                                    Business
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th">
+                                    Industry
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th">
+                                    Type
+                                </div>
+                            </th>
+                            <th>
+                                <div class="th">
+                                    Date Assigned
+                                </div>
+                            </th>
+                            <th class="text-center">
+                                <div class="th">
+                                    #
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-click="selectbps($index);" ng-repeat="row in currentPageStoresIndexer">
+                            <td class="text-center">{{$index+1}}</td>
+                            <td>{{row.customer_name}}</td>
+                            <td>{{row.BPaaS_service}} 	</td>
+                            <td>{{row.indus_service}}</td>
+                            <td>{{row.form_type}}</td>
+                            <td>{{row.assigneddtm}}</td>
+                            <td class="text-center">
+                                <a data-ng-click="startFormPlay(row)"><button class="btn_hethi btn-info fa fa-play" type="button">&nbsp;Start</button></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <footer ng-show="currentPageStoresIndexer" class="table-footer">
+                    <div class="row">
+                        <div class="col-md-6 page-num-info">
+                             <span>
+                                 <!--data-ng-options="num for num in numPerPageOptIndexer"-->
+                                 Show
+                        <select data-ng-model="numPerPageIndexer"
+                                data-ng-options="num for num in numPerPageOptIndexer"
+                                data-ng-change="onNumPerPageChangeIndexer(numPerPageIndexer)">
+                            <!--<option ng-repeat="num in numPerPageOptIndexer" value="{{num.no}}">{{num.no}}</option>-->
+                        </select>
+                        entries per page
+                    </span>
+                        </div>
+                        <div class="col-md-6 text-right pagination-container">
+                            <pagination class="pagination-sm"
+                                        page="currentPageIndexer"
+                                        total-items="filteredStoresIndexer.length"
+                                        max-size="4"
+                                        ng-click="selectIndexer(currentPageIndexer)"
+                                        items-per-page="numPerPageIndexer"
+                                        rotate="false"
+                                        boundary-links="true"></pagination>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+
+
+        </div>
+
+
+        <div class="" data-ng-switch-when="viewServices">
+            <div class="">
+                <div class="container_box">
+
+
+                    <div class="row">
+                        <!--<div class="col-md-2">-->
+                        <!--<h1>-->
+
+                        <!--{{selectedCustomer.customer_name}}-->
+
+                        <!--</h1>-->
+                        <!--</div>-->
+                        <div class="col-md-12">
+                            <div class="font_25" style="color: #c7254e">{{artist_job_container.customer_name |uppercase}}</div>
+                            <div class="font_14_grey">Service : {{artist_job_container.BPaaS_service}}</div>
+                            <div class="font_14_grey">Industry : {{artist_job_container.indus_service}}</div>
+                            <div class="font_14_grey">Form : {{artist_job_container.form_type}}</div>
+                        </div>
+                    </div>
+
+                    <!-- / end client details section -->
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-4" ng-show="artist_job_container.serviceplays | filter:{'master_service':'capture'} ">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                                    <thead style="background-color: #cbcbcb;color: #020202">
+                                    <tr style="background-color: #000000;color: #ffffff">
+                                        <th colspan="5">
+                                            <div class="text-center">
+                                                <p>Capture</p>
+                                        <span class="text-small ">
+                                            (define form factory/electronic interface)
+                                        </span>
+                                            </div>
+                                        </th>
+                                    </tr>
+
+                                    <tr ng-repeat="user in artist_job_container.serviceplays | filter:{'master_service':'capture'} ">
+
+                                        <th>
+                                            <div class="th">
+                                                {{user.serviceplay_decription_short}}
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="th text-center">
+                                                <span class="fa fa fa-check"></span>
+                                            </div>
+                                        </th>
+
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4" ng-show="artist_job_container.serviceplays | filter:{'master_service':'manage'} ">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                                    <thead style="background-color: #cbcbcb;color: #020202">
+                                    <tr style="background-color: #000000;color: #ffffff">
+                                        <th colspan="5">
+                                            <div class="text-center">
+                                                <p>Manage</p>
+                                        <span class="text-small ">
+                                             (workflow orchestration)
+                                        </span>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr ng-repeat="user in artist_job_container.serviceplays | filter:{'master_service':'manage'}">
+
+                                        <th>
+                                            <div class="th">
+                                                {{user.serviceplay_decription_short}}
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="th text-center">
+                                                <span class="fa fa fa-check"></span>
+                                            </div>
+                                        </th>
+
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4" ng-show="artist_job_container.serviceplays | filter:{'master_service':'deliver'} ">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                                    <thead style="background-color: #cbcbcb;color: #020202">
+                                    <tr style="background-color: #000000;color: #ffffff">
+                                        <th colspan="5">
+                                            <div class="text-center">
+                                                <p>Deliver</p>
+                                        <span class="text-small ">
+                                             (define industry or proprietary outcome)
+                                        </span>
+                                            </div>
+                                        </th>
+
+                                    </tr>
+                                    <tr ng-repeat="user in artist_job_container.serviceplays | filter:{'master_service':'deliver'}">
+
+                                        <th>
+                                            <div class="th">
+                                                {{user.serviceplay_decription_short}}
+
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="th text-center">
+                                                <span class="fa fa fa-check"></span>
+                                            </div>
+                                        </th>
+
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4" ng-show="artist_job_container.serviceplays | filter:{'master_service':'integrate'} ">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                                    <thead style="background-color: #cbcbcb;color: #020202">
+                                    <tr style="background-color: #000000;color: #ffffff">
+                                        <th colspan="5">
+                                            <div class="text-center">
+                                                <p>Integrate</p>
+                                        <span class="text-small ">
+                                             (define output integration services)
+                                        </span>
+                                            </div>
+                                        </th>
+
+                                    </tr>
+                                    <tr ng-repeat="user in artist_job_container.serviceplays | filter:{'master_service':'integrate'}">
+
+                                        <th>
+                                            <div class="th">
+                                                {{user.serviceplay_decription_short}}
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="th text-center">
+                                                <span class="fa fa fa-check"></span>
+                                            </div>
+                                        </th>
+
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="divider-md"></div>
+
+                    <div class="row">
+                        <div class="col-md-12" >
+                            <div class="pull-right">
+                                <button class="btn_hethi-lg btn-success btn-block fa fa-play" type="button" data-ng-click="formPlay_1(artist_job_container)"> Proceed </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider-md"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Wizard I Starts Here-->
+
+        <div class="" data-ng-switch-when="viewForms">
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    $(window).scrollTop(0);
+                    return false;
+
+                });
+            </script>
+            <div class="container_box">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="font_25" style="color: #c7254e">{{artist_job_container.customer_name |uppercase}}</div>
+                        <div class="font_14_grey">Service : {{artist_job_container.BPaaS_service}}</div>
+                        <div class="font_14_grey">Industry : {{artist_job_container.indus_service}}</div>
+                        <div class="font_14_grey">Form : {{artist_job_container.form_type}}</div>
+                    </div>
+                </div>
+
+                <!-- / end client details section -->
+                <div data-ng-include="'wizard.html'">
+
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="wizard_head-1"></div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-2 col-sm-3 col-xs-6" >
+                        <div class="bg_txt margin-bottom-25" >
+                            <div class="row" >
+                                <div class="col-md-12 text-center" style="padding-bottom: 20px">
+                                    <span class="h3 text-danger"><i class="fa fa-list"></i> Form List</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" >
+
+                            <div style="overflow-y: scroll;height: 400px;padding-top: 5px">
+                                <div class="col-md-12" ng-repeat="user in artist_job_container.uploaded_files">
+                                    <div class="img_container">
+                                        <a href="" data-ng-click="selectImportedForm(user)" >
+                                            <img class="thumbnail img-responsive img-center" style="height: 160px" src="{{user.file_location}}">
+                                        </a>
+                                        <div class="caption text-center" ng-class="user.class ? 'tile_active':'tile'" >
+                                            <a href="" data-ng-click="selectImportedForm(user)">
+                                                <h5>{{user.form_type}}</h5>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7" style="border-left: 2px solid #dcdcdc">
+
+                        <div class="bg_txt margin-bottom-25" >
+                            <div class="row ">
+                                <div class="col-md-12 text-center" style="padding-bottom: 20px">
+                                    <span class="h3 text-primary" > Selected Form</span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div style="height:400px; overflow-y: scroll">
+                                <div class="col-md-12">
+
+                                    <img src="{{artist_job_container.selectedForm.file_location}}" class="img-responsive" height="600" >
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stencil_form_select">
+                            <div class="row text-center margin-bottom-10">
+                                <div class="col-md-12">
+                                    <span class="h3 text-primary">Classify Form Type</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!--<label class="control-label">Select Form</label>-->
+                                    <select  class="form-control input-round" ng-model="searchVal" ng-options="user as  user.form_type  for user in hethi_efs_forms">
+                                        <option  value="">select form</option>
+                                    </select>
+                                    <div class="divider"></div>
+                                    <div class="form-group">
+                                        <button type="button" class="form-control btn_hethi btn_hethi-round btn-danger" data-ng-click="setFormToUploads(searchVal)">Save</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--<div class="row">-->
+                        <!--<div class="col-md-12">-->
+                        <!--<div style="border-top: 1px solid #d3d3d3;padding-top: 7px">-->
+                        <!--<div class="text-center">-->
+
+                        <!--<button class="btn_hethi-lg btn-success btn-block fa fa-tasks " id="gotoButton" type="button" data-ng-click="formPlay_2(artist_job_container)"> Classify Bundle </button>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+
+                        <!--</div>-->
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                    <span class="pull-left">
+                        <button type="button" class="btn_hethi btn-w-md btn-info" data-ng-click="setTab('noV')">
+                            <span class="fa fa-backward">  </span>
+                            &nbsp;Previous
+                        </button>
+                        <!--<a href="#">-->
+                            <!--<span style="font-size: 40px" class="fa fa-arrow-circle-o-left mouse_point" data-ng-click="setTab('noV')"></span>-->
+                        <!--</a>-->
+                    </span>
+                   <span class="pull-right">
+                        <button type="button" class="btn_hethi btn-w-md btn-info" data-ng-click="formPlay_4(artist_job_container)">
+                            Next&nbsp; <span class="fa fa-forward">  </span>
+
+                        </button>
+                        <!--<a href="#"> <span style="font-size: 40px" class="fa fa-arrow-circle-o-right mouse_point" data-ng-click="formPlay_2(artist_job_container)"></span> </a>-->
+                   </span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--Wizard 2 Starts Here-->
+        <div class="" data-ng-switch-when="viewBundle">
+            <div class="container_box">
+                <div data-ng-include="'wizard.html'">
+
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="wizard_head-2"></div>
+                </div>
+
+
+                <div class="row simpleDemo">
+
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div ng-repeat="(listname,list) in models.lists" class="col-md-6">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 ng-if="listname=='A'" class="panel-title">Uploaded Forms</h3>
+                                        <h3 ng-if="listname=='B'" class="panel-title">Custom Form Bundle</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <!-- The dnd-list directive allows to drop elements into it.
+                     The dropped data will be added to the referenced list -->
+                                        <ul dnd-list="list">
+                                            <!-- The dnd-draggable directive makes an element draggable and will
+                                                 transfer the object that was assigned to it. If an element was
+                                                 dragged away, you have to remove it from the original list
+                                                 yourself using the dnd-moved attribute -->
+                                            <li ng-repeat="item in list"
+                                                dnd-draggable="item"
+                                                dnd-moved="list.splice($index, 1)"
+                                                dnd-effect-allowed="move"
+                                                dnd-selected="models.selected = item"
+                                                ng-class="{'selected': models.selected === item}"
+                                                    >
+                                                {{item.form_type}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="col-md-3">-->
+                    <!--<div class="stencil_form_select">-->
+                    <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                    <!--&lt;!&ndash;<label class="control-label">Select Form</label>&ndash;&gt;-->
+                    <!--<select class="form-control input-round ng-pristine ng-valid" ng-model="searchVal" ng-options="user as  user.form_type + ' (' +user.indus_service +','+ user.BpaaS_service + ')'   for user in hethi_efs_list"><option value="" class="">select form</option><option value="0">PO-Inventory (Retail,invoice process to pay)</option><option value="1">PO-Expense (Healthcare,invoice process to pay)</option><option value="2">NPO (Banking,invoice process to pay)</option><option value="3">NPO-Travel &amp; Expenses (Insurance,invoice process to pay)</option><option value="4">PO-Expense (Retail,invoice process to pay)</option><option value="5">NPO-Claim &amp; Reimbursements (Manufacturing,Claims process to pay)</option><option value="6">NPO-Utility Bills (Retail,Claims process to pay)</option><option value="7">NPO-Check Request (Banking,Claims process to pay)</option><option value="8">ANSI-810 (Telecom,loans to classify)</option><option value="9">HCFA/HICF-Single (Manufacturing,loans to classify)</option><option value="10">HCFA/HICF-Multi (Retail,loans to classify)</option><option value="11">UB/UB04-Single (Telecom,content to epub)</option><option value="12">UB/UB04-Multi (Banking,content to epub)</option><option value="13">Superbills-NonStandard Professional Bills (Insurance,enroll topay)</option><option value="14">Superbills-NonStandard Facility Bills (Manufacturing,enroll topay)</option></select>-->
+                    <!--<div class="divider"></div>-->
+                    <!--<div class="form-group">-->
+                    <!--<button type="button" class="form-control btn_hethi btn_hethi-round btn-danger" data-ng-click="setFormToUploads(searchVal)">Save</button>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                    <!--<div style="border-top: 1px solid #d3d3d3;padding-top: 7px">-->
+                    <!--<div class="text-center">-->
+                    <!--<button class="btn_hethi-lg btn-success btn-block fa fa-tasks " type="button" data-ng-click="formPlay_3(artist_job_container)"> Index Form Type </button>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <!--</div>-->
+
+                    <!--</div>-->
+                    <!--</div>-->
+
+                </div>
+                <!--haseeb-->
+                <div class="classify_bundle_select">
+                    <div class="row">
+
+                        <div class="col-md-11">
+                            <select class="form-control input-round ng-pristine ng-valid"
+                                    ng-model="searchVal" ng-options="user as  user.bundle_name  for user in hethi_bundle_type">
+                                <option value="" class="">select form bundle</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="form-control btn_hethi btn_hethi-round btn-danger" data-ng-click="setFormBundleToUploads(searchVal);">Save</button>
+                        </div>
+
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                    <span class="pull-left">
+                        <button type="button" class="btn_hethi btn-w-md btn-info" data-ng-click="formPlay_1(artist_job_container)">
+                            <span class="fa fa-backward">  </span>
+                            &nbsp;Previous
+                        </button>
+                    </span>
+                   <span class="pull-right">
+                        <button type="button" class="btn_hethi btn-w-md btn-info" data-ng-click="formPlay_3(artist_job_container)">
+                            Next&nbsp; <span class="fa fa-forward">  </span>
+                        </button>
+                   </span>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="" data-ng-switch-when="createMetaForm">
+            <div class="container_box">
+                <div data-ng-include="'wizard.html'">
+
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="wizard_head-3"></div>
+                </div>
+                <div class="bg_txt margin-bottom-25" >
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" data-ng-submit="assignFormToMetadata(selectedForm)">
+                                <div class="form-group form-group">
+                                    <label class="col-sm-2 control-label">Select a form bundle</label>
+                                    <div class="col-sm-3">
+                                        <select ng-change="selectBundleForms(bundlename)" ng-options="bundle as bundle.bundle_name for bundle in selectedFormBundle"  ng-model="bundlename" class="form-control  ng-pristine ng-valid">
+                                            <option value="">Select a bundle</option>
+                                            <!--<option ng-repeat="bundle in selectedFormBundle" value="{{bundle.tfs_uin}}">{{//bundl.bundle_name}}</option>-->
+                                        </select>
+                                    </div>
+                                    <label class="col-sm-2 control-label">Select a form </label>
+                                    <div class="col-sm-3">
+                                        <select ng-options="forms as forms.form for forms in bundleformList"  ng-model="selectedForm" class="form-control  ng-pristine ng-valid">
+                                            <option value="">Select form</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" class="btn_hethi btn_hethi-sm btn-success">&nbsp;&nbsp;Go&nbsp;&nbsp;</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div  class="col-md-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Hethi Form Data </h3>
+                            </div>
+                            <div class="panel-body" style="height: 275px; width: auto; overflow-y: auto">
+                                <!--<div class="" ng-slimscroll style="height: 275px; width: auto;">-->
+
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <ul class="breadcrumb">
+                                            <li ng-repeat="node in selectedNodeCrumb" ng-class="{ active: $last }">{{ node }}</li>
+                                        </ul>
+                                        <div ng-init="loadMasterFormStart()">
+                                            <script type="text/ng-template"  id="tree_item_renderer2.html">
+
+                                                <span ng-switch="isItratable(value)" class="thanksMsg mouse_point">
+                                            <span ng-switch-when="true">
+                                            <span    class="text-14  font_b " ng-click="folderSelected(key,value,$parent)" >
+                                            <span  >
+                                            <span ng-hide="value.show" class="fa fa-folder fa-lg">  </span>
+                                            <span ng-show="value.show" class="fa fa-folder-open fa-lg"> </span>
+                                            </span>
+                                            {{key}}
+                                            </span>
+                                            </span>
+                                            <span ng-switch-when="false">
+                                            <!--label label-info-->
+                                            <span data-ng-click="fileSelected(key,value,$parent)"
+                                                  dnd-draggable="copyItem(key,{'{{key}}':value});"
+                                                  dnd-effect-allowed="copy">
+                                            <span  class="fa fa-file-image-o " > {{key}}  </span>
+                                            <span ng-show="value.added"  class="fa color-green fa- fa-check-circle" ></span>
+
+
+                                            </span>
+                                            </span>
+                                            </span>
+
+
+
+                                                <!--<ul data-ng-show="isItratable(value)" ng-repeat="(key,value) in value"  >-->
+                                                <!--<li data-ng-show="isItratable(value)" ng-include="'tree_item_renderer.html'" ></li>-->
+                                                <!--&lt;!&ndash;ng-include="'tree_item_renderer.html'"&ndash;&gt;-->
+                                                <!--</ul>-->
+                                                <span ng-switch="value.show">
+                                            <span ng-switch-when="true">
+                                            <ul style="list-style: none" >
+                                                <!--dnd-moved="value.splice($index, 1)"-->
+                                                <li  ng-if="key!='show'" ng-repeat="(key,value) in value"
+                                                     ng-include="'tree_item_renderer2.html'"></li>
+                                            </ul>
+                                            </span>
+                                            </span>
+
+                                            </script>
+                                            <!--<collection collection='masterFormFields' drag="true" options="selectedNodeCrumb"></collection>-->
+
+                                            <ul style="list-style: none" class="treeview">
+                                                <!--dnd-moved="masterFormFields.splice($index, 1)"-->
+                                                <li ng-if="key!='show'" ng-repeat="(key,value) in masterFormFields"
+                                                    ng-include="'tree_item_renderer2.html'"></li>
+                                                <!--dnd-copied="item.id = item.id + 1"-->
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                    <!--<div class="col-md-12" ng-init="loadMasterFormStart()">-->
+                                    <!---->
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="col-md-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Custom Form Data </h3>
+                            </div>
+                            <script type="text/ng-template"  id="tree_item_renderer1.html">
+
+
+                                <span ng-switch="isItratable(value)" class="thanksMsg mouse_point">
+
+                                            <span ng-switch-when="true">
+                                            <span class="text-14  font_b " ng-click="folderSelected1(key,value,$parent)" >
+                                            <span  >
+                                            <span ng-hide="value.show" class="fa fa-folder fa-lg">  </span>
+                                            <span ng-show="value.show" class="fa fa-folder-open fa-lg"> </span>
+                                            </span>
+                                                <!--<span ng-if="isNumber(key)">-->
+                                                    <span ng-if="!isUndefined(value.ixsdfieldname)" ng-mouseover="close=true" ng-mouseleave="close=false">
+                                                        <span class="">{{value.ixsdfieldname}}</span>
+                                                        <span  ng-if="close" data-ng-click="deleteFieldNode(key,value,$parent);" class="fa fa-close" style="color: red"></span>
+                                                    </span>
+                                                    <span ng-if="isUndefined(value.ixsdfieldname)">{{key}}</span>
+                                                <!--</span>-->
+                                                <!--<span ng-if="!isNumber(key)">{{key}}</span>-->
+                                            </span>
+                                            </span>
+                                            <span ng-switch-when="false">
+                                            <!--label label-info-->
+                                            <span data-ng-click="fileSelected1(key,value,$parent)" >
+                                            <span class="fa fa-file-image-o " > {{key}}  </span>
+                                            <span ng-show="value.added"  class="fa color-green fa- fa-check-circle" ></span>
+
+
+                                            </span>
+                                            </span>
+                                            </span>
+
+
+
+
+                                <!--<ul data-ng-show="isItratable(value)" ng-repeat="(key,value) in value"  >-->
+                                <!--<li data-ng-show="isItratable(value)" ng-include="'tree_item_renderer.html'" ></li>-->
+                                <!--&lt;!&ndash;ng-include="'tree_item_renderer.html'"&ndash;&gt;-->
+                                <!--</ul>-->
+                                <span ng-switch="value.show">
+                                            <span ng-switch-when="true">
+                                                <!--<span ng-if="isObject(value)">-->
+                                            <ul style="list-style: none" dnd-list="child" ng-init="child=value">
+                                                <!--dnd-moved="value.splice($index, 1)"-->
+                                                <!--dnd-draggable="child[key]"-->
+                                                <!--dnd-moved="child.splice($index, 1);"-->
+                                                <!--dnd-effect-allowed="move"-->
+                                                <!--dnd-selected="models.selected = child[key]"-->
+                                                <!--ng-class="{'selected': models.selected === child[key]}"-->
+                                                <li  ng-if="key!='show'" ng-repeat="key in keys(child)"
+                                                     ng-init="value=child[key]"
+
+                                                     ng-include="'tree_item_renderer1.html'"></li>
+                                                <!--value.length==0-->
+                                                <li ng-if="key=='field'"
+                                                    ng-init="value=child[key]"
+                                                    dnd-draggable="child[key]"
+                                                    dnd-moved="child.splice($index, 1)"
+                                                    dnd-effect-allowed="move"
+                                                    dnd-selected="models.selected = child[key]"
+                                                    ng-class="{'selected': models.selected === child[key]}">
+                                                    <span >
+                                                        <span class="fa fa-file-image-o " > drop Here  </span>
+                                                    </span>
+                                                </li>
+                                            </ul>
+
+
+                                                    <!--</span>-->
+                                                <!--<span ng-if="isArray(value)" ng-repeat="item in value">-->
+                                            <!--<ul style="list-style: none" dnd-list="child" ng-init="child=item">-->
+                                                <!--dnd-moved="value.splice($index, 1)"-->
+                                                <!--<li  ng-if="key!='show'" ng-repeat="(key,value) in child"-->
+                                                     <!--dnd-draggable="{'{{key}}':child[key]}"-->
+                                                     <!--dnd-moved="child.splice($index, 1)"-->
+                                                     <!--dnd-effect-allowed="move"-->
+                                                     <!--dnd-selected="models.selected = child[key]"-->
+                                                     <!--ng-class="{'selected': models.selected === child[key]}"-->
+                                                     <!--ng-include="'tree_item_renderer1.html'"></li>-->
+                                            <!--</ul>-->
+                                                    <!--</span>-->
+                                            </span>
+                                            </span>
+
+                            </script>
+                            <div class="panel-body" style="min-height: 275px; max-height: 275px;overflow-y: auto">
+                                <div class="col-md-12">
+                                    <ul class="breadcrumb">
+                                        <li ng-repeat="node in selectedNodeCrumb1" ng-class="{ active: $last }">{{ node }}</li>
+                                    </ul>
+                                </div>
+                                <ul style="list-style: none" class="treeview">
+                                    <!--dnd-moved="masterFormFields.splice($index, 1)"-->
+                                    <li ng-if="key!='show'" ng-repeat="key in keys(mxsd.efsuin)"
+                                        ng-init="value=mxsd.efsuin[key]"
+                                        ng-include="'tree_item_renderer1.html'"></li>
+                                </ul>
+                                <!--<ul dnd-list="mxsd">-->
+                                <!-- The dnd-draggable directive makes an element draggable and will
+                                     transfer the object that was assigned to it. If an element was
+                                     dragged away, you have to remove it from the original list
+                                     yourself using the dnd-moved attribute -->
+
+                                <!--<li ng-repeat="item in mxsd"-->
+                                <!--dnd-draggable="item"-->
+                                <!--dnd-moved="mxsd.splice($index, 1)"-->
+                                <!--dnd-effect-allowed="move"-->
+                                <!--dnd-selected="models.selected = item"-->
+                                <!--ng-class="{'selected': models.selected === item}">-->
+                                <!--{{item}}-->
+                                <!--</li>-->
+                                <!--</ul>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="row">-->
+                <!--<div class="col-md-12">-->
+                <!--<div class="text-center">-->
+                <!--<button type="button" class="btn_hethi btn-danger btn-w-md" data-ng-click="save_mxsd(artist_job_container)">save</button>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <div class="row">
+                    <div class="col-md-12">
+                    <span class="pull-left">
+                        <button type="button" class="btn_hethi  btn-w-md btn-info" data-ng-click="formPlay_2(artist_job_container)">
+                            <span class="fa fa-backward">  </span>
+                            &nbsp;Previous
+                        </button>
+                    </span>
+                   <span class="pull-right">
+                        <button type="button" class="btn_hethi btn-danger btn-w-md" data-ng-click="save_mxsd(artist_job_container)">Save</button>
+                        <button type="button" class="btn_hethi btn-w-md  btn-info" data-ng-click="formPlay_4(artist_job_container)">
+                            Next&nbsp; <span class="fa fa-forward">  </span>
+                        </button>
+                   </span>
+                        <!--<span class="pull-left">-->
+                        <!--<a href="#"> <span style="font-size: 40px" class="fa fa-arrow-circle-o-left mouse_point" data-ng-click="formPlay_2(artist_job_container)"></span> </a>-->
+                        <!--&lt;!&ndash;<button type="button" class="btn_hethi btn-w-md btn-warning" data-ng-click="formPlay_2(artist_job_container)">Back</button>&ndash;&gt;-->
+                        <!--</span>-->
+                        <!--<span class="pull-right">-->
+                        <!--<a href="#"> <span style="font-size: 40px" class="fa fa-arrow-circle-o-right mouse_point" data-ng-click="formPlay_4(artist_job_container)"></span> </a>-->
+
+                        <!--&lt;!&ndash;<button type="button" class="btn_hethi btn-info btn-w-md" data-ng-click="formPlay_4(artist_job_container)">Next</button>&ndash;&gt;-->
+                        <!--</span>-->
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="" data-ng-switch-when="viewStecil">
+            <div class="container_box">
+
+
+                <div data-ng-include="'wizard.html'">
+
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="wizard_head-4"></div>
+                </div>
+
+                <div class="">
+                    <div class="" ng-switch="ShowStencilCompleted">
+                        <div class="" ng-switch-when="false">
+                            <div class="" id="pc">
+                                <div class="bg_txt margin-bottom-25" >
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <form class="form-horizontal" data-ng-submit="setStencilingForm(selectedForm)">
+                                                <div class="form-group form-group">
+                                                    <label class="col-sm-2 control-label">Select a form</label>
+                                                    <div class="col-sm-7">
+
+                                                        <select class="form-control" ng-model="selectedForm" ng-options="efs_groups[key] as key for (key,val) in efs_groups" required="">
+                                                            <option value="">Select Form</option>
+                                                        </select>
+                                                        <!--<select class="form-control" ng-model="formBundle" ng-options="bundle as bundle.form_type for bundle in artist_job_container.uploaded_files" required="">-->
+                                                        <!--<option value="">Select Form Bundle</option>-->
+                                                        <!--</select>-->
+                                                    </div>
+                                                    <!--<div class="col-sm-4">-->
+                                                    <!--<select class="form-control"  ng-model="formSize" ng-options="size as size.size_name for size in selectedSizes" required="">-->
+                                                    <!--<option value="">Select Paper Size</option>-->
+                                                    <!--</select>-->
+                                                    <!--</div>-->
+                                                    <div class="col-sm-3">
+                                                        <button type="submit" class="btn_hethi btn_hethi-sm btn-success">&nbsp;&nbsp;Go&nbsp;&nbsp;</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!--<div class="row margin-bottom-25">-->
+                                <!--<div class="col-md-2"></div>-->
+                                <!--<div class="col-md-6" style="    border-bottom: 4px solid #D2D0D0; padding-bottom: 10px">-->
+                                <!--<div class="">-->
+                                <!--<button ng-if="key!='bundle_name'" ng-repeat="(key,val) in efs_groups " class="btn_hethi margin-right-5" ng-class="focusedFormType==efs_groups[key] ? 'tile_active':'tile'" data-ng-click="setStencilingForm(efs_groups[key])">-->
+                                <!--<span class="thanksMsg font_b" ><b> {{key}} </b></span>-->
+                                <!--</button>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-4"></div>-->
+                                <!--</div>-->
+
+                                <div class="row">
+
+                                    <div class="col-md-2">
+                                        <div class="row">
+                                            <div style="overflow-y: scroll;height: 400px;padding-top: 5px">
+                                                <div class="col-md-12 margin-bottom-10" ng-repeat="user in focusedFormType" >
+                                                    <a href="" data-ng-click="setStencilingPage(user)">
+                                                        <img class="thumbnail img-responsive img-center " style="height: 120px;" src="{{user.file_location}}"align="center">
+                                                    </a>
+                                                    <div class="caption text-center margin-top-10" ng-class="user.class ? 'tile_active':'tile'" >
+                                                        <a href="" data-ng-click="setStencilingPage(user)">
+                                                            <span class="thanksMsg" style="color: #000000"> Page {{$index+1}}/{{focusedFormType.length}} </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+
+
+                                        <div class="panel panel-dark">
+
+                                            <img src="{{stencilingPage.file_location}}"
+                                                 class=" "
+                                                 id="stencilingImage"
+                                                 alt="stenciling image not found"
+                                                 style="
+                                             width:600px ;height:850px;object-fit: fill ">
+
+                                            <!--width="{{formSize.width}}"-->
+                                            <!--height="{{formSize.Height}}"-->
+                                        </div>
+
+                                        <div id="JcropDiv" style="display: none;top:200px ">
+                                            <div style="padding: 10px 10px 10px; background-color: #fff;border: 1px solid transparent;border-radius: 0px;-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);box-shadow: 0 1px 1px rgba(0,0,0,.05);">
+                                                <!--<div class="col-md-12">-->
+                                                <form ng-if="!segment" style="width: 250px" class="row" >
+                                                    <div class="col-md-12 margin-top-10">
+                                                        <select ng-model="selectedMxsdPath" ng-change="selectedMxsdPathChanged(selectedMxsdPath);" class="form-control" ng-options="loc as loc.Value for loc in mxsdLocation">
+                                                            <option  value="">Select Location</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-12 margin-top-10">
+                                                        <div class="form-control" data-ng-click="showIxmlChange($event);" >
+                                                            <span>{{selectedIxsd.ixsdFieldName||'Select Field'}}</span><span class="pull-right fa fa-caret-down"></span></div>
+                                                        <!--<select ng-model="selectedIxsd" ng-change="selectedIxsdChanged(selectedIxsd);" class="form-control" ng-options="loc as loc.ixsdFieldName for loc in ixsdFields">-->
+                                                        <!--<option value="">Select Field</option>-->
+                                                        <!--</select>-->
+                                                    </div>
+                                                    <div class="col-md-12 margin-top-10">
+                                                        <select ng-model="dataType" ng-change="dataTypeChanged(dataType);" class="form-control" ng-options="loc as loc.Value for loc in mxsdDataType">
+                                                            <option value="">Select data Type</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-12 margin-top-10">
+                                                        <select ng-model="fieldType" ng-change="fieldTypeChanged(fieldType);" class="form-control" ng-options="loc as loc.Value for loc in mxsdFieldType">
+                                                            <option value="">Select Field Type</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-12 margin-top-10">
+                                                        <div class="pull-right">
+                                                            <button class="btn btn-success" data-ng-click="addTocustomxsd(selectedValue);">Add</button>
+                                                            <button type="button" class="btn btn-danger" onclick="destroySelection()" >  Back  </button>
+                                                            <button type="button" class="btn btn-info" ng-click="viewModel();" >  View  </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+                                                <form ng-if="segment" style="width: 250px" class="row" >
+                                                    <div class="col-md-12 margin-top-10">
+                                                        <select ng-model="selectedMxsdPath" ng-change="selectedMxsdPathChanged(selectedMxsdPath);" class="form-control" ng-options="loc as loc.Value for loc in mxsdLocation">
+                                                            <option  value="">Select Location</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-md-12 margin-top-10">
+                                                        <div class="pull-right">
+                                                            <button class="btn btn-success" data-ng-click="addTocustomxsd(selectedValue);">Add</button>
+                                                            <button type="button" class="btn btn-danger" ng-click="segmentChanged(false);" >  Back  </button>
+                                                            <!--<button type="button" class="btn btn-info" ng-click="viewModel();" >  View  </button>-->
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <!--</div>-->
+                                            </div>
+                                            <div ng-show="showIxml" id="ixml" ng-init="loadMasterFormStart()" style="padding: 10px 10px 10px; background-color: #fff;border: 1px solid transparent;border-radius: 0px;-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);box-shadow: 0 1px 1px rgba(0,0,0,.05); max-width: 450px;min-width: 220px;height: 250px;overflow: auto">
+                                                <script type="text/ng-template"  id="tree_item_renderer4.html">
+
+                                                    <span ng-switch="isItratable(value)" class="thanksMsg mouse_point">
+                                            <span ng-switch-when="true">
+                                                <span data-ng-if="value.__text" data-ng-click="fileSelected3(key,value,$parent)"
+                                                      dnd-draggable="copyItem(key,{'{{key}}':value});"
+                                                      dnd-effect-allowed="copy">
+                                            <span  class="fa fa-file-image-o " > {{key}}  </span>
+                                            <!--<span ng-show="value.added"  class="fa color-green fa- fa-check-circle" ></span>-->
+
+
+                                            </span>
+                                            <span     data-ng-if="!value.__text" class="text-14  font_b " ng-click="folderSelected3(key,value,$parent)" >
+                                            <span  >
+                                            <span ng-hide="value.show" class="fa fa-folder fa-lg">  </span>
+                                            <span ng-show="value.show" class="fa fa-folder-open fa-lg"> </span>
+                                            </span>
+                                            {{key}}
+                                            </span>
+                                            </span>
+                                            <span ng-switch-when="false">
+                                            <!--label label-info-->
+                                                <!--dnd-draggable="copyItem(key,{'{{key}}':value});"-->
+                                                  <!--dnd-effect-allowed="copy"-->
+                                            <span data-ng-click="fileSelected3(key,value,$parent)">
+                                            <span   ng-if="key.substring(0,1)!='_'" class="fa fa-file-image-o " > {{key}}  </span>
+                                            <span   ng-if="key.substring(0,1)=='_'" class="fa fa-file-image-o " > {{key.substring(1,key.length)}}  </span>
+                                            <!--<span ng-show="value.added"  class="fa color-green fa- fa-check-circle" ></span>-->
+
+
+                                            </span>
+                                            </span>
+                                            </span>
+
+
+
+                                                    <!--<ul data-ng-show="isItratable(value)" ng-repeat="(key,value) in value"  >-->
+                                                    <!--<li data-ng-show="isItratable(value)" ng-include="'tree_item_renderer.html'" ></li>-->
+                                                    <!--&lt;!&ndash;ng-include="'tree_item_renderer.html'"&ndash;&gt;-->
+                                                    <!--</ul>-->
+                                                    <span ng-switch="value.show">
+                                            <span ng-switch-when="true">
+                                            <ul style="list-style: none" >
+                                                <!--dnd-moved="value.splice($index, 1)"-->
+                                                <li  ng-if="key!='show'" ng-repeat="(key,value) in value"
+                                                     ng-include="'tree_item_renderer4.html'"></li>
+                                            </ul>
+                                            </span>
+                                            </span>
+
+                                                </script>
+                                                <!--<collection collection='masterFormFields' drag="true" options="selectedNodeCrumb"></collection>-->
+
+                                                <ul style="list-style: none" class="treeview">
+                                                    <!--dnd-moved="masterFormFields.splice($index, 1)"-->
+                                                    <li ng-if="key!='show'" ng-repeat="(key,value) in ixmlFormFields"
+                                                        ng-include="'tree_item_renderer4.html'"></li>
+                                                    <!--dnd-copied="item.id = item.id + 1"-->
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+                                        <div ng-if="autoStencilData" data-ng-repeat="rows in autoStencilData" ng-mousehover="autostencilMouseHover(rows);">
+                                            <!--<div ng-repeat="row in ro">-->
+                                            <div ng-if="$index!=0">
+                                                <div ng-if="rows.data!=undefined" class="select-areas-background-area" style="position: absolute; cursor: move; width:{{(600/autoStencilData[0].width*rows.width)+'px'}}; height: {{(850/autoStencilData[0].height*rows.height)+'px'}}; left: {{(600/autoStencilData[0].width*rows.left)+15+'px'}}; top: {{(850/autoStencilData[0].height*rows.top)+'px'}}; border-style: groove; border-color: greenyellow; border-width: 3px; z-index: 102;"></div>
+                                            </div>
+                                            <!--</div>-->
+                                        </div>
+
+                                        <div ng-if="myTemplate" data-ng-repeat="rows in myTemplate">
+
+                                            <div class="select-areas-background-area" ng-init="setY(rows);" style="position: absolute; cursor: move; width: {{rows.width+'px'}}; height: {{rows.height+'px'}}; left: {{rows.yedited+'px'}}; top: {{rows.x+'px'}}; border-style: groove; border-color: greenyellow; border-width: 2px; z-index: 102;"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div id="preview-pane">
+                                                    <div class="preview-container">
+                                                        <img src="{{stencilingPage.file_location}}"   class="jcrop-preview"  alt="stenciling image not found" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <script type="text/ng-template"  id="tree_item_renderer3.html">
+
+                                            <span ng-switch="isItratable(value)" class="thanksMsg mouse_point">
+                                                                    <span ng-switch-when="true">
+                                                                        <span class="text-14  font_b " ng-click="folderSelected2(key,value,$parent);" >
+                                                                            <span>
+                                                                                <span ng-hide="value.show" ng-class="$parent.$parent.$parent.$parent.$parent.key+selectedPage=='page'+key ? 'color-green':'';" class="fa fa-folder fa-lg">{{}}</span>
+                                                                                <span ng-show="value.show" ng-class="$parent.$parent.$parent.$parent.$parent.key+selectedPage=='page'+key ? 'color-green':'';" class="fa fa-folder-open fa-lg"> </span>
+                                                                            </span>
+                                                                            <span ng-switch="$parent.$parent.$parent.$parent.$parent.key">
+                                                                                <span ng-switch-when="group" ng-mouseover="close=true" ng-mouseleave="close=false">{{value._name}}
+                                                                                    <span  ng-if="close" data-ng-click="deleteParentNode(key,value,$parent);" class="fa fa-close" style="color: red"></span>
+                                                                                </span>
+                                                                                <span ng-switch-when="field" ng-mouseover="close=true" ng-mouseleave="close=false">{{value.ixsdfieldname}}
+                                                                                    <span  ng-if="close" data-ng-click="deleteParentNode(key,value,$parent);" class="fa fa-close" style="color: red"></span>
+                                                                                </span>
+                                                                                <span ng-switch-when="page" ng-mouseover="close=true" ng-mouseleave="close=false">page-{{value._pageno}}
+                                                                                    <span  ng-if="close" data-ng-click="deleteParentNode(key,value,$parent);" class="fa fa-close" style="color: red"></span>
+                                                                                </span>
+                                                                                <span ng-switch-default  ng-switch="key">
+                                                                                    <!--{{value.group[0].field.length}}-->
+                                                                                    <span ng-switch-when="header"
+                                                                                          ng-mouseover="close=$parent.$parent.$parent.$parent.$parent.$parent.$parent.$parent.$parent.key!=0?(value.group!=undefined)?(value.group[0].field!=undefined)?(value.group[0].field.length==0)?true:false:false:false:false;"
+                                                                                          ng-mouseleave="close=false;">{{key}}
+                                                                                           <span ng-if="close"
+                                                                                                 class="mouseoverbluecolor"
+                                                                                                 data-ng-click="copyheader($parent.$parent.$parent.$parent.$parent.$parent.$parent.$parent.$parent.key);">
+                                                                                               copy header from page-{{masterFormFields.mxsd.efsuin_form.page[0]['_pageno']}}
+                                                                                           </span>
+                                                                                    </span>
+                                                                                <span ng-switch-when="footer"
+                                                                                      ng-mouseover="close=$parent.$parent.$parent.$parent.$parent.$parent.$parent.$parent.$parent.key!=0?(value.group!=undefined)?(value.group[0].field!=undefined)?(value.group[0].field.length==0)?true:false:false:false:false;"
+                                                                                      ng-mouseleave="close=false">{{key}}
+                                                                                    <span ng-if="close"
+                                                                                          class="mouseoverbluecolor"
+                                                                                          data-ng-click="copyfooter($parent.$parent.$parent.$parent.$parent.$parent.$parent.$parent.$parent.key);">
+                                                                                        copy footer from page-{{masterFormFields.mxsd.efsuin_form.page[0]._pageno}}
+                                                                                    </span>
+                                                                                </span>
+                                                                                    <span ng-switch-default >{{key}}</span>
+                                                                                </span>
+
+                                                                                <!--<span ng-if="child.$parent=='group'" >{{value._name}}</span>-->
+                                                                            </span>
+                                                                                <!--<span ng-if="!isNumber(key)">{{key}}</span>-->
+                                                                        </span>
+                                                                    </span>
+                                                                    <span ng-switch-when="false">
+                                                                        <span data-ng-click="fileSelected1(key,value,$parent)" >
+                                                                            <span class="fa fa-file-image-o " > {{key}}  </span>
+                                                                        </span>
+                                                                    </span>
+                                                                </span>
+                                            <span ng-switch="value.show">
+                                                                    <span ng-switch-when="true">
+                                                                        <ul style="list-style: none" dnd-list="child" ng-init="child=value">
+                                                                            <li  ng-if="key!='show'" ng-repeat="key in keys(child)"
+                                                                                 ng-init="value=child[key];"
+                                                                                 ng-include="'tree_item_renderer3.html'"></li>
+                                                                            <li ng-if="value.length==0">
+                                                                                <span>
+                                                                                    <span class="fa fa-file-image-o " >Zero Fields</span>
+                                                                                </span>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </span>
+                                                                </span>
+
+                                        </script>
+                                        <div class="row" style="margin-top: 30%;">
+                                            <div class="col-md-12">
+                                                <div class="ui-tab-container" >
+                                                    <tabset justified="true" class="ui-tab">
+                                                        <tab heading="Demography">
+                                                            <div class="divider"></div>
+                                                            <div class="panel-body" style="width: 415px;height: auto;overflow-x: auto;">
+                                                                <div class="col-md-12">
+                                                                    <ul class="breadcrumb">
+                                                                        <!--<li > mxsd </li>-->
+                                                                        <!--<li > efsuin_demography </li>-->
+                                                                        <li ng-repeat="node in selectedNodeCrumb1" ng-class="{ active: $last }">{{ node }}</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <ul style="list-style: none;" class="treeview">
+                                                                    <!--dnd-moved="masterFormFields.splice($index, 1)"-->
+                                                                    <li ng-if="key!='show'" ng-repeat="key in keys(masterFormFields.mxsd.efsuin_demography)"
+                                                                        ng-init="value=masterFormFields.mxsd.efsuin_demography[key];"
+                                                                        ng-include="'tree_item_renderer3.html'"></li>
+                                                                </ul>
+                                                            </div>
+                                                        </tab>
+                                                        <tab heading="Form">
+
+                                                            <div class="divider"></div>
+                                                            <div class="panel-body" style="width: 415px;height: auto;overflow-x: auto;">
+                                                                <!--<div class="col-md-12">-->
+                                                                    <!--<label>Selected Page</label>-->
+                                                                    <!--<select ng-model="selectedPages" ng-change="selectedPageChanged(selectedPages);">-->
+                                                                        <!--<option ng-repeat="row in masterFormFields.mxsd.efsuin_form.page" value="{{$index+1}}">page-{{masterFormFields.mxsd.efsuin_form.page[$index]['_pageno']}}</option>-->
+                                                                    <!--</select>-->
+                                                                <!--</div>-->
+                                                                <div class="col-md-12 text-right pagination-container">
+                                                                    <pagination class="pagination-sm"
+                                                                                page="selectedPages"
+                                                                                total-items="masterFormFields.mxsd.efsuin_form.page.length"
+                                                                                max-size="4"
+                                                                                ng-click="selectedPageChanged(selectedPages)"
+                                                                                items-per-page="1"
+                                                                                rotate="false"
+                                                                                boundary-links="true"></pagination>
+
+
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <ul class="breadcrumb">
+                                                                        <li ng-repeat="node in selectedNodeCrumb1 track by $index" ng-class="{ active: $last }">{{ node }}</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <ul style="list-style: none;" >
+                                                                    <!--dnd-moved="masterFormFields.splice($index, 1)"-->
+                                                                    <li ng-if="key!='show'" class="treeview" ng-repeat="key in keys(masterFormFields.mxsd.efsuin_form)"
+                                                                        ng-init="value=masterFormFields.mxsd.efsuin_form[key];"
+                                                                        ng-include="'tree_item_renderer3.html'"></li>
+                                                                </ul>
+
+
+                                                            </div>
+                                                        </tab>
+                                                        <tab heading="Snippet">
+                                                            <div class="divider"></div>
+                                                            <div class="panel-body" style="width: 415px;height: auto;overflow-x: auto;">
+                                                                <div class="col-md-12">
+                                                                    <ul class="breadcrumb">
+                                                                        <li ng-repeat="node in selectedNodeCrumb1" ng-class="{ active: $last }">{{ node }}</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <ul style="list-style: none;" class="treeview">
+                                                                    <!--dnd-moved="masterFormFields.splice($index, 1)"-->
+                                                                    <li ng-if="key!='show'" ng-repeat="key in keys(masterFormFields.mxsd.efsuin_snippet)"
+                                                                        ng-init="value=masterFormFields.mxsd.efsuin_snippet[key];"
+                                                                        ng-include="'tree_item_renderer3.html'"></li>
+                                                                </ul>
+                                                                <div class="row col-md-12">
+                                                                    <button class="btn btn-success" data-ng-click="segmentChanged(true);">
+                                                                        Add New Segment
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </tab>
+                                                        <tab heading="Classification">
+                                                            <div class="divider"></div>
+                                                            <div class="panel-body" style="width: 415px;height: auto;overflow-x: auto;">
+                                                                <div class="col-md-12">
+                                                                    <ul class="breadcrumb">
+                                                                        <li ng-repeat="node in selectedNodeCrumb1" ng-class="{ active: $last }">{{ node }}</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <ul style="list-style: none;" class="treeview">
+                                                                    <!--dnd-moved="masterFormFields.splice($index, 1)"-->
+                                                                    <li ng-if="key!='show'" ng-repeat="key in keys(masterFormFields.mxsd.efsuin_classify)"
+                                                                        ng-init="value=masterFormFields.mxsd.efsuin_classify[key];"
+                                                                        ng-include="'tree_item_renderer3.html'"></li>
+                                                                </ul>
+                                                            </div>
+                                                        </tab>
+                                                    </tabset>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div id="modalview" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="false">
+                                                <div class="modal-dialog" >
+                                                    <div class="modal-content">
+                                                        <div>
+                                                            <div class="modal-header">
+                                                                <span class="fa fa-close ash-c pull-right mouse_point" data-dismiss="modal" aria-hidden="true"></span>
+
+                                                                <h4 class="modal-title text-center">Classify/Position</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="panel-body panel">
+                                                                    <div class="col-md-12">
+                                                                        <form data-ng-submit="addTocustomxsd(selectedValue);">
+                                                                            <div class="ui-tab-container">
+                                                                                <tabset justified="true" class="ui-tab">
+                                                                                    <tab heading="Position" >
+                                                                                        <div id="coords" >
+                                                                                            <div class="input-group input-group-sm">
+                                                                                                <label class="input-group-addon" for="x1">X</label>
+                                                                                                <input type="text" class="form-control" id="x1" name="x1" placeholder="x">
+                                                                                                <span class="input-group-addon">px</span>
+                                                                                            </div>
+                                                                                            <div class="input-group input-group-sm">
+                                                                                                <label class="input-group-addon" for="y1">Y</label>
+                                                                                                <input type="text" class="form-control"  id="y1" name="y1"placeholder="y">
+                                                                                                <span class="input-group-addon">px</span>
+                                                                                            </div>
+                                                                                            <div class="input-group input-group-sm">
+                                                                                                <label class="input-group-addon" for="w">Width</label>
+                                                                                                <input type="text" class="form-control"  id="w" name="w" placeholder="width">
+                                                                                                <span class="input-group-addon">px</span>
+                                                                                            </div>
+                                                                                            <div class="input-group input-group-sm">
+                                                                                                <label class="input-group-addon" for="h">Height</label>
+                                                                                                <input type="text" class="form-control"  id="h" name="h" placeholder="height">
+                                                                                                <span class="input-group-addon">px</span>
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </tab>
+                                                                                    <tab heading="Classification" >
+                                                                                        <div id="classify" >
+
+                                                                                            <div class="row ">
+
+                                                                                                <div class="col-md-5">
+                                                                                                    <label class="pull-left">Indexing </label>
+                                                                                                    <div class="btn-group pull-right">
+                                                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToClassify= 'Yes'" data-ng-model="selectedValue.indexToClassify" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
+                                                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToClassify= 'No'" data-ng-model="selectedValue.indexToClassify" btn-radio="'No'" style="font-size: 12px"> No </button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-7">
+                                                                                                    <label class="pull-left">Form Identification</label>
+                                                                                                    <div class="btn-group  pull-right">
+                                                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.formIdentification= 'Yes'" data-ng-model="selectedValue.formIdentification" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
+                                                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.formIdentification= 'No'" data-ng-model="selectedValue.formIdentification" btn-radio="'No'" style="font-size: 12px"> No </button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="divider"></div>
+
+                                                                                            <div class="row ">
+                                                                                                <div class="col-md-5">
+                                                                                                    <label class="pull-left">Reject</label>
+                                                                                                    <div class="btn-group  pull-right">
+                                                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToReject= 'Yes'" data-ng-model="selectedValue.indexToReject" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
+                                                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToReject= 'No'" data-ng-model="selectedValue.indexToReject" btn-radio="'No'" style="font-size: 12px"> No </button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-7">
+                                                                                                    <label class="pull-left">Form Relationship</label>
+                                                                                                    <div class="btn-group  pull-right">
+                                                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.formRelationship= 'Yes'" data-ng-model="selectedValue.formRelationship" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
+                                                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.formRelationship= 'No'" data-ng-model="selectedValue.formRelationship" btn-radio="'No'" style="font-size: 12px"> No </button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="divider"></div>
+
+                                                                                            <div class="row ">
+                                                                                                <div class="col-md-5">
+                                                                                                    <label class="pull-left">Split/Merge</label>
+                                                                                                    <div class="btn-group  pull-right">
+                                                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToSplitMerge= 'Yes'" data-ng-model="selectedValue.indexToSplitMerge" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
+                                                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.indexToSplitMerge= 'No'" data-ng-model="selectedValue.indexToSplitMerge" btn-radio="'No'" style="font-size: 12px"> No </button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="col-md-7">
+                                                                                                    <label class="pull-left">Form SequenceNo</label>
+                                                                                                    <div class="btn-group  pull-right">
+                                                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.formSequenceNo= 'Yes'" data-ng-model="selectedValue.formSequenceNo" btn-radio="'Yes'" style="font-size: 12px"> Yes</button>
+                                                                                                        <button type="button" class=" btn btn-line-success " data-ng-click="selectedValue.formSequenceNo= 'No'" data-ng-model="selectedValue.formSequenceNo" btn-radio="'No'" style="font-size: 12px"> No </button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+
+                                                                                    </tab>
+                                                                                    <div class="divider"></div>
+                                                                                    <div class="row" >
+                                                                                        <div class="col-md-1"></div>
+                                                                                        <div class="col-md-5">
+                                                                                            <button type="submit" class="btn_hethi btn-success btn-block">  Add  </button>
+                                                                                        </div>
+                                                                                        <div class="col-md-5">
+                                                                                            <button type="reset" class="btn_hethi btn-warning btn-block" onclick="destroySelection()">  Back  </button>
+                                                                                        </div>
+                                                                                        <div class="col-md-1"></div>
+                                                                                    </div>
+                                                                                </tabset>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="row" >
+                                            <div class="col-md-4">
+                                                <button type="button" ng-if="!autoStencilData" data-ng-click="viewAutoStenciling();" class="btn_hethi btn-danger btn-block">  Auto Stencil  </button>
+                                                <button type="button" ng-if="autoStencilData" data-ng-click="extractAutoStenciling();" class="btn_hethi btn-danger btn-block">  Extract Stencil  </button>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button type="button" data-ng-click="viewDemo();" class="btn_hethi btn-success btn-block">  View Stencil  </button>
+                                            </div>
+                                            <!--<button type="button"  class="btn_hethi btn-w-md btn-warning" data-ng-click="formPlay_3(artist_job_container)"> Back  </button>-->
+                                            <!--<button type="button"  class="btn_hethi-lg btn-w-lg btn-warning" data-ng-click="formPlay_5(artist_job_container)"> Next  </button>-->
+                                            <div class="col-md-4">
+                                                <button type="button" data-ng-click="completeStenciling()" style="margin-left: 10px" class="btn_hethi btn-primary btn-block">Complete stenciling</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <script type="text/javascript">
+//                                        $(window).load(function() {
+//                                            $.Jcrop('#stencilingImage');
+//                                        });
+
+                                        jQuery(function ($) {
+                                            var jcrop_api, boundx, boundy;
+                                            $preview = $('#preview-pane'),
+                                                    $pcnt = $('#preview-pane .preview-container'),
+                                                    $pimg = $('#preview-pane .preview-container img'),
+                                                    xsize = $pcnt.width(),
+                                                    ysize = $pcnt.height();
+
+//                                        $jimg = $('.jcrop-holder img');
+//                                        $jimg.css({
+//                                            width: 595 + 'px',
+//                                            height: 842 + 'px'
+//                                        });
+//                                        setPSize=function setPSize(c){
+//                                            $jimg.css({
+//                                                width: c.width + 'px',
+//                                                height: c.Height + 'px'
+//                                            });
+//                                        }
+
+                                            function showCoords(c) {
+                                                $('#x1').val(c.x);
+                                                $('#y1').val(c.y);
+//                                            $('#x2').val(c.x2);
+//                                            $('#y2').val(c.y2);
+                                                $('#w').val(c.w);
+                                                $('#h').val(c.h);
+
+
+                                                if (parseInt(c.w) > 0) {
+                                                    var rx = xsize / c.w;
+                                                    var ry = ysize / c.h;
+
+                                                    $pimg.css({
+                                                        width: Math.round(rx * boundx) + 'px',
+                                                        height: Math.round(ry * boundy) + 'px',
+                                                        marginLeft: '-' + Math.round(rx * c.x) + 'px',
+                                                        marginTop: '-' + Math.round(ry * c.y) + 'px'
+                                                    });
+
+//                              $("#preview-pane").css( {position:"absolute", top:c.y+40, left: c.x , display:"block"});
+                                                }
+
+                                            };
+
+                                            function clearCoords() {
+                                                $('#coords input').val('');
+                                                $("#JcropDiv").css({display: "none"});
+
+//                          $("#preview-pane").css( {display:"none"});
+
+                                            };
+                                            destroySelection = function () {
+                                                jcrop_api.release();
+//                          $("#preview-pane").css( {display:"none"});
+//
+                                            };
+                                            function loadDiv(event) {
+//                                            $('#y1').val() != undefined ?
+                                                $("#JcropDiv").css({
+                                                    position: "absolute",
+                                                    top: event.y - 163,
+                                                    left: event.x2+15,
+                                                    display: "flex",
+                                                    "z-index": "400",
+                                                    "border": "black solid 1px"
+                                                });
+//                                        :    $("#JcropDiv").css({display: "none"});
+
+//                                            css('display','block');
+//                          $("#preview-pane").css( {position:"absolute", top:event.y+40, left: event.x , display:"block"});
+
+                                            };
+//
+                                            $('#stencilingImage').Jcrop({
+                                                bgFade: true,
+                                                bgOpacity: .2,
+                                                onChange: showCoords,
+                                                onRelease: clearCoords,
+                                                onSelect: loadDiv
+
+                                            }, function () {
+
+                                                // Use the API to get the real image size
+                                                var bounds = this.getBounds();
+                                                boundx = bounds[0];
+                                                boundy = bounds[1];
+                                                jcrop_api = this;
+                                                // Move the preview into the jcrop container for css positioning
+                                                $preview.appendTo(jcrop_api.ui.holder);
+                                            });
+                                            $('#coords').on('change', 'input', function (e) {
+                                                var x1 = $('#x1').val(),
+                                                        x2 = (+$('#x1').val() + +$('#w').val()),
+                                                        y1 = $('#y1').val(),
+                                                        y2 = (+$('#y1').val() + +$('#h').val());
+
+                                                jcrop_api.setSelect([x1, y1, x2, y2]);
+                                            });
+
+                                            $('#fadetog').change(function () {
+                                                jcrop_api.setOptions({
+                                                    bgFade: this.checked
+                                                });
+                                            }).attr('checked', 'checked');
+
+                                            $('#shadetog').change(function () {
+                                                if (this.checked) $('#shadetxt').slideDown();
+                                                else $('#shadetxt').slideUp();
+                                                jcrop_api.setOptions({
+                                                    shade: this.checked
+                                                });
+                                            }).attr('checked', false);
+
+                                            // Define page sections
+                                            var sections = {
+                                                bgc_buttons: 'Change Color',
+                                                bgo_buttons: 'Change Opacity'
+                                            };
+                                            // Define animation buttons
+                                            var ac = {
+                                                anim1: [217, 122, 382, 284],
+                                                anim2: [20, 20, 580, 380],
+                                                anim3: [24, 24, 176, 376],
+                                                anim4: [347, 165, 550, 355],
+                                                anim5: [136, 55, 472, 183]
+                                            };
+                                            // Define bgOpacity buttons
+                                            var bgo = {
+                                                Low: .2,
+                                                Mid: .5,
+                                                High: .8,
+                                                Full: 1
+                                            };
+                                            // Define bgColor buttons
+                                            var bgc = {
+                                                R: '#900',
+                                                B: '#4BB6F0',
+                                                Y: '#F0B207',
+                                                G: '#46B81C',
+                                                W: 'white',
+                                                K: 'black'
+                                            };
+                                            // Create fieldset targets for buttons
+//                      for(i in sections)
+//                          insertSection(i,sections[i]);
+
+                                            function create_btn(c) {
+                                                var $o = $('<button />').addClass('btn btn-small');
+                                                if (c) $o.append(c);
+                                                return $o;
+                                            }
+
+                                            var a_count = 1;
+                                            // Create animation buttons
+                                            for (i in ac) {
+                                                $('#anim_buttons .btn-group')
+                                                        .append(
+                                                        create_btn(a_count++).click(animHandler(ac[i])),
+                                                        ' '
+                                                );
+                                            }
+
+                                            $('#anim_buttons .btn-group').append(
+                                                    create_btn('Bye!').click(function (e) {
+                                                        $(e.target).addClass('active');
+                                                        jcrop_api.animateTo(
+                                                                [300, 200, 300, 200],
+                                                                function () {
+                                                                    this.release();
+                                                                    $(e.target).closest('.btn-group').find('.active').removeClass('active');
+                                                                }
+                                                        );
+                                                        return false;
+                                                    })
+                                            );
+
+                                            // Create bgOpacity buttons
+                                            for (i in bgo) {
+                                                $('#bgo_buttons .btn-group').append(
+                                                        create_btn(i).click(setoptHandler('bgOpacity', bgo[i])),
+                                                        ' '
+                                                );
+                                            }
+                                            // Create bgColor buttons
+                                            for (i in bgc) {
+                                                $('#bgc_buttons .btn-group').append(
+                                                        create_btn(i).css({
+                                                            background: bgc[i],
+                                                            color: ((i == 'K') || (i == 'R')) ? 'white' : 'black'
+                                                        }).click(setoptHandler('bgColor', bgc[i])), ' '
+                                                );
+                                            }
+                                            // Function to insert named sections into interface
+                                            function insertSection(k, v) {
+                                                $('#interface').prepend(
+                                                        $('<fieldset></fieldset>').attr('id', k).append(
+                                                                $('<legend></legend>').append(v),
+                                                                '<div class="btn-toolbar"><div class="btn-group"></div></div>'
+                                                        )
+                                                );
+                                            };
+                                            // Handler for option-setting buttons
+                                            function setoptHandler(k, v) {
+                                                return function (e) {
+                                                    $(e.target).closest('.btn-group').find('.active').removeClass('active');
+                                                    $(e.target).addClass('active');
+                                                    var opt = {};
+                                                    opt[k] = v;
+                                                    jcrop_api.setOptions(opt);
+                                                    return false;
+                                                };
+                                            };
+                                            // Handler for animation buttons
+                                            function animHandler(v) {
+                                                return function (e) {
+                                                    $(e.target).addClass('active');
+                                                    jcrop_api.animateTo(v, function () {
+                                                        $(e.target).closest('.btn-group').find('.active').removeClass('active');
+                                                    });
+                                                    return false;
+                                                };
+                                            };
+
+                                            $('#bgo_buttons .btn:first,#bgc_buttons .btn:last').addClass('active');
+                                            $('#interface').show();
+
+                                        });
+                                    </script>
+
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+
+                              <span class="pull-left">
+                        <button type="button" class="btn_hethi  btn-w-md btn-info" data-ng-click="formPlay_1(artist_job_container)">
+                            <span class="fa fa-backward">  </span>
+                            &nbsp;Previous
+                        </button>
+                    </span>
+                   <span class="pull-right">
+                        <button type="button" class="btn_hethi btn-w-md  btn-info" data-ng-click="formPlay_5(artist_job_container)">
+                            Next&nbsp; <span class="fa fa-forward">  </span>
+                        </button>
+                   </span>
+                                <!--<span class="pull-left">-->
+                                <!--<a href="#"> <span style="font-size: 40px" class="fa fa-arrow-circle-o-left mouse_point" data-ng-click="formPlay_3(artist_job_container)"></span> </a>-->
+                                <!--</span>-->
+                                <!--<span class="pull-right">-->
+                                <!--<a href="#"> <span style="font-size: 40px" class="fa fa-arrow-circle-o-right mouse_point" data-ng-click="formPlay_5(artist_job_container)"></span> </a>-->
+                                <!--</span>-->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--<div class="" data-ng-switch-when="classifyIndex">-->
+        <!--<div class="container_box">-->
+        <!--<div data-ng-include="'wizard.html'">-->
+
+        <!--</div>-->
+        <!--<div class="row margin-bottom-20">-->
+        <!--<div class="wizard_head-5"></div>-->
+        <!--</div>-->
+
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="panel panel-default">-->
+        <!--<div class="panel-body">-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-6">-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="btn-group" ng-init="showSplit='no'">-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showSplit= 'yes'" data-ng-model="showSplit" btn-radio="'yes'" > Yes, Index</button>-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showSplit= 'no'" data-ng-model="showSplit" btn-radio="'no'" > No, Index</button>-->
+        <!--</div>-->
+        <!--<label class="control-label">To Classify Split</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="divider"></div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="btn-group" ng-init="showMerge='no'">-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showMerge= 'yes'" data-ng-model="showMerge" btn-radio="'yes'" > Yes, Index</button>-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showMerge= 'no'" data-ng-model="showMerge" btn-radio="'no'" > No, Index</button>-->
+        <!--</div>-->
+        <!--<label class="control-label">To Classify Merge</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="divider"></div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="btn-group" ng-init="showReject='no'">-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showReject= 'yes'" data-ng-model="showReject" btn-radio="'yes'" > Yes, Index</button>-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showReject= 'no'" data-ng-model="showReject" btn-radio="'no'" > No, Index</button>-->
+        <!--</div>-->
+        <!--<label class="control-label">To Classify Reject</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="divider"></div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="btn-group" ng-init="showHeader='no'">-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showHeader= 'yes'" data-ng-model="showHeader" btn-radio="'yes'" > Yes, Index</button>-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showHeader= 'no'" data-ng-model="showHeader" btn-radio="'no'" > No, Index</button>-->
+        <!--</div>-->
+        <!--<label class="control-label">To Classify Header</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="divider"></div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="btn-group" ng-init="showFooter='no'">-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showFooter= 'yes'" data-ng-model="showFooter" btn-radio="'yes'" > Yes, Index</button>-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showFooter= 'no'" data-ng-model="showFooter" btn-radio="'no'" > No, Index</button>-->
+        <!--</div>-->
+        <!--<label class="control-label">To Classify Footer</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="divider"></div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="btn-group" ng-init="showColumn='no'">-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showColumn= 'yes'" data-ng-model="showColumn" btn-radio="'yes'" > Yes, Index</button>-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showColumn= 'no'" data-ng-model="showColumn" btn-radio="'no'" > No, Index</button>-->
+        <!--</div>-->
+        <!--<label class="control-label">To Classify Table Column</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="divider"></div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="btn-group" ng-class="showDtColumn='no'">-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showDtColumn= 'yes'" data-ng-model="showDtColumn" btn-radio="'yes'" > Yes, Index</button>-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showDtColumn= 'no'" data-ng-model="showDtColumn" btn-radio="'no'" > No, Index</button>-->
+        <!--</div>-->
+        <!--<label class="control-label">To Classify Details Column</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="col-md-6">-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="btn-group" ng-init="showTableColStart='no'">-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showTableColStart= 'yes'" data-ng-model="showTableColStart" btn-radio="'yes'" > Yes, Index</button>-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showTableColStart= 'no'" data-ng-model="showTableColStart" btn-radio="'no'" > No, Index</button>-->
+        <!--</div>-->
+        <!--<label class="control-label">To Classify Table Column Start</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="divider"></div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="btn-group" ng-init="showTableColEnd='no'">-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showTableColEnd= 'yes'" data-ng-model="showTableColEnd" btn-radio="'yes'" > Yes, Index</button>-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showTableColEnd= 'no'" data-ng-model="showTableColEnd" btn-radio="'no'" > No, Index</button>-->
+        <!--</div>-->
+        <!--<label class="control-label">To Classify Table Column Start</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="divider"></div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="btn-group" ng-init="showDetailColStart='no'">-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showDetailColStart= 'yes'" data-ng-model="showDetailColStart" btn-radio="'yes'" > Yes, Index</button>-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showDetailColStart= 'no'" data-ng-model="showDetailColStart" btn-radio="'no'" > No, Index</button>-->
+        <!--</div>-->
+        <!--<label class="control-label">To Classify detail Column Start</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="divider"></div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="btn-group" ng-init="showDetailColEnd='no'">-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showDetailColEnd= 'yes'" data-ng-model="showDetailColEnd" btn-radio="'yes'" > Yes, Index</button>-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showDetailColEnd= 'no'" data-ng-model="showDetailColEnd" btn-radio="'no'" > No, Index</button>-->
+        <!--</div>-->
+        <!--<label class="control-label">To Classify detail Column End</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="divider"></div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="btn-group" ng-init="showEndPage='no'">-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showEndPage= 'yes'" data-ng-model="showEndPage" btn-radio="'yes'" > Yes, Index</button>-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showEndPage= 'no'" data-ng-model="showEndPage" btn-radio="'no'" > No, Index</button>-->
+        <!--</div>-->
+        <!--<label class="control-label">To Classify End of Page</label>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="divider"></div>-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<div class="btn-group" ng-init="showPageSummary='no'">-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showPageSummary= 'yes'" data-ng-model="showPageSummary" btn-radio="'yes'" > Yes, Index</button>-->
+        <!--<button type="button" class="btn btn-line-info " data-ng-click="showPageSummary= 'no'" data-ng-model="showPageSummary" btn-radio="'no'" > No, Index</button>-->
+        <!--</div>-->
+        <!--<label class="control-label">To Classify Page Summary</label>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--</div>-->
+        <!--</div>-->
+
+
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<hr>-->
+        <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+        <!--<span class="pull-left">-->
+        <!--<button type="button" class="btn_hethi  btn-w-md btn-info" data-ng-click="formPlay_4(artist_job_container)">-->
+        <!--<span class="fa fa-backward">  </span>-->
+        <!--&nbsp;Previous-->
+        <!--</button>-->
+        <!--</span>-->
+        <!--<span class="pull-right">-->
+        <!--<button type="button" class="btn_hethi btn-w-md  btn-info" data-ng-click="formPlay_6(artist_job_container)">-->
+        <!--Next&nbsp; <span class="fa fa-forward">  </span>-->
+        <!--</button>-->
+        <!--</span>-->
+        <!--&lt;!&ndash;<span class="pull-left">&ndash;&gt;-->
+        <!--&lt;!&ndash;<a href="#"> <span style="font-size: 40px" class="fa fa-arrow-circle-o-left mouse_point" data-ng-click="formPlay_4(artist_job_container)"></span> </a>&ndash;&gt;-->
+        <!--&lt;!&ndash;</span>&ndash;&gt;-->
+        <!--&lt;!&ndash;<span class="pull-right">&ndash;&gt;-->
+        <!--&lt;!&ndash;<a href="#"> <span style="font-size: 40px" class="fa fa-arrow-circle-o-right mouse_point" data-ng-click="formPlay_6(artist_job_container)"></span> </a>&ndash;&gt;-->
+        <!--&lt;!&ndash;</span>&ndash;&gt;-->
+        <!--</div>-->
+        <!--</div>-->
+
+
+        <!--</div>-->
+        <!--</div>-->
+
+        <div class="" data-ng-switch-when="Preview">
+            <div class="container_box">
+                <div data-ng-include="'wizard.html'">
+
+                </div>
+                <div class="row margin-bottom-20">
+                    <div class="wizard_head-5"></div>
+                </div>
+                <hr>
+                <div>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+
+                            $(window).scrollTop(0);
+                            return false;
+
+                        });
+                    </script>
+                    <form data-ng-submit="saveStenciling()">
+                        <div class="row">
+                            <div class="col-md-6" style="border-right: 1px solid #869791">
+                                <img  src="{{previewImage}}"  ng-style="{width : width ,height : height}" class="thumbnail">
+                            </div>
+                            <div class="col-md-6">
+                                <div  ng-repeat="row in position_cordinates"><input  type="text" id="{{row.keyName}}" ng-model="row.value"
+                                                                                     style="margin-top:{{row.left+'px'}};margin-left:{{row.top+'px'}};
+                               width:{{row.width+'px'}};height:{{row.height+'px'}};position:absolute">
+                                </div>
+                                <!--Math.ceil($scope.formSize.width/600*$('#x1').val())-->
+
+                                <img id="imageId" src="{{previewImage}}"  ng-style="{width : width ,height : height}" class="thumbnail ">
+
+
+                                <!--<textarea ng-repeat="row in position_cordinates" ng-if="row.height > 8" cols="5" rows="5"-->
+                                <!--style="margin-top:{{-height - - row.left+'px'}};margin-left:{{row.top+'px'}}">-->
+                                <!--</textarea>-->
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center margin-bottom-30">
+                                    <button type="button"  class="btn_hethi-lg btn-danger" data-ng-click="backToStencil();"> Stencil Again </button>
+                                    <button type="submit"  style="margin-left: 10px" class="btn_hethi-lg btn-success">Save stenciling</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                     <span class="pull-left">
+                        <button type="button" class="btn_hethi  btn-w-md btn-info" data-ng-click="formPlay_4(artist_job_container)">
+                            <span class="fa fa-backward">  </span>
+                            &nbsp;Previous
+                        </button>
+                     </span>
+                        <!--<span class="pull-left">-->
+                        <!--<a href="#"> <span style="font-size: 40px" class="fa fa-arrow-circle-o-left mouse_point" data-ng-click="formPlay_5(artist_job_container)"></span> </a>-->
+                        <!--</span>-->
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+
+
+        <div class="" data-ng-switch-when="thankyou">
+            <div class="containerlg">
+                <div class="thanksMsg">
+                    <h1>
+                        Thank You {{loginedUserData.customer_name}}
+                    </h1>
+                    <div class="divider-md"></div>
+
+                    <!--<p>-->
+                    <!--Has been successfully allocated to business QA-->
+                    <!--</p>-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label style="font-size:24px">Has been successfully allocated to business QA</label>
+                        </div>
+                    </div>
+                    <div class="divider-md"></div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <label>You may select to next customer form classification</label>
+                            <!--<div class="divider"></div>-->
+                            <a href="" data-ng-click="setTab('')" > <button class="btn_hethi btn-primary btn-block" type="button">INBOX</button></a>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Proceed to customer form bundle</label>
+                            <!--<div class="divider"></div>-->
+
+                            <button data-ng-click="setTab('viewForms')" class="btn_hethi btn-primary btn-block" type="button">Classify form bundle</button>
+                        </div>
+                        <div class="col-md-2"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <script type="text/ng-template" id="wizard.html">
+
+            <div class="wizard-container margin-top-10">
+
+                <div class="row">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-3 ">
+                        <div class="text-center">
+                            <span class="number" ng-class="hethi_artist_home=='viewForms'?'number-active':'';">1</span>
+                            <span class="desc">Classify Forms</span>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-2">-->
+                    <!--<div class="text-center">-->
+                    <!--<span class="number " ng-class="hethi_artist_home=='viewBundle'?'number-active':''">2</span>-->
+                    <!--<span class="desc">Classify Bundle</span>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-2">-->
+                    <!--<div class="text-center">-->
+                    <!--<span class="number" ng-class="hethi_artist_home=='createMetaForm'?'number-active':''">3</span>-->
+                    <!--<span class="desc">Create Meta Form</span>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <span class="number" ng-class="hethi_artist_home=='viewStecil'?'number-active':''">4</span>
+                            <span class="desc">Create Stencil</span>
+                        </div>
+                    </div>
+                    <!--<div class="col-md-2">-->
+                    <!--<div class="text-center">-->
+                    <!--<span class="number" ng-class="hethi_artist_home=='classifyIndex'?'number-active':''">5</span>-->
+                    <!--<span class="desc">-->
+                    <!--Classify Index-->
+                    <!--</span>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <span class="number" ng-class="hethi_artist_home=='Preview'?'number-active':''">6</span>
+                            <span class="desc">Preview</span>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                </div>
+            </div>
+        </script>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

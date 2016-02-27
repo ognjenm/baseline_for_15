@@ -462,6 +462,32 @@ public class QueryExecutors {
 		return fileNames;
 	}
 	
+	public String executeMyQuery(String sql){
+		//System.out.println(sql);
+		String result = null;
+		System.out.println("query is Start now");
+		try{
+			System.out.println("query is try now");
+			Connection conn=null;
+			conn = DriverManager.getConnection(url, user, password);
+			Statement st=conn.createStatement();
+			ResultSet rst =st.executeQuery(sql);
+			//System.out.println(rst);
+			while(rst.next())
+			{
+			result=rst.getString(1);
+			System.out.println("result set is --- > "+result);
+			}
+			System.out.println("the vaue is ----- >"+result);
+			
+			
+		}
+		catch(Exception e){
+			
+		}
+		return  result;
+	}
+
 	public void insertClassifyStatus(String sql) 
 	{
 		System.out.println("Inside DB");
@@ -477,9 +503,10 @@ public class QueryExecutors {
 	        System.out.println(e);
 	    }
 	    
-	}
+	}	
+
 	 	
-	
+
 	
 	
 	
@@ -518,4 +545,5 @@ public class QueryExecutors {
 	
 	
 	
+>>>>>>> .r127
 }

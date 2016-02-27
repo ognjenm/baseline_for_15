@@ -1466,38 +1466,40 @@ hethi.controller('freedemoController', ['$http','$scope','$filter','$rootScope',
 
         logger.log('Workflow Started');
         $scope.getWorkflowLog=false;
-        if($rootScope.previewContainer!=undefined){
+        //if($rootScope.previewContainer!=undefined){
 
 
-            var formData={
-                'customer_id':$rootScope.loginedUserData.customer_id,
-                'efs_uin':$rootScope.previewContainer.efs_uin,
-                'sfs_uin':sfs_uin,
-                'current_channel':hethi_subservicecode
-            };
-            $http({
-                method: 'POST',
-                url: $rootScope.spring_rest_service+'/startWorkFlow',
-                dataType:'jsonp',
-                data:formData
-            }).success(function(res) {
-                //console.log("response: " +res);
-                var log=res.description;
-                var i=log.length;
-                i=i-1;
-                var description="["+log.substring(0,i)+"]";
-                console.log("log: " +description);
-                $scope.getWorkflowLog=JSON.parse(description);
-                logger.logSuccess('Workflow completed ');
-            }).error(function(err){
-                logger.logError('Unable to complete workflow  , Please try again !');
-                $scope.getWorkflowLog=true;
-            });
-        }
-        else
-        {
-            logger.logError('please select a file to process');
-        }
+        var formData={
+            'customer_id':$rootScope.loginedUserData.customer_id,
+            'efs_uin':'cefs100101',  //$rootScope.previewContainer.efs_uin
+            'sfs_uin':sfs_uin,
+            'current_channel':hethi_subservicecode,
+            'uid':1
+        };
+        $http({
+            method: 'POST',
+            url: $rootScope.spring_rest_service+'/startWorkFlow',
+            dataType:'jsonp',
+            data:formData
+        }).success(function(res) {
+            //console.log("response: " +res);
+            var log=res.description;
+            var i=log.length;
+            i=i-1;
+            var description="["+log.substring(0,i)+"]";
+            console.log("log: " +description);
+            $scope.getWorkflowLog=JSON.parse(description);
+            logger.logSuccess('Workflow completed ');
+        }).error(function(err){
+            logger.logError('Unable to complete workflow  , Please try again !');
+            $scope.getWorkflowLog=true;
+        });
+        //}
+        //else
+        //{
+        //    logger.logError('please select a file to process');
+        //}
+
 
     };
 

@@ -16,7 +16,7 @@ import javax.activation.*;
 public class EmailNotificationService {
 	
 	public boolean sendMail(String to, String subject, String body, String filename) {
-
+		System.out.println("waiting mail here ");
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext(
 				"/spring/hethi-notification-services.xml");
 		NotificationInterface test = (NotificationInterface) context.getBean("getNotificationBean");

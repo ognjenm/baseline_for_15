@@ -747,7 +747,6 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
                 dataType:'jsonp',
                 data:form
             }).success(function(s) {
-                alert(s);
                 alert(JSON.stringify(s));
             });
         };
@@ -1070,10 +1069,15 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
                 $scope.hethi_service_list=data[0];
                 $scope.hethi_service_process_list=data[1];
                 $scope.hethi_service_micro_process_list=data[2];
+                $scope.hethi_service_micro_process_status_list=data[3];
                 $scope.hethi_service_process_list.forEach(function(p){
                     p.micro_processes=[];
                     $scope.hethi_service_micro_process_list.forEach(function(mp){
                         if(p.sfs_UIN==mp.sfs_UIN){
+                            mp.states=[];
+                            $scope.hethi_service_micro_process_status_list.forEach(function(s){
+                                mp.states.push(s);
+                            });
                             p.micro_processes.push(mp);
                         }
                     });
@@ -1774,13 +1778,24 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
             micro_process_diagram.addDiagramListener("ObjectSingleClicked",
                 function(e) {
                     var part = e.subject.part;
-                    if (!(part instanceof go.Link)) $scope.showMessage(part);
+                    if (!(part instanceof go.Link)) console.log(part);
                 });
             micro_process_diagram.addDiagramListener("BackgroundSingleClicked",
                 function(e) {
                     $scope.$apply(function(){
                         $scope.rulesList=[];
                     });
+                });
+            micro_process_diagram.addDiagramListener("SelectionDeleting",
+                function(e) {
+
+                    var data=e.subject.data;
+
+                    alert('file deleteed ' +data);
+                    e.cancel=true;
+
+
+
                 });
             //micro_process_diagram.model = go.Model.fromJson('{ "class": "go.GraphLinksModel","linkFromPortIdProperty": "fromPort","linkToPortIdProperty": "toPort"}');  // load an initial diagram from some JSON text
             //micro_process_diagram.model = go.Model.fromJson(JSON.stringify({ "class": "go.GraphLinksModel",
@@ -1817,6 +1832,9 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
             }
             diagram.currentTool.stopTool();
         }
+
+        // diagram.commandHandler.deleteSelection();
+
 // A custom command, for changing the color of the selected node(s).
         function changeColor(diagram) {
             // the object with the context menu, in this case a Node, is accessible as:
@@ -1862,7 +1880,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
         };
 
         $scope.set_workflow_diagram_for_process=function(process){
-            alert(JSON.stringify(process))
+            //alert(JSON.stringify(process))
             $scope.process_box_array=[];
             $scope.process_line_array=[];
             var maxx=0;
@@ -1903,6 +1921,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
                     $scope.process_line_array.push(line);
                 };
                 row.micro_processes.forEach(function(mp){
+
                     x=x+200;
                     data={};
                     data.category=process_box_type;
@@ -1983,7 +2002,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
 
         };
         $scope.load_micro_process_diagram=function(process) {
-            alert(JSON.stringify(process));
+            //alert(JSON.stringify(process));
             $scope.hide_diagram_data=process;
             if($scope.hide_diagram == false){
 
@@ -1991,6 +2010,9 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
                 var loc;
                 if(process.hethi_servicecode=='DaaS'){
                     process_box_type="Rectangledaas" ;
+                }
+                else if (process.hethi_servicecode=='BaaS'){
+                    process_box_type="Rectanglebaas" ;
                 }
                 var arr= [
                     {"loc":"-800 -400"},
@@ -2071,39 +2093,114 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
         }
 
 
-        $scope.load=function() {
 
-            $scope.init();
+        $scope.loadRulesByProcess=function(){
+            var sfs_uin=$scope.selected_workflow_process.key;
+            var input={
+                'customer_id': 1,
+                'user_id':1,
+                'tfs_uin':'ctfs100101',
+                'efs_uin':'cefs100101',
+                'sfs_uin': sfs_uin
+            };
+            $http({
+                method: 'POST',
+                url: $rootScope.spring_rest_service+'/load_rules_by_sfs',
+                dataType:'jsonp',
+                data: input
+            }).success(function(resp) {
+                if(resp[0][0].result!="No Data"){
+                    $scope.cruleworkset_list=resp[0];
+                } else{
+                    $scope.cruleworkset_list=false;
+                }
+                if(resp[1][0].result!="No Data"){
+                    $scope.cruleset_list=resp[1];
+                }
+                else{
+                    $scope.cruleset_list=false;
+                }
+                if(resp[2][0].result!="No Data"){
+                    $scope.rules_for_process=resp[2];
+                }
+                else{
+                    $scope.rules_for_process=false;
+                }
 
-            var a={ "class": "go.GraphLinksModel",
-                "nodeDataArray": [
-                    {"category":"Rectangledaas", "text":"daas.inventory", "key":"csfs100101", "demokey":"csfs100101", "loc":"-601.9610283430231 -412.5255813953484"},
-                    {"category":"Start", "text":"Start", "key":"Start", "loc":"-808.9610283430227 -412.5255813953486"},
-                    {"category":"Rectangledaas", "text":"daas.fullextract", "key":"csfs100102", "demokey":"csfs100102", "loc":"-365.9610283430234 -412.5255813953489"},
-                    {"category":"Rectangledaas", "text":"daas.classify", "key":"csfs100103", "demokey":"csfs100103", "loc":"-158.96102834302283 -412.5255813953487"},
-                    {"category":"Rectangledaas", "text":"daas.index", "key":"csfs100104", "demokey":"csfs100104", "loc":"13.038971656977125 -412.52558139534864"},
-                    {"category":"Rectangledaas", "text":"daas.split_merge", "key":"csfs100105", "demokey":"csfs100105", "loc":"187.03897165697697 -412.52558139534847"},
-                    {"category":"Rectangledaas", "text":"daas.extract", "key":"csfs100106", "demokey":"csfs100106", "loc":"610.0389716569767 -412.52558139534904"},
-                    {"category":"Rectangledaas", "text":"daas.batch", "key":"csfs100107", "demokey":"csfs100107", "loc":"609.0389716569767 -321.5255813953487"},
-                    {"category":"Rectangledaas", "text":"daas.keywise", "key":"csfs100108", "demokey":"csfs100108", "loc":"196.71084665697686 -321.73488372093027"},
-                    {"category":"End", "text":"End", "key":"End", "loc":"-816.9984556686043 -322.7348837209302"}
-                ],
-                "linkDataArray": [
-                    {"from":"Start", "to":"csfs100101", "points":[-783.7517260174415,-412.5255813953488,-773.7517260174415,-412.5255813953488,-724.2370890548091,-412.5255813953488,-724.2370890548091,-412.5255813953483,-674.7224520921768,-412.5255813953483,-664.7224520921768,-412.5255813953483]},
-                    {"from":"csfs100102", "to":"csfs100103", "points":[-301.1996045938695,-412.5255813953487,-291.1996045938695,-412.5255813953487,-258.2110283430231,-412.5255813953487,-258.2110283430231,-412.5255813953487,-225.22245209217672,-412.5255813953487,-215.22245209217672,-412.5255813953487]},
-                    {"from":"csfs100103", "to":"csfs100104", "points":[-102.69960459386877,-412.5255813953487,-92.69960459386877,-412.5255813953487,-69.21102834302282,-412.5255813953487,-69.21102834302282,-412.525581395349,-45.722452092176866,-412.525581395349,-35.722452092176866,-412.525581395349]},
-                    {"from":"csfs100104", "to":"csfs100105", "points":[61.800395406131074,-412.525581395349,71.80039540613107,-412.525581395349,89.0389716569771,-412.525581395349,89.0389716569771,-412.52558139534864,106.27754790782312,-412.52558139534864,116.27754790782312,-412.52558139534864]},
-                    {"from":"csfs100105", "to":"csfs100106", "points":[257.80039540613103,-412.52558139534864,267.80039540613103,-412.52558139534864,407.03897165697697,-412.52558139534864,407.03897165697697,-412.52558139534875,546.277547907823,-412.52558139534875,556.277547907823,-412.52558139534875]},
-                    {"from":"csfs100106", "to":"csfs100107", "points":[610.038971656977,-393.4641576461948,610.038971656977,-383.4641576461948,610.038971656977,-367.0255813953488,609.0389716569769,-367.0255813953488,609.0389716569769,-350.58700514450277,609.0389716569769,-340.58700514450277]},
-                    {"from":"csfs100107", "to":"csfs100108", "points":[559.7775479078228,-321.5255813953488,549.7775479078228,-321.5255813953488,406.87490915697686,-321.5255813953488,406.87490915697686,-321.7348837209302,263.97227040613086,-321.7348837209302,253.97227040613086,-321.7348837209302]},
-                    {"from":"csfs100101", "to":"csfs100102", "points":[-539.1996045938688,-412.5255813953483,-529.1996045938688,-412.5255813953483,-484.9610283430231,-412.5255813953483,-484.9610283430231,-412.5255813953487,-440.7224520921774,-412.5255813953487,-430.7224520921774,-412.5255813953487]},
-                    {"from":"csfs100108", "to":"End", "points":[139.4494229078229,-321.7348837209302,129.4494229078229,-321.7348837209302,-328.3500977757395,-321.7348837209302,-328.3500977757395,-322.73488372093027,-786.1496184593019,-322.73488372093027,-796.1496184593019,-322.73488372093027]}
-                ]};
+                if(resp[3][0].result!="No Data"){
+                    $scope.rules_for_selected_process=resp[3];
+                }
+                else{
+                    $scope.rules_for_selected_process=false;
+                }
 
-            micro_process_diagram.model=go.Model.fromJson(a);
-            //micro_process_diagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
+            });
+        };
+        $scope.selected_process_changed=function(){
+            if($scope.selected_efs_uin!=undefined){
+                var selected_P=JSON.parse($scope.selected_efs_uin);
+                $scope.selected_workflow_process={"category":selected_P.hethi_servicecode,"text":selected_P.hethi_subservicecode,"key":selected_P.sfs_uin,"demokey":selected_P.sfs_uin};
+                $scope.loadRulesByProcess();
+            }
+            else{
+
+                logger.logError('please select a process')
+            }
+
+        }
+        $scope.addNewRuleForProcess=function(){
+            if(($scope.selected_ruleset !=undefined) && ($scope.selected_workset !=undefined)){
+
+                var sfs_uin=$scope.selected_workflow_process.key;
+                var input={
+                    'customer_id': 1,
+                    'user_id':1,
+                    'tfs_uin':'ctfs100101',
+                    'efs_uin':'cefs100101',
+                    'sfs_uin': sfs_uin,
+                    'rule_workset':$scope.selected_workset,
+                    'rule_ruleset':$scope.selected_ruleset
+                };
+
+                $http({
+                    method: 'POST',
+                    url: $rootScope.spring_rest_service+'/add_new_rules_for_sfs',
+                    dataType:'jsonp',
+                    data: input
+                }).success(function(resp) {
+
+                    $scope.loadRulesByProcess();
+                    logger.log('added new rule')
+                });
+            }
+            else{
+                logger.logError('please select a workset')
+            }
 
         };
+        $scope.deleteRuleForProcess=function(rule){  var sfs_uin=$scope.selected_workflow_process.key;
+            var input={
+                'customer_id': 1,
+                'user_id':1,
+                'tfs_uin':'ctfs100101',
+                'efs_uin':'cefs100101',
+                'sfs_uin': sfs_uin,
+                'rule_workset':rule_workset
+            };
+
+            $http({
+                method: 'POST',
+                url: $rootScope.spring_rest_service+'/delete_rules_for_sfs',
+                dataType:'jsonp',
+                data: input
+            }).success(function(resp) {
+
+                $scope.loadRulesByProcess();
+                logger.log(rule.workset_name +' rule has been deleted')
+            });
+
+
+        }
 
 
 
