@@ -107,4 +107,11 @@ public class AppHomeServices {
 		return homeRepo.signIn(query);
 	}
 
+		public String loadRuleRepo(@RequestBody String JSONData) throws ParseException {
+    		JSONObject json = (JSONObject) new JSONParser().parse(JSONData);
+    		String query = "{ call loadRuleRepo('" + json.get("rule_uin") + "') }";
+    		System.out.println(query);
+    		return homeRepo.loadRuleRepo(query);
+    	}
+
 }
