@@ -101,9 +101,7 @@
                                    <div class=" mouse_point panel-heading" >
                                            <span class="panel-title" ng-click="hideOthers($index)">{{rule.rule_name}}</span>
                                            <span class="pull-right">
-                                               <span class=" btn_hethi_square  btn-success mouse_point" >
-                                                   <i class="fa fa-edit"></i>
-                                               </span>
+
                                                <!--<td><span class=" btn_hethi btn-info" ng-click="setRuleId(rule)" data-toggle="modal" data-target="#EditRule">-->
                                                <!--<i class="fa fa-edit"></i>-->
                                                <!--</span>-->
@@ -116,43 +114,149 @@
                                     <div class="panel-body" ng-if="rule.status">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div style="font-size: 26px;font-weight: 200;">When <span class="fa fa-level-down color-info"></span></div>
-                                                <div style="line-height: 1.855em;margin-left: 70px;margin-top: -10px;"> {{rule.rule_condition}}</div>
-                                            </div>
-                                        </div>
-                                        <div class="divider-md"></div>
-                                        <!--<div class="row">-->
-                                            <!--<div class="col-md-1"></div>-->
-                                            <!--<div class="col-md-11">-->
-                                                <!--<span style="line-height: 1.855em;">{{rule.rule_condition}}</span>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div style="font-size: 26px;font-weight: 200;">Then <span class="fa fa-level-down color-success"></span></div>
-                                                <div style="line-height: 1.855em;margin-left: 70px;margin-top: -10px;"> {{rule.rule_action}}</div>
-                                            </div>
-                                            <!--<div class="col-md-3">-->
-                                                <!--<h3>Then</h3>-->
-                                            <!--</div>-->
-                                        </div>
-                                        <div class="divider-md"></div>
+                                                <div class="row  margin-bottom-20">
+                                                    <div class="col-md-9">
+                                                        <div class="input-group">
+                                                            <span ng-hide="shows" data-ng-click="shows=!shows"
+                                                                  class="fa fa-plus-square-o mouse_point">
+                                                            </span>
+                                                            <span ng-show="shows" data-ng-click="shows=!shows"
+                                                                  class="fa fa-minus-square-o mouse_point">
+                                                            </span>
+                                                            <span class="fa fa-long-arrow-right"></span>
+                                                        <span class="btn-group">
+                                                            <button type="button"
+                                                                    ng-class="rule.status?'active btn  btn-line-info':'btn btn-line-info'">enabled</button>
+                                                            <button type="button"
+                                                                    ng-class="rule.status?'btn btn-line-info':'active btn btn-line-info'">disabled</button>
+                                                        </span>
+                                                            <span class="fa fa-long-arrow-right"> </span>
+                                                        <span class="thenBlock">
+                                                           effective start date
+                                                        </span>
+                                                        <span contenteditable="true" class="thenDataBlock">
+                                                            {{rule.effective_startdate}}
+                                                        </span>
+                                                            <span class="fa fa-long-arrow-right"> </span>
+                                                        <span class="otherwiseBlock">
+                                                           effective end date
+                                                        </span>
+                                                        <span contenteditable="true" class="otherwiseDataBlock">
+                                                            {{rule.effective_enddate}}
+                                                        </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                         <span class=" btn_hethi_square  btn-success mouse_point" ng-click="editRule(rule)">
+                                                             <i class="fa fa-edit"></i>
+                                                         </span>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <span ng-show="ruleRepo.length > 0" ng-click="viewEditHistory(rule)"
+                                                              class="text-primary mouse_point btn_hethi_square btn-info" style="text-decoration: none">view edit history</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row clt" ng-show="shows">
+                                                    <ul>
+                                                        <li class="margin-bottom-20">
+                                                            <span class="whenBlock margin-bottom-20">
+                                                                when
+                                                            </span>
+                                                            <ul class="margin-top-10 ">
+                                                                <li ng-repeat="li in list" class="margin-bottom-20">
+                                                                    <span class="rectangleDiv">route to storage repository</span>
+                                                                    <span class="fa  fa-long-arrow-right"></span>
+                                                                    <span class="ovalDiv">operation11111111</span>
+                                                                    <span class="fa  fa-long-arrow-right" style="font-size:20px"></span>
+                                                                    <span class="whiteRectangle">value1111111</span>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <div class="input-group margin-bottom-20">
+                                                                 <span  class="thenBlock">
+                                                                     then
+                                                                 </span>
+                                                                 <span class="thenDataBlock">
+                                                                      {{rule.rule_action.substring(rule.rule_action.indexOf('"')+1,rule.rule_action.indexOf('")'))}}
+                                                                  </span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="input-group">
+                                                                 <span  class="otherwiseBlock">
+                                                                      otherwise
+                                                                 </span>
+                                                                 <span class="otherwiseDataBlock">
+                                                                       {{rule.rule_failure.substring(rule.rule_failure.indexOf('"')+1,rule.rule_failure.indexOf('")'))}}
+                                                                 </span>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="row " ng-show="shows">
+                                                    <div class="col-md-12 text-center">
+                                                        <button type="button" class="btn btn-primary">
+                                                            apply changes
+                                                        </button>
+                                                    </div>
+                                                </div>
 
+                                                <!--<div class="margin-bottom-20 input-group">-->
+                                                    <!--<span class="whenBlock">-->
+                                                        <!--when-->
+                                                    <!--</span>-->
+                                                    <!--&lt;!&ndash;<span contenteditable="true" class="whenDataBlock">&ndash;&gt;-->
+                                                        <!--&lt;!&ndash;{{rule.rule_condition}}&ndash;&gt;-->
+                                                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                                                <!--</div>-->
+
+
+                                            </div>
+                                        </div>
                                         <!--<div class="row">-->
-                                            <!--<div class="col-md-1"></div>-->
-                                            <!--<div class="col-md-11">-->
-                                                <!--<span style="line-height: 1.855em;">{{rule.rule_action}}</span>-->
+                                            <!--<div class="col-md-10">-->
+                                                <!--<div style="font-size: 26px;font-weight: 200;">When <span class="fa fa-level-down color-info"></span></div>-->
+                                                <!--<div style="line-height: 1.855em;margin-left: 70px;margin-top: -10px;"> {{rule.rule_condition}}</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-2">-->
+                                                <!--&lt;!&ndash;{{ruleRepo}}&ndash;&gt;-->
+
                                             <!--</div>-->
                                         <!--</div>-->
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div style="font-size: 26px;font-weight: 200;">Otherwise <span class="fa fa-level-down color-danger"></span></div>
-                                                <div style="line-height: 1.855em;margin-left: 125px;margin-top: -10px;"> {{rule.rule_failure}}</div>
-                                            </div>
-                                            <!--<div class="col-md-3">-->
-                                                <!--<h3>Otherwise</h3>-->
+                                        <!--<div class="divider-md"></div>-->
+                                        <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<div class="col-md-1"></div>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<div class="col-md-11">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<span style="line-height: 1.855em;">{{rule.rule_condition}}</span>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-md-12">-->
+                                                <!--<div style="font-size: 26px;font-weight: 200;">Then <span class="fa fa-level-down color-success"></span></div>-->
+                                                <!--<div style="line-height: 1.855em;margin-left: 70px;margin-top: -10px;"> {{rule.rule_action}}</div>-->
                                             <!--</div>-->
-                                        </div>
+                                            <!--&lt;!&ndash;<div class="col-md-3">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<h3>Then</h3>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--</div>-->
+                                        <!--<div class="divider-md"></div>-->
+
+                                        <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<div class="col-md-1"></div>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<div class="col-md-11">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<span style="line-height: 1.855em;">{{rule.rule_action}}</span>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--<div class="row">-->
+                                            <!--<div class="col-md-12">-->
+                                                <!--<div style="font-size: 26px;font-weight: 200;">Otherwise <span class="fa fa-level-down color-danger"></span></div>-->
+                                                <!--<div style="line-height: 1.855em;margin-left: 125px;margin-top: -10px;"> {{rule.rule_failure}}</div>-->
+                                            <!--</div>-->
+                                            <!--&lt;!&ndash;<div class="col-md-3">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<h3>Otherwise</h3>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <!--</div>-->
                                         <!--<div class="row">-->
                                             <!--<div class="col-md-1"></div>-->
                                             <!--<div class="col-md-11">-->
@@ -173,7 +277,10 @@
                     <div class="rule-head">
                         <div class="row">
                             <div class="col-md-12 ">
-                                <div class="text-center "><i class="fa fa-pencil"></i> create new rule
+                                <div ng-if="isNewRule" class="text-center "><i class="fa fa-pencil"></i> create new rule
+                                    <span class="mouse_point pull-right" data-ng-click="setRuleDiv()"><i class="fa fa-remove ash-c"></i></span>
+                                </div>
+                                <div ng-if="!isNewRule" class="text-center "><i class="fa fa-pencil"></i> edit existing rule
                                     <span class="mouse_point pull-right" data-ng-click="setRuleDiv()"><i class="fa fa-remove ash-c"></i></span>
                                 </div>
                                 <div class="font_12" ng-if="rule_name!=undefined">[ {{rule_name}} ]</div>
@@ -292,10 +399,9 @@
                                                         <label>industry</label>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <select ng-change="selectEfs(r.industry)" required class="form-control" ng-model="r.industry">
-                                                            <option>-- Select Industry --</option>
-                                                            <option ng-repeat="(key,val) in formsOfIndustry" value="{{key}}">{{key}}</option>
-
+                                                        <!--{{formsOfIndustry}}-->
+                                                        <select  ng-change="selectEfs(r.industry)" required class="form-control" ng-model="r.industry">
+                                                            <option ng-selected="$index == {{index}}" ng-repeat="indus in industryList" value="{{indus.industry}}">{{indus.industry}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -306,32 +412,13 @@
                                                         <label>form</label>
                                                     </div>
                                                     <div class="col-md-9">
-                                                        <select required="" ng-change="selectFormField(r.form_types)" ng-model="r.form_types" class="form-control">
-                                                            <option value="">-- select form --</option>
-                                                            <option value="{{form.efs_uin}}" ng-repeat="form in efsOfIndustry">{{form.form_type}}</option>
-
+                                                        <select required=""   ng-change="selectFormField(r.form_types)" ng-model="r.form_types" class="form-control">
+                                                            <option value="{{form.efs_uin}}" ng-selected="$index == {{efsIndex}}" ng-repeat="form in efsOfIndustry">{{form.form_type}}</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="divider"></div>
-                                                <!--<div class="row ">-->
-                                                    <!--<div class="col-md-3">-->
-                                                        <!--<label>rule type</label>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="col-md-9">-->
-                                                        <!--<div class="btn-group" >-->
-                                                            <!--<button type="button" btn-radio="'simple'" ng-click="setRuleType('simple')"-->
-                                                                    <!--ng-class="ruleType == 'simple'?'btn btn-line-primary active':'btn btn-line-primary'">-->
-                                                                <!--single statement</button>-->
-                                                            <!--&lt;!&ndash;<button type="button" btn-radio="'lookup'" ng-click="setRuleType('lookup')"&ndash;&gt;-->
-                                                                    <!--&lt;!&ndash;ng-class="ruleType == 'lookup'?'btn btn-line-primary active':'btn btn-line-primary'">&ndash;&gt;-->
-                                                                <!--&lt;!&ndash;lookup statement</button>&ndash;&gt;-->
-                                                            <!--<button type="button" btn-radio="'computation'" ng-click="setRuleType('computation')"-->
-                                                                    <!--ng-class="ruleType == 'computation'?'btn btn-line-primary active':'btn btn-line-primary'">-->
-                                                                <!--computation statement</button>-->
-                                                        <!--</div>-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
+
                                             </div>
                                         </div>
 
@@ -360,17 +447,17 @@
                                                                  <div class="panel panel-body ">
                                                                      <div class="divider-md"></div>
                                                                      <div ng-show="ruleType == 'simple'">
-                                                                             <div class="row " ng-if="$last" ng-repeat="rule in dynamicRule" ng-init="outerIndex=$index">
+                                                                         <div class="row " ng-show="isNewRule" ng-repeat="rule in dynamicRule" ng-init="outerIndex=$index">
                                                                                  <div class="col-md-6">
+                                                                                     <!--{{rule}}-->
                                                                                      <div ng-repeat="fd in rule.fieldArray" class="margin-bottom-10">
                                                                                          <div class="row" >
                                                                                              <div class="col-md-1">
                                                                                                  <label>Field </label>
                                                                                              </div>
-                                                                                             <div class="col-md-3">
+                                                                                             <div class="col-md-6">
                                                                                                  <select ng-change="setFieldKey()"  ng-model="fd.field" class="form-control">
-                                                                                                     <option value="">select field</option>
-                                                                                                     <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                                                                     <option value="{{field.column}}" ng-selected="$index == {{fieldIndex}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
                                                                                                  </select>
                                                                                              </div>
                                                                                              <div class="col-md-5">
@@ -380,11 +467,11 @@
                                                                                                  </div>
 
                                                                                              </div>
-                                                                                             <div class="col-md-3">
-                                                                                                 <span ng-if="rule.fieldArray.length > 1" ng-click="rule.fieldArray.splice($index,1)" class="btn_hethi btn-danger">
-                                                                                                     <i class="fa fa-remove"></i></span>
-                                                                                                 <span ng-if="$last" ng-click="addNewField($index,outerIndex)" class="btn_hethi btn-info"><i class="fa fa-plus"></i></span>
-                                                                                             </div>
+                                                                                             <!--<div class="col-md-3">-->
+                                                                                                 <!--<span ng-if="rule.fieldArray.length > 1" ng-click="rule.fieldArray.splice($index,1)" class="btn_hethi btn-danger">-->
+                                                                                                     <!--<i class="fa fa-remove"></i></span>-->
+                                                                                                 <!--<span ng-if="$last" ng-click="addNewField($index,outerIndex)" class="btn_hethi btn-info"><i class="fa fa-plus"></i></span>-->
+                                                                                             <!--</div>-->
                                                                                          </div>
                                                                                      </div>
 
@@ -481,7 +568,162 @@
                                                                                      </div>
                                                                                  </div>
                                                                              </div>
+                                                                         <!--edit ui is start now-->
+                                                                         <div class="row " ng-repeat="fd in tempDynamicRule" ng-if="$last" ng-hide="isNewRule">
+                                                                             <div class="col-md-6">
+                                                                                 <div  class="margin-bottom-10">
+                                                                                     <div class="row" >
+                                                                                         <div class="col-md-1">
+                                                                                             <label>Field </label>
+                                                                                         </div>
+                                                                                         <div class="col-md-6">
+                                                                                             <select ng-change="setFieldKey()"  ng-model="fd.field" class="form-control">
+                                                                                                 <option value="{{field.column}}" ng-selected="$index == {{key}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                                                             </select>
+                                                                                         </div>
+                                                                                         <div class="col-md-5">
+                                                                                             <div class="btn-group">
+                                                                                                 <button ng-click="fd.tableIndex=true" ng-class="fd.tableIndex?'active btn btn-line-primary':'btn btn-line-primary'" btn-radio="'table'"  ng-model="r.field_type">in table</button>
+                                                                                                 <button ng-click="fd.tableIndex=false" ng-class="fd.tableIndex?'btn btn-line-primary':'active btn btn-line-primary'" btn-radio="'header'"  ng-model="r.field_type">not in table</button>
+                                                                                             </div>
 
+                                                                                         </div>
+                                                                                         <!--<div class="col-md-3">-->
+                                                                                         <!--<span ng-if="rule.fieldArray.length > 1" ng-click="rule.fieldArray.splice($index,1)" class="btn_hethi btn-danger">-->
+                                                                                         <!--<i class="fa fa-remove"></i></span>-->
+                                                                                         <!--<span ng-if="$last" ng-click="addNewField($index,outerIndex)" class="btn_hethi btn-info"><i class="fa fa-plus"></i></span>-->
+                                                                                         <!--</div>-->
+                                                                                     </div>
+                                                                                 </div>
+
+
+                                                                                 <div class="divider-md"></div>
+
+                                                                                 <div class="row">
+                                                                                     <div >
+                                                                                         <div class="col-md-1">
+                                                                                             <label>Has</label>
+                                                                                         </div>
+                                                                                         <div class="col-md-6">
+                                                                                             <div class="btn-group">
+                                                                                                 <button ng-class="isField=='custom'?'active btn btn-line-primary':'btn btn-line-primary'" ng-click="isField='custom'">custom value</button>
+                                                                                                 <!--<button ng-class="isField=='lookup'?'btn btn-success':'btn btn-line-success'" ng-click="isField='lookup'">lookup value</button>-->
+                                                                                                 <button ng-class="isField=='field'?'active btn btn-line-primary':'btn btn-line-primary'" ng-click="isField='field'">field value</button>
+                                                                                             </div>
+                                                                                         </div>
+                                                                                         <div ng-if="isField=='custom'" class="col-md-5">
+                                                                                             <!--<input ng-change="addCriteria(rules.condition)" type="text" ng-model="rules.condition" class="form-control">-->
+
+                                                                                             <input  placeholder="enter custom input here" type="text" ng-model="fd.condition" class="form-control">
+                                                                                         </div>
+                                                                                         <div ng-if="isField=='field'" class="col-md-5">
+                                                                                             <select   ng-model="fd.condition" class="form-control">
+                                                                                                 <option value="">select field</option>
+                                                                                                 <option value="{{field.column}}" ng-repeat="field in selectedEfsUin">{{field.column}}</option>
+                                                                                             </select>
+                                                                                         </div>
+
+                                                                                     </div>
+                                                                                 </div>
+                                                                                 <div class="divider-md"></div>
+
+                                                                                 <div class="row margin-bottom-20" >
+                                                                                     <div class="col-md-3">
+                                                                                         <label>Default value</label>
+                                                                                     </div>
+                                                                                     <div class="col-md-5">
+                                                                                         <div class="btn-group">
+                                                                                             <button ng-class="isRequired?'active btn btn-line-primary':'btn btn-line-primary'" ng-click="isRequired=!isRequired">not required</button>
+                                                                                             <button ng-class="isRequired?'btn btn-line-primary':'active btn btn-line-primary'" ng-click="isRequired=!isRequired">required</button>
+                                                                                         </div>
+                                                                                     </div>
+                                                                                     <div ng-show="!isRequired" class="col-md-4">
+                                                                                         <!--<input ng-change="addCriteria(rules.condition)" type="text" ng-model="rules.condition" class="form-control">-->
+
+                                                                                         <input  type="text"  ng-model="rule.default" class="form-control">
+                                                                                     </div>
+
+                                                                                 </div>
+
+                                                                             </div>
+
+                                                                             <div class="col-md-6">
+                                                                                 <span>Operations :</span>
+                                                                                 <span class="" ng-repeat="newOper in fd.functions">
+                                                                                      <span ng-if="$index == fd.functions.length - 1 && fd.functions.length  > 2"> and </span>
+                                                                                      <span class="h4" ng-style="newOper.status == true && {'backaground-color':'white'}
+                                                                                      || newOper.status == false && {'background-color':'#eee','padding':'4px','border':'1px solid #e96351'}">{{newOper.operator}}</span>
+                                                                                      <!--[<a  href ng-click="changeOperator(newOper,outerIndex,$index)" class="text-info">-->
+                                                                                          <!--edit-->
+                                                                                      <!--</a>]-->
+                                                                                     <span ng-if="$index >= 0 && $index <= fd.functions.length - 2">,</span>
+                                                                                 </span>
+
+                                                                                 <!--<div ng-show="!fd.status2" class="row margin-top-10">-->
+                                                                                     <!--<div class="col-md-1"></div>-->
+                                                                                     <!--<div class="col-md-11">-->
+                                                                                         <!--<div class="row col-md-12 bg_txt"  style="padding: 8px;border: 1px solid #e96351">-->
+                                                                                             <!--<div class="col-md-5">-->
+                                                                                                 <!--<select ng-change="selectOperators(id)" ng-model="id"  class=" form-control " >-->
+                                                                                                     <!--<option value="">operations</option>-->
+                                                                                                     <!--<option ng-if="key != 'Look Up'" ng-repeat="(key,value) in typeOfOperators" value="{{key}}">{{key}}</option>-->
+                                                                                                 <!--</select>-->
+                                                                                             <!--</div>-->
+                                                                                             <!--<div class="col-md-5">-->
+                                                                                                 <!--<select  ng-model="newOper.operator" ng-change="setFunctionCall(newOper.operator)"  class=" form-control " >-->
+                                                                                                     <!--<option ng-repeat="opera in operators" value="{{opera}}" ng-selected="$index == newOper.op_index">{{opera.operation_name}}</option>-->
+                                                                                                 <!--</select>-->
+                                                                                             <!--</div>-->
+                                                                                             <!--<div class="col-md-2">-->
+                                                                                                 <!--<button type="button" class="btn_hethi_square btn-info">-->
+                                                                                                     <!--apply-->
+                                                                                                 <!--</button>-->
+                                                                                             <!--</div>-->
+                                                                                         <!--</div>-->
+                                                                                     <!--</div>-->
+                                                                                 <!--</div>-->
+
+                                                                                 <!--<div class="row" ng-repeat="newOper in fd.functions">-->
+                                                                                     <!--&lt;!&ndash;<div class="col-md-2">&ndash;&gt;-->
+                                                                                         <!--&lt;!&ndash;<label ng-if="$first">Operation</label>&ndash;&gt;-->
+                                                                                     <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                                                                     <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+                                                                                         <!--&lt;!&ndash;<select ng-change="selectOperators(id)" ng-model="id"  class=" form-control " >&ndash;&gt;-->
+                                                                                             <!--&lt;!&ndash;<option value="">operations</option>&ndash;&gt;-->
+                                                                                             <!--&lt;!&ndash;<option ng-if="key != 'Look Up'" ng-repeat="(key,value) in typeOfOperators" value="{{key}}">{{key}}</option>&ndash;&gt;-->
+                                                                                         <!--&lt;!&ndash;</select>&ndash;&gt;-->
+                                                                                     <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                                                                                     <!--<div class="col-md-6">-->
+                                                                                         <!--<div class="input-group margin-bottom-5">-->
+                                                                                             <!--<select  ng-model="newOper.operator" ng-change="setFunctionCall(newOper.operator)"  class=" form-control " >-->
+                                                                                                 <!--<option ng-repeat="opera in operators" value="{{opera}}" ng-selected="$index == newOper.op_index">{{opera.operation_name}}</option>-->
+                                                                                             <!--</select>-->
+                                                                                                 <!--<span ng-if="$last" ng-click="addNewOperation($index,outerIndex)" class="mouse_point input-group-addon"  data-placement="bottom"-->
+                                                                                                       <!--title="Add New Operation">-->
+                                                                                                      <!--<span class="fa fa-plus"></span>-->
+                                                                                                 <!--</span>-->
+                                                                                                 <!--<span ng-if="!$last" ng-click="rule.functions.splice($index,1)" class="mouse_point input-group-addon"  data-placement="bottom"-->
+                                                                                                       <!--title="Remove this Operation">-->
+                                                                                                       <!--<span class="fa fa-remove"></span>-->
+                                                                                                 <!--</span>-->
+                                                                                         <!--</div>-->
+
+                                                                                     <!--</div>-->
+
+                                                                                 <!--</div>-->
+
+                                                                             </div>
+                                                                             <div class="row ">
+                                                                                 <div class="col-md-12">
+                                                                                     <div class="text-center">
+                                                                                         <button type="button" ng-click="editCondition(fd)" class="btn-w-md btn_hethi btn-primary ">save condition</button>
+                                                                                         <!--<button ng-if="$last" type="button" ng-click="addNewCondition($index,'||')" class="btn_hethi btn-info"><i class="fa fa-plus-circle"></i> OR Condition</button>-->
+                                                                                     </div>
+                                                                                 </div>
+                                                                             </div>
+                                                                         </div>
+                                                                         <!--edit ui ends now-->
                                                                          </div>
                                                                      <div ng-show="ruleType == 'computation'" >
                                                                          <div ng-repeat="rule in dynamicRules" ng-init="outerIndex=$index" ng-if="$last">
@@ -676,9 +918,12 @@
                                                                                  <span >{{$index+1}} {{rule1.condition_statement}} </span>
 
                                                                              </div>
-                                                                             <div class="col-md-2">
-                                                                                 <span ng-if="!$first" data-ng-click="removeCondition($index)" class="btn_hethi_square btn-danger">
+                                                                             <div class="col-md-3">
+                                                                                  <span  data-ng-click="changeCondition($index)" class="btn_hethi_square btn-info">
+                                                                                     <i class="fa fa-edit"></i></span>
+                                                                                  <span ng-if="!$first" data-ng-click="removeCondition($index)" class="btn_hethi_square btn-danger">
                                                                                      <i class="fa fa-remove"></i></span>
+
                                                                              </div>
                                                                          </div>
                                                                      </div>
@@ -717,8 +962,8 @@
                                                      <div class="panel-heading">
                                                          <span style="font-size: 20px">then</span>
                                                      </div>
-                                                     <div class="panel-body" style="height: 310px; width: auto; overflow-y: auto">
-                                                         <div class="row margin-top-10">
+                                                     <div class="panel-body" style="height:auto; width: auto; overflow-y: auto">
+                                                         <div ng-show="isNewRule" class="row margin-top-10">
                                                              <div class="col-md-4" style="border-right: 1px solid #dcdcdc; text-transform: lowercase">
                                                                  <div class="wrap">
                                                                      <ul >
@@ -850,6 +1095,11 @@
 
                                                              </div>
                                                          </div>
+                                                         <div ng-hide="isNewRule" class="row margin-top-10">
+                                                             <div class="col-md-12">
+                                                                 <span class="text-primary"><i class="fa fa-info-circle"></i>. {{actionEvent}}</span>
+                                                             </div>
+                                                         </div>
                                                      </div>
 
 
@@ -862,8 +1112,8 @@
                                                      <div  class="panel-heading">
                                                          <span style="font-size: 20px">otherwise</span>
                                                      </div>
-                                                     <div class="panel-body" style="height: 310px; width: auto; overflow-y: auto; text-transform: lowercase">
-                                                         <div class="row margin-top-10">
+                                                     <div class="panel-body" style="height: auto; width: auto; overflow-y: auto; text-transform: lowercase">
+                                                         <div ng-show="isNewRule" class="row margin-top-10">
                                                              <div class="col-md-4" style="border-right: 1px solid #dcdcdc">
                                                                  <div class="wrap">
                                                                      <ul >
@@ -990,6 +1240,11 @@
                                                                      </div>
                                                                  </div>
 
+                                                             </div>
+                                                         </div>
+                                                         <div ng-hide="isNewRule" class="row margin-top-10">
+                                                             <div class="col-md-12">
+                                                                 <span class="text-primary"><i class="fa fa-info-circle"></i>. {{failureEvent}}</span>
                                                              </div>
                                                          </div>
                                                      </div>
@@ -1216,7 +1471,9 @@
                                                           <span class="fa fa-trash-o">  </span>
                                                           &nbsp;cancel
                                                       </button>
-                                                       <input type="button" data-ng-click="addNewRule(r)" class="btn_hethi btn-w-md btn-primary" value="save">
+
+                                                      <input ng-show="isNewRule" type="button" data-ng-click="addNewRule(r)" class="btn_hethi btn-w-md btn-primary" value="save">
+                                                      <input ng-hide="isNewRule" type="button" data-ng-click="updateExistingRule(r)" class="btn_hethi btn-w-md btn-primary" value="save">
                                                            <!--<span class="fa fa-save">  </span>-->
                                                            <!--&nbsp;save-->
 
@@ -1250,6 +1507,7 @@
     <section data-ng-include="'pages/hethistudio/admin/businessProcess/EditWorkSet.html'"></section>
     <section data-ng-include="'pages/hethistudio/admin/businessProcess/EditRule.html'"></section>
     <section data-ng-include="'pages/hethistudio/admin/businessProcess/NewRule.html'"></section>
+    <section data-ng-include="'pages/hethistudio/admin/businessProcess/ruleRepository.html'"></section>
 
 
 </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
