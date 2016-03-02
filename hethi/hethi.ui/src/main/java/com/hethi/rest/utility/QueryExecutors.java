@@ -544,6 +544,5 @@ public class QueryExecutors {
 		
 	
 	
-	
->>>>>>> .r127
+
 }

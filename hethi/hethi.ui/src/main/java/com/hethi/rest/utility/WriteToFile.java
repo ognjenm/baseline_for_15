@@ -29,26 +29,30 @@ public class WriteToFile {
 		return fileLocation;
 	}
 
-	public final File folderNameUpdation(String filepath, long timestamp) {
+	public final File folderNameUpdation(String filepath) {
 //		filepath=filepath.replace("\\", "/");
 		File folder = new File(filepath);
 		System.out.println("old filepath"+filepath);
 		System.out.println(folder.exists());
-		String newDir = filepath + timestamp;
+		String newDir = filepath ;
 		final File newFolder = new File(newDir);
 		System.out.println(folder.renameTo(newFolder));
 		System.out.println("new path="+newDir);
 		return newFolder;
 	}
 	
-	public final File fileNameUpdation(String filepath, long timestamp) {
+	public final File fileNameUpdation(String filepath) {
+		System.out.println("saveFile process in ftp fileNameUpdation==>");
 		File currentDirFile = new File(".");
 		String helper = currentDirFile.getAbsolutePath();
 		String currentDir = helper.substring(0, helper.lastIndexOf('.')).replace("\\", "/");
 		filepath=currentDir+filepath;
+		System.out.println("filepath===> "+filepath);
 		File folder = new File(filepath);
 		String fileType=FilenameUtils.getExtension(filepath);
-		String newDir = filepath.substring(filepath.lastIndexOf("/") + 1, filepath.lastIndexOf(".")) +"_"+timestamp+"."+fileType;
+		System.out.println("fileType===> "+fileType);
+		String newDir = filepath.substring(filepath.lastIndexOf("/") + 1, filepath.lastIndexOf(".")) +"."+fileType;
+		System.out.println("newDir===> "+newDir);
 		newDir.replace('\\', '/');
 		final File newFolder = new File(folder.getParent() + "/" + newDir);
 		folder.renameTo(newFolder);
