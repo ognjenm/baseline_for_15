@@ -80,7 +80,12 @@ public class HethiHomeController {
 		return homeServices.assign_task(jsonData);
 	}
 
-	
+	@RequestMapping( value="/updateRule" , method = RequestMethod.POST)
+	@ResponseBody
+	public String updateRule(@RequestBody String jsonData) throws ParseException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		return homeServices.updateRule(jsonData);
+	}
+
 	@RequestMapping( value="/saveNewRule" , method = RequestMethod.POST)
 	@ResponseBody
 	public String saveNewRule(@RequestBody String jsonData) throws ParseException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {

@@ -49,5 +49,11 @@ public class AppHomeController {
 		System.out.println(JSONData);
 		return homeServices.signIn(JSONData);
 	}
+    @RequestMapping(value = "/loadRuleRepo", method = RequestMethod.POST)
+	@ResponseBody
+	public String loadRuleRepo(@RequestBody String JSONData) throws ParseException {
+		System.out.println(JSONData);
+		return homeServices.loadRuleRepo(JSONData);
+	}
 
 }
