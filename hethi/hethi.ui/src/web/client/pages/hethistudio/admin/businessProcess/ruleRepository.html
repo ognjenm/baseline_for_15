@@ -1,0 +1,81 @@
+<div class="row" >
+    <div id="ruleRepo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-lg" >
+            <div class="modal-content">
+                <div>
+                    <div class="modal-header modal-head-bg-default">
+                        <span class="fa fa-close white-c pull-right mouse_point" data-dismiss="modal" aria-hidden="true"></span>
+
+                        <h4 class="modal-title text-center"><span class="fa fa-history "></span> Rule Repository</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-body ">
+                                <div class="margin-bottom-5"  ng-style="$index % 2 == 0 && {'background-color':'lightcyan','padding':'10px','border':'1px solid cyan'}
+                                || $index%2 == 1 && {'background-color':'white','padding':'10px','border':'1px solid cyan'}" ng-repeat="repo in ruleRepo" ng-init="outerIndex=$index">
+                                    <div class="row margin-bottom-5">
+                                        <div class="col-md-12">
+                                            <span class="text-primary">{{repo.user_firstname}}</span> &nbsp;&nbsp;updated <span class="text-primary">{{repo.rule_name}}</span>
+                                            with
+                                            <span ng-if="!repo.status">{{repo.updatedKeys}}</span>
+                                            <span ng-if="repo.status" ng-repeat="field in repo.updatedKeys">
+                                                <span ng-show="field.key !='lastupdtm' || field.key !='repository_no'">
+                                                    <span ng-if="$index == repo.updatedKeys.length - 1 && repo.updatedKeys.length  > 2"> and </span>
+                                                    <a  href ng-click="showKeyDetails(field,outerIndex,$index)" class="text-info">
+                                                       {{field.key}} </a>
+                                                    <span ng-if="$index >= 0 && $index <= repo.updatedKeys.length - 2">,</span>
+                                                </span>
+
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div  ng-show="repo.showDetails" class="margin-bottom-20" style="background-color: white;padding: 5px;
+                                    border:1px solid lightskyblue">
+                                        <div class="row" style="text-align: right">
+                                            <div class="col-md-12">
+                                                <span class="btn-danger fa fa-close" style="padding: 5px;border-radius: 300%" data-ng-click="negateShowDetails(outerIndex)"></span>
+                                            </div>
+                                        </div>
+                                        <div class="row margin-bottom-5">
+                                            <div class="col-md-2">
+                                                <span class="text-danger">old value</span>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <span>:{{repo.updatedKeys[index].old_value}}</span>
+                                            </div>
+
+
+                                        </div>
+                                        <hr>
+                                        <div class="row margin-bottom-5">
+                                            <div class="col-md-2">
+                                                <span class="text-danger">updated value</span>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <span>:{{repo.updatedKeys[index].updated_value}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row " style="text-align: right">
+                                        <!--<div class="col-md-1"></div>-->
+                                        <div class="col-md-12">
+                                            <span class="fa fa-calendar-check-o"></span>
+                                            <span class="text-primary" >{{repo.lastupdate | date:'mediumDate' }} {{repo.lastuptime}}</span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
