@@ -119,7 +119,7 @@ public class WorkflowRepo {
 			Gson gson = new Gson();
 			String fileName = fileObject.selectFile(json.get("table_name").toString(), json.get("efs_uin").toString());
 			int index = 0;
-			int version;
+			System.out.println("fileName=====>  "+fileName);
 
 			while (index == 0) {
 				try {
@@ -131,17 +131,17 @@ public class WorkflowRepo {
 					QueryExecutors queryObj = new QueryExecutors();
 					@SuppressWarnings("rawtypes")
 
-					ArrayList<ArrayList> resultList = queryObj.callProcedure(
-							"Select max(version)as version FROM hethi.ixsd_cefs100101_lineitem where din="
-									+ json.get("din").toString() + ";");
+					String version = queryObj.executeMyQuery("Select max(version)as version FROM hethi.ixsd_cefs100101_lineitem where din="+ json.get("din").toString() + ";");
+					System.out.println("executeMyQuery===> "+version);
+					/*ArrayList<ArrayList> resultList = queryObj.callProcedure("Select max(version)as version FROM hethi.ixsd_cefs100101_lineitem where din="+ json.get("din").toString() + ";");
 					String json2 = gson.toJson(resultList.get(0).get(0));
 					System.out.println(json2);
 					JSONObject jsonD = (JSONObject) new JSONParser().parse(json2);
-					version = Integer.valueOf((String) jsonD.get("version"));
+					version = Integer.valueOf((String) jsonD.get("version"));*/
 					System.out.println("json version string ==> " + version);
-					System.out.println(version + "resultvalue==> " + jsonD.toJSONString());
+					//System.out.println(version + "resultvalue==> " + jsonD.toJSONString());
 
-					String hql = "from " + fileName.toLowerCase() + " where din=:Din and version = " + version;
+					String hql = "from " + fileName.toLowerCase() + " where din=:Din and version = " + "'" +version+"'";
 					System.out.println("select line item query in workfolow rep===> " + hql);
 					Query queryResult = session.createQuery(hql);
 					queryResult.setParameter("Din", json.get("din").toString());
@@ -189,6 +189,7 @@ public class WorkflowRepo {
 					System.out.println("class name line item ===> " + className);
 					Object classObj = Class.forName(className).newInstance();
 					String hql = "from " + fileName.toLowerCase() + " where din=:Din";
+					System.out.println(json);
 					System.out.println("select line item query in workfolow rep===> " + hql);
 					Query queryResult = session.createQuery(hql);
 					queryResult.setParameter("Din", json.get("din").toString());
@@ -410,6 +411,11 @@ public class WorkflowRepo {
 					String key = (String) i.next();
 					String value = (String) tableString.get(key);
 					// System.out.println("key="+key+" and value="+value);
+					if(key.equalsIgnoreCase("version"))
+					{
+					int	val = Integer.valueOf( tableString.get(key)) + 1;
+					value = String.valueOf(val);
+					}
 					returnString.put(key, value);
 					// System.out.println("now ="+returnString);
 				}
@@ -422,10 +428,15 @@ public class WorkflowRepo {
 
 			ArrayList<String> fileNames1 = fileObject.listFilesToInsert(tableobj.get("efs_uin").toString());
 			int index11 = 0;
-			while (index11 < fileNames1.size()) {
+			String tablename = "ixsd_"+tabelclsname;
+			System.out.println("fileNames name  ==> " + tablename);
+			System.out.println("Chech if condision ===>"+fileNames1.get(0));
+			if(tablename.equalsIgnoreCase(fileNames1.get(0))){
+			//while (index11 < fileNames1.size()) {
 				// System.out.println(fileNames.get(index).toString() + " is the
 				// table name");
-				String className = "com.hethi.rest.model." + fileNames1.get(index11).toString();
+				//String className = "com.hethi.rest.model." + fileNames1.get(index11).toString();
+				String className = "com.hethi.rest.model." + tablename;
 				System.out.println("className table  ====> "+className);
 				Object classObj = Class.forName(className).newInstance();
 				Object classNewObj = null;
@@ -480,7 +491,7 @@ public class WorkflowRepo {
 				JSONArray jsonObjarray = (JSONArray) linitem_json_rootObj.get(index);
 				System.out.println("linitem_json_rootObj=====<<<<<> 1 "+index +" "+ linitem_json_rootObj.toString());
 
-				for (int index1 = 0; index1 < jsonObjarray.size() - 1; index1++) {
+				for (int index1 = 0; index1 < jsonObjarray.size(); index1++) {
 					//lineitemString1 = new HashMap<String, String>();
 					JSONObject jsonObj1 = (JSONObject) jsonObjarray.get(index1);
 
@@ -489,10 +500,17 @@ public class WorkflowRepo {
 					lineitemString = WorkflowRepo.parse(jsonObj1, lineitemString);
 					System.out.println("return value===" + lineitemString);
 					Set keys = lineitemString.keySet();
+					
+					
 
 					for (Iterator i = keys.iterator(); i.hasNext();) {
-						String key = (String) i.next();
+						String key = (String) i.next();						
 						String value = (String) lineitemString.get(key);
+						if(key.equalsIgnoreCase("version"))
+						{
+						int	val = Integer.valueOf( lineitemString.get(key)) + 1;
+						value = String.valueOf(val);
+						}
 						lineitemString1.put(key, value);
 
 					}
