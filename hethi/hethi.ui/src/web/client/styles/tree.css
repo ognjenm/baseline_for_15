@@ -407,3 +407,126 @@ transform: rotate(45deg);
 	/*font-size: 20px;*/
 	box-shadow: 0 10px 10px 2px rgba(0,0,0,0.3);
 }
+.statusBlock{
+	padding: 5px;
+	width: auto;
+	height:100px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius:5px;
+	background-color:lightskyblue;
+	color: white;
+}
+.statusDataBlock{
+	padding: 5px;
+	width: auto;
+	height:100px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius:5px;
+	border:1px solid lightskyblue;
+}
+.whenBlock{
+	padding: 5px;
+	width: 200px;
+	height:100px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius:5px;
+	background-color:#008cb6;
+	color: white;
+}
+.whenDataBlock{
+	padding: 5px;
+	width: auto;
+	height:100px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius:5px;
+	border:1px solid #008cb6;
+}
+.thenBlock{
+	padding: 5px;
+	width: auto;
+	height:100px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius:5px;
+	background-color:#169381;
+	color: white;
+}
+.thenDataBlock{
+	padding: 5px;
+	width: auto;
+	height:100px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius:5px;
+	border:1px solid #169381;
+}
+.otherwiseBlock{
+	padding: 5px;
+	width: auto;
+	height:100px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius:5px;
+	background-color:#00b5ad;
+	color: white;
+}
+.otherwiseDataBlock{
+	padding: 5px;
+	width: auto;
+	height:100px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius:5px;
+	border:1px solid #00b5ad
+}
+.clt, .clt ul, .clt li {
+	position: relative;
+}
+
+.clt ul {
+	list-style: none;
+	padding-left: 32px;
+}
+.clt li::before, .clt li::after {
+	content: "";
+	position: absolute;
+	left: -12px;
+}
+.clt li::before {
+	border-top: 1px solid #000;
+	top: 9px;
+	width: 8px;
+	height: 0;
+}
+.clt li::after {
+	border-left: 1px solid #000;
+	height: 100%;
+	width: 0px;
+	top: 2px;
+}
+.clt ul > li:last-child::after {
+	height: 8px;
+}
+.rectangleDiv{
+	width:auto;
+	height:100px;
+	background-color: #dd4b39;
+	color:white;
+	border-radius: 5px;
+	padding: 5px;
+}
+.ovalDiv{
+	width:auto;
+	height:100px;
+	background-color: #1bb7a0;
+	color:white;
+	border-radius: 250%;
+	padding: 10px;
+}
+.whiteRectangle{
+	width:auto;
+	height: 100px;
+	border:1px solid #1e90ff;
+	border-radius: 5px;
+	padding: 5px;
+}
+.long {
+	transform: scale(5.5,1);
+	max-width: 200px;
+}
