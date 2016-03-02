@@ -1,4 +1,4 @@
-package com.hethi.commonfunctions;
+/*package com.hethi.commonfunctions;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -55,3 +55,4 @@ public class amqServices  implements MessageListener{
 	
 
 }
+*/
