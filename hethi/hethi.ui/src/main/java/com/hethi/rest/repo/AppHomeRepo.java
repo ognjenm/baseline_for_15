@@ -88,4 +88,19 @@ public class AppHomeRepo {
 		System.out.println(queryOutput);
 		return queryOutput;
 	}
+		public String loadRuleRepo(String query) throws ParseException {
+    		Gson gson = new Gson();
+    		String queryOutput = "[{\"result\":\"Nodata\"}]";
+    		try {
+    			QueryExecutors queryObj = new QueryExecutors();
+    			@SuppressWarnings("rawtypes")
+    			ArrayList<ArrayList> resultList = queryObj.callProcedure(query);
+    			System.out.println(gson.toJson(resultList));
+    			return gson.toJson(resultList);
+    		} catch (Exception e) {
+    			queryOutput = "[{\"result\":\"Error\"}]";
+    		}
+    		System.out.println(queryOutput);
+    		return queryOutput;
+    	}
 }
