@@ -1,38 +1,120 @@
-<mxsd owner="Hethi" author="" version="1.0" created_date="25/11/2015" ixsdlocation="http://www.hethi.com/schema/meta/meta1.xsd" ixsdversion="1.0" >
-	<business>
-		<industry>  </industry>
-		<bpaas>  </bpaas>
-	</business>
-	<form>
-		<efsuin>  </efsuin>
-		<header>
-			<group name="header">
-				<field>
+<mxsd>
+	<efsuin_demography>
+		<type> </type>
+		<efsuin>cefs100101</efsuin>
+		<industry>Retail</industry>
+		<bpaas>invoice process to pay</bpaas>
+		<formtype>PO-Inventory</formtype>
+		<totalpages>3</totalpages>
+		<formowner>HAA00001</formowner>
+		<version>1</version>
+		<createddatatime>2015-10-30 15:28:00</createddatatime>
+		<author>Hethi-Artist</author>
+		<ixsdlocation>http://localhost:2687/images/ixsd/po.xml</ixsdlocation>
+		<ixsdversion>1.0</ixsdversion>
+	</efsuin_demography>
+	<efsuin_snippet>
+		<segment>
+			<name>default</name>
+			<positions>
+				<position>
+					<top>0</top>
+					<left>0</left>
+					<width>876</width>
+					<height>900</height>
+				</position>
+			</positions>
+		</segment>
+	</efsuin_snippet>
+	<efsuin_form>
+		<page pageno="1">
+			<header>
+				<group name="header">
+					<field>
 
-			</field>
-			</group>
-		</header>
-		<footer>
-			<group  name="summary">
-				<field>
+					</field>
+				</group>
+			</header>
+			<footer>
+				<group  name="summary">
+					<field>
 
-				</field>
-			</group>
-		</footer>
-		<body>
-			<group  name="lineitem">
-			<field>
+					</field>
+				</group>
+			</footer>
+			<body>
+				<group  name="lineitem">
+					<field>
 
-			</field>
-			<fieldlist>
-				<field>
+					</field>
+					<fieldlist>
+						<field>
 
-				</field>
-			</fieldlist>
+						</field>
+					</fieldlist>
+				</group>
+			</body>
+		</page>
+		<page pageno="2">
+			<header>
+				<group name="header">
+					<field>
 
-			</group>
-		</body>
-</form>
+					</field>
+				</group>
+			</header>
+			<footer>
+				<group  name="summary">
+					<field>
+
+					</field>
+				</group>
+			</footer>
+			<body>
+				<group  name="lineitem">
+					<field>
+
+					</field>
+					<fieldlist>
+						<field>
+
+						</field>
+					</fieldlist>
+				</group>
+			</body>
+		</page>
+		<page pageno="3">
+			<header>
+				<group name="header">
+					<field>
+
+					</field>
+				</group>
+			</header>
+			<footer>
+				<group  name="summary">
+					<field>
+
+					</field>
+				</group>
+			</footer>
+			<body>
+				<group  name="lineitem">
+					<field>
+
+					</field>
+					<fieldlist>
+						<field>
+
+						</field>
+					</fieldlist>
+				</group>
+			</body>
+		</page>
+	</efsuin_form>
+	<efsuin_classify>
+
+	</efsuin_classify>
 </mxsd>
 
 
