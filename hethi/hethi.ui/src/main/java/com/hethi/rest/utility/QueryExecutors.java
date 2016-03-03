@@ -544,5 +544,12 @@ public class QueryExecutors {
 		
 	
 	
+<<<<<<< .mine
+	
+||||||| .r88
+	
+>>>>>>> .r127
+=======
 
+>>>>>>> .r111
 }
