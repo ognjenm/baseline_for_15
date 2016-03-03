@@ -652,6 +652,8 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
             url: $rootScope.spring_rest_service + '/loadCustomerList',
             dataType: 'jsonp'
         }).success(function (data) {
+            $scope.customerUploadsList = [];
+            init();
             if (data[0][0].result != "No Data") {
                 $scope.customerUploadsList = data[0];
                 init();

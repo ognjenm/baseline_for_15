@@ -30,17 +30,25 @@ hethi.controller('hethi_artist_home_Controller', ['$http','$scope','$filter','$r
         {Key:['mxsd','form','footer','group'],Value:"footer"},
         {Key:['mxsd','form','body','group'],Value:"body"},
         {Key:['mxsd','form','body','group','fieldlist'],Value:"lineitem"}];
-    $scope.mxsdDataType=[{Key:"label field",Value:"label field"},
-    {Key:"data field",Value:"data field"},
+    $scope.mxsdDataType=[{Key:"text",Value:"text"},
     {Key:"image field",Value:"image field"},
     {Key:"1Dbarcode field",Value:"1Dbarcode field"},
     {Key:"2DQRcode field",Value:"2DQRcode field"},
     {Key:"3DQRcode field",Value:"3DQRcode field"},
-    {Key:"OMCheckbox field",Value:"OMCheckbox field"},
+    {Key:"OM Checkbox field",Value:"OMCheckbox field"},
     {Key:"OM Radiobutton field",Value:"OM Radiobutton field"},
     {Key:"OCRA field",Value:"OCRA field"},
     {Key:"OCRB field",Value:"OCRB field"},
     {Key:"MICR",Value:"MICR"}];
+
+    $scope.classificationValues=[
+        {Key:"Indexing",Value:"Indexing"},
+        {Key:"Reject",Value:"Reject"},
+        {Key:"SplitMerge",Value:"SplitMerge"},
+        {Key:"FormIdentification",Value:"Form Identification"},
+        {Key:"FormRelationship",Value:"Form Relationship"},
+        {Key:"FormSequenceNo",Value:"Form SequenceNo"}];
+
 
     $scope.mxsdFieldType=[{Key:"label",Value:"label"},{Key:"data",Value:"data"}];
     $scope.indexingValues=[{"indexToClassify":"No","indexToReject":"No","indexToSplitMerge":"No","formIdentification":"No","formRelationship":"No","formSequenceNo":"No"}];
@@ -410,7 +418,7 @@ $scope.loadMasterForm=function(path){
             breadcrumbs.push(nodeScope.key);
             nodeScope = nodeScope.$parent.$parent.$parent.$parent;
         }
-        deleteObject($scope.masterFormFields)
+        deleteObject($scope.masterFormFields.mxsd.efsuin_form)
         function deleteObject(object){
             var stack = breadcrumbs.reverse();
             while(stack.length>2){
@@ -420,7 +428,8 @@ $scope.loadMasterForm=function(path){
         }
     };
     $scope.viewModel=function(){
-        jQuery('#modalview').modal('show');
+        $scope.segment='classify';
+        //jQuery('#modalview').modal('show');
     }
 
 
@@ -995,35 +1004,57 @@ $scope.loadMasterForm=function(path){
             //mxsd.business.industry||bpaas
             //mxsd.formdemo.efsuin
             function setmxsd(js) {
-                if (!isArray(js.mxsd.form.header.group)) {
-                    js.mxsd.form.header.group=isObject(js.mxsd.form.header.group)? [js.mxsd.form.header.group]:[];
+                if (!isArray(js.mxsd.efsuin_form.page)) {
+                    js.mxsd.efsuin_form.page=isObject(js.mxsd.efsuin_form.page)? [js.mxsd.efsuin_form.page]:[];
                 }
-                if (!isArray(js.mxsd.form.footer.group)) {
-                    js.mxsd.form.footer.group=isObject(js.mxsd.form.footer.group)? [js.mxsd.form.footer.group]:[];
-                }
-                if (!isArray(js.mxsd.form.body.group)) {
-                    js.mxsd.form.body.group=isObject(js.mxsd.form.body.group)? [js.mxsd.form.body.group]:[];
-                }
-                js.mxsd.form.header.group.forEach(function (row, i) {
-                    if (!isArray(row.field)) {
-                        js.mxsd.form.header.group[i].field=isObject(js.mxsd.form.header.group[i].field)? [js.mxsd.form.header.group[i].field]:[];
+                js.mxsd.efsuin_form.page.forEach(function(page){
+
+                //page
+                    if (!isArray(page.header.group)) {
+                        page.header.group=isObject(page.header.group)? [page.header.group]:[];
                     }
-                })
-                js.mxsd.form.footer.group.forEach(function (row, i) {
-                    if (!isArray(row.field)) {
-                        js.mxsd.form.footer.group[i].field=isObject(js.mxsd.form.footer.group[i].field)? [js.mxsd.form.footer.group[i].field]:[];
+                    if (!isArray(page.footer.group)) {
+                        page.footer.group=isObject(page.footer.group)? [page.footer.group]:[];
                     }
-                })
-                js.mxsd.form.body.group.forEach(function (row, i) {
-                    if (!isArray(row.field)) {
-                        js.mxsd.form.body.group[i].field=isObject(js.mxsd.form.body.group[i].field)? [js.mxsd.form.body.group[i].field]:[];
+                    if (!isArray(page.body.group)) {
+                        page.body.group=isObject(page.body.group)? [page.body.group]:[];
                     }
-                    if(!isArray(row.fieldlist.field)){
-                        js.mxsd.form.body.group[i].fieldlist.field=isObject(js.mxsd.form.body.group[i].fieldlist.field)? [js.mxsd.form.body.group[i].fieldlist.field]:[];
-                    }
-                })
+                    page.header.group.forEach(function (row, i) {
+                        if (!isArray(row.field)) {
+                            page.header.group[i].field=isObject(page.header.group[i].field)? [page.header.group[i].field]:[];
+                        }
+                    })
+                    page.footer.group.forEach(function (row, i) {
+                        if (!isArray(row.field)) {
+                            page.footer.group[i].field=isObject(page.footer.group[i].field)? [page.footer.group[i].field]:[];
+                        }
+                    })
+                    page.body.group.forEach(function (row, i) {
+                        if (!isArray(row.field)) {
+                            page.body.group[i].field=isObject(page.body.group[i].field)? [page.body.group[i].field]:[];
+                        }
+                        if(!isArray(row.fieldlist.field)){
+                            page.body.group[i].fieldlist.field=isObject(page.body.group[i].fieldlist.field)? [page.body.group[i].fieldlist.field]:[];
+                        }
+                    })
+                });
                 console.log(JSON.stringify(js));
+                if (!isArray(js.mxsd.efsuin_snippet.segment)) {
+                    js.mxsd.efsuin_snippet.segment=isObject(js.mxsd.efsuin_snippet.segment)? [js.mxsd.efsuin_snippet.segment]:[];
+
+                    js.mxsd.efsuin_snippet.segment.forEach(function(rows){
+                        if (!isArray(rows.positions)) {
+                            rows.positions = isObject(rows.positions) ? [rows.positions] : [];
+                        }
+                    });
+                }
+                //js.mxsd.efsuin_classify.classification=!isArray(js.mxsd.efsuin_classify.classification)?
+                //    isObject(js.mxsd.efsuin_classify.classification)?[js.mxsd.efsuin_classify.classification]:[]:[];
                 $scope.masterFormFields = js;
+                $scope.segments=[];
+                $scope.masterFormFields.mxsd.efsuin_snippet.segment.forEach(function(segment){
+                    $scope.segments.push(segment.name)
+                });
             }
         });
 
@@ -1031,6 +1062,15 @@ $scope.loadMasterForm=function(path){
         $scope.setStencilingPage($scope.stencilingPages[0]);
 
     };
+    $scope.cordinatesChanged=function(data){
+        $scope.$apply(function(){
+            data.x=Math.ceil($scope.formSize.width/600*data.x);
+            data.y=Math.ceil($scope.formSize.Height/850*data.y);
+            data.w=Math.ceil($scope.formSize.width/600*data.w);
+            data.h=Math.ceil($scope.formSize.Height/850*data.h);
+            $scope.cordinatesPositions=data;
+        });
+    }
     $scope.stencilForm=[];
     $scope.setStencilingPage=function(form_page){
         $scope.stencilingPages.forEach(function(f){
@@ -1056,7 +1096,101 @@ $scope.loadMasterForm=function(path){
             //$.Jcrop('#stencilingImage');
 
             $('.jcrop-holder img').attr('src', $rootScope.selectedImage);
+        //var canvas = document.getElementById('myCanvas');
+        //
+        //var context = canvas.getContext('2d');
+        //var imageObj = new Image();
+        //
+        //imageObj.onload = function() {
+        //    canvas.setAttribute("width",imageObj.width);
+        //    canvas.setAttribute("height",imageObj.height);
+        //    context.drawImage(imageObj, 0, 0);
+        //};
+        //imageObj.src = $rootScope.selectedImage;
+        //
+        //var offsetX= 0,offsetY=0;
+        //var mouseX,mouseY;
+        //function handleMouseDown(e){
+        //    var offset = $("#myCanvas").offset();
+        //    offsetX = offset.left;
+        //    offsetY = offset.top;
+        //    mouseX=parseInt(e.pageX-offsetX);
+        //    mouseY=parseInt(e.pageY-offsetY);
+        //    $("#downlog").html("Down: "+ mouseX + " / " + mouseY);
+        //}
+        //
+        //function handleMouseUp(e){
+        //    var offset = $("#myCanvas").offset();
+        //    offsetX = offset.left;
+        //    offsetY = offset.top;
+        //    mouseX=parseInt(e.pageX-offsetX);
+        //    mouseY=parseInt(e.pageY-offsetY);
+        //    $("#uplog").html("Up: "+ mouseX + " / " + mouseY);
+        //}
+        //
+        //function handleMouseOut(e){
+        //    var offset = $("#myCanvas").offset();
+        //    offsetX = offset.left;
+        //    offsetY = offset.top;
+        //    mouseX=parseInt(e.clientX-offsetX);
+        //    mouseY=parseInt(e.clientY-offsetY);
+        //    $("#outlog").html("Out: "+ mouseX + " / " + mouseY);
+        //}
+        //
+        //function handleMouseMove(e){
+        //    var offset = $("#myCanvas").offset();
+        //    offsetX = offset.left;
+        //    offsetY = offset.top;
+        //    mouseX=parseInt(e.clientX-offsetX);
+        //    mouseY=parseInt(e.clientY-offsetY);
+        //    $("#movelog").html("Move: "+ mouseX + " / " + mouseY);
+        //}
+        //
+        //$("#myCanvas").mousedown(function(e){handleMouseDown(e);});
+        //$("#myCanvas").mousemove(function(e){handleMouseMove(e);});
+        //$("#myCanvas").mouseup(function(e){handleMouseUp(e);});
+        //$("#myCanvas").mouseout(function(e){handleMouseOut(e);});
+
+
+        //function resizeImage(orgwidth, orgheight) {
+        //    jcrop_api.destroy();
+        //
+        //    var value = $('#imageslider').slider('option', 'value');
+        //    var width = orgwidth * (value / 100);
+        //    var height = orgheight * (value / 100);
+        //    $('#cropbox').width(width);
+        //    $('#cropbox').height(height);
+        //    $('#rw').val(width);
+        //    $('#rh').val(height);
+        //
+        //    initJcrop();
+        //
+        //}
+
         //});
+        //canvas.setAttribute("width","876");
+        //canvas.setAttribute("height","900");
+        //var context = canvas.getContext('2d');
+        //var imageObj = new Image();
+        //
+        //imageObj.onload = function() {
+        //    context.drawImage(imageObj, 0, 0);
+        //};
+        //imageObj.src = $rootScope.selectedImage;
+        //function make_base() {
+        //    var base_image = new Image();
+        //    base_image.src = $rootScope.selectedImage;
+        //    base_image.onload = function () {
+        //        context.drawImage(base_image, 0, 0);
+        //    }
+        //}
+        //
+        //var canvas = document.getElementById('myCanvas');
+        //canvas.setAttribute("width","876");
+        //canvas.setAttribute("height","900");
+        //var   context = canvas.getContext('2d');
+        //
+        //make_base();
 
         //$('#stencilingImage').attr('src', $rootScope.selectedImage).load(function(){
             //this.width;   // Note: $(this).width() will not work for in memory images
@@ -1340,37 +1474,53 @@ $scope.loadMasterForm=function(path){
                             $scope.efs_data=[];
                             $scope.position_cordinates=[];
 
-                            $scope.efs_data_header=s.mxsd.form.header;
-                            $scope.efs_data_footer=s.mxsd.form.footer;
-                            $scope.efs_data_body=s.mxsd.form.body;
+                            $scope.efs_data=s.mxsd.efsuin_form;
+                            //$scope.efs_data_header=s.mxsd.form.header;
+                            //$scope.efs_data_footer=s.mxsd.form.footer;
+                            //$scope.efs_data_body=s.mxsd.form.body;
 
-                            console.log("efsuin : "+JSON.stringify(s.mxsd.form.efsuin));
-                            console.log("header : "+JSON.stringify(s.mxsd.form.header));
+                            //console.log("efsuin : "+JSON.stringify(s.mxsd.form.efsuin));
+                            //console.log("header : "+JSON.stringify(s.mxsd.form.header));
 
-                            /************HEADER START************/
+
+                            var pageArray=[];
                             var headerGroup=[];
-                            if($scope.isObject($scope.efs_data_header.group))
-                            {headerGroup=[$scope.efs_data_header.group];}
-                            else if($scope.isArray($scope.efs_data_header.group))
-                            {headerGroup=$scope.efs_data_header.group;}
-                            if(headerGroup.length!=0){
-                                if($scope.isArray(headerGroup[0])){
-                                    headerGroup=headerGroup[0];
-                                }
-                                var index= 0,value='';
-                                headerGroup.forEach(function(row,i){
-                                    var groupField=[];
-                                    if($scope.isObject(row.field))
-                                    {groupField=[row.field];}
-                                    else if($scope.isArray(row.field))
-                                    {groupField=row.field;}
+                            if($scope.isObject($scope.efs_data.page)) {
+                                pageArray = $scope.efs_data.page;
+                            }else{
+                                pageArray = $scope.efs_data.page;
+                            }
 
-                                    if(groupField.length!=0) {
-                                        if($scope.isArray(groupField[0])){
-                                            groupField=groupField[0];
+                            pageArray.forEach(function(page){
+                                    $scope.efs_data_header=page.header;
+                                    $scope.efs_data_footer=page.footer;
+                                    $scope.efs_data_body=page.body;
+                                alert(JSON.stringify(page));
+
+
+                                /************HEADER START************/
+                                    if($scope.isObject($scope.efs_data_header.group))
+                                    {headerGroup=[$scope.efs_data_header.group];}
+                                    else if($scope.isArray($scope.efs_data_header.group))
+                                    {headerGroup=$scope.efs_data_header.group;}
+                                    if(headerGroup.length!=0){
+                                        if($scope.isArray(headerGroup[0])){
+                                            headerGroup=headerGroup[0];
                                         }
-                                        groupField.forEach(function (f,j) {
-                                            value = '';
+                                        var index= 0,value='';
+                                        headerGroup.forEach(function(row,i){
+                                            var groupField=[];
+                                            if($scope.isObject(row.field))
+                                            {groupField=[row.field];}
+                                            else if($scope.isArray(row.field))
+                                            {groupField=row.field;}
+
+                                            if(groupField.length!=0) {
+                                                if($scope.isArray(groupField[0])){
+                                                    groupField=groupField[0];
+                                                }
+                                                groupField.forEach(function (f,j) {
+                                                    value = '';
                                                     var positionInput = {
                                                         top: Math.ceil(629/$scope.formSize.width*f.data.position.top),
                                                         left: Math.ceil(886/$scope.formSize.Height*f.data.position.left),
@@ -1393,36 +1543,36 @@ $scope.loadMasterForm=function(path){
                                                         group_name: row.name
                                                     };
                                                     $scope.position_cordinates.push(positionInput);
+                                                });
+                                            }
                                         });
+
                                     }
-                                });
+                                    /************HEADER END************/
 
-                            }
-                            /************HEADER END************/
-
-                            /************FOOTER START************/
-                            var footerGroup=[];
-                            if($scope.isObject($scope.efs_data_footer.group))
-                            {footerGroup=[$scope.efs_data_footer.group];}
-                            else if($scope.isArray($scope.efs_data_footer.group))
-                            {footerGroup=$scope.efs_data_footer.group;}
-                            if(footerGroup.length!=0){
-                                if($scope.isArray(footerGroup[0])){
-                                    footerGroup=footerGroup[0];
-                                }
-                                var index= 0,value='';
-                                footerGroup.forEach(function(row,i){
-                                    var groupField=[];
-                                    if($scope.isObject(row.field))
-                                    {groupField=[row.field];}
-                                    else if($scope.isArray(row.field))
-                                    {groupField=row.field;}
-                                    if(groupField.length!=0) {
-                                        if($scope.isArray(groupField[0])){
-                                            groupField=groupField[0];
+                                    /************FOOTER START************/
+                                    var footerGroup=[];
+                                    if($scope.isObject($scope.efs_data_footer.group))
+                                    {footerGroup=[$scope.efs_data_footer.group];}
+                                    else if($scope.isArray($scope.efs_data_footer.group))
+                                    {footerGroup=$scope.efs_data_footer.group;}
+                                    if(footerGroup.length!=0){
+                                        if($scope.isArray(footerGroup[0])){
+                                            footerGroup=footerGroup[0];
                                         }
-                                        groupField.forEach(function (f,j) {
-                                            value = '';
+                                        var index= 0,value='';
+                                        footerGroup.forEach(function(row,i){
+                                            var groupField=[];
+                                            if($scope.isObject(row.field))
+                                            {groupField=[row.field];}
+                                            else if($scope.isArray(row.field))
+                                            {groupField=row.field;}
+                                            if(groupField.length!=0) {
+                                                if($scope.isArray(groupField[0])){
+                                                    groupField=groupField[0];
+                                                }
+                                                groupField.forEach(function (f,j) {
+                                                    value = '';
                                                     var positionInput = {
                                                         top: Math.ceil(629/$scope.formSize.width*f.data.position.top),
                                                         left: Math.ceil(886/$scope.formSize.Height*f.data.position.left),
@@ -1445,37 +1595,37 @@ $scope.loadMasterForm=function(path){
                                                         group_name: row.name
                                                     };
                                                     $scope.position_cordinates.push(positionInput);
+                                                });
+                                            }
                                         });
+
                                     }
-                                });
+                                    /************FOOTER END************/
 
-                            }
-                            /************FOOTER END************/
-
-                            /************BODY START************/
-                            var bodyGroup=[];
-                            if($scope.isObject($scope.efs_data_body.group))
-                            {bodyGroup=[$scope.efs_data_body.group];}
-                            else if($scope.isArray($scope.efs_data_body.group))
-                            {bodyGroup=$scope.efs_data_body.group;}
-                            if(bodyGroup.length!=0){
-                                if($scope.isArray(bodyGroup[0])){
-                                    bodyGroup=bodyGroup[0];
-                                }
-                                var index= 0,value='';
-                                bodyGroup.forEach(function(row,i){
-                                    var groupField=[];
-                                    if($scope.isObject(row.field))
-                                    {groupField=[row.field];}
-                                    else if($scope.isArray(row.field))
-                                    {groupField=row.field;}
-
-                                    if(groupField.length!=0) {
-                                        if($scope.isArray(groupField[0])){
-                                            groupField=groupField[0];
+                                    /************BODY START************/
+                                    var bodyGroup=[];
+                                    if($scope.isObject($scope.efs_data_body.group))
+                                    {bodyGroup=[$scope.efs_data_body.group];}
+                                    else if($scope.isArray($scope.efs_data_body.group))
+                                    {bodyGroup=$scope.efs_data_body.group;}
+                                    if(bodyGroup.length!=0){
+                                        if($scope.isArray(bodyGroup[0])){
+                                            bodyGroup=bodyGroup[0];
                                         }
-                                        groupField.forEach(function (f,j) {
-                                            value = '';
+                                        var index= 0,value='';
+                                        bodyGroup.forEach(function(row,i){
+                                            var groupField=[];
+                                            if($scope.isObject(row.field))
+                                            {groupField=[row.field];}
+                                            else if($scope.isArray(row.field))
+                                            {groupField=row.field;}
+
+                                            if(groupField.length!=0) {
+                                                if($scope.isArray(groupField[0])){
+                                                    groupField=groupField[0];
+                                                }
+                                                groupField.forEach(function (f,j) {
+                                                    value = '';
                                                     var positionInput = {
                                                         top: Math.ceil(629/$scope.formSize.width*f.data.position.top),
                                                         left: Math.ceil(886/$scope.formSize.Height*f.data.position.left),
@@ -1498,20 +1648,20 @@ $scope.loadMasterForm=function(path){
                                                         group_name: row.name
                                                     };
                                                     $scope.position_cordinates.push(positionInput);
-                                        });
-                                    }
-                                    var groupFieldlist=[];
-                                    if($scope.isObject(row.fieldlist.field))
-                                    {groupFieldlist=[row.fieldlist.field];}
-                                    else if($scope.isArray(row.fieldlist.field))
-                                    {groupFieldlist=row.fieldlist.field;}
+                                                });
+                                            }
+                                            var groupFieldlist=[];
+                                            if($scope.isObject(row.fieldlist.field))
+                                            {groupFieldlist=[row.fieldlist.field];}
+                                            else if($scope.isArray(row.fieldlist.field))
+                                            {groupFieldlist=row.fieldlist.field;}
 
-                                    if(groupFieldlist.length!=0) {
-                                        if($scope.isArray(groupFieldlist[0])){
-                                            groupFieldlist=groupFieldlist[0];
-                                        }
-                                        groupFieldlist.forEach(function (f,j) {
-                                            value = '';
+                                            if(groupFieldlist.length!=0) {
+                                                if($scope.isArray(groupFieldlist[0])){
+                                                    groupFieldlist=groupFieldlist[0];
+                                                }
+                                                groupFieldlist.forEach(function (f,j) {
+                                                    value = '';
                                                     var positionInput = {
                                                         top: Math.ceil(629/$scope.formSize.width*f.data.position.top),
                                                         left: Math.ceil(886/$scope.formSize.Height*f.data.position.left),
@@ -1534,12 +1684,17 @@ $scope.loadMasterForm=function(path){
                                                         group_name: row.name
                                                     };
                                                     $scope.position_cordinates.push(positionInput);
+                                                });
+                                            }
                                         });
-                                    }
-                                });
 
-                            }
-                            /************BODY START************/
+                                    }
+                                    /************BODY END************/
+                                })
+
+
+
+
 
                             $scope.completedStenciling();
                         });
@@ -1606,14 +1761,15 @@ $scope.loadMasterForm=function(path){
     };
     $scope.getWorkflowLog=true;
     $rootScope.startWorkflow=function(sfs_uin,hethi_subservicecode){
+
         logger.log('Workflow Started');
         $scope.getWorkflowLog=false;
-        //if($rootScope.previewContainer!=undefined){
+        if($rootScope.previewContainer!=undefined){
 
 
             var formData={
                 'customer_id':$rootScope.loginedUserData.customer_id,
-                'efs_uin':'cefs100101',  //$rootScope.previewContainer.efs_uin
+                'efs_uin':$rootScope.previewContainer.efs_uin,
                 'sfs_uin':sfs_uin,
                 'current_channel':hethi_subservicecode
             };
@@ -1635,11 +1791,11 @@ $scope.loadMasterForm=function(path){
                 logger.logError('Unable to complete workflow  , Please try again !');
                 $scope.getWorkflowLog=true;
             });
-        //}
-        //else
-        //{
-        //    logger.logError('please select a file to process');
-        //}
+        }
+        else
+        {
+            logger.logError('please select a file to process');
+        }
 
     };
 
@@ -1793,9 +1949,55 @@ $scope.loadMasterForm=function(path){
         //}
         ////updateObject($scope.mxsd.efsuin,selectedValue,a);
         //logger.logSuccess("Successfully Added");
+    };
 
+    $scope.segmentChanged=function(val){
+        $scope.segment=val;
+    };
+    $scope.copyheader=function(index){
+        $scope.masterFormFields.mxsd.efsuin_form.page[index].header=$scope.masterFormFields.mxsd.efsuin_form.page[0].header;
+    };
+    $scope.copyfooter=function(index){
+        $scope.masterFormFields.mxsd.efsuin_form.page[index].footer=$scope.masterFormFields.mxsd.efsuin_form.page[0].footer;
+    };
+    $scope.selectedPage=0;
+    $scope.selectedPages=1;
+    $scope.segment=false;
+    $scope.selectedPageChanged=function(value){
+        $scope.selectedPages=value;
+        $scope.selectedPage=value-1;
+    };
+    $scope.segmentName='';
+    $scope.policyName='';
+    $scope.policyType='';
+    $scope.segmentNameChange=function(value){
+        $scope.segmentName=value;
+    };
+    $scope.policyNameChanged=function(value){
+        $scope.policyName=value;
+    };
+    $scope.policyTypeChanged=function(value){
+        $scope.policyType=value;
+    };
+    $scope.extractData=function(){
+        var input={
+            file_location:$scope.stencilForm[0].file_location,
+            top:$scope.cordinatesPositions.y,
+            left:$scope.cordinatesPositions.x,
+            width:$scope.cordinatesPositions.w,
+            height:$scope.cordinatesPositions.h
+        }
+        $http({
+            method: 'POST',
+            url: $rootScope.spring_rest_service + '/extractDataFromPosition',
+            dataType: 'jsonp',
+            data: input
+        }).success(function (data) {
+            console.log(JSON.stringify(data));
+            $scope.expecteddata=data[0].data;
+        });
+    };
 
-    }
     $scope.addTocustomxsd=function(selectedValue){
         var groupname='default';
         if($scope.selectedMxsdPath.Value=="header"){
@@ -1811,19 +2013,19 @@ $scope.loadMasterForm=function(path){
         var added=false,fieldExists=false;
         $scope.selectedIxsd.group=groupname;
         if($scope.selectedMxsdPath.Value!='lineitem') {
-            $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group.forEach(function(rows,i){
+            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage][$scope.selectedMxsdPath.Value].group.forEach(function(rows,i){
                 if(rows._name==groupname) {
-                    $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field.forEach(function (row, j) {
+                    $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage][$scope.selectedMxsdPath.Value].group[i].field.forEach(function (row, j) {
                         if (row.ixsdfieldname == $scope.selectedIxsd.ixsdFieldName && row.ixsdxpath == $scope.selectedIxsd.ixsdPath) {
                             var x1=Math.ceil($scope.formSize.width/600*$('#x1').val());
                             var y1=Math.ceil($scope.formSize.Height/850*$('#y1').val());
                             var w=Math.ceil($scope.formSize.width/600*$('#w').val());
                             var h=Math.ceil($scope.formSize.Height/850*$('#h').val());
-                            $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field[j][$scope.fieldType.Value].position.top = ""+x1;
-                            $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field[j][$scope.fieldType.Value].position.left = ""+y1;
-                            $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field[j][$scope.fieldType.Value].position.width = ""+w;
-                            $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field[j][$scope.fieldType.Value].position.height = ""+h;
-                            $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field[j].Indexing={
+                            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage][$scope.selectedMxsdPath.Value].group[i].field[j][$scope.fieldType.Value].position.top = ""+x1;
+                            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage][$scope.selectedMxsdPath.Value].group[i].field[j][$scope.fieldType.Value].position.left = ""+y1;
+                            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage][$scope.selectedMxsdPath.Value].group[i].field[j][$scope.fieldType.Value].position.width = ""+w;
+                            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage][$scope.selectedMxsdPath.Value].group[i].field[j][$scope.fieldType.Value].position.height = ""+h;
+                            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage][$scope.selectedMxsdPath.Value].group[i].field[j].Indexing={
                                 "Classify":selectedValue.indexToClassify,
                                 "Reject":selectedValue.indexToReject,
                                 "SplitMerge":selectedValue.indexToSplitMerge,
@@ -1841,41 +2043,41 @@ $scope.loadMasterForm=function(path){
                         var w=Math.ceil($scope.formSize.width/600*$('#w').val());
                         var h=Math.ceil($scope.formSize.Height/850*$('#h').val());
                         $scope.fieldType.Value=="label"?
-                        $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field.push({
-                            "name": " ",
-                            "ixsdfieldname": $scope.selectedIxsd.ixsdFieldName,
-                            "ixsdxpath": $scope.selectedIxsd.ixsdPath,
-                            "type": $scope.dataType.Value,
-                            "Indexing":{
-                                "Classify":selectedValue.indexToClassify,
-                                "Reject":selectedValue.indexToReject,
-                                "SplitMerge":selectedValue.indexToSplitMerge,
-                                "Identification":selectedValue.formIdentification,
-                                "Relationship":selectedValue.formRelationship,
-                                "SequenceNo":selectedValue.formSequenceNo
-                            },
-                            "label": {
-                                "sequence": " ",
-                                "position": {
-                                    "top":""+x1,
-                                    "left":""+y1,
-                                    "width":""+w,
-                                    "height":""+h
+                            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage][$scope.selectedMxsdPath.Value].group[i].field.push({
+                                "name": " ",
+                                "ixsdfieldname": $scope.selectedIxsd.ixsdFieldName,
+                                "ixsdxpath": $scope.selectedIxsd.ixsdPath,
+                                "type": $scope.dataType.Value,
+                                "Indexing":{
+                                    "Classify":selectedValue.indexToClassify,
+                                    "Reject":selectedValue.indexToReject,
+                                    "SplitMerge":selectedValue.indexToSplitMerge,
+                                    "Identification":selectedValue.formIdentification,
+                                    "Relationship":selectedValue.formRelationship,
+                                    "SequenceNo":selectedValue.formSequenceNo
                                 },
-                                "content": " "
-                            },
-                            "data": {
-                                "sequence": " ",
-                                "position": {
-                                    "top": " ",
-                                    "left": " ",
-                                    "width": " ",
-                                    "height": " "
+                                "label": {
+                                    "sequence": " ",
+                                    "position": {
+                                        "top":""+x1,
+                                        "left":""+y1,
+                                        "width":""+w,
+                                        "height":""+h
+                                    },
+                                    "content": " "
                                 },
-                                "content": " "
-                            }
-                        }):
-                            $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group[i].field.push({
+                                "data": {
+                                    "sequence": " ",
+                                    "position": {
+                                        "top": " ",
+                                        "left": " ",
+                                        "width": " ",
+                                        "height": " "
+                                    },
+                                    "content": " "
+                                }
+                            }):
+                            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage][$scope.selectedMxsdPath.Value].group[i].field.push({
                                 "name": " ",
                                 "ixsdfieldname": $scope.selectedIxsd.ixsdFieldName,
                                 "ixsdxpath": $scope.selectedIxsd.ixsdPath,
@@ -1920,75 +2122,75 @@ $scope.loadMasterForm=function(path){
                 var w=Math.ceil($scope.formSize.width/600*$('#w').val());
                 var h=Math.ceil($scope.formSize.Height/850*$('#h').val());
                 $scope.selectedMxsdPath.Value!='body'?
-                $scope.fieldType.Value=="label"?
-                $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group.push(
-                {"field":[{
-                    "name":" ",
-                    "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
-                    "ixsdxpath":$scope.selectedIxsd.ixsdPath,
-                    "type":$scope.dataType.Value,
-                    "Indexing":{
-                        "Classify":selectedValue.indexToClassify,
-                        "Reject":selectedValue.indexToReject,
-                        "SplitMerge":selectedValue.indexToSplitMerge,
-                        "Identification":selectedValue.formIdentification,
-                        "Relationship":selectedValue.formRelationship,
-                        "SequenceNo":selectedValue.formSequenceNo
-                    },
-                    "label":{
-                        "sequence":" ",
-                        "position":{
-                            "top":""+x1,
-                            "left":""+y1,
-                            "width":""+w,
-                            "height":""+h},
-                        "content":" "},
-                    "data":{
-                        "sequence":" ",
-                        "position":{
-                            "top":" ",
-                            "left":" ",
-                            "width":" ",
-                            "height":" "},
-                        "content":" "}
-                }],
-                    "_name":groupname
-                }):
-                    $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group.push(
-                        {"field":[{
-                            "name":" ",
-                            "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
-                            "ixsdxpath":$scope.selectedIxsd.ixsdPath,
-                            "type":$scope.dataType.Value,
-                            "Indexing":{
-                                "Classify":selectedValue.indexToClassify,
-                                "Reject":selectedValue.indexToReject,
-                                "SplitMerge":selectedValue.indexToSplitMerge,
-                                "Identification":selectedValue.formIdentification,
-                                "Relationship":selectedValue.formRelationship,
-                                "SequenceNo":selectedValue.formSequenceNo
-                            },
-                            "label":{
-                                "sequence":" ",
-                                "position":{
-                                    "top":" ",
-                                    "left":" ",
-                                    "width":" ",
-                                    "height":" "},
-                                "content":" "},
-                            "data":{
-                                "sequence":" ",
-                                "position":{
-                                    "top":""+x1,
-                                    "left":""+y1,
-                                    "width":""+w,
-                                    "height":""+h},
-                                "content":" "}
-                        }],
-                            "_name":groupname
-                        }):
                     $scope.fieldType.Value=="label"?
-                        $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group.push(
+                        $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage][$scope.selectedMxsdPath.Value].group.push(
+                            {"field":[{
+                                "name":" ",
+                                "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
+                                "ixsdxpath":$scope.selectedIxsd.ixsdPath,
+                                "type":$scope.dataType.Value,
+                                "Indexing":{
+                                    "Classify":selectedValue.indexToClassify,
+                                    "Reject":selectedValue.indexToReject,
+                                    "SplitMerge":selectedValue.indexToSplitMerge,
+                                    "Identification":selectedValue.formIdentification,
+                                    "Relationship":selectedValue.formRelationship,
+                                    "SequenceNo":selectedValue.formSequenceNo
+                                },
+                                "label":{
+                                    "sequence":" ",
+                                    "position":{
+                                        "top":""+x1,
+                                        "left":""+y1,
+                                        "width":""+w,
+                                        "height":""+h},
+                                    "content":" "},
+                                "data":{
+                                    "sequence":" ",
+                                    "position":{
+                                        "top":" ",
+                                        "left":" ",
+                                        "width":" ",
+                                        "height":" "},
+                                    "content":" "}
+                            }],
+                                "_name":groupname
+                            }):
+                        $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage][$scope.selectedMxsdPath.Value].group.push(
+                            {"field":[{
+                                "name":" ",
+                                "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
+                                "ixsdxpath":$scope.selectedIxsd.ixsdPath,
+                                "type":$scope.dataType.Value,
+                                "Indexing":{
+                                    "Classify":selectedValue.indexToClassify,
+                                    "Reject":selectedValue.indexToReject,
+                                    "SplitMerge":selectedValue.indexToSplitMerge,
+                                    "Identification":selectedValue.formIdentification,
+                                    "Relationship":selectedValue.formRelationship,
+                                    "SequenceNo":selectedValue.formSequenceNo
+                                },
+                                "label":{
+                                    "sequence":" ",
+                                    "position":{
+                                        "top":" ",
+                                        "left":" ",
+                                        "width":" ",
+                                        "height":" "},
+                                    "content":" "},
+                                "data":{
+                                    "sequence":" ",
+                                    "position":{
+                                        "top":""+x1,
+                                        "left":""+y1,
+                                        "width":""+w,
+                                        "height":""+h},
+                                    "content":" "}
+                            }],
+                                "_name":groupname
+                            }):
+                    $scope.fieldType.Value=="label"?
+                        $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage][$scope.selectedMxsdPath.Value].group.push(
                             {"field":[{
                                 "name":" ",
                                 "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
@@ -2024,7 +2226,7 @@ $scope.loadMasterForm=function(path){
                                 },
                                 "_name":groupname
                             }):
-                        $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group.push(
+                        $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage][$scope.selectedMxsdPath.Value].group.push(
                             {"field":[{
                                 "name":" ",
                                 "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
@@ -2066,22 +2268,22 @@ $scope.loadMasterForm=function(path){
             }
 
         }else{
-            $scope.masterFormFields.mxsd.form.body.group.forEach(function(rows,i){
+            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage].body.group.forEach(function(rows,i){
                 if(rows._name==groupname) {
-                    $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field.forEach(function (row, j) {
+                    $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage].body.group[i].fieldlist.field.forEach(function (row, j) {
                         if (row.ixsdfieldname == $scope.selectedIxsd.ixsdFieldName && row.ixsdxpath == $scope.selectedIxsd.ixsdPath) {
                             var x1=Math.ceil($scope.formSize.width/600*$('#x1').val());
                             var y1=Math.ceil($scope.formSize.Height/850*$('#y1').val());
                             var w=Math.ceil($scope.formSize.width/600*$('#w').val());
                             var h=Math.ceil($scope.formSize.Height/850*$('#h').val());
-                            $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field[j][$scope.fieldType.Value].position.top = ""+x1;
-                            $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field[j][$scope.fieldType.Value].position.left = ""+y1;
-                            $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field[j][$scope.fieldType.Value].position.width = ""+w;
-                            $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field[j][$scope.fieldType.Value].position.height = ""+h;
-                            $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field[j].Indexing={
+                            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage].body.group[i].fieldlist.field[j][$scope.fieldType.Value].position.top = ""+x1;
+                            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage].body.group[i].fieldlist.field[j][$scope.fieldType.Value].position.left = ""+y1;
+                            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage].body.group[i].fieldlist.field[j][$scope.fieldType.Value].position.width = ""+w;
+                            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage].body.group[i].fieldlist.field[j][$scope.fieldType.Value].position.height = ""+h;
+                            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage].body.group[i].fieldlist.field[j].Indexing={
                                 "Classify":selectedValue.indexToClassify,
-                                    "Reject":selectedValue.indexToReject,
-                                    "SplitMerge":selectedValue.indexToSplitMerge,
+                                "Reject":selectedValue.indexToReject,
+                                "SplitMerge":selectedValue.indexToSplitMerge,
                                 "Identification":selectedValue.formIdentification,
                                 "Relationship":selectedValue.formRelationship,
                                 "SequenceNo":selectedValue.formSequenceNo
@@ -2096,7 +2298,7 @@ $scope.loadMasterForm=function(path){
                         var w=Math.ceil($scope.formSize.width/600*$('#w').val());
                         var h=Math.ceil($scope.formSize.Height/850*$('#h').val());
                         $scope.fieldType.Value=="label"?
-                            $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field.push({
+                            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage].body.group[i].fieldlist.field.push({
                                 "name": " ",
                                 "ixsdfieldname": $scope.selectedIxsd.ixsdFieldName,
                                 "ixsdxpath": $scope.selectedIxsd.ixsdPath,
@@ -2130,7 +2332,7 @@ $scope.loadMasterForm=function(path){
                                     "content": " "
                                 }
                             }):
-                            $scope.masterFormFields.mxsd.form.body.group[i].fieldlist.field.push({
+                            $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage].body.group[i].fieldlist.field.push({
                                 "name": " ",
                                 "ixsdfieldname": $scope.selectedIxsd.ixsdFieldName,
                                 "ixsdxpath": $scope.selectedIxsd.ixsdPath,
@@ -2175,15 +2377,15 @@ $scope.loadMasterForm=function(path){
                 var w=Math.ceil($scope.formSize.width/600*$('#w').val());
                 var h=Math.ceil($scope.formSize.Height/850*$('#h').val());
                 $scope.fieldType.Value=="label"?
-                    $scope.masterFormFields.mxsd.form.body.group.push(
+                    $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage].body.group.push(
                         {
                             "field":[ ],
                             "fieldlist":{
                                 "field":[{
-                            "name":" ",
-                            "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
-                            "ixsdxpath":$scope.selectedIxsd.ixsdPath,
-                            "type":$scope.dataType.Value,
+                                    "name":" ",
+                                    "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
+                                    "ixsdxpath":$scope.selectedIxsd.ixsdPath,
+                                    "type":$scope.dataType.Value,
                                     "Indexing":{
                                         "Classify":selectedValue.indexToClassify,
                                         "Reject":selectedValue.indexToReject,
@@ -2192,27 +2394,30 @@ $scope.loadMasterForm=function(path){
                                         "Relationship":selectedValue.formRelationship,
                                         "SequenceNo":selectedValue.formSequenceNo
                                     },
-                            "label":{
-                                "sequence":" ",
-                                "position":{
-                                    "top":""+x1,
-                                    "left":""+y1,
-                                    "width":""+w,
-                                    "height":""+h},
-                                "content":" "},
-                            "data":{
-                                "sequence":" ",
-                                "position":{
-                                    "top":" ",
-                                    "left":" ",
-                                    "width":" ",
-                                    "height":" "},
-                                "content":" "}
-                        }]},
+                                    "label":{
+                                        "sequence":" ",
+                                        "position":{
+                                            "top":""+x1,
+                                            "left":""+y1,
+                                            "width":""+w,
+                                            "height":""+h},
+                                        "content":" "},
+                                    "data":{
+                                        "sequence":" ",
+                                        "position":{
+                                            "top":" ",
+                                            "left":" ",
+                                            "width":" ",
+                                            "height":" "},
+                                        "content":" "}
+                                }]},
                             "_name":groupname
                         }):
-                    $scope.masterFormFields.mxsd.form[$scope.selectedMxsdPath.Value].group.push(
-                        {"field":[{
+                    $scope.masterFormFields.mxsd.efsuin_form.page[$scope.selectedPage].body.group.push(
+                        {
+                            "field":[ ],
+                            "fieldlist":{
+                                "field":[{
                             "name":" ",
                             "ixsdfieldname":$scope.selectedIxsd.ixsdFieldName,
                             "ixsdxpath":$scope.selectedIxsd.ixsdPath,
@@ -2241,7 +2446,7 @@ $scope.loadMasterForm=function(path){
                                     "width":""+w,
                                     "height":""+h},
                                 "content":" "}
-                        }],
+                                }]},
                             "_name":groupname
                         });
 
@@ -2254,7 +2459,65 @@ $scope.loadMasterForm=function(path){
         logger.logSuccess("Successfully Added");
 
 
-    }
+    };
+
+    $scope.addTosegment=function(){
+        var added=false;
+        $scope.masterFormFields.mxsd.efsuin_snippet.segment.forEach(function(segment,i){
+            if(segment.name==$scope.segmentName) {
+                //if(angular.isObject($scope.masterFormFields.mxsd.efsuin_snippet.segment[i].positions)){
+                //    $scope.masterFormFields.mxsd.efsuin_snippet.segment[i].positions=[$scope.masterFormFields.mxsd.efsuin_snippet.segment[i].positions];
+                //}
+                $scope.masterFormFields.mxsd.efsuin_snippet.segment[i].positions.push({
+                    "position":{
+                        "top":""+$scope.cordinatesPositions.y,
+                        "left":""+$scope.cordinatesPositions.x,
+                        "width":""+$scope.cordinatesPositions.w,
+                        "height":""+$scope.cordinatesPositions.h
+                    }
+                });
+                added=true;
+            }
+        });
+        if(!added)
+        {
+            $scope.masterFormFields.mxsd.efsuin_snippet.segment.push({
+                "name":""+$scope.segmentName,
+                "positions":[{
+                    "position":{
+                        "top":""+$scope.cordinatesPositions.y,
+                        "left":""+$scope.cordinatesPositions.x,
+                        "width":""+$scope.cordinatesPositions.w,
+                        "height":""+$scope.cordinatesPositions.h
+                    }
+                }]
+            });
+        }
+        $scope.segments=[];
+        $scope.masterFormFields.mxsd.efsuin_snippet.segment.forEach(function(segment){
+            $scope.segments.push(segment.name)
+        });
+        $scope.segment=false;
+    };
+
+    $scope.addToClassfication=function(){
+        $scope.masterFormFields.mxsd.efsuin_classify=$scope.masterFormFields.mxsd.efsuin_classify==""?[]:
+            isObject($scope.masterFormFields.mxsd.efsuin_classify)?[$scope.masterFormFields.mxsd.efsuin_classify]:
+            isArray($scope.masterFormFields.mxsd.efsuin_classify)?$scope.masterFormFields.mxsd.efsuin_classify:[];
+        $scope.masterFormFields.mxsd.efsuin_classify.push({
+            "policy":""+$scope.policyName,
+            "type":""+$scope.policyType,
+            "data":""+$scope.expecteddata,
+            "position":{
+                "top":""+$scope.cordinatesPositions.y,
+                "left":""+$scope.cordinatesPositions.x,
+                "width":""+$scope.cordinatesPositions.w,
+                "height":""+$scope.cordinatesPositions.h
+            }
+        });
+        $scope.segment=false;
+    };
+
     $scope.showIxmlChange=function(e){
 
         $('#ixml').css({
@@ -2269,87 +2532,90 @@ $scope.loadMasterForm=function(path){
     }
     $scope.viewDemo=function() {
         var coords = [];
-        if ($scope.masterFormFields.mxsd.form.header.group.length != 0) {
+        $scope.masterFormFields.mxsd.efsuin_form.page.forEach(function(page){
+            if (page.header.group.length != 0) {
 
-            $scope.masterFormFields.mxsd.form.header.group.forEach(function (row) {
-                if(row.field.length!=0) {
-                    row.field.forEach(function(rows)
-                    {
-                       coords.push({
-                            x: (850/$scope.formSize.Height * rows.label.position.left),
-                            y: ( 600/$scope.formSize.width * rows.label.position.top),
-                            width: (600/$scope.formSize.width * rows.label.position.width),
-                            height: (850/$scope.formSize.Height  * rows.label.position.height)
-                        });
-                        coords.push({
-                            x: (850/$scope.formSize.Height * rows.data.position.left),
-                            y: (600/$scope.formSize.width * rows.data.position.top),
-                            width: (600/$scope.formSize.width * rows.data.position.width),
-                            height: (850/$scope.formSize.Height * rows.data.position.height)
-                        });
-                    })
-                }
-            });
-        }
-        if ($scope.masterFormFields.mxsd.form.footer.group.length != 0) {
+                page.header.group.forEach(function (row) {
+                    if(row.field.length!=0) {
+                        row.field.forEach(function(rows)
+                        {
+                            coords.push({
+                                x: (850/$scope.formSize.Height * rows.label.position.left),
+                                y: ( 600/$scope.formSize.width * rows.label.position.top),
+                                width: (600/$scope.formSize.width * rows.label.position.width),
+                                height: (850/$scope.formSize.Height  * rows.label.position.height)
+                            });
+                            coords.push({
+                                x: (850/$scope.formSize.Height * rows.data.position.left),
+                                y: (600/$scope.formSize.width * rows.data.position.top),
+                                width: (600/$scope.formSize.width * rows.data.position.width),
+                                height: (850/$scope.formSize.Height * rows.data.position.height)
+                            });
+                        })
+                    }
+                });
+            }
+            if (page.footer.group.length != 0) {
 
-            $scope.masterFormFields.mxsd.form.footer.group.forEach(function (row) {
-                if (row.field.length != 0) {
-                    row.field.forEach(function (rows) {
-                        coords.push({
-                            x: (850 / $scope.formSize.Height * rows.label.position.left),
-                            y: (600 / $scope.formSize.width * rows.label.position.top),
-                            width: (600 / $scope.formSize.width * rows.label.position.width),
-                            height: (850 / $scope.formSize.Height * rows.label.position.height)
+                page.footer.group.forEach(function (row) {
+                    if (row.field.length != 0) {
+                        row.field.forEach(function (rows) {
+                            coords.push({
+                                x: (850 / $scope.formSize.Height * rows.label.position.left),
+                                y: (600 / $scope.formSize.width * rows.label.position.top),
+                                width: (600 / $scope.formSize.width * rows.label.position.width),
+                                height: (850 / $scope.formSize.Height * rows.label.position.height)
+                            });
+                            coords.push({
+                                x: (850 / $scope.formSize.Height * rows.data.position.left),
+                                y: (600 / $scope.formSize.width * rows.data.position.top),
+                                width: (600 / $scope.formSize.width * rows.data.position.width),
+                                height: (850 / $scope.formSize.Height * rows.data.position.height)
+                            });
                         });
-                        coords.push({
-                            x: (850 / $scope.formSize.Height * rows.data.position.left),
-                            y: (600 / $scope.formSize.width * rows.data.position.top),
-                            width: (600 / $scope.formSize.width * rows.data.position.width),
-                            height: (850 / $scope.formSize.Height * rows.data.position.height)
-                        });
-                    });
-                }
-            });
-        }
-        if ($scope.masterFormFields.mxsd.form.body.group.length != 0) {
+                    }
+                });
+            }
+            if (page.body.group.length != 0) {
 
-            $scope.masterFormFields.mxsd.form.body.group.forEach(function (row) {
-                if (row.field.length != 0) {
-                    row.field.forEach(function (rows) {
-                        coords.push({
-                            x: (850 / $scope.formSize.Height * rows.label.position.left),
-                            y: (600 / $scope.formSize.width * rows.label.position.top),
-                            width: (600 / $scope.formSize.width * rows.label.position.width),
-                            height: (850 / $scope.formSize.Height * rows.label.position.height)
+                page.body.group.forEach(function (row) {
+                    if (row.field.length != 0) {
+                        row.field.forEach(function (rows) {
+                            coords.push({
+                                x: (850 / $scope.formSize.Height * rows.label.position.left),
+                                y: (600 / $scope.formSize.width * rows.label.position.top),
+                                width: (600 / $scope.formSize.width * rows.label.position.width),
+                                height: (850 / $scope.formSize.Height * rows.label.position.height)
+                            });
+                            coords.push({
+                                x: (850 / $scope.formSize.Height * rows.data.position.left),
+                                y: (600 / $scope.formSize.width * rows.data.position.top),
+                                width: (600 / $scope.formSize.width * rows.data.position.width),
+                                height: (850 / $scope.formSize.Height * rows.data.position.height)
+                            });
                         });
-                        coords.push({
-                            x: (850 / $scope.formSize.Height * rows.data.position.left),
-                            y: (600 / $scope.formSize.width * rows.data.position.top),
-                            width: (600 / $scope.formSize.width * rows.data.position.width),
-                            height: (850 / $scope.formSize.Height * rows.data.position.height)
+                    }
+                    $scope.mathCeil=function(x){return Math.ceil(x);};
+                    if(row.fieldlist.field.length!=0){
+                        row.fieldlist.field.forEach(function (rows) {
+                            coords.push({
+                                x: (850 / $scope.formSize.width * rows.label.position.left),
+                                y: (600 / $scope.formSize.width * rows.label.position.top),
+                                width: (600 / $scope.formSize.width * rows.label.position.width),
+                                height: (850 / $scope.formSize.width * rows.label.position.height)
+                            });
+                            coords.push({
+                                x: (850 / $scope.formSize.width * rows.data.position.left),
+                                y: (600 / $scope.formSize.width * rows.data.position.top),
+                                width: (600 / $scope.formSize.width * rows.data.position.width),
+                                height: (850 / $scope.formSize.width * rows.data.position.height)
+                            });
                         });
-                    });
-                }
-                $scope.mathCeil=function(x){return Math.ceil(x);};
-                if(row.fieldlist.field.length!=0){
-                    row.fieldlist.field.forEach(function (rows) {
-                        coords.push({
-                            x: (850 / $scope.formSize.width * rows.label.position.left),
-                            y: (600 / $scope.formSize.width * rows.label.position.top),
-                            width: (600 / $scope.formSize.width * rows.label.position.width),
-                            height: (850 / $scope.formSize.width * rows.label.position.height)
-                        });
-                        coords.push({
-                            x: (850 / $scope.formSize.width * rows.data.position.left),
-                            y: (600 / $scope.formSize.width * rows.data.position.top),
-                            width: (600 / $scope.formSize.width * rows.data.position.width),
-                            height: (850 / $scope.formSize.width * rows.data.position.height)
-                        });
-                    });
-                }
-            })
-        }
+                    }
+                })
+            }
+        })
+
         $scope.myTemplate=coords;
 
     };
@@ -2364,7 +2630,24 @@ $scope.loadMasterForm=function(path){
             data: input
         }).success(function (data) {
             console.log(JSON.stringify(data));
+            data.forEach(function(rows){
+                if(rows!=data[0])
+                {rows.left = ""+ (+rows.left + 15);}
+            });
             $scope.autoStencilData=data;
+        });
+    };
+    $scope.extractAutoStenciling=function(){
+        $http({
+            method: 'POST',
+            url: $rootScope.spring_rest_service + '/extractAutoStenciling',
+            dataType: 'jsonp',
+            data:{
+                file_location:$scope.stencilForm[0].file_location,
+                autoStencilData:$scope.autoStencilData
+            }
+        }).success(function (data) {
+            console.log(JSON.stringify(data));
         });
     };
     $scope.setY=function(row){
@@ -2373,9 +2656,9 @@ $scope.loadMasterForm=function(path){
     function debugQtyAreas (event, id, areas) {
         console.log(areas.length + " areas", arguments);
     };
-    $scope.JcropLoader=function() {
-        $.Jcrop('#stencilingImage');
-    };
+    //$scope.JcropLoader=function() {
+    //    $.Jcrop('#stencilingImage');
+    //};
     $scope.autostencilMouseHover=function(item){
 
     }
