@@ -54,6 +54,21 @@ public class PDFUtility {
 	 * Merge PDF Files 
 	 */
 	
+    public void mergePdf() {
+        //logger.info("mergePdf");
+        File pdfPartOne = new File(PDFRepository, "vis5547564886770435693_searchable.pdf");
+        File pdfPartTwo = new File(PDFRepository, "vis5825550744716222565_searchable.pdf");
+        File pdfPartThree = new File(PDFRepository, "vis6016564511235580755_searchable.pdf");
+        int expResult = 6;
+        File outputPdfFile = new File("pdf/multipage-pdf_merged.pdf");
+        File[] inputPdfFiles = {pdfPartOne, pdfPartTwo,pdfPartThree};
+        PdfUtilities.mergePdf(inputPdfFiles, outputPdfFile);
+        System.out.println("File created Successfully");
+       // assertEquals(expResult, PdfUtilities.getPdfPageCount(outputPdfFile));
+    }
+    
+    
+    
     public void testMergePdf() {
         //logger.info("mergePdf");
         File pdfPartOne = new File(PDFRepository, "vis5547564886770435693_searchable.pdf");
