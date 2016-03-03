@@ -5,19 +5,28 @@
 </script>
 <div class="margin_top_60" data-ng-controller="freemium_Controller">
 
+    <div class="row text-right">
+
+        <span class="margin-right-10"> Existing customer ? <label class="switch"><input type="checkbox"  ng-model="isExistingCustomer" ><i></i></label></span>
+
+    </div>
 
     <!-- First time new login CODE Starts Here ( Authenticate the user is a new customer and show this 2 section CODE ) -->
 
-    <div ng-hide="true" >
+    <div ng-hide="isExistingCustomer" >
+        <!-- -------
+                    -- ! -- WARNING -- ! -- Don't Change this 2 Sections inside and out side of the CODE
+                      and !!!! DON'T ADD any Div class or span Class inside
+                      the ID named "freeSlider" and "scroll_slider_content"
+         ------------    -->
+        <section class="">
 
-        <section>
+
             <div class="form_selection">
-                <div id="demo" class="">
+                <div id="demo576"  >
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
-
-
                                 <data-owl-carousel class="owl-carousel"
                                                    data-options='{items : 4,
                                                    itemsDesktop : [1199,3],
@@ -25,24 +34,37 @@
                                                    pagination:true,
                                                    navigation: false,
                                                    navigationText:["<i class=fa fa-chevron-left  icon-white></i>","<i class=fa fa-chevron-right icon-white></i>"] }'>
-                                    <a owl-carousel-item data-ng-repeat="item in items" class="item categoryCard"  data-ng-click="showOne();">
-                                        <img class="cardImage img-responsive" src="{{item.image}}">
+                                    <!--<div owl-carousel-item="" ng-repeat="item in BpaaS_Service_List" class="item dodgerBlue owlbox-main" data-ng-click="showOne($index);">-->
+                                    <!--<div class="">-->
+                                    <!--{{item.BpaaS_service}}-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <a owl-carousel-item="" ng-repeat="item in BpaaS_Service_List"  class="item categoryCard"  data-ng-click="showOne($index);">
+                                        <img class="cardImage img-responsive" src="{{item.BpaaS_service_image_path}}">
                                         <div class="cardContainer" >
 
-                                            <h2 class="cardTitle normal-text">{{item.name}}</h2>
-                                            <h3 class="cardTitle">{{item.description}}</h3>
+                                            <h2 class="cardTitle normal-text">{{item.BpaaS_service}}</h2>
+                                            <h3 class="cardTitle">{{item.BpaaS_service_description_short}}</h3>
 
                                         </div>
+                                        <!--<div class="categoryCardFooter">-->
+                                        <!--<div class="categoryCardContentType">-->
+                                        <!--<span class="categoryCardContentTypeIcon fa fa-send"></span>-->
+                                        <!--<span>Try it</span>-->
+                                        <!--</div>-->
+                                        <!--</div>-->
                                     </a>
                                 </data-owl-carousel>
+
 
                             </div>
                         </div>
                     </div>
 
                 </div>
-
             </div>
+
+
 
             <div class=" container">
                 <div class="page-header-item">
@@ -50,16 +72,25 @@
                 </div>
                 <div class="divider"></div>
                 <a id="demo-1">
-                    <ul data-owl-carousel class="owl-carousel topics"
+                    <ul data-owl-carousel ng-if="item==selectedBpaaS"  ng-repeat="item in BpaaS_Service_List" class="owl-carousel topics"
                         data-options="{items : 6,
                                                itemsDesktop : [1199,3],
                                                itemsDesktopSmall : [979,3],
                                                pagination:true,
                                                navigation: true,
                                                navigationText: ['<i class=fa fa-chevron-left icon-white></i>','<i class=fa fa-chevron-right icon-white></i>']}">
-                        <li owl-carousel-item ng-repeat="list in BpaaS_service_industry_list" class="item " data-ng-click="GotoUpload($index);">
-                            <a href="#" class="">
-                                <i class="fa {{list.fa}}"></i><span>{{list.indus_service}}</span>
+                        <li owl-carousel-item ng-repeat="list in item.BpaaS_service_industry_list" class="item " data-ng-click="GotoUpload($index);">
+                            <a href="#" class="" ng-switch="list.indus_service">
+                                <i ng-switch-default="" class="fa fa-shopping-cart"></i>
+
+
+                                <i ng-switch-when="Retail" class="fa fa-shopping-cart"></i>
+                                <i ng-switch-when="Insurance" class="fa fa-umbrella"></i>
+                                <i ng-switch-when="Healthcare" class="fa fa-medkit"></i>
+                                <i ng-switch-when="Banking" class="fa fa-bank"></i>
+                                <i ng-switch-when="Manufacturing" class="fa fa-building"></i>
+
+                                <span>{{list.indus_service}}</span>
 
                             </a>
                         </li>
@@ -69,155 +100,287 @@
 
 
             </div>
+
         </section>
-
-
         <div class="divider"></div>
 
         <section id="formUpload">
-
             <div class="freemium_section" ng-if="uploadForm">
-                <div class="row hethi_grey_color">
-                    <div class="col-md-6">
-                        <h3>
-                            uploads forms or EDI
-                        </h3>
+                <div class="" >
+                    <div class="row hethi_grey_color">
+                        <div class="col-md-6">
+                            <h3>
+                                uploads forms or EDI
+                            </h3>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="pull-right">
+                                <!--<h2>-->
+                                <!--<span class="fa fa-cloud-upload"> </span>-->
+                                <!--CloudPlug-->
+                                <!--</h2>-->
+                                <img class="img_width_200" src="images/icon/cloud_plug.png">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="pull-right">
-                            <!--<h2>-->
-                            <!--<span class="fa fa-cloud-upload"> </span>-->
-                            <!--CloudPlug-->
-                            <!--</h2>-->
-                            <img class="img_width_200" src="images/icon/cloud_plug.png">
+                </div>
+                <hr>
+
+                <div class="container" ng-hide="isSigned">
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+
+                            <div class="form-2">
+                                <h1><span class="log-in">Log in</span>
+                                    <!--or <span class="sign-up">sign up</span>-->
+                                </h1>
+                                <div class="divider"></div>
+                                <form class="form-horizontal" role="form" data-ng-submit="SignInToHethi(signin)">
+                                    <div class="input-group margin-bottom-20">
+                                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                        <input type="email" class="form-control" id="signInEmail1" placeholder="Email address" ng-model="signin.username">
+                                    </div>
+                                    <div class="input-group margin-bottom-20">
+                                        <span class="input-group-addon" style="padding-left: 15px;padding-right: 15px"> <i class="fa fa-lock"></i> </span>
+                                        <input type="password" class="form-control" ng-model="signin.password" id="signInPassword1" placeholder="Password">
+                                    </div>
+
+
+                                    <div class="form-group margin-bottom-10">
+                                        <div class="col-sm-12 ">
+                                            <label class="ui-checkbox">
+                                                <input name="checkbox1"
+                                                       ng-model="signin.remember"
+                                                       type="checkbox"  >
+                                                <span>stay signed in</span></label>
+                                            <a href="#" class="pull-right" style="color: #008BCB;font-size: 12px">Forgot password?</a>
+                                        </div>
+
+                                    </div>
+                                    <!--<div class="row">-->
+                                    <div class="form-group last">
+                                        <div class="col-sm-12">
+                                            <div class="pull-right">
+                                                <button type="submit" class="btn_hethi blue">sign in</button>
+                                                <button type="reset" class="btn_hethi btn-warning">reset</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--</div>-->
+                                </form>
+
+
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-md-6 col-sm-6">
+                            <div  ng-switch="signup_btn_stats" class="form-2">
+                                <div ng-switch-default="">
+                                    <form data-ng-submit="registerNewUSer(register)">
+
+                                        <h1><span class="log-in">New user ? Register here</span>
+                                        </h1>
+                                        <div class="divider"></div>
+
+                                        <div class="input-group margin-bottom-20">
+                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                            <input placeholder="Email address"
+                                                   ng-model="register.business_email"
+                                                   required=""
+                                                   class=" form-control text-center input-hethi"
+                                                   type="email"
+                                                   minlength="6"
+                                                   maxlength="50">
+                                        </div>
+                                        <div class="input-group margin-bottom-20">
+                                            <span class="input-group-addon"><i class="fa fa-bank"></i></span>
+                                            <input placeholder="Company name"
+                                                   class=" form-control text-center input-hethi"
+                                                   type="text"
+                                                   ng-model="register.business_name"
+                                                   required=""
+                                                    >                            </div>
+                                        <div class="input-group margin-bottom-20">
+                                            <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
+                                            <input placeholder="Country"
+                                                   class=" form-control text-center input-hethi"
+                                                   type="text"
+                                                   ng-model="register.country"
+                                                   required="">
+                                        </div>
+
+
+                                        <button type="submit" ng-disabled="signup_btn_stats" class=" btn_hethi blue btn-block " ng-switch="signup_btn_stats"><i class="fa fa-user-plus"></i> Sign Up  <span data-ng-switch-when="true"  class=" fa fa-cog fa-spin"></span> </button>
+
+
+                                        <div class="divider-sm"></div>
+
+                                    </form>
+                                </div>
+                                <div ng-switch-when="false">
+                                    <h1><span class="log-in">New user ? Register here</span>
+                                    </h1>
+                                    <div class="divider-md"></div>
+                                    <div class="form-group">
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="font_w text-normal cloudMsg" style="text-transform: none">  <span class="fa fa-info-circle"></span> A confirmation email has been send to {{custmer_email}} , Please follow the email to complete the registration process </span>
+
+                                        <br> <br>
+                                    </div>
+                                    <div class="form-group">
+                                        <a  data-ng-click="change_signup_btn_stats('')" >back</a>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
                         </div>
                     </div>
                 </div>
 
-            <hr>
-
-                <div class="row">
-                    <div class="col-md-offset-2 col-md-8">
-                        <div class="upload_box_hethi">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <p class="grey">form type</p>
-                                    <select class="form-control input-md input-hethi">
-                                        <option>form / EDI type </option>
-                                        <option>industry 1</option>
-                                    </select>
+                <div class="container" ng-show="isSigned">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <select class="form-control input-md input-hethi" ng-change="selectedIndustryListChanged(selectedIndustryList);" ng-model="selectedIndustryList" ng-options="data as data.indus_service for data in selectedBpaaS.BpaaS_service_industry_list">
+                                            <option value="">--Select a Industry--</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <p class="grey text-center">click to upload your file or (you can zip and upload as well)</p>
-                                    <div class="input-group">
+                                <div class="divider"></div>
 
-                                        <input type="text" ng-model="pathfile" class="form-control input-hethi input-md" readonly  >
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <select class="form-control input-md input-hethi" ng-change="selectedFormsChanged(selectedForms);" ng-model="selectedForms" ng-options="data as data.form_type for data in selectedIndustryList.industry_form_list">
+                                            <option value="">--Select a Form--</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+
+                                <form ng-submit="UploadImage(ImagePath)" >
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+
+                                                <input type="text" ng-model="pathfile" class="form-control input-hethi input-md" readonly  >
                         <span class="input-group-btn">
-                            <span class="btn-file-hethi btn-warning btn-file">
+                                      <span class="btn-file-hethi btn-warning btn-file">
 
                                             <span class="fa fa-upload"></span>
-                                          <span>browse</span>
                                           <!--Choose a file&hellip;-->
                                           <input type="file" name="file" id="file" data-ng-file-model="ImagePath"  >
 
                                       </span>
-                        </span>
+                                  </span>
+                                         <span class="input-group-btn">
+                                    <button ng-disable="loading" class="btn_hethi input-md btn-w-md btn-primary" type="submit">
+                                        <span ng-show="loading" class="fa fa-spinner fa-pulse"></span>
+                                        Upload
+                                    </button>
+                                </span>
+                                            </div>
+                                            <div class="divider"></div>
+                                            <p class="text-center">(Upload EDI, zip, jpeg, TIFF, PDF, DOCX, XLSX, DOC, XLS)</p>
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <span  ng-show="loading"> <span class="fa fa-spinner fa-pulse"> </span> Uploading your {{pathfile.substring(pathfile.lastIndexOf('.')+1,pathfile.length)|lowercase}} file </span>
+                                            <span  ng-hide="loading"> Uploading completed </span>
+
+                                        </div>
 
                                     </div>
-                                    <div class="divider"></div>
-                                    <p class="text-center font_14_grey">(upload EDI, zip, jpeg, TIFF, PDF, DOCX, XLSX, DOC, XLS)</p>
-                                </div>
+                                </form>
                             </div>
+                        </div>
 
-                            <div class="divider"></div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="pull-right">
-                                        <button class="btn_hethi input-md blue" type="submit"><span class="fa fa-spinner"></span> upload</button>
-                                    </div>
+                        <div class="divider"></div>
+                        <div class="row" style="border-top: 1px solid #2A6497;
+    padding-top: 30px;margin-top: 20px">
+                            <div class="col-md-offset-2 col-md-8">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                        <thead class="thead-bg">
+                                        <tr>
+                                            <th class="text-center">
+                                                upload time
+                                            </th>
+                                            <th class="text-center">
+                                                <!--form / edi /-->
+                                                source
+                                            </th>
+                                            <th class="text-center">
+                                                file
+                                            </th>
+                                            <th class="text-center">
+                                                type
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody ng-repeat=" user in customer_uploaded_list">
+                                        <tr>
+                                            <td class="text-center">
+                                                {{user.startreaddtm }}
+                                            </td>
+                                            <td class="text-center">
+                                                * {{user.upload_source}}
+                                            </td>
+                                            <td class="text-left">
+                                                {{user.upload_name }} ( <span class="text-small"> {{user.files.length}}  file(s)  </span> )
+                                            </td>
+                                            <td class="text-center">
+                                                {{user.upload_type}}
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div style="border-top: 3px solid rgba(162, 122, 42, 0.39);padding-top: 30px;margin-top: 20px" class="col-md-offset-2 col-md-8">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead class="thead-bg">
-                                <tr>
-                                    <th class="">
-                                        upload time
-                                    </th>
-                                    <th class="">
-                                        form / edi type
-                                    </th>
-                                    <th class="">
-                                        file
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="">
-                                        01:45:00
-                                    </td>
-                                    <td class="">
-                                        edi
-                                    </td>
-                                    <td class="">
-                                        invoice_pd.pdf
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="">
-                                        01:45:00
-                                    </td>
-                                    <td class="">
-                                        edi
-                                    </td>
-                                    <td class="">
-                                        invoice_pd.pdf
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
+
                 </div>
 
 
 
 
-        </div>
+
+            </div>
         </section>
 
 
     </div>
-
 
     <!-- First time new login CODE Ends Here ( Authenticate the user is a new customer and show this 2 section CODE ) -->
 
     <!-- ####################################### -- Existing Customer When Logged In -- ###################################################  -->
 
 
-    <div ng-hide="false">
+    <div ng-show="isExistingCustomer">
 
-        <section data-ng-show="existingCustomerItem">
+
+        <section >
+
             <div class="form_selection">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
 
                             <data-owl-carousel class="owl-carousel"
-                                               data-options='{items : 4,
+                                               data-options='{items : 3,
                                                    itemsDesktop : [1199,3],
                                                    itemsDesktopSmall : [979,3],
                                                    pagination:true,
                                                    navigation: false,
                                                    navigationText:["<i class=fa fa-chevron-left  icon-white></i>","<i class=fa fa-chevron-right icon-white></i>"] }'>
-                                <a owl-carousel-item data-ng-repeat="item in items" class="item categoryCard"  data-ng-click="showOne();">
+                                <a owl-carousel-item data-ng-repeat="item in existingCustomerMenu" class="item categoryCard"  data-ng-click="setMainTab(item);">
                                     <img class="cardImage img-responsive" src="{{item.image}}">
                                     <div class="cardContainer" >
 
@@ -233,667 +396,601 @@
                 </div>
             </div>
 
-            <div class="container" >
+            <div class="container" ng-show="mainTab.id" >
                 <div class="page-header-item">
-                    <h1>browse industry : {{selectedBpaaS.BpaaS_service}}</h1>
+                    <h1>browse menu : {{mainTab.name}}</h1>
                 </div>
                 <div class="divider"></div>
-                <a id="demo-2">
-                    <ul data-owl-carousel class="owl-carousel topics"
-                        data-options="{items : 6,
+
+                <div class="row" ng-switch="mainTab.id">
+
+                    <div class="col-md-12" ng-switch-when="1">
+
+                        <a id="demo-3">
+                            <ul data-owl-carousel class="owl-carousel topics  "
+                                data-options="{items : 6,
                                                itemsDesktop : [1199,3],
                                                itemsDesktopSmall : [979,3],
                                                pagination:true,
                                                navigation: true,
                                                navigationText: ['<i class=fa fa-chevron-left icon-white></i>','<i class=fa fa-chevron-right icon-white></i>']}">
-                        <li owl-carousel-item ng-repeat="list in BpaaS_service_industry_list" class="item " data-ng-click="GotoCSP($index);">
-                            <a href="#" class="">
-                                <i class="fa {{list.fa}}"></i><span>{{list.indus_service}}</span>
+                                <li owl-carousel-item ng-repeat="list in mainTab.sub_menu" class="item "  data-ng-click="set_sub_menu(list)">
+                                    <a href="#" class="">
+                                        <i class="fa {{list.fa}}  " ng-class="list.is_active ? 'topics-active' : '' "></i><span>{{list.name}}</span>
 
-                            </a>
-                        </li>
-                    </ul>
+                                    </a>
+                                </li>
+                            </ul>
 
-                </a>
-            </div>
+                        </a>
 
-        </section>
-
-
-
-        <section ng-show="downloadCloudPlug">
-
-            <div class="">
-                <div class="row hethi_grey_color">
-                    <div class="col-md-6">
-                        <h3>
-                            download cloudplug
-                        </h3>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="pull-right">
-
-                            <img class="img_width_200" src="images/icon/cloud_plug.png">
+                        <div class="page-header-item" ng-show="mainTab.selected_sub_tab">
+                            <h1>{{mainTab.name}}  / {{mainTab.selected_sub_tab.name}}</h1>
                         </div>
-                    </div>
-                </div>
-            </div>
+                        <div class="divider"></div>
 
-            <div class="panel-body">
-                <div class="row" style="border-top: 1px solid #2A6497;padding-top: 30px;margin-top: 20px">
-                    <div class="col-md-offset-1 col-md-10">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                                <thead class="thead-bg">
-                                <tr>
-                                    <th class="text-center">
-                                        upload time
-                                    </th>
-                                    <th class="text-center">
-                                        form / edi type
-                                    </th>
-                                    <th class="text-center">
-                                        form / edi file
-                                    </th>
-                                    <th class="text-center">
-                                        service partner
-                                    </th>
-                                    <th class="text-center">
-                                        version
-                                    </th>
-                                    <th class="text-center">
-                                        select
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="text-center">
-                                        1/10/2016 11:45
-                                    </td>
-                                    <td class="text-center">
-                                        PO - invoice process to pay
-                                    </td>
-                                    <td class="text-center">
-                                        invoice_pd.pdf
-                                    </td>
-                                    <td class="text-center">
-                                        pearson
-                                    </td>
-                                    <td class="text-center">
-                                        1.0
-                                    </td>
-                                    <td class="text-center">
-                                        <input type="checkbox">
-                                    </td>
-                                </tr>
+                        <div class="row" ng-switch="mainTab.selected_sub_tab.id"  id="sub_menu">
+                            <div class="col-md-12" ng-switch-when="1.1">
+                                <section>
+                                    <div class="">
 
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="pull-right">
-                                    <button type="button" class="btn_hethi btn_hethi_md blue">download cloudplug</button>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="formCSP">
-
-            <div ng-show="showCSP" >
-                <script>
-                    $(document).ready(function(){
-                        $(this).scrollTop(0);
-                    });
-                </script>
-                <section class="" ng-show="connectSP">
-
-                    <div class="row hethi_grey_color">
-                        <div class="col-md-6">
-                            <h3>
-                                connect service partner
-                            </h3>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="pull-right">
-
-                                <img class="img_width_200" src="images/icon/cloud_plug.png">
-                            </div>
-                        </div>
-                    </div>
+                                        <div class="divider"></div>
 
 
-                    <div class="panel-body">
-                        <div class="row" style="border-top: 1px solid rgba(162, 122, 42, 0.39);padding-top: 30px;">
-                            <div class="col-md-offset-1 col-md-10">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                        <thead class="thead-bg">
-                                        <tr>
-                                            <th class="text-center">
-                                                upload time
-                                            </th>
-                                            <th class="text-center">
-                                                form / edi type
-                                            </th>
-                                            <th class="text-center">
-                                                form / edi file
-                                            </th>
-                                            <th class="text-center">
-                                                service partner
-                                            </th>
-                                            <th class="text-center">
-                                                version
-                                            </th>
-                                            <th class="text-center">
-                                                email
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td class="text-center">
-                                                1/10/2016 11:45
-                                            </td>
-                                            <td class="text-center">
-                                                PO - invoice process to pay
-                                            </td>
-                                            <td class="text-center">
-                                                invoice_pd.pdf
-                                            </td>
-                                            <td class="text-center">
-                                                pearson
-                                            </td>
-                                            <td class="text-center">
-                                                1.0
-                                            </td>
-                                            <td class="text-center">
-                                                <input type="email">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">
-                                                1/10/2016 11:45
-                                            </td>
-                                            <td class="text-center">
-                                                PO - invoice process to pay
-                                            </td>
-                                            <td class="text-center">
-                                                invoice_pd.pdf
-                                            </td>
-                                            <td class="text-center">
-                                                pearson
-                                            </td>
-                                            <td class="text-center">
-                                                1.0
-                                            </td>
-                                            <td class="text-center">
-                                                <input type="email">
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">
-                                                1/10/2016 11:45
-                                            </td>
-                                            <td class="text-center">
-                                                PO - invoice process to pay
-                                            </td>
-                                            <td class="text-center">
-                                                invoice_pd.pdf
-                                            </td>
-                                            <td class="text-center">
-                                                pearson
-                                            </td>
-                                            <td class="text-center">
-                                                1.0
-                                            </td>
-                                            <td class="text-center">
-                                                <input type="email">
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="pull-right">
-                                            <button type="button" class="btn_hethi input-md blue" data-ng-click="ConnectServicePartner()">connect service partner</button>
+
+                                        <div class="row hethi_grey_color">
+                                            <div class="col-md-6">
+                                                <h3>
+                                                    download cloudplug
+                                                </h3>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="pull-right">
+
+                                                    <img class="img_width_200" src="images/icon/cloud_plug.png">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="panel-body">
+                                            <div class="row" style="border-top: 1px solid rgba(162, 122, 42, 0.39);padding-top: 30px;">
+                                                <div class="col-md-offset-1 col-md-10">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead class="thead-bg">
+                                                            <tr>
+                                                                <th class="text-center">
+                                                                    upload time
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    form / edi type
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    form / edi file
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    service partner
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    version
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    select
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+
+                                                            <tbody ng-repeat=" user in customer_uploaded_list">
+                                                            <tr>
+                                                                <td class="text-center">
+                                                                    {{user.startreaddtm }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{user.upload_source}}( {{user.efs_uin}})
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{user.upload_name }} ( <span class="text-small"> {{user.files.length}}  file(s)  </span> )
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{user.customer_name }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{user.version}}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <input type="checkbox"  ng-model="user.cloud_plug_needed">
+                                                                </td>
+                                                            </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="pull-right">
+                                                                <button type="button" class="btn_hethi btn_hethi_md blue">download cloudplug</button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>
-                                </div>
+                                </section>
+
+                            </div>
+                            <div class="col-md-12" ng-switch-when="1.2">
+
+                                <section>
+                                    <div class="">
+
+                                        <div class="divider"></div>
+
+
+
+
+                                        <div class="row hethi_grey_color">
+                                            <div class="col-md-6">
+                                                <h3>
+                                                    connect service partner
+                                                </h3>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="pull-right">
+
+                                                    <img class="img_width_200" src="images/icon/cloud_plug.png">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="panel-body">
+                                            <div class="row" style="border-top: 1px solid rgba(162, 122, 42, 0.39);padding-top: 30px;">
+                                                <div class="col-md-offset-1 col-md-10">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead class="thead-bg">
+                                                            <tr>
+                                                                <th class="text-center">
+                                                                    upload time
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    form / edi type
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    form / edi file
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    service partner
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    version
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    email
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+
+                                                            <tbody ng-repeat=" user in customer_uploaded_list">
+                                                            <tr>
+                                                                <td class="text-center">
+                                                                    {{user.startreaddtm }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{user.upload_source}}( {{user.files[0].efs_uin}})
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{user.upload_name }} ( <span class="text-small"> {{user.files.length}}  file(s)  </span> )
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{user.customer_name }} *
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{user.upload_status +1}}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <input type="text"  ng-model="user.email" >
+                                                                </td>
+                                                            </tr>
+
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="pull-right">
+                                                                <button type="button" class="btn_hethi btn_hethi_md blue">connect service partner</button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </section>
+
                             </div>
                         </div>
+
+
+
+
+
+
 
                     </div>
+                    <div class="col-md-12" ng-switch-when="2">
 
-                </section>
+                        <div  >
+                            <!-- -------
+                                        -- ! -- WARNING -- ! -- Don't Change this 2 Sections inside and out side of the CODE
+                                          and !!!! DON'T ADD any Div class or span Class inside
+                                          the ID named "freeSlider" and "scroll_slider_content"
+                             ------------    -->
+                            <section class="">
 
-                <section ng-show="uploadForms">
-                    <script>
-                        $(document).ready(function(){
-                            $(this).scrollTop(0);
-                        });
-                    </script>
-                    <div >
 
-                        <div class="row hethi_grey_color">
-                            <div class="col-md-6">
-                                <h3>
-                                    uploads forms or EDI
-                                </h3>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="pull-right">
-                                    <img class="img_width_200" src="images/icon/cloud_plug.png">
-                                </div>
-                            </div>
-                        </div>
+                                <div class="form_selection">
+                                    <div id="demo5"  >
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <data-owl-carousel class="owl-carousel"
+                                                                       data-options='{items : 4,
+                                                   itemsDesktop : [1199,3],
+                                                   itemsDesktopSmall : [979,3],
+                                                   pagination:true,
+                                                   navigation: false,
+                                                   navigationText:["<i class=fa fa-chevron-left  icon-white></i>","<i class=fa fa-chevron-right icon-white></i>"] }'>
+                                                        <!--<div owl-carousel-item="" ng-repeat="item in BpaaS_Service_List" class="item dodgerBlue owlbox-main" data-ng-click="showOne($index);">-->
+                                                        <!--<div class="">-->
+                                                        <!--{{item.BpaaS_service}}-->
+                                                        <!--</div>-->
+                                                        <!--</div>-->
+                                                        <a owl-carousel-item="" ng-repeat="item in BpaaS_Service_List"  class="item categoryCard"  data-ng-click="showOne($index);">
+                                                            <img class="cardImage img-responsive" src="{{item.BpaaS_service_image_path}}">
+                                                            <div class="cardContainer" >
 
-                        <div class="panel-body">
-                            <div class="row" style="border-top: 1px solid rgba(162, 122, 42, 0.39);padding-top: 30px;">
-                                <div class="col-md-offset-2 col-md-8">
-                                    <div class="upload_box_hethi">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <p class="grey">form type</p>
-                                                <select class="form-control input-md input-hethi">
-                                                    <option>form / EDI type </option>
-                                                    <option>industry 1</option>
-                                                </select>
+                                                                <h2 class="cardTitle normal-text">{{item.BpaaS_service}}</h2>
+                                                                <h3 class="cardTitle">{{item.BpaaS_service_description_short}}</h3>
+
+                                                            </div>
+                                                            <!--<div class="categoryCardFooter">-->
+                                                            <!--<div class="categoryCardContentType">-->
+                                                            <!--<span class="categoryCardContentTypeIcon fa fa-send"></span>-->
+                                                            <!--<span>Try it</span>-->
+                                                            <!--</div>-->
+                                                            <!--</div>-->
+                                                        </a>
+                                                    </data-owl-carousel>
+
+
+                                                </div>
                                             </div>
-                                            <div class="col-md-8">
-                                                <p class="grey text-center">click to upload your file or (you can zip and upload as well)</p>
-                                                <div class="input-group">
+                                        </div>
 
-                                                    <input type="text" ng-model="pathfile" class="form-control input-hethi input-md" readonly  >
+                                    </div>
+                                </div>
+
+
+
+                                <div class=" container">
+                                    <div class="page-header-item">
+                                        <h1>browse industry : {{selectedBpaaS.BpaaS_service}}</h1>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <a id="demo-15">
+                                        <ul data-owl-carousel ng-if="item==selectedBpaaS"  ng-repeat="item in BpaaS_Service_List" class="owl-carousel topics"
+                                            data-options="{items : 6,
+                                               itemsDesktop : [1199,3],
+                                               itemsDesktopSmall : [979,3],
+                                               pagination:true,
+                                               navigation: true,
+                                               navigationText: ['<i class=fa fa-chevron-left icon-white></i>','<i class=fa fa-chevron-right icon-white></i>']}">
+                                            <li owl-carousel-item ng-repeat="list in item.BpaaS_service_industry_list" class="item " data-ng-click="GotoUpload($index);">
+                                                <a href="#" class="" ng-switch="list.indus_service">
+                                                    <i ng-switch-default="" class="fa fa-shopping-cart"></i>
+
+
+                                                    <i ng-switch-when="Retail" class="fa fa-shopping-cart"></i>
+                                                    <i ng-switch-when="Insurance" class="fa fa-umbrella"></i>
+                                                    <i ng-switch-when="Healthcare" class="fa fa-medkit"></i>
+                                                    <i ng-switch-when="Banking" class="fa fa-bank"></i>
+                                                    <i ng-switch-when="Manufacturing" class="fa fa-building"></i>
+
+                                                    <span>{{list.indus_service}}</span>
+
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                    </a>
+
+
+                                </div>
+
+                            </section>
+                            <div class="divider"></div>
+
+                            <section id="formUpload2">
+                                <div class="freemium_section" ng-if="uploadForm">
+                                    <div class="" >
+                                        <div class="row hethi_grey_color">
+                                            <div class="col-md-6">
+                                                <h3>
+                                                    uploads forms or EDI
+                                                </h3>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="pull-right">
+                                                    <!--<h2>-->
+                                                    <!--<span class="fa fa-cloud-upload"> </span>-->
+                                                    <!--CloudPlug-->
+                                                    <!--</h2>-->
+                                                    <img class="img_width_200" src="images/icon/cloud_plug.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                    <div class="container" ng-hide="isSigned">
+                                        <div class="divider"></div>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6">
+
+                                                <div class="form-2">
+                                                    <h1><span class="log-in">Log in</span>
+                                                        <!--or <span class="sign-up">sign up</span>-->
+                                                    </h1>
+                                                    <div class="divider"></div>
+                                                    <form class="form-horizontal" role="form" data-ng-submit="SignInToHethi(signin)">
+                                                        <div class="input-group margin-bottom-20">
+                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                            <input type="email" class="form-control" id="signInEmail" placeholder="Email address" ng-model="signin.username">
+                                                        </div>
+                                                        <div class="input-group margin-bottom-20">
+                                                            <span class="input-group-addon" style="padding-left: 15px;padding-right: 15px"> <i class="fa fa-lock"></i> </span>
+                                                            <input type="password" class="form-control" ng-model="signin.password" id="signInPassword" placeholder="Password">
+                                                        </div>
+
+
+                                                        <div class="form-group margin-bottom-10">
+                                                            <div class="col-sm-12 ">
+                                                                <label class="ui-checkbox">
+                                                                    <input name="checkbox1"
+                                                                           ng-model="signin.remember"
+                                                                           type="checkbox"  >
+                                                                    <span>stay signed in</span></label>
+                                                                <a href="#" class="pull-right" style="color: #008BCB;font-size: 12px">Forgot password?</a>
+                                                            </div>
+
+                                                        </div>
+                                                        <!--<div class="row">-->
+                                                        <div class="form-group last">
+                                                            <div class="col-sm-12">
+                                                                <div class="pull-right">
+                                                                    <button type="submit" class="btn_hethi blue">sign in</button>
+                                                                    <button type="reset" class="btn_hethi btn-warning">reset</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--</div>-->
+                                                    </form>
+
+
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xs-12 col-md-6 col-sm-6">
+                                                <div  ng-switch="signup_btn_stats" class="form-2">
+                                                    <div ng-switch-default="">
+                                                        <form data-ng-submit="registerNewUSer(register)">
+
+                                                            <h1><span class="log-in">New user ? Register here</span>
+                                                            </h1>
+                                                            <div class="divider"></div>
+
+                                                            <div class="input-group margin-bottom-20">
+                                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                                <input placeholder="Email address"
+                                                                       ng-model="register.business_email"
+                                                                       required=""
+                                                                       class=" form-control text-center input-hethi"
+                                                                       type="email"
+                                                                       minlength="6"
+                                                                       maxlength="50">
+                                                            </div>
+                                                            <div class="input-group margin-bottom-20">
+                                                                <span class="input-group-addon"><i class="fa fa-bank"></i></span>
+                                                                <input placeholder="Company name"
+                                                                       class=" form-control text-center input-hethi"
+                                                                       type="text"
+                                                                       ng-model="register.business_name"
+                                                                       required=""
+                                                                        >                            </div>
+                                                            <div class="input-group margin-bottom-20">
+                                                                <span class="input-group-addon"><i class="fa fa-location-arrow"></i></span>
+                                                                <input placeholder="Country"
+                                                                       class=" form-control text-center input-hethi"
+                                                                       type="text"
+                                                                       ng-model="register.country"
+                                                                       required="">
+                                                            </div>
+
+
+                                                            <button type="submit" ng-disabled="signup_btn_stats" class=" btn_hethi blue btn-block " ng-switch="signup_btn_stats"><i class="fa fa-user-plus"></i> Sign Up  <span data-ng-switch-when="true"  class=" fa fa-cog fa-spin"></span> </button>
+
+
+                                                            <div class="divider-sm"></div>
+
+                                                        </form>
+                                                    </div>
+                                                    <div ng-switch-when="false">
+                                                        <h1><span class="log-in">New user ? Register here</span>
+                                                        </h1>
+                                                        <div class="divider-md"></div>
+                                                        <div class="form-group">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <span class="font_w text-normal cloudMsg" style="text-transform: none">  <span class="fa fa-info-circle"></span> A confirmation email has been send to {{custmer_email}} , Please follow the email to complete the registration process </span>
+
+                                                            <br> <br>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <a  data-ng-click="change_signup_btn_stats('')" >back</a>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="container" ng-show="isSigned">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <select class="form-control input-md input-hethi" ng-change="selectedIndustryListChanged(selectedIndustryList);" ng-model="selectedIndustryList" ng-options="data as data.indus_service for data in selectedBpaaS.BpaaS_service_industry_list">
+                                                                <option value="">--Select a Industry--</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="divider"></div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <select class="form-control input-md input-hethi" ng-change="selectedFormsChanged(selectedForms);" ng-model="selectedForms" ng-options="data as data.form_type for data in selectedIndustryList.industry_form_list">
+                                                                <option value="">--Select a Form--</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+
+                                                    <form ng-submit="UploadImage(ImagePath)" >
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="input-group">
+
+                                                                    <input type="text" ng-model="pathfile" class="form-control input-hethi input-md" readonly  >
                         <span class="input-group-btn">
-                            <span class="btn-file-hethi btn-warning btn-file">
+                                      <span class="btn-file-hethi btn-warning btn-file">
 
                                             <span class="fa fa-upload"></span>
-                                          <span>browse</span>
                                           <!--Choose a file&hellip;-->
                                           <input type="file" name="file" id="file" data-ng-file-model="ImagePath"  >
 
                                       </span>
-                        </span>
+                                  </span>
+                                         <span class="input-group-btn">
+                                    <button ng-disable="loading" class="btn_hethi input-md btn-w-md btn-primary" type="submit">
+                                        <span ng-show="loading" class="fa fa-spinner fa-pulse"></span>
+                                        Upload
+                                    </button>
+                                </span>
+                                                                </div>
+                                                                <div class="divider"></div>
+                                                                <p class="text-center">(Upload EDI, zip, jpeg, TIFF, PDF, DOCX, XLSX, DOC, XLS)</p>
+                                                            </div>
+                                                            <div class="col-md-12 text-center" ng-switch="loading">
+                                                                <span  ng-switch-when="true"> <span class="fa fa-spinner fa-pulse"> </span> Uploading your {{pathfile.substring(pathfile.lastIndexOf('.')+1,pathfile.length)|lowercase}} file </span>
+                                                                <span  ng-switch-when="false"> Uploading completed </span>
 
+                                                            </div>
+
+                                                        </div>
+                                                    </form>
                                                 </div>
-                                                <div class="divider"></div>
-                                                <p class="text-center font_14_grey">(upload EDI, zip, jpeg, TIFF, PDF, DOCX, XLSX, DOC, XLS)</p>
                                             </div>
-                                        </div>
 
-                                        <div class="divider"></div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="pull-right">
-                                                    <button class="btn_hethi input-md blue" type="submit"><span class="fa fa-spinner"></span> upload</button>
+                                            <div class="divider"></div>
+                                            <div class="row" style="border-top: 1px solid #2A6497;
+    padding-top: 30px;margin-top: 20px">
+                                                <div class="col-md-offset-2 col-md-8">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead class="thead-bg">
+                                                            <tr>
+                                                                <th class="text-center">
+                                                                    upload time
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    <!--form / edi /-->
+                                                                    source
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    file
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    type
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody ng-repeat=" user in customer_uploaded_list">
+                                                            <tr>
+                                                                <td class="text-center">
+                                                                    {{user.startreaddtm }}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    * {{user.upload_source}}
+                                                                </td>
+                                                                <td class="text-left">
+                                                                    {{user.upload_name }} ( <span class="text-small"> {{user.files.length}}  file(s)  </span> )
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{user.upload_type}}
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div style="border-top: 3px solid rgba(162, 122, 42, 0.39);padding-top: 30px;margin-top: 20px" class="col-md-offset-2 col-md-8">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead class="thead-bg">
-                                            <tr>
-                                                <th class="">
-                                                    upload time
-                                                </th>
-                                                <th class="">
-                                                    form / edi type
-                                                </th>
-                                                <th class="">
-                                                    file
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td class="">
-                                                    01:45:00
-                                                </td>
-                                                <td class="">
-                                                    edi
-                                                </td>
-                                                <td class="">
-                                                    invoice_pd.pdf
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="">
-                                                    01:45:00
-                                                </td>
-                                                <td class="">
-                                                    edi
-                                                </td>
-                                                <td class="">
-                                                    invoice_pd.pdf
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="pull-right">
-                                                <button type="button" class="btn_hethi input-md btn-w-lg blue" data-ng-click="generateRFI()">generate RFI</button>
-
-                                            </div>
                                         </div>
+
                                     </div>
+
+
+
+
+
                                 </div>
-                            </div>
+                            </section>
+
                         </div>
 
+                    </div>
+                    <div class="col-md-12" ng-switch-when="3">
+
+                        find a business partner
 
                     </div>
 
-                </section>
 
-                <section ng-show="RFI">
-
-                    <div class="">
-                        <div class="divider"></div>
-                        <div class="row hethi_grey_color">
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        business customer :
-                                    </div>
-                                    <div class="col-md-7">
-                                        business partner name
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5">
-
-                                    </div>
-                                    <div class="col-md-7">
-                                        address 1, address 2, zip
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <label class="col-md-4">BPaaS</label>
-                                    <div class="col-md-8">
-                                        <select class="form-control">
-                                            <option>invoice process to pay</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="panel-body">
-                        <div class="row" style="border-top: 1px solid rgba(162, 122, 42, 0.39);padding-top: 30px;">
-                            <div class="col-md-offset-1 col-md-10">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <select class="form-control">
-                                            <option value="0">-- select form --</option>
-                                            <option>PO inventory</option>
-                                            <option>PO expense</option>
-                                            <option>NPO</option>
-                                            <option>NPO Travel and expense</option>
-                                            <option>NPO-Claim & Reimbursement</option>
-                                            <option>NPO-Utility Bill</option>
-                                            <option>NPO-Cheque Request</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="btn-group btn-group-justified" ng-init="showDetailColStart='no'">
-
-                                            <a href="#" class="btn btn-line-info " data-ng-click="showDetailColStart= 'yes'" data-ng-model="showDetailColStart" btn-radio="'yes'" > EDI </a>
-                                            <a href="#"  class="btn btn-line-info " data-ng-click="showDetailColStart= 'no'" data-ng-model="showDetailColStart" btn-radio="'no'" > Form </a>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <select class="form-control">
-                                            <option value="0">-- delivery --</option>
-                                            <option>HTML</option>
-                                            <option>ANSI-810</option>
-                                            <option>ANSI-837</option>
-                                            <option>EDIFACT 8010</option>
-                                            <option>CSV</option>
-                                            <option>XML</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <button type="button" class="btn_hethi btn-primary form-control">add</button>
-                                    </div>
-                                </div>
-
-                                <div class="divider-md"></div>
-
-                            </div>
-                        </div>
-
-                        <div class="divider-lg"></div>
-                        <div class="row">
-                            <div class="col-md-offset-1 col-md-10">
-                                <div class="counter_head">
-                                    services preview
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-offset-1 col-md-10">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                        <thead class="thead-bg">
-                                        <tr>
-                                            <th class="text-center">
-                                                form type
-                                            </th>
-                                            <th class="text-center">
-                                                EDI
-                                            </th>
-                                            <th class="text-center">
-                                                form
-                                            </th>
-                                            <th class="text-center">
-                                                delivery
-                                            </th>
-
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td class="text-center">
-                                                PO Inventory
-                                            </td>
-                                            <td class="text-center">
-
-                                            </td>
-                                            <td class="text-center">
-
-                                            </td>
-                                            <td class="text-center">
-
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">
-                                                PO Inventory
-                                            </td>
-                                            <td class="text-center">
-
-                                            </td>
-                                            <td class="text-center">
-
-                                            </td>
-                                            <td class="text-center">
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">
-                                                PO Inventory
-                                            </td>
-                                            <td class="text-center">
-
-                                            </td>
-                                            <td class="text-center">
-
-                                            </td>
-                                            <td class="text-center">
-
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="pull-right">
-                                            <button type="button" class="btn_hethi btn-w-md input-md blue" data-ng-click="proceedSubmit()">proceed to submit</button>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section ng-show="ProceedToSubmit">
-
-                    <div class="">
-                        <div class="divider"></div>
-
-                        <div class="row hethi_grey_color">
-                            <div class="col-md-5 col-xs-12">
-                                <div class="row">
-                                    <div class="col-md-5 col-xs-5">
-                                        business customer :
-                                    </div>
-                                    <div class="col-md-7 col-xs-7">
-                                        business partner name
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5 col-xs-5">
-
-                                    </div>
-                                    <div class="col-md-7 col-xs-7">
-                                        address 1, address 2, zip
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-7"></div>
-                        </div>
-                    </div>
-
-                    <div class="panel-body">
-                        <div class="row" style="border-top: 1px solid rgba(162, 122, 42, 0.39);padding-top: 30px;">
-                            <div class="col-md-offset-1 col-md-10">
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="pull-right">
-                                            <label  class="control-label ui-checkbox"><input name="checkbox1" value="option1" type="checkbox" id="remember" ><span>same as registrant</span></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-3 text-right">
-                                        <h3>business sponsor :</h3>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <label class="control-label">title</label>
-                                                <input type="text" class="input-md input-hethi form-control">
-                                            </div>
-                                            <div class="col-md-5">
-                                                <label class="control-label">first name</label>
-                                                <input type="text" class="input-md input-hethi form-control">
-                                            </div>
-                                            <div class="col-md-5">
-                                                <label class="control-label">last name</label>
-                                                <input type="text" class="input-md input-hethi form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="divider-md"></div>
-                                <div class="row">
-                                    <div class="col-md-3" style="text-align: right">
-                                        <label class="control-label">email :</label>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <input type="email" class="input-md input-hethi form-control">
-                                    </div>
-                                </div>
-                                <div class="divider-md"></div>
-                                <div class="row">
-                                    <div class="col-md-3" style="text-align: right">
-                                        <label class="control-label">business phone :</label>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <input type="email" class="input-md input-hethi form-control">
-                                    </div>
-                                </div>
-                                <div class="divider-md"></div>
-                                <div class="row">
-                                    <div class="col-md-3" style="text-align: right">
-                                        <label class="control-label">mobile phone :</label>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <input type="email" class="input-md input-hethi form-control">
-                                    </div>
-                                </div>
-                                <div class="divider-md"></div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="pull-right">
-                                            <button type="button" class="btn_hethi btn-w-md input-md blue" data-ng-click="getRfiForm()">submit RFI</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="divider-lg"></div>
-
-                    </div>
-                </section>
-
+                </div>
 
             </div>
 
 
+
         </section>
 
-
     </div>
-
-    <!-- Existing Customer login CODE Ends Here ( Authenticate the user is a existing customer and show this 2 section CODE ) -->
-
 
 </div>

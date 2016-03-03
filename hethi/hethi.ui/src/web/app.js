@@ -25,7 +25,9 @@ app.use(function(req, res, next) {
     }
 });
 
-var portno=4141;
+var portno=5050;
+
+
 app.use(express.static(path.join(__dirname, 'client')));
 app.set('port', process.env.PORT || portno);
 

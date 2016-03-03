@@ -4,12 +4,15 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -28,31 +31,29 @@ import net.sourceforge.tess4j.TesseractException;
 public class ExtractZipFiles {
 	
 	public ArrayList<String> readFile() throws ParseException {
-		String content = "";
-		BufferedReader br = null;
-		try {
-			String sCurrentLine;
-			br = new BufferedReader(new FileReader("src\\web\\server\\appConfig\\appconfig.json"));
-
-			while ((sCurrentLine = br.readLine()) != null) {
-				content = content + (sCurrentLine);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
+		
+			Properties prop = new Properties();
+			InputStream input = null;
+			File currentDirFile = new File(".");
+			String helper = currentDirFile.getAbsolutePath();
+			String currentDir = helper.substring(0, helper.lastIndexOf('.')).replace('\\', '/');
 			try {
-				if (br != null)
-					br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
+				input = new FileInputStream(currentDir + "src/main/resources/application.properties");
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
 			}
-		}
-		JSONObject appConfigJson = (JSONObject) new JSONParser().parse(content);
-		JSONObject configuration = (JSONObject) new JSONParser().parse(appConfigJson.get("configuration").toString());
-		String filepath = configuration.get("filepath").toString();
-		String portno = configuration.get("portno").toString();
-		String domain = configuration.get("domain").toString();
-		String baseUrl = domain + portno;
+
+			try {
+				prop.load(input);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String domain = prop.getProperty("domain");
+			String filepath = prop.getProperty("filepath");
+			
+			
+
+		String baseUrl = domain ;
 		ArrayList<String> str = new ArrayList<String>();
 		str.add(baseUrl);
 		str.add(filepath);

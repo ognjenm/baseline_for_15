@@ -717,28 +717,187 @@ $rootScope.hideMegaMenu=function(){
         $scope.pageClass = 'page-about';
         //$scope.hideSliderclass1='slider_1_class';
 
+
+        $scope.isExistingCustomer=false;
+        $scope.existingCustomerMenu=[
+            {
+                id:1,
+                name:"my BPaaS",
+                description:"Load your forms, uploaded,upload form  ,download cloudplug  ",image:"images/industry/retail.jpg",
+                sub_menu:[
+                    {
+                        id:1.1,
+                        name:"Download cloudplug",
+                        description:"Load your forms, uploaded,upload form  ,download cloudplug  ",
+                        image:"images/icon/cloud_plug.png",
+                        fa:'fa-cloud'
+                    },
+                    {
+                        id:1.2,
+                        name:"connect service partner  ",
+                        description:"connect service partner,",
+                        image:"images/industry/POInventory.jpg",
+                        fa:'fa-plus'
+                    }
+                ]
+            },
+            {
+                id:2, name:"Try more forms / EDI ",description:"try  new forms,",image:"images/industry/POInventory.jpg"
+            },
+            {
+                id:3, name:"Generate RFI ",description:" generate RFI  ",image:"images/ui/DentalPatientforms.jpg"
+            }
+        ];
+
+        $scope.set_sub_menu=function(data){
+            $('html, body').animate({
+
+                scrollTop: $("#existCloudPlug").offset().top -90
+            }, 1000);
+            $scope.downloadExistCloudPlug=true;
+            $scope.mainslider=true;
+        };
+
+        $scope.BpaaS_service_industry_list=[
+            {indus_service:"retail",fa:"fa-shopping-cart"},{indus_service:"manufacturing",fa:"fa-building"},{indus_service:"health care",fa:"fa-medkit"},{indus_service:"banking",fa:"fa-bank"}
+        ];
+
+
+        $scope.pageClass = 'page-about';
+        //$scope.hideSliderclass1='slider_1_class';
+        var input = {
+            'customer_id': $rootScope.loginedUserData.customer_id
+        };
+
+        $http({
+            method: 'POST',
+            url: $rootScope.spring_rest_service + '/load_home_content',
+            dataType: 'jsonp',
+            data: input
+        }).success(function (data) {
+
+
+            if (data[0][0].result == "Success") {
+                $scope.business_process_list = data[0];
+                $scope.BpaaS_Service_categories = _.groupBy($scope.business_process_list, function (elemet) {
+                    return elemet.BpaaS_id;
+                });
+                $scope.BpaaS_Service_List = [];
+                var i = 0;
+                for (var Service_key in $scope.BpaaS_Service_categories) {
+                    i++;
+                    $scope.BpaaS_Service_List_industry = [];
+                    $scope.BpaaS_Service_categories_currentRow = $scope.BpaaS_Service_categories[Service_key];
+                    var currentRow = $scope.BpaaS_Service_categories_currentRow[0];
+                    $scope.BpaaS_Service_categories_industry_list = _.groupBy($scope.BpaaS_Service_categories_currentRow, function (elemet) {
+                        return elemet.indus_id;
+                    });
+                    for (var industry_key in $scope.BpaaS_Service_categories_industry_list) {
+                        $scope.BpaaS_Service_List_industry_forms = [];
+                        $scope.BpaaS_Service_categories_industry_list_currentRow = $scope.BpaaS_Service_categories_industry_list[industry_key];
+                        var industry_currentRow = $scope.BpaaS_Service_categories_industry_list_currentRow[0];
+
+                        $scope.BpaaS_Service_categories_industry_form_list = _.groupBy($scope.BpaaS_Service_categories_industry_list_currentRow, function (elemet) {
+                            return elemet.efslob_id;
+                        });
+                        for (var efslob_key in $scope.BpaaS_Service_categories_industry_form_list) {
+                            $scope.BpaaS_Service_categories_industry_form_list_currentRow = $scope.BpaaS_Service_categories_industry_form_list[efslob_key];
+                            var efslob__currentRow = $scope.BpaaS_Service_categories_industry_form_list_currentRow[0];
+                            $scope.BpaaS_Service_categories_industry_form_list_currentRow.forEach(function (row) {
+                                $scope.BpaaS_Service_List_industry_forms.push(row);
+                            });
+
+
+                        }
+                        var industryData = {
+                            indus_service: industry_currentRow.indus_service,
+                            industry_decription_short: industry_currentRow.industry_decription_short,
+                            industry_decription_long: industry_currentRow.industry_decription_long,
+                            industry_image_id: industry_currentRow.industry_image_id,
+                            industry_status: industry_currentRow.industry_status,
+                            industry_image_type_id: industry_currentRow.industry_image_type_id,
+                            industry_image_path: industry_currentRow.industry_image_path,
+                            industry_image_alt_text: industry_currentRow.industry_image_alt_text,
+                            industry_form_list: $scope.BpaaS_Service_List_industry_forms
+                        }
+                        $scope.BpaaS_Service_List_industry.push(industryData);
+
+
+                    }
+                    var active_class = false;
+                    if (i == 1) {
+                        active_class = true;
+                    }
+                    else {
+
+                    }
+                    var data = {
+                        BpaaS_id: Service_key,
+                        BpaaS_service: currentRow.BpaaS_service,
+                        BpaaS_service_image_id: currentRow.BpaaS_service_image_id,
+                        BpaaS_service_description_short: currentRow.BpaaS_service_description_short,
+                        BpaaS_service_description_long: currentRow.BpaaS_service_description_long,
+                        BpaaS_service_status: currentRow.BpaaS_service_status,
+                        BpaaS_service_image_type_id: currentRow.BpaaS_service_image_type_id,
+                        BpaaS_service_image_path: currentRow.BpaaS_service_image_path,
+                        BpaaS_service_image_alt_text: currentRow.BpaaS_service_image_alt_text,
+                        BpaaS_service_industry_list: $scope.BpaaS_Service_List_industry,
+                        class: active_class
+                    };
+
+                    $scope.BpaaS_Service_List.push(data);
+
+                }
+                //logger.log(JSON.stringify( $scope.BpaaS_Service_List))
+                $scope.selectedBpaaS = $scope.BpaaS_Service_List[0];
+                $scope.selectedIndustryList=$scope.selectedBpaaS.BpaaS_service_industry_list[0];
+                $scope.selectedBpaaS.BpaaS_service_industry_list[0].class=true;
+            }
+            else {
+                $scope.business_process_list = false;
+            }
+        });
+
+        $scope.load_customer_uploaded_forms=function(){
+
+            $http({
+                method: 'POST',
+                url: $rootScope.spring_rest_service+'/load_customer_uploaded_forms',
+                dataType:'jsonp',
+                data: $rootScope.loginedUserData
+
+            }).success(function(data){
+                if($rootScope.isSigned){
+                    $scope.customer_uploaded_list=data[2];
+                    $scope.customer_uploaded_list.forEach(function(row){
+                        row.files=[];
+                        data[3].forEach(function(r){
+                            if(r.upload_id==row.upload_id){
+                                row.files.push(r);
+                            }
+
+                        });
+                    });
+
+
+                }
+                else
+                {
+                    logger.logError('no previous uploads for this customer ');
+                    $scope.customer_uploaded_list=false;
+                }
+            })
+
+        };
+
+
+        $scope.load_customer_uploaded_forms();
+
 $rootScope.getRfiForm=function(){
     $location.path('/generateRFI');
 
 };
 
-      $scope.items=[
-          {
-              name:"BpaaS_service",description:"BpaaS_service_description_short",image:"images/industry/retail.jpg"
-          },
-          {
-              name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/manufacturing.jpg"
-          }, {
-              name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/healthcare.jpg"
-          }, {
-              name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/onlineBanking.jpg"
-          }, {
-              name:"BpaaS_Po_service",description:"BpaaS_PO_service_description_short",image:"images/industry/lifeInsurance.jpg"
-          }
-      ];
-      $scope.BpaaS_service_industry_list=[
-          {indus_service:"retail",fa:"fa-shopping-cart"},{indus_service:"manufacturing",fa:"fa-building"},{indus_service:"health care",fa:"fa-medkit"},{indus_service:"banking",fa:"fa-bank"}
-      ];
 
 
 
@@ -842,10 +1001,16 @@ $rootScope.getRfiForm=function(){
                     {
                         id:1.1,
                         name:"Download cloudplug",
-                        description:"Load your forms, uploaded,upload form  ,download cloudplug  ",image:"images/industry/retail.jpg"
+                        description:"Load your forms, uploaded,upload form  ,download cloudplug  ",
+                        image:"images/icon/cloud_plug.png",
+                        fa:'fa-cloud'
                     },
                     {
-                        id:1.2, name:"Try more forms / EDI ",description:"try  new forms,",image:"images/industry/POInventory.jpg"
+                        id:1.2,
+                        name:"connect service partner  ",
+                        description:"connect service partner,",
+                        image:"images/industry/POInventory.jpg",
+                        fa:'fa-plus'
                     }
                     ]
             },
@@ -856,6 +1021,16 @@ $rootScope.getRfiForm=function(){
                 id:3, name:"find a business partner ",description:"find new  business partner  ",image:"images/ui/DentalPatientforms.jpg"
             }
         ];
+
+        $scope.set_sub_menu=function(data){
+            $('html, body').animate({
+
+                scrollTop: $("#existCloudPlug").offset().top -90
+            }, 1000);
+            $scope.downloadExistCloudPlug=true;
+            $scope.mainslider=true;
+        };
+
         $scope.BpaaS_service_industry_list=[
             {indus_service:"retail",fa:"fa-shopping-cart"},{indus_service:"manufacturing",fa:"fa-building"},{indus_service:"health care",fa:"fa-medkit"},{indus_service:"banking",fa:"fa-bank"}
         ];
@@ -1030,6 +1205,21 @@ $rootScope.getRfiForm=function(){
         $scope.setMainTab = function (data){
             $scope.mainTab = data;
         };
+        $scope.set_sub_menu = function (data){
+            $scope.mainTab.selected_sub_tab =data;
+            $scope.mainTab.sub_menu.forEach(function(row){
+                row.is_active=false;
+                if(row.id==data.id){
+                    row.is_active=true;
+                }
+
+            });
+            $('html, body').animate({
+
+                scrollTop: $("#sub_menu").offset().top -90
+            }, 1000);
+
+        };
         $scope.one = false;
 
         $scope.IsVisible = false;
@@ -1067,6 +1257,7 @@ $rootScope.getRfiForm=function(){
             $scope.downloadExistCloudPlug=true;
             $scope.mainslider=true;
         };
+
         $scope.UploadImage=function(files) {
             //alert($scope.selectedForms)
             if($rootScope.loginedUserData == ''||$rootScope.loginedUserData == undefined)
