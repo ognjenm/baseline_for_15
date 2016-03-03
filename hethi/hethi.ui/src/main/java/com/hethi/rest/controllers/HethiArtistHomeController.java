@@ -68,4 +68,11 @@ public class HethiArtistHomeController {
 			ClassNotFoundException, FileNotFoundException, IOException {
 		return homeServices.autoStenciling(JSONData);
 	}
+	
+	@RequestMapping(value = "/extractDataFromPosition", method = RequestMethod.POST)
+	@ResponseBody
+	public String extractDataFromPosition(@RequestBody String JSONData) throws ParseException, InstantiationException, IllegalAccessException,
+			ClassNotFoundException, FileNotFoundException, IOException {
+		return homeServices.extractDataFromPosition(JSONData);
+	}
 }
