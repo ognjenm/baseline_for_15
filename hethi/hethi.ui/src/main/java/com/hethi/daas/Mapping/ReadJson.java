@@ -24,7 +24,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.hethi.daas.utility.DataExtraction;
 import com.hethi.rest.utility.XMLtoJsonConverter;
+import com.lowagie.text.pdf.PdfReader;
+
+import net.sourceforge.tess4j.TesseractException;
 
 
 
@@ -42,7 +46,7 @@ public class ReadJson {
 
 	}
 
-	public static JSONObject jsonHandler(String jsonFile,String pdfFile,String imagefile) throws FileNotFoundException, IOException, ParseException, JSONException {
+	public static JSONObject jsonHandler(String jsonFile,String pdfFile,String imagefile) throws FileNotFoundException, IOException, ParseException, JSONException, TesseractException {
 		
 		
 		/**
@@ -77,21 +81,42 @@ public class ReadJson {
 		Object obj = parser.parse(jsonFile);
 		JSONObject json_rootObj = (JSONObject) obj;
 		JSONObject mxsd_json_rootObj = (JSONObject) json_rootObj.get("mxsd");
-		JSONObject business_json_rootObj = (JSONObject) mxsd_json_rootObj.get("business");
-		JSONObject form_json_rootObj = (JSONObject) mxsd_json_rootObj.get("form");
+		JSONObject business_json_rootObj = (JSONObject) mxsd_json_rootObj.get("efsuin_demography");
+		JSONObject form_json_rootObj = (JSONObject) mxsd_json_rootObj.get("efsuin_form");
 		//JSONObject ufsuin_json_rootObj = (JSONObject) form_json_rootObj.get("efsuin");
-		JSONObject json_headerObj = (JSONObject) form_json_rootObj.get("header");
-		JSONObject json_bodyObj = (JSONObject) form_json_rootObj.get("body");
-		JSONObject json_footerObj = (JSONObject) form_json_rootObj.get("footer");
+		JSONObject json_headerObj;
+		JSONObject json_bodyObj;
+		JSONObject json_footerObj;
 		
+		if (form_json_rootObj.get("page") instanceof JSONObject) {
+			JSONObject json_page_Obj = (JSONObject) form_json_rootObj.get("page");
+			json_headerObj = (JSONObject) json_page_Obj.get("header");
+			json_bodyObj = (JSONObject) json_page_Obj.get("body");
+			json_footerObj = (JSONObject) json_page_Obj.get("footer");
+			fieldHandler(json_headerObj,pdfFile,imagefile);
+			fieldHandler(json_bodyObj,pdfFile,imagefile);
+			fieldHandler(json_footerObj,pdfFile,imagefile);
+		}
+		else if (form_json_rootObj.get("page") instanceof JSONArray) {
+			JSONArray json_PageArray = (JSONArray) form_json_rootObj.get("page");
+
+			for (int p = 0; p < json_PageArray.size(); p++) {
+				JSONObject json_page_Obj = (JSONObject) json_PageArray.get(p);
+				json_headerObj = (JSONObject) json_page_Obj.get("header");
+				json_bodyObj = (JSONObject) json_page_Obj.get("body");
+				json_footerObj = (JSONObject) json_page_Obj.get("footer");				
+				fieldHandler(json_headerObj,pdfFile,imagefile);
+				fieldHandler(json_bodyObj,pdfFile,imagefile);
+				fieldHandler(json_footerObj,pdfFile,imagefile);
+			}
+		}
 		/**
 		 * field manipulation
 		 * 
 		 */
 		
-		fieldHandler(json_headerObj,pdfFile,imagefile);
-		fieldHandler(json_bodyObj,pdfFile,imagefile);
-		fieldHandler(json_footerObj,pdfFile,imagefile);
+		
+
 		System.out.println("The MXMl data is  ========================== >  "+json_rootObj.toString());
 		return json_rootObj;
 
@@ -128,59 +153,77 @@ public class ReadJson {
 
 	
 	
-	public static String extractData(String substring,String fieldType,String pdfFile,String imageFile) throws JSONException, IOException {
-		String[] array = substring.split(",");
-		
-		/**
-		 * standardize image size irrespective of stencil image
-		 * 
-		 */
-		
-		BufferedImage bimg = ImageIO.read(new File(imageFile));
-		int imgwidth          = bimg.getWidth();
-		int imgheight         = bimg.getHeight();
-		float varWidth=imgwidth;
-		float varHeight=imgheight;
-		float x1 = (float) (varWidth/876.0*Integer.parseInt(array[0]));
-		float y1 = (float) (varHeight/900.0*Integer.parseInt(array[1]));
-		float x2 = (float) (varWidth/876.0*Integer.parseInt(array[2]));
-		float y2 = (float) ((varHeight/900.0)*Integer.parseInt(array[3]));
-		int left=(int) x1;
-		int top=(int) y1;
-		int width=(int) x2;
-		int height=(int) y2;
-		
-		String data="";
-		if(fieldType.equalsIgnoreCase("lineItem")){
-			//TableExtract tbext=new TableExtract();
-			//data=tbext.getTableValue(top,left,height,width,pdfFile);
-		}
-		
-		else if(fieldType.equalsIgnoreCase("1Dbarcode field")||fieldType.equalsIgnoreCase("2DQRcode")||fieldType.equalsIgnoreCase("3DQRcode")){
-			System.out.println("BARCODE Reader Called");
-			PdDocumentBarcodeScanner scanner=new PdDocumentBarcodeScanner();
-			data=scanner.extractBarcode(pdfFile);
-			System.out.println("BARCODE Reader data is ==== > "+data);
-			
-		}
-		
-		else{
-			data = extractTextFromPDF(left, top, height,width, pdfFile);
-		}
-		return data;
-	}
+	public static String extractData(String substring,String fieldType,String pdfFile,String imageFile) throws JSONException, IOException, TesseractException {
+  String[] array = substring.split(",");
+  
+  /**
+   * standardize image size irrespective of stencil image
+   * 
+   */
+  
+  PdfReader reader = new PdfReader(pdfFile);
+  com.lowagie.text.Rectangle cropbox = reader.getCropBox(1); 
+  System.out.println("PDFWidth"+cropbox.getWidth());
+  System.out.println("PDFHeight"+cropbox.getHeight());
+  BufferedImage bimg1 = ImageIO.read(new File(imageFile));
+  System.out.println("IMAGEWidth"+bimg1.getWidth());
+  System.out.println("IMAGEHeight"+bimg1.getHeight());
+//  BufferedImage bimg = ImageIO.read(new File(imageFile));
+//  int imgwidth          = bimg.getWidth();
+//  int imgheight         = bimg.getHeight();
+  int imgwidth          = (int) cropbox.getWidth();
+  int imgheight         = (int) cropbox.getHeight();
+  float varWidth=imgwidth;
+  float varHeight=imgheight;
+  float x1 = (float) (varWidth/876.0*Integer.parseInt(array[0]));
+  float y1 = (float) (varHeight/900.0*Integer.parseInt(array[1]));
+  float x2 = (float) (varWidth/876.0*Integer.parseInt(array[2]));
+  float y2 = (float) ((varHeight/900.0)*Integer.parseInt(array[3]));
+//  float x1 = (float) (Integer.parseInt(array[0]));
+//  float y1 = (float) (Integer.parseInt(array[1]));
+//  float x2 = (float) (Integer.parseInt(array[2]));
+//  float y2 = (float) (Integer.parseInt(array[3]));
+  System.out.println(x1+" "+y1+" "+x2+" "+y2);
+  int left=(int) x1;
+  int top=(int) y1;
+  int width=(int) x2;
+  int height=(int) y2;
+  
+  String data="";
+  if(fieldType.equalsIgnoreCase("lineItem")){
+   //TableExtract tbext=new TableExtract();
+   //data=tbext.getTableValue(top,left,height,width,pdfFile);
+  }
+  
+  else if(fieldType.equalsIgnoreCase("1Dbarcode field")||fieldType.equalsIgnoreCase("2DQRcode")||fieldType.equalsIgnoreCase("3DQRcode")){
+   System.out.println("BARCODE Reader Called");
+   PdDocumentBarcodeScanner scanner=new PdDocumentBarcodeScanner();
+   data=scanner.extractBarcode(pdfFile);
+   System.out.println("BARCODE Reader data is ==== > "+data);
+   
+  }
+  
+  else{
+//   DataExtraction de=new DataExtraction();
+//   data =de.getTextFromImage(imageFile, left, top, width,height);
+   
 
+   data = extractTextFromPDF(left, top, height,width, pdfFile);
+  }
+  return data;
+ }
 
 	/**
 	 * 
 	 * @param obj
 	 * @throws JSONException
 	 * @throws IOException 
+	 * @throws TesseractException 
 	 * 
 	 */
 
 	
-	public static void dataFix(JSONObject obj,String PDFPath,String imagePath) throws JSONException, IOException{
+	public static void dataFix(JSONObject obj,String PDFPath,String imagePath) throws JSONException, IOException, TesseractException{
 		JSONObject json_field_dataObj = (JSONObject) obj.get("data");
 		JSONObject json_field_data_positionObj = (JSONObject) json_field_dataObj.get("position");
 		JSONObject json_field_labelObj = (JSONObject) obj.get("label");
@@ -199,7 +242,9 @@ public class ReadJson {
 	
 	
 	
-	public static void fieldHandler(JSONObject obj, String pdfFile,String imagePath) throws JSONException, IOException {
+	public static void fieldHandler(JSONObject obj, String pdfFile,String imagePath) throws JSONException, IOException, TesseractException {
+
+		
 
 		if (obj.get("group") instanceof JSONObject) {
 
@@ -226,7 +271,7 @@ public class ReadJson {
 
 		}
 
-		if (obj.get("group") instanceof JSONArray) {
+		else if (obj.get("group") instanceof JSONArray) {
 
 			JSONArray json_GroupArray = (JSONArray) obj.get("group");
 
@@ -255,7 +300,10 @@ public class ReadJson {
 
 		}
 
-	}
+		
+			}
+
+	
 	
 	public static String extractTextFromPDF(int x1, int y1, int y2, int x2, String pdfFile) {
 		String data = "";
@@ -276,8 +324,8 @@ public class ReadJson {
 			System.out.println("Text in the area:" + rect);
 			data = stripper.getTextForRegion("class1");
 			System.out.println("the value is === > " + stripper.getTextForRegion("class1"));
-			String parsedText = pdfStripper.getText(pdDoc);
-			System.out.println(parsedText);
+//			String parsedText = pdfStripper.getText(pdDoc);
+//			System.out.println(parsedText);
 		}
 
 		catch (IOException e) {
