@@ -7,89 +7,69 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="hethiplatformMenu">
                     <div class="row text-center">
-                        <div class="hethiColMenu col-lg-3 col-md-3 col-sm-3 {{hethiColNwPActive}}">
+                        <div class="col-md-1"></div>
+                        <div class="hethiColMenu col-lg-2 col-md-2 col-sm-2 {{hethiColNwPActive}}">
                             <a data-ng-click="GotoNetwork()" class="snav-label {{networkActive}}">
-                                <span class="fa fa-signal" style="font-size: 25px"></span> <span>hethi business network </span>
+                                <span class="fa fa-signal" style="font-size: 25px"></span> <span>hethi cloudplug</span>
                                 <span class="fa fa-angle-down" style="font-weight: bolder"></span>
                             </a>
                         </div>
-                        <div class="hethiColMenu col-lg-3 col-md-3 col-sm-3 {{hethiColDsActive}}">
+                        <div class="hethiColMenu col-lg-2 col-md-2 col-sm-2 {{hethiColDsActive}}">
                             <a data-ng-click="GotoDesignStudio()" class="snav-label {{designStudioActive}}">
-                                <span class="fa fa-bar-chart" style="font-size: 25px"></span> <span>interactive design studio </span>
+                                <span class="fa fa-bar-chart" style="font-size: 25px"></span> <span>hethi cloudplay </span>
                                 <span class="fa fa-angle-down" style="font-weight: bolder"></span>
                             </a>
 
                         </div>
-                        <div class="hethiColMenu col-lg-3 col-md-3 col-sm-3 {{hethiColPmActive}}">
+                        <div class="hethiColMenu col-lg-2 col-md-2 col-sm-2 {{hethiColPmActive}}">
                             <a data-ng-click="GotoPremises()" class="snav-label {{premiseActive}}">
-                                <span class="fa fa-mixcloud" style="font-size: 25px"></span> <span>BPaaS on cloud & on premises </span>
+                                <span class="fa fa-mixcloud" style="font-size: 25px"></span> <span>hethi BpaaS MPC </span>
                                 <span class="fa fa-angle-down" style="font-weight: bolder"></span>
                             </a>
                         </div>
-                        <div class="hethiColMenu col-lg-3 col-md-3 col-sm-3 {{hethiColDrActive}}">
+                        <div class="hethiColMenu col-lg-2 col-md-2 col-sm-2 {{hethiColDrActive}}">
                             <a data-ng-click="GotoDelivery()" class="snav-label {{deliveryActive}}">
-                                <span class="fa fa-sitemap" style="font-size: 25px"></span> <span>self service workflow </span>
+                                <span class="fa fa-sitemap" style="font-size: 25px"></span> <span>hethi BpaaS studio</span>
                                 <span class="fa fa-angle-down" style="font-weight: bolder"></span>
                             </a>
                         </div>
-
+                        <div class="hethiColMenu col-lg-2 col-md-2 col-sm-2 {{hethiColBotActive}}">
+                            <a data-ng-click="GotoBotCamp()" class="snav-label {{botActive}}">
+                                <span class="fa fa-sitemap" style="font-size: 25px"></span> <span>hethi botcamp</span>
+                                <span class="fa fa-angle-down" style="font-weight: bolder"></span>
+                            </a>
+                        </div>
+                        <div class="col-md-1"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!--<div class="row">-->
-            <!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">-->
-                <!--<div class="hethi_home_menu">-->
-                    <!--<div class="row text-center">-->
-                        <!--<div class="col-lg-3 col-md-3 col-sm-3 menu-border">-->
-                            <!--<a data-ng-click="GotoNetwork()" class="snav-label {{networkActive}}">-->
-                                <!--<span class="fa fa-signal" style="font-size: 25px"></span> <span>hethi business network </span>-->
-                                <!--<span class="fa fa-angle-down" style="font-weight: bolder"></span>-->
-                            <!--</a>-->
-                        <!--</div>-->
-                        <!--<div class="col-lg-3 col-md-3 col-sm-3 menu-border">-->
-                            <!--<a data-ng-click="GotoDesignStudio()" class="snav-label {{designStudioActive}}">-->
-                                <!--<span class="fa fa-bar-chart" style="font-size: 25px"></span> <span>interactive design studio </span>-->
-                                <!--<span class="fa fa-angle-down" style="font-weight: bolder"></span>-->
-                            <!--</a>-->
-                        <!--</div>-->
-                        <!--<div class="col-lg-3 col-md-3 col-sm-3 menu-border">-->
-                            <!--<a data-ng-click="GotoPremises()" class="snav-label {{premiseActive}}">-->
-                                <!--<span class="fa fa-mixcloud" style="font-size: 25px"></span> <span>BPaaS on cloud & on premises </span>-->
-                                <!--<span class="fa fa-angle-down" style="font-weight: bolder"></span>-->
-                            <!--</a>-->
-                        <!--</div>-->
-                        <!--<div class="col-lg-3 col-md-3 col-sm-3 menu-border">-->
-                            <!--<a data-ng-click="GotoDelivery()" class="snav-label {{deliveryActive}}">-->
-                                <!--<span class="fa fa-sitemap" style="font-size: 25px"></span> <span>self service workflow </span>-->
-                                <!--<span class="fa fa-angle-down" style="font-weight: bolder"></span>-->
-                            <!--</a>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
+
 
     </div>
 
 
-    <div style="padding-top: 2em">
+    <div style="padding-top: 2em;border: 1px solid transparent;min-height: 500px">
 
-        <section data-ng-show="sec1">
+        <section data-ng-show="cloudPlugShow">
             <div data-ng-include="'pages/hethi/home_page/hethi_cloudplug.html'"></div>
         </section>
 
-        <section data-ng-show="sec2">
+        <section data-ng-show="cloudPlayShow">
             <div data-ng-include="'pages/hethi/home_page/hethi_cloudplay.html'"></div>
         </section>
 
-        <section data-ng-show="sec3">
+        <section data-ng-show="bpaasMpcShow">
             <div data-ng-include="'pages/hethi/home_page/hethi_bpaas_mpc.html'"></div>
         </section>
 
-        <section data-ng-show="sec4">
+        <section data-ng-show="bpaasStudioShow">
             <div data-ng-include="'pages/hethi/home_page/hethi_bpaas_studio.html'"></div>
+        </section>
+
+        <section data-ng-show="botCampShow">
+            <div data-ng-include="'pages/hethi/home_page/hethi_botcamp.html'"></div>
         </section>
 
     </div>

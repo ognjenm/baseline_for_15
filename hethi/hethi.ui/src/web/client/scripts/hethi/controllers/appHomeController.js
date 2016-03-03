@@ -497,7 +497,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
 }])
     .controller('OperationsPartnerController', ['$http','$scope','$filter','$location','$rootScope','logger','base64', function ($http,$scope,$filter,$location,$rootScope,logger,base64) {
     var qs = $location.$$search;
-    $scope.op_tabs=[{name:'manage_offers', isActive:'',icon:'cubes'},{ name:'classify_source', isActive:'',icon:'object-group'},{ name:'impersonate', isActive:'',icon:'diamond'},{name:'initiate_implementation', isActive:'',icon:'cogs'}];
+    $scope.op_tabs=[{name:'manage_offers', isActive:'',icon:'images/bps/enrollment.png'},{ name:'classify_source', isActive:'',icon:'images/industry/POInventory.jpg'},{ name:'impersonate', isActive:'',icon:'images/industry/impersonate.jpg'},{name:'initiate_implementation', isActive:'',icon:'images/industry/implimentation.jpg'}];
     $scope.selectOPTab=function(tab){
         $scope.selectedOPTab=tab;
         //assign selected tab to query string
@@ -515,7 +515,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
         });
 
         $('html, body').animate({
-            scrollTop: $("#details_div").offset().top -90
+            scrollTop: $("#details_div").offset().top -100
         }, 1000);
     };
 

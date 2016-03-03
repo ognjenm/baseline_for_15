@@ -1,37 +1,58 @@
 <div>
-    <h3  class="text-center"> <label>classify source</label></h3>
-    <hr>
+    <!--<h3  class="text-center"> <label>classify source</label></h3>-->
+    <!--<hr>-->
     <div class="row" >
         <div class="col-md-12">
-            <div class = "table-filters row">
-                <div class="col-md-6 ">
-                    <ul class="text-lowercase nav nav-boxed nav-justified tabbaable ver-horizontal-menu">
-                        <li class="active">
-                            <a data-toggle="tab" href="#" data-ng-click="set_classify_source_tab('on_offer')">
-                                on offer
-                            </a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" href="#" data-ng-click="set_classify_source_tab('on_board')">
-                                on board
-                            </a>
-                        </li>
-                    </ul>
+            <div class = "table-filters ">
+                <div class="row" style="border-bottom: 1px solid rgba(162, 122, 42, 0.39);margin-bottom: 15px;">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <h3  class="text-center"> <label>classify source</label></h3>
+                    </div>
+                    <div class="col-md-4 ">
+                        <div class="pull-right">
+                            <label>business mode </label>
+                            <div class="form-group" ng-switch="business_mode">
 
+                                <div class="btn-group ">
+                                    <button type="button" class="btn btn-w-md btn-line-info " data-ng-click="set_classify_source_tab('on_offer')('on_offer')" data-ng-model="business_mode" btn-radio="'on_offer'" style="font-size: 12px"> on offer</button>
+                                    <button type="button" class="btn btn-w-md btn-line-info " data-ng-click="set_classify_source_tab('on_board')"  data-ng-model="business_mode" btn-radio="'on_board'" style="font-size: 12px"> on board </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-2">
+                <div class="row">
+                    <!--<div class="col-md-6 ">-->
+                        <!--<ul class="text-lowercase nav nav-boxed nav-justified tabbaable ver-horizontal-menu">-->
+                            <!--<li class="active">-->
+                                <!--<a data-toggle="tab" href="#" data-ng-click="set_classify_source_tab('on_offer')">-->
+                                    <!--on offer-->
+                                <!--</a>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                                <!--<a data-toggle="tab" href="#" data-ng-click="set_classify_source_tab('on_board')">-->
+                                    <!--on board-->
+                                <!--</a>-->
+                            <!--</li>-->
+                        <!--</ul>-->
 
-                </div>
-                <div class="col-md-4">
-                    <div class="input-group margin-top-10">
-                        <input type = "text" class = "form-control input-hethi" data-ng-model="searchKeywordsIndexer"
-                               data-ng-keyup="searchIndexer()" placeholder="search" />
+                    <!--</div>-->
+                    <!--<div class="col-md-2">-->
+
+                    <!--</div>-->
+                    <div class="col-md-4">
+                        <div class="input-group margin-top-10">
+                            <input type = "text" class = "form-control input-hethi" data-ng-model="searchKeywordsIndexer"
+                                   data-ng-keyup="searchIndexer()" placeholder="search" />
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-default"  style="border-top-right-radius: 48%;border-bottom-right-radius: 48%" type="button"><span class="fa fa-search"></span></button>
                                                 </span>
 
-                    </div><!-- /input-group -->
+                        </div><!-- /input-group -->
+                    </div>
                 </div>
+
 
             </div>
 

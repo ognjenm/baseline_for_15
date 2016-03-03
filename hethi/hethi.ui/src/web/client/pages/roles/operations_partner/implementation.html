@@ -1,29 +1,22 @@
-<h3  class="text-center"> <label>{{selectedOPTab}} </label></h3>
-
+<!--<h3  class="text-center"> <label>{{selectedOPTab}} </label></h3>-->
+<!--<hr>-->
 <div class="row">
     <div class="col-md-12">
         <div class = "table-filters ">
             <div class="row" style="border-bottom: 1px solid rgba(162, 122, 42, 0.39);margin-bottom: 15px;">
-                <div class="col-md-6">
-                    <label>business mode </label>
-                    <!--<ul class="text-lowercase nav nav-boxed nav-justified tabbaable ver-horizontal-menu" ng-switch="business_mode">-->
-                        <!--<li class="active">-->
-                            <!--<a data-toggle="tab" href="#" data-ng-model="business_mode" data-ng-click="business_mode = 'on_offer';set_selected_b_mode('on_offer')">-->
-                                <!--on offer-->
-                            <!--</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<a data-toggle="tab" href="#" data-ng-model="business_mode" data-ng-click="business_mode = 'on_offer';set_selected_b_mode('on_board')">-->
-                                <!--on board-->
-                            <!--</a>-->
-                        <!--</li>-->
-                    <!--</ul>-->
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <h3  class="text-center"> <label>{{selectedOPTab}} </label></h3>
+                </div>
+                <div class="col-md-4 ">
+                    <div class="pull-right">
+                        <label>business mode </label>
+                        <div class="form-group" ng-switch="business_mode">
 
-                    <div class="form-group" ng-switch="business_mode">
-
-                        <div class="btn-group ">
-                            <button type="button" class="btn btn-w-md btn-line-info " data-ng-click="business_mode = 'on_offer';set_selected_b_mode('on_offer')" data-ng-model="business_mode" btn-radio="'on_offer'" style="font-size: 12px"> on offer</button>
-                            <button type="button" class="btn btn-w-md btn-line-info " data-ng-click="business_mode = 'on_board';set_selected_b_mode('on_board')"  data-ng-model="business_mode" btn-radio="'on_board'" style="font-size: 12px"> on board </button>
+                            <div class="btn-group ">
+                                <button type="button" class="btn btn-w-md btn-line-info " data-ng-click="business_mode = 'on_offer';set_selected_b_mode('on_offer')" data-ng-model="business_mode" btn-radio="'on_offer'" style="font-size: 12px"> on offer</button>
+                                <button type="button" class="btn btn-w-md btn-line-info " data-ng-click="business_mode = 'on_board';set_selected_b_mode('on_board')"  data-ng-model="business_mode" btn-radio="'on_board'" style="font-size: 12px"> on board </button>
+                            </div>
                         </div>
                     </div>
                 </div>

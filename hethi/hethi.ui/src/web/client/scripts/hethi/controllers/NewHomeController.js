@@ -122,20 +122,39 @@ $rootScope.hideMegaMenu=function(){
     $scope.showBusinessSimplified=false;
     $scope.SimplifiedActive="";
 
-    $scope.getBusinessSimplified=function(){
-        $('html, body').animate({
-            scrollTop: $("#section2").offset().top -150
-        }, 1000);
-        $rootScope.megaFixed=true;
-        //$('html,body').animate({scrollTop:$("#section3").offset().top},900);
+    $scope.getBpaasBusinessSimplified=function(){
+
+        //alert("business simplified")
         $rootScope.navcolor='topnavcolor';
+        $rootScope.megaFixed=true;
 
+        $scope.BpaaSActive="active";
+        $scope.SimplifiedActive="";
+
+        $scope.showPlatformBPaaS=true;
+        $scope.showBusinessSimplified=false;
+
+        $scope.hethiCloudPlug=false;
+        $scope.hethiBpaasStudio=false;
+        $scope.hethiMPC=false;
+        $scope.hethiCloudPlay=false;
+
+
+
+        $('html, body').animate({
+            scrollTop: $("#section1").offset().top -150
+        }, 1000);
+    };
+
+    $scope.getBpaasBusinessPlatform=function(){
+
+
+        $rootScope.navcolor='topnavcolor';
+        $rootScope.megaFixed=true;
         $scope.BpaaSActive="";
-
         $scope.SimplifiedActive="active";
 
         $scope.showPlatformBPaaS=false;
-
         $scope.showBusinessSimplified=true;
 
         $scope.hethiCloudPlug=false;
@@ -143,105 +162,137 @@ $rootScope.hideMegaMenu=function(){
         $scope.hethiMPC=false;
         $scope.hethiCloudPlay=false;
 
-    };
-    $scope.showBPaaSplatform=function(){
+
         $('html, body').animate({
             scrollTop: $("#section1").offset().top -150
         }, 1000);
-        $rootScope.navcolor='topnavcolor';
-        $rootScope.megaFixed=true;
-        $scope.BpaaSActive="active";
 
-        $scope.SimplifiedActive="";
-
-        $scope.showPlatformBPaaS=true;
-
-        $scope.showBusinessSimplified=false;
-
-        $scope.hethiCloudPlug=false;
-        $scope.hethiBpaasStudio=false;
-        $scope.hethiMPC=false;
-        $scope.hethiCloudPlay=false;
     };
 
     //landing page menu
-    $scope.sec1=true;
-    $scope.sec2=false;
-    $scope.sec3=false;
-    $scope.sec4=false;
+    $scope.cloudPlugShow=true;
+    $scope.cloudPlayShow=false;
+    $scope.bpaasMpcShow=false;
+    $scope.bpaasStudioShow=false;
+    $scope.botCampShow=false;
+
     $scope.networkActive="snav-label-selected";
     $scope.designStudioActive="";
     $scope.premiseActive="";
     $scope.deliveryActive="";
+    $scope.botActive="";
 
     $scope.hethiColNwPActive="hethiColMenuActive";
     $scope.hethiColDsActive="";
     $scope.hethiColPmActive="";
     $scope.hethiColDrActive="";
+    $scope.hethiColBotActive="";
+
 
     $scope.GotoNetwork=function(){
-        $scope.sec1=true;
-        $scope.sec2=false;
-        $scope.sec3=false;
-        $scope.sec4=false;
+        $scope.cloudPlugShow=true;
+        $scope.cloudPlayShow=false;
+        $scope.bpaasMpcShow=false;
+        $scope.bpaasStudioShow=false;
+        $scope.botCampShow=false;
+
 
         $scope.hethiColNwPActive="hethiColMenuActive";
         $scope.hethiColDsActive="";
         $scope.hethiColPmActive="";
         $scope.hethiColDrActive="";
+        $scope.hethiColBotActive="";
+
 
         $scope.networkActive="snav-label-selected";
         $scope.designStudioActive="";
         $scope.premiseActive="";
         $scope.deliveryActive="";
+        $scope.botActive="";
+
     };
     $scope.GotoDesignStudio=function(){
-        $scope.sec1=false;
-        $scope.sec2=true;
-        $scope.sec3=false;
-        $scope.sec4=false;
+        $scope.cloudPlugShow=false;
+        $scope.cloudPlayShow=true;
+        $scope.bpaasMpcShow=false;
+        $scope.bpaasStudioShow=false;
+        $scope.botCampShow=false;
+
 
         $scope.hethiColNwPActive="";
         $scope.hethiColDsActive="hethiColMenuActive";
         $scope.hethiColPmActive="";
         $scope.hethiColDrActive="";
+        $scope.hethiColBotActive="";
+
 
         $scope.networkActive="";
         $scope.designStudioActive="snav-label-selected";
         $scope.premiseActive="";
         $scope.deliveryActive="";
+        $scope.botActive="";
+
     };
     $scope.GotoPremises=function(){
-        $scope.sec1=false;
-        $scope.sec2=false;
-        $scope.sec3=true;
-        $scope.sec4=false;
+        $scope.cloudPlugShow=false;
+        $scope.cloudPlayShow=false;
+        $scope.bpaasMpcShow=true;
+        $scope.bpaasStudioShow=false;
+        $scope.botCampShow=false;
+
 
         $scope.hethiColNwPActive="";
         $scope.hethiColDsActive="";
         $scope.hethiColPmActive="hethiColMenuActive";
         $scope.hethiColDrActive="";
+        $scope.hethiColBotActive="";
+
 
         $scope.networkActive="";
         $scope.designStudioActive="";
         $scope.premiseActive="snav-label-selected";
         $scope.deliveryActive="";
+        $scope.botActive="";
+
     };
     $scope.GotoDelivery=function(){
-        $scope.sec1=false;
-        $scope.sec2=false;
-        $scope.sec3=false;
-        $scope.sec4=true;
+        $scope.cloudPlugShow=false;
+        $scope.cloudPlayShow=false;
+        $scope.bpaasMpcShow=false;
+        $scope.bpaasStudioShow=true;
+        $scope.botCampShow=false;
+
 
         $scope.hethiColNwPActive="";
         $scope.hethiColDsActive="";
         $scope.hethiColPmActive="";
         $scope.hethiColDrActive="hethiColMenuActive";
+        $scope.hethiColBotActive="";
 
         $scope.networkActive="";
         $scope.designStudioActive="";
         $scope.premiseActive="";
         $scope.deliveryActive="snav-label-selected";
+        $scope.botActive="";
+    };
+    $scope.GotoBotCamp=function(){
+        $scope.cloudPlugShow=false;
+        $scope.cloudPlayShow=false;
+        $scope.bpaasMpcShow=false;
+        $scope.bpaasStudioShow=false;
+        $scope.botCampShow=true;
+
+        $scope.hethiColNwPActive="";
+        $scope.hethiColDsActive="";
+        $scope.hethiColPmActive="";
+        $scope.hethiColDrActive="";
+        $scope.hethiColBotActive="hethiColMenuActive";
+
+        $scope.networkActive="";
+        $scope.designStudioActive="";
+        $scope.premiseActive="";
+        $scope.deliveryActive="";
+        $scope.botActive="snav-label-selected";
     };
 
     // the angularjs for BPaaS platform services CODE for ng-show and ng-hide begins here

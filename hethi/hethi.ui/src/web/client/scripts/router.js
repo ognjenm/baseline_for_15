@@ -77,7 +77,7 @@ hethi.run(function($rootScope,$location,$http,$route,logger){
 
     $rootScope.refillRoute();
 
-    $rootScope.spring_rest_service='http://sys1094-pc:9999';
+    $rootScope.spring_rest_service='http://server:9999';
 
     $rootScope.createCookie=function(name,value,days) {
         var expires = "";

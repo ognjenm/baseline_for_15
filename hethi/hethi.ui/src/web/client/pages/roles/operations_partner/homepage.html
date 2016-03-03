@@ -1,26 +1,64 @@
 <div data-ng-controller="OperationsPartnerController">
 
-    <div class="container">
-        <div class="fixed rounded_item_fixed">
-            <ul class="round-topics-fixed">
-                <li ng-repeat=" tabs in op_tabs">
+   <section>
 
-                    <a href="#" ng-switch="tabs.name" data-ng-click="selectOPTab(tabs.name)">
-                        <i class="fa fa-{{tabs.icon}} ul_round_{{tabs.isActive}}"></i>
-                        <span ng-switch-default="">{{tabs.name}}</span>
-                        <span ng-switch-when="initiate_implementation"> implementation</span>
-                    </a>
-                </li>
-
-            </ul>
-        </div>
-    </div>
+       <div class="form_selection">
+           <div id="demo" class="">
+               <div class="container">
+                   <div class="row">
+                       <div class="col-md-12">
 
 
+                           <data-owl-carousel class="owl-carousel"
+                                              data-options='{items : 4,
+                                                   itemsDesktop : [1199,3],
+                                                   itemsDesktopSmall : [979,3],
+                                                   pagination:true,
+                                                   navigation: false,
+                                                   navigationText:["<i class=fa fa-chevron-left  icon-white></i>","<i class=fa fa-chevron-right icon-white></i>"] }'>
+                               <a owl-carousel-item data-ng-repeat="tabs in op_tabs" ng-switch="tabs.name" class="item categoryCard containerCard_{{tabs.isActive}}"  data-ng-click="selectOPTab(tabs.name);">
+                                   <img class="cardImage img-responsive" src="{{tabs.icon}}">
+                                   <div class="cardContainer" >
 
-    <section id="details_div">
+                                       <h2 ng-switch-default="" class="cardTitle normal-text">{{tabs.name}}</h2>
+                                       <h2 class="cardTitle normal-text" ng-switch-when="initiate_implementation"> implementation</h2>
+
+                                       <h3 class="cardTitle">short description</h3>
+
+                                   </div>
+                               </a>
+                           </data-owl-carousel>
+
+                       </div>
+                   </div>
+               </div>
+
+           </div>
+
+       </div>
+   </section>
+
+    <!--<div class="container">-->
+        <!--<div class="fixed rounded_item_fixed">-->
+            <!--<ul class="round-topics-fixed">-->
+                <!--<li ng-repeat=" tabs in op_tabs">-->
+
+                    <!--<a href="#" ng-switch="tabs.name" data-ng-click="selectOPTab(tabs.name)">-->
+                        <!--<i class="fa fa-{{tabs.icon}} ul_round_{{tabs.isActive}}"></i>-->
+                        <!--<span ng-switch-default="">{{tabs.name}}</span>-->
+                        <!--<span ng-switch-when="initiate_implementation"> implementation</span>-->
+                    <!--</a>-->
+                <!--</li>-->
+
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+
+    <section >
         <div class="container-fluid">
-            <div ng-switch="selectedOPTab">
+            <div ng-switch="selectedOPTab" id="details_div">
                 <div ng-switch-default="">
                     <h3  class="text-center"> <label>{{selectedOPTab}} </label></h3>
                     <h3 ng-show="selectedOPTab"> <label>Unable to open this tab please refer the page 'pages/roles/operations_partner/homepage.html' </label></h3>

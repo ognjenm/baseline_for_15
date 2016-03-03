@@ -13,7 +13,7 @@
             </label>
             <!--<label><span>Phone <span class="required">*</span></span>-->
                 <!--<input type="text" name="phone1" maxlength="4" placeholder="+91" required="true" class="tel-number-field">-->
-                <!--—<input type="text" name="phone2" maxlength="15" required="true" class="tel-number-field long">-->
+                <!--ï¿½<input type="text" name="phone2" maxlength="15" required="true" class="tel-number-field long">-->
             <!--</label>-->
             <label for="subject"><span>Regarding</span>
                 <select name="subject" class="select-field">
@@ -43,10 +43,10 @@
                         <div>
                             <ul class="nav">
                                 <li class="{{BpaaSActive}}">
-                                    <a href="#" data-ng-click="showBPaaSplatform()">business <span class="fa fa-dollar"></span>implified</a>
+                                    <a href="#" data-ng-click="getBpaasBusinessSimplified()">business <span class="fa fa-dollar"></span>implified</a>
                                 </li>
                                 <li class="{{SimplifiedActive}}">
-                                    <a href="#" data-ng-click="getBusinessSimplified()">BPaaS platform services</a>
+                                    <a href="#" data-ng-click="getBpaasBusinessPlatform()">BPaaS platform services</a>
                                 </li>
 
 
@@ -78,13 +78,13 @@
                     </li>
                     <li>
                         <img src="images/banner/ThinkCircle.jpg" alt="">
-                        <p class="caption-left">
+                        <p class="caption-cloudplay">
                             <span>hethi cloudplay</span>
                         </p>
-                        <p class="caption-left-content">
+                        <p class="caption-clouplay-sub">
                             <span>workflows, output, integration, analytics</span>
                         </p>
-                        <p class="read_more_button hidden-xs">
+                        <p class="cloudplay-readmore hidden-xs">
                             <button type="button" class="btn input-md btn-w-lg btn-line-read-more" data-ng-click="getHethiCloudplay()">read more</button>
                         </p>
                         <!--<p class="caption-right">-->
@@ -124,7 +124,7 @@
 
                     </li>
                     <li>
-                        <img src="images/banner/roboticBotCamp.jpg" alt="">
+                        <img src="images/banner/roboticBotcamp.jpg" alt="">
                         <p class="caption-botcamp">
                             <span>
                                 hethi botcamp
@@ -178,7 +178,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="psbanner">
-                   hethi network. connecting service partners and business partners.  <button type="button" class="btn input-md btn-w-lg btn-line-plan">Join</button>
+                   hethi network. connecting service partners and business partners.  <button type="button" data-ng-click="goToFreemium()" class="btn input-md btn-w-lg btn-line-plan">Join</button>
                 </div>
             </div>
         </div>
@@ -209,15 +209,16 @@
 
     <!-- banner image ends here -->
 
-
-
-    <section id="section2">
-        <div data-ng-show="showBusinessSimplified"  class="content-bottom" data-ng-include="'pages/hethi/home_page/bpaasPlatformServices.html'"></div>
-    </section>
-
     <section id="section1" >
         <div data-ng-show="showPlatformBPaaS" class="content-bottom" data-ng-include="'pages/hethi/home_page/hethi_business_simplified.html'"></div>
+        <div data-ng-show="showBusinessSimplified"  class="content-bottom" data-ng-include="'pages/hethi/home_page/bpaasPlatformServices.html'"></div>
+
     </section>
+
+    <!--<section id="section2">-->
+    <!--</section>-->
+
+
 
 
 

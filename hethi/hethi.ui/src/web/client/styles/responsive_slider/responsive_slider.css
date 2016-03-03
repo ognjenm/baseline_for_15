@@ -180,6 +180,55 @@
     top: 40%;
     text-align: left;
 }
+.callbacks .caption-cloudplay{
+    display: block;
+    position: absolute;
+    z-index: 2;
+    font-size: 3.5em;
+    color: rgb(191, 189, 189);
+
+    text-shadow: none;
+    font-family: 'HelveticaLTStd-Roman',sans-serif;
+    right: 7%;
+    padding-left: 10px;
+    margin: 0;
+    width: 100%;
+    top: 48%;
+    text-align: right;
+}
+.callbacks .caption-clouplay-sub {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    font-size: 30px;
+    text-shadow: none;
+    color: rgb(191, 189, 189);
+    font-family: 'HelveticaLTStd-Roman', sans-serif;
+    right: 1%;
+    /* bottom: 0; */
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 0;
+    max-width: none;
+    width: 100%;
+    top: 61%;
+    text-align: right;
+}
+.callbacks .cloudplay-readmore{
+    display: block;
+    position: absolute;
+    z-index: 2;
+    text-shadow: none;
+    color: #fff;
+    font-family: 'HelveticaLTStd-Roman',sans-serif;
+    right: 6%;
+    padding: 10px 20px;
+    margin: 0;
+    max-width: none;
+    width: 100%;
+    bottom: 19%;
+    text-align: right;
+}
 .callbacks .caption-cloudplug{
     display: block;
     position: absolute;
@@ -212,7 +261,7 @@
     margin: 0;
     max-width: none;
     width: 100%;
-    top: 60%;
+    top: 57%;
     text-align: left;
     text-shadow: 1px 1px 1px #2b3540;
 
@@ -231,7 +280,7 @@
     margin: 0;
     max-width: none;
     width: 100%;
-    top: 58.5%;
+    top: 55.5%;
     text-align: left;
 
 
