@@ -26,7 +26,8 @@
     position: absolute;
     left: -88px;
     transform: rotate(-90deg);
-    top: 100px;
+    /*top: 100px;*/
+    top: 140px;
     background-color: #216288;
     padding: 9px;
     color: #fff;
