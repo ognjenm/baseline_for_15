@@ -996,10 +996,10 @@ $rootScope.getRfiForm=function(){
         $scope.GotoUpload=function(){
 
 
-            $('html, body').animate({
-
-                scrollTop: $("#formUpload").offset().top -90
-            }, 1000);
+            //$('html, body').animate({
+            //
+            //    scrollTop: $("#formUpload").offset().top -90
+            //}, 1000);
             $scope.uploadForm=true;
             $scope.one=false;
             $scope.showCSP=true;

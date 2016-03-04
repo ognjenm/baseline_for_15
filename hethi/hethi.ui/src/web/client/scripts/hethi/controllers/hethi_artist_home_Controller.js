@@ -934,11 +934,16 @@ $scope.loadMasterForm=function(path){
     };
     $scope.keys = function(obj){
         var keys=[];
-        Object.keys(obj).forEach(function(k){
+        for (var k in obj) {
             if(k!=='$$hashKey'){
                 keys.push(''+k);
             };
-        });
+        }
+        //Object.keys(obj).forEach(function(k){
+        //    if(k!=='$$hashKey'){
+        //        keys.push(''+k);
+        //    };
+        //});
         return keys;
         //return obj? Object.keys(obj) : [];
     };
@@ -1876,16 +1881,7 @@ $scope.loadMasterForm=function(path){
         }
     };
 
-    $scope.keys = function(obj){
-        var keys=[];
-        Object.keys(obj).forEach(function(k){
-            if(k!=='$$hashKey'){
-                keys.push(''+k);
-            };
-        });
-        return keys;
-        //return obj? Object.keys(obj) : [];
-    };
+
 
     $scope.save_mxsd=function(data) {
 
@@ -1955,10 +1951,12 @@ $scope.loadMasterForm=function(path){
         $scope.segment=val;
     };
     $scope.copyheader=function(index){
-        $scope.masterFormFields.mxsd.efsuin_form.page[index].header=$scope.masterFormFields.mxsd.efsuin_form.page[0].header;
+        var header=JSON.parse(JSON.stringify($scope.masterFormFields.mxsd.efsuin_form.page[0].header));
+        $scope.masterFormFields.mxsd.efsuin_form.page[index].header=header;
     };
     $scope.copyfooter=function(index){
-        $scope.masterFormFields.mxsd.efsuin_form.page[index].footer=$scope.masterFormFields.mxsd.efsuin_form.page[0].footer;
+        var footer=JSON.parse(JSON.stringify($scope.masterFormFields.mxsd.efsuin_form.page[0].footer));
+        $scope.masterFormFields.mxsd.efsuin_form.page[index].footer=footer;
     };
     $scope.selectedPage=0;
     $scope.selectedPages=1;
