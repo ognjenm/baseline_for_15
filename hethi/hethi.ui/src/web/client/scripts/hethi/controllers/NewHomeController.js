@@ -20,15 +20,15 @@ hethi.controller('NewHomeController', ['$http','$scope','$location','$rootScope'
         });
 
         //Effect on Scroll
-        $(window).scroll(function(){
-            if(_scroll){
-                _floatbox.animate({"top": "30px"},{duration: 300});
-                _scroll = false;
-            }
-            if(_timer !== false){ clearTimeout(_timer); }
-            _timer = setTimeout(function(){_scroll = true;
-                _floatbox.animate({"top": "20%"},{easing: "linear"}, {duration: 500});}, 400);
-        });
+        //$(window).scroll(function(){
+        //    if(_scroll){
+        //        _floatbox.animate({"top": "30px"},{duration: 300});
+        //        _scroll = false;
+        //    }
+        //    if(_timer !== false){ clearTimeout(_timer); }
+        //    _timer = setTimeout(function(){_scroll = true;
+        //        _floatbox.animate({"top": "20%"},{easing: "linear"}, {duration: 500});}, 400);
+        //});
 
         //reset previously set border colors and hide all message on .keyup()
         $("#contact_form  input[required=true], #contact_form textarea[required=true]").keyup(function() {
