@@ -31,9 +31,30 @@
         </div>
     </div>
 
+    <script>
+        var hidebarBanner = $('#hidebar-banner'),
+                distance = hidebarBanner.offset().top,
+                $window = $(window);
+        hidebarBanner.css("background-color", "rgba(0, 0, 0, 0.37) !important");
+//        background-color: #224361 !important;
 
-    <div class="top-nav {{navcolor}} fixed margin-top-75">
-            <div class="container">
+        $window.scroll(function() {
+            if ($window.scrollTop() >= distance) {
+                $("body").css("padding-top", "70px");
+                hidebarBanner.css("background-color", "#224361 !important");
+
+
+            } else {
+                hidebarBanner.css("background-color", "rgba(0, 0, 0, 0.37) !important");
+
+                $("body").css("padding-top", "0px");
+            }
+        });
+    </script>
+    <!--<div class="top-nav {{navcolor}} fixed margin-top-75">-->
+        <div class="top-nav fixed margin-top-75" id="hidebar-banner">
+
+        <div class="container">
                 <div class="row">
                     <!--<div class="col-md-4">-->
 

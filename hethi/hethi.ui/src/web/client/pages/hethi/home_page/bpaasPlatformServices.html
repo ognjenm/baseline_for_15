@@ -1,7 +1,26 @@
 <div class="container">
     <div class="divider-lg"></div>
+<script>
+    var hidebar = $('#hidebar-main'),
+            distance = hidebar.offset().top,
+            $window = $(window);
+    hidebar.css("display", "none");
 
-    <div class="fixedMargin-menu fixed" data-ng-show="megaFixed">
+    $window.scroll(function() {
+        if ($window.scrollTop() >= distance) {
+//            hidebar.removeClass('navbar-fixed-top').addClass(' hidden-box-fixed');
+            $("body").css("padding-top", "70px");
+            hidebar.css("display", "block");
+
+        } else {
+//            hidebar.removeClass('navbar-fixed-top  hidden-box-fixed');
+            hidebar.css("display", "none");
+
+            $("body").css("padding-top", "0px");
+        }
+    });
+</script>
+    <div class="fixedMargin-menu fixed" id="hidebar-main">
 
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

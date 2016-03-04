@@ -30,10 +30,10 @@
 
 
 
-                    <div class="row text-center">
-                        <div class="col-md-2" ng-repeat="process in files_in_each_process">
+                    <div class="row ">
+                        <div class="col-md-12">
 
-                            <div class="infobox infobox-red">
+                            <div ng-repeat="process in files_in_each_process" class="infobox infobox-red">
                                 <div class="infobox-icon">
                                     <i class="ace-icon fa fa-flask"></i>
                                 </div>
@@ -53,9 +53,9 @@
                         </div>
                     </div>
                     <div class="divider-md"></div>
-                    <div class="row text-center">
-                        <div class="col-md-2" ng-repeat="process in files_in_each_micro_process">
-                            <div class="infobox infobox-green" >
+                    <div class="row ">
+                        <div class="col-md-12" >
+                            <div ng-repeat="process in files_in_each_micro_process" class="infobox infobox-green" >
                                 <div class="infobox-icon">
                                     <i class="ace-icon fa fa-file"></i>
                                 </div>
