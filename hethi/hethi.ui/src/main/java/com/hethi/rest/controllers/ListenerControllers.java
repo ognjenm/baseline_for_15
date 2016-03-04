@@ -8,10 +8,8 @@ public class ListenerControllers {
 		@SuppressWarnings({ "resource", "unused" })
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext(
 				"classpath:spring/spring-integration-email-helper.xml");
-		// @SuppressWarnings({ "resource", "unused" })
-		// AbstractApplicationContext context1 =
-		// new
-		// ClassPathXmlApplicationContext("classpath:spring/spring-integration-ftp-helper.xml");
+		 @SuppressWarnings({ "resource", "unused" })
+		 AbstractApplicationContext context1 = new  ClassPathXmlApplicationContext("classpath:spring/spring-integration-ftp-helper.xml");
 	}
 
 }
