@@ -602,7 +602,10 @@ a:hover.back-to-top {
 }
 .top-nav li.active> a, .top-nav li> a:hover {
     /*background:#42a5f5;*/
-    background-color: rgba(119, 138, 150, 0.9);
+    background-color: rgba(119, 138, 150, 0.54);
+
+    /*background-color: rgba(119, 138, 150, 0.9);*/
+
     /*background-color: rgba(43, 53, 64, 0.68);*/
 }
 .top-nav li a{
@@ -629,7 +632,10 @@ a:hover.back-to-top {
 }
 .top-nav li a:hover{
     /*background:#42a5f5 !important;*/
-    background-color: rgba(119, 138, 150, 0.9);
+    background-color: rgba(119, 138, 150, 0.54);
+
+    /*background-color: rgba(119, 138, 150, 0.9);*/
+
     /*background-color: rgba(43, 53, 64, 0.68);*/
 }
 @media (min-width: 240px) and (max-width: 765px) {
