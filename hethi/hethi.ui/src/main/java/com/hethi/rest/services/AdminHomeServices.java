@@ -175,6 +175,18 @@ public class AdminHomeServices {
 		return homeRepo.load_all_process_and_sub_process(sql);
 	}
 	
+	public String create_new_cformowner(String JSONData) throws ParseException {
+		JSONObject json = (JSONObject) new JSONParser().parse(JSONData);
+		String sql = "{ call create_new_cformowner('" + json.get("data") + "','" + json.get("user_id") +"' )}";
+		System.out.println(sql);
+		return homeRepo.create_new_cformowner(sql);
+	}
 	
+	public String create_new_efs_uin(String JSONData) throws ParseException {
+		JSONObject json = (JSONObject) new JSONParser().parse(JSONData);
+		String sql = "{ call create_new_efs_uin('" + json.get("data") + "','" + json.get("user_id") +"' )}";
+		System.out.println(sql);
+		return homeRepo.create_new_efs_uin(sql);
+	}
 	
 }

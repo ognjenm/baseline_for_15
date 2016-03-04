@@ -19,18 +19,19 @@
                                         <div class="divider"></div>
 
                                         <div class="col-md-6">
-                                            <span class="text-small"> select form owner </span>
-                                            <select  class="form-control " ng-model="new_form.bps" ng-options="user as  user.BPaaS_service   for user in bps_master_data_list"  required="" >
+                                            <span class="text-small"> select a business process </span>
+                                            <select  class="form-control " ng-model="new_form.BpaaS_id" ng-options="user.BpaaS_id as  user.BPaaS_service   for user in bps_master_data_list"  required="" >
                                                 <option  value="">Select a business process</option>
                                             </select>
-
                                         </div>
+
                                         <div class="col-md-6">
-                                            <span class="text-small"> select form owner </span>
-                                            <select  class="form-control " ng-model="new_form.indus" ng-options="user as  user.indus_service  for user in industry_master_data_list"  required="">
+                                            <span class="text-small"> select  an industry </span>
+                                            <select  class="form-control " ng-model="new_form.indus_id" ng-options="user.indus_id as  user.indus_service  for user in industry_master_data_list"  required="">
                                                 <option value="">Select an industry</option>
                                             </select>
                                         </div>
+
                                     </div>
                                     <div class="row">
                                         <div class="divider"></div>
@@ -39,7 +40,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <span class="text-small"> select form LOB </span>
-                                                <select  class="form-control " ng-model="new_form.efslob" ng-options="user as  user.form_type for user in flob_master_data_list" required="">
+                                                <select  class="form-control " ng-model="new_form.efslob_id" ng-options="user.efslob_id as  user.form_type for user in flob_master_data_list" required="">
                                                         <option value="">Select a form LOB</option>
                                                 </select>
                                             </div>
@@ -61,10 +62,10 @@
 
 
                                     <div class="col-md-6">
-                                        <label  class="mouse_point" data-ng-click="openDialogBox('new_lob',1)">+ create a LOB</label>
+                                        <label  class="mouse_point" data-ng-click="openDialogBox('new_lob',1)"> +create a LOB</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="mouse_point" data-ng-click="openDialogBox('new_owner',1)">+create a owner</label>
+                                        <label class="mouse_point" data-ng-click="openDialogBox('new_owner',1)"> +create a owner</label>
                                     </div>
 
 
@@ -73,15 +74,111 @@
                                         <div ng-switch="tab_for_new_form">
 
                                             <div ng-switch-when="new_lob">
-                                                new_lob
+                                                <form data-ng-submit="create_new_cformowner(efslob)">
+
+                                                    <div class="divider"></div>
+                                                    <div class="divider"></div>
+
+                                                    <div class="col-md-12 text-center">
+                                                        create new line of business
+
+                                                        <hr>
+
+                                                    </div>
+
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <span class="text-small"> owner name</span>
+                                                            <input type="text" placeholder="owner name" class="form-control" ng-model="efslob.owner_name">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <span class="text-small">select market place</span>
+                                                            <select  class="form-control " ng-model="efslob.marketplace_ID" ng-options="user.marketplace_ID as  user.Makertplace_type for user in market_places_list" required="">
+                                                                <option value="">Select a market place</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="divider"></div>
+                                                    <div class="divider"></div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <span class="text-small"> owner email</span>
+                                                            <input type="email" placeholder="owner email " class="form-control" ng-model="efslob.owner_email">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+
+                                                    </div>
+                                                    <div class="divider"></div>
+                                                    <div class="divider"></div>
+
+                                                    <div class="col-md-12 text-center">
+                                                        <div class="form-group text-center">
+                                                            <button type="submit" class="btn btn-w-lg btn-info" > create new owner </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
 
                                             <div ng-switch-when="new_owner">
-                                                new_owner
+                                                <form data-ng-submit="create_new_cformowner(efslob)">
+
+                                                    <div class="divider"></div>
+                                                    <div class="divider"></div>
+
+                                                    <div class="col-md-12 text-center">
+                                                        create a owner
+                                                        <hr>
+
+                                                    </div>
+
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <span class="text-small"> owner name</span>
+                                                            <input type="text" placeholder="owner name" class="form-control" ng-model="efslob.owner_name">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <span class="text-small">select market place</span>
+                                                            <select  class="form-control " ng-model="efslob.marketplace_ID" ng-options="user.marketplace_ID as  user.Makertplace_type for user in market_places_list" required="">
+                                                                <option value="">Select a market place</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="divider"></div>
+                                                    <div class="divider"></div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <span class="text-small"> owner email </span>
+                                                            <input type="email" placeholder="owner email " class="form-control" ng-model="efslob.owner_email">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+
+                                                    </div>
+                                                    <div class="divider"></div>
+                                                    <div class="divider"></div>
+
+                                                    <div class="col-md-12 text-center">
+                                                        <div class="form-group text-center">
+                                                            <button type="submit" class="btn_hethi btn-default" > create new owner </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
-
-
-
 
                                         </div>
 

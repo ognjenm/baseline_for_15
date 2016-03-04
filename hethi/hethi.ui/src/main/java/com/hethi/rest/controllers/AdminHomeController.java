@@ -146,7 +146,19 @@ public class AdminHomeController {
 	@ResponseBody
 	public String load_all_process_and_sub_process(@RequestBody String JSONData) throws ParseException, IOException {
 		return homeService.load_all_process_and_sub_process(JSONData);
-	}	
+	}
+	
+	@RequestMapping(value = "/create_new_cformowner", method = RequestMethod.POST)
+	@ResponseBody
+	public String create_new_cformowner(@RequestBody String JSONData) throws ParseException, IOException {
+		return homeService.create_new_cformowner(JSONData);
+	}
+	
+	@RequestMapping(value = "/create_new_efs_uin", method = RequestMethod.POST)
+	@ResponseBody
+	public String create_new_efs_uin(@RequestBody String JSONData) throws ParseException, IOException {
+		return homeService.create_new_efs_uin(JSONData);
+	}
 
 	
 	

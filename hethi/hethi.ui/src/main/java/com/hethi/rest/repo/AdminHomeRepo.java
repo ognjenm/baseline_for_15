@@ -334,5 +334,38 @@ public class AdminHomeRepo {
 		return queryOutput;
 	}
 	
+	public String create_new_cformowner(String sql) {
+		Gson gson = new Gson();
+		String queryOutput = "[{\"result\":\"No data\"}]";
+		try {
+			QueryExecutors queryObj = new QueryExecutors();
+			@SuppressWarnings("rawtypes")
+			ArrayList<ArrayList> resultList = queryObj.callProcedure(sql);
+			System.out.println(gson.toJson(resultList));
+			return gson.toJson(resultList);
+		} catch (Exception e) {
+			queryOutput = "[{\"result\":\"Error\"}]";
+		}
+		System.out.println(queryOutput);
+		return queryOutput;
+	}
+	
+	
+	public String create_new_efs_uin(String sql) {
+		Gson gson = new Gson();
+		String queryOutput = "[{\"result\":\"No data\"}]";
+		try {
+			QueryExecutors queryObj = new QueryExecutors();
+			@SuppressWarnings("rawtypes")
+			ArrayList<ArrayList> resultList = queryObj.callProcedure(sql);
+			System.out.println(gson.toJson(resultList));
+			return gson.toJson(resultList);
+		} catch (Exception e) {
+			queryOutput = "[{\"result\":\"Error\"}]";
+		}
+		System.out.println(queryOutput);
+		return queryOutput;
+	}
+	
 	
 }

@@ -805,38 +805,50 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
                 $scope.industry_master_data_list=s[1];
                 $scope.flob_master_data_list=s[2];
                 $scope.fowner_master_data_list=s[3];
+                $scope.market_places_list=s[4];
+
 
             });
         };
 
         $scope.create_new_form=function(form){
+            var x2js =new X2JS();
+            var xml=x2js.json2xml_str({"root":{"data":form}});
+            alert(xml);
+            var formdata={};
+            formdata.data=xml;
+            formdata.user_id= $rootScope.loginedUserData.user_id;
+            $http({
+                method: 'POST',
+                url: $rootScope.spring_rest_service+'/create_new_efs_uin',
+                dataType:'jsonp',
+                data:formdata
+            }).success(function(s) {
 
-            alert(JSON.stringify(form));
+                alert(JSON.stringify(s))
 
-            //form.upload_id=$scope.selected_form.upload_id;
-            //form.file_id=$scope.selected_form.file_id;
-            //$http({
-            //    method: 'POST',
-            //    url: $rootScope.spring_rest_service+'/assign_form_to_file',
-            //    dataType:'jsonp',
-            //    data:form
-            //}).success(function(s) {
-            //    $scope.classify_selected_upload.files.forEach(function(row){
-            //        if(row.file_id==$scope.selected_form.file_id){
-            //            row.efs_uin=form.efs_uin;
-            //            row.form_type=form.form_type;
-            //        }
-            //
-            //    });
-            //
-            //    logger.logSuccess('form assigned to file');
-            //}).error(function(err){
-            //
-            //    logger.logError('unable to assign form')
-            //});
+
+            });
         };
+    $scope.create_new_cformowner=function(data){
+        var x2js =new X2JS();
+        var xml=x2js.json2xml_str({"root":{"data":data}});
+        alert(xml);
+        var formdata={};
+        formdata.data=xml;
+        formdata.user_id= $rootScope.loginedUserData.user_id;
+        $http({
+                method: 'POST',
+                url: $rootScope.spring_rest_service+'/create_new_cformowner',
+                dataType:'jsonp',
+                data:formdata
+            }).success(function(s) {
 
+                $scope.load_all_master_data();
+                $scope.tab_for_new_form="";
 
+            });
+    };
     $scope.load_all_master_data();
     $scope.load_artist_list();
     $scope.load_business_modes();
