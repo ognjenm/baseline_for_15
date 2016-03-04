@@ -271,7 +271,7 @@ public class HethiHomeServices {
 		   		+ "'"+json.get("rule_type")+"','"+statement+"','"+action+"','"+failure+"',"
 		   		+ "'"+json.get("rule_effective_startdate")+"','"+json.get("rule_effective_enddate")+"',"
 		   		+ "'"+status+"',"
-		   		+ "'"+json.get("lastUpUser")+"') }";
+		   		+ "'"+json.get("lastUpUser")+"','"+json.get("rule_category")+"') }";
 		   System.out.println(sql);
 		   return homeRepo.saveNewRule(sql);
 	}
@@ -282,14 +282,12 @@ public class HethiHomeServices {
 	       String statement=json.get("rule_condition").toString().replace("\'", "\\\"");
 	       String action=json.get("rule_action").toString().replace("\'", "\\\"");
 	       String failure=json.get("rule_failure").toString().replace("\'", "\\\"");
-	       int status=0;
-	       if(json.get("rule_status").toString().equals("true"))
-	    	   status=1;
+	       
 		   String sql = "{ call updateRule('"+json.get("rule_uin")+"','"+json.get("ruleset_id")+"',"
 		   		+ "'"+json.get("rule_name")+"','"+json.get("rule_desc")+"','"+json.get("rule_efs")+"',"
 		   		+ "'"+json.get("rule_type")+"','"+statement+"','"+action+"','"+failure+"',"
 		   		+ "'"+json.get("rule_effective_startdate")+"','"+json.get("rule_effective_enddate")+"',"
-		   		+ "'"+status+"',"
+		   		+ "'"+Integer.parseInt(json.get("rule_status").toString())+"',"
 		   		+ "'"+json.get("lastUpUser")+"','"+json.get("rule_order")+"','"+json.get("rule_category")+"') }";
 		   System.out.println(sql);
 		   return homeRepo.saveNewRule(sql);
