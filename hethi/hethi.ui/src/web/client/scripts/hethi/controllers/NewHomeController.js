@@ -51,6 +51,8 @@ $rootScope.hideMegaMenu=function(){
     $rootScope.navcolor='';
     $scope.BpaaSActive="";
     $scope.SimplifiedActive="";
+
+
 };
     //Banner Read More
 
@@ -116,7 +118,6 @@ $rootScope.hideMegaMenu=function(){
         $scope.showBusinessSimplified=false;
     };
 
-
     //Mega Menu
     $scope.showPlatformBPaaS=false;
     $scope.showBusinessSimplified=false;
@@ -168,6 +169,7 @@ $rootScope.hideMegaMenu=function(){
         }, 1000);
 
     };
+
 
     //landing page menu
     $scope.cloudPlugShow=true;
@@ -296,17 +298,19 @@ $rootScope.hideMegaMenu=function(){
     };
 
     // the angularjs for BPaaS platform services CODE for ng-show and ng-hide begins here
-    $scope.enrollProcessActive="snav-label-selected";
-    $scope.invoiceProcessActive="";
-    $scope.PartnerProcessActive="";
 
     $scope.enrollProcessSection=true;
     $scope.invoiceProcessSection=false;
     $scope.partnerProcessSection=false;
 
+    $scope.enrollProcessActive="snav-label-selected";
+    $scope.invoiceProcessActive="";
+    $scope.PartnerProcessActive="";
+
     $scope.hethiColEPActive="hethiColMenuActive";
     $scope.hethiColIPActive="";
     $scope.hethiColPPActive="";
+
     $scope.GetEnrollProcessPay=function(){
 
         $scope.hethiColEPActive="hethiColMenuActive";
@@ -349,6 +353,8 @@ $rootScope.hideMegaMenu=function(){
         $scope.invoiceProcessSection=false;
         $scope.partnerProcessSection=true;
     };
+
+
 
     $scope.free=function(){
         $location.path('/free');
