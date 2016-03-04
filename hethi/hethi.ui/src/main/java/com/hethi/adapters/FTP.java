@@ -39,6 +39,7 @@ import com.hethi.rest.utility.Acknowledgement;
 import com.hethi.rest.utility.EmailNotificationService;
 import com.hethi.rest.utility.ExtractZipFiles;
 import com.hethi.rest.utility.FileOperations;
+import com.hethi.rest.utility.FtpAcknoledgement;
 import com.hethi.rest.utility.Log;
 import com.hethi.rest.utility.QueryExecutors;
 import com.hethi.rest.utility.WriteToFile;
@@ -52,118 +53,165 @@ public class FTP {
 
 	public Message<String> handleFile(File file)
 			throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		System.out.println("handleFile start in ftp");
+		System.out.println("handleFile start in ftp 1");
+		FtpAcknoledgement ftpAcknoledgement = new FtpAcknoledgement();
+		Long today = new Date().getTime();
+		int AcknoledgementStatus = 0;
 		Message<String> msg = null;
+		String Cus_id = "1";
 		int lastIndex = file.getName().lastIndexOf('.');
 		int file_length = file.getName().length();
 		String file_type = file.getName().substring(lastIndex + 1, file_length);
 		File currentDirFile = new File(".");
 		String helper = currentDirFile.getAbsolutePath();
 		String currentDir = helper.substring(0, helper.lastIndexOf('.')).replace('\\', '/');
-		String file_path = currentDir + "src/web/client/images/ftp/" + file.getName();
+		String file_path = "src/web/client/images/ftp/" + file.getName();
 		// boolean flag=false;
 
-		String file_name = file.getName();
-		String file_size = String.valueOf(file.length());
-		String newFilePath = file_path.substring(0, file_path.lastIndexOf("/ftp/")) + "/ftp_old";
-		FileOperations obj = new FileOperations();
-		obj.renameFile(file_path, newFilePath, file_name);
-		file_path = newFilePath + "/" + file_name;
-		Map<String, String> mapObject = new HashMap<String, String>();
-		mapObject.put("filePath", file_path);
-		mapObject.put("fileName", file_name);
-		mapObject.put("fileType", file_type);
-		mapObject.put("fileSize", file_size);
-		mapObject.put("formSource", "FTP");
-		Gson gson = new Gson();
-		String returnString = gson.toJson(mapObject);
-		if ((!file_type.equals("zip"))) {
-			if ((!file_type.equals("rar")))
-				file_type = "single";
-		}
+		String file_name = file.getName().substring(0, file.getName().lastIndexOf(".")) + "_" + today + "." + file_type;
 
-		if (file.isDirectory())
-			file_type = "folder";
-		else
-			System.out.println("File " + file.getName() + " is at receive channel.");
-		msg = MessageBuilder.withPayload(returnString).setHeader("fileType", file_type).build();
-		System.out.println("handleFile compleated in ftp");
+		String filenameFTP = file.getName().substring(0, file.getName().lastIndexOf("."));
+		String file_size = String.valueOf(file.length());
+		System.out.println("file size in ftp befour download ===> " + file_size);
+		System.out.println("file size in ftp befour download ===> " + file_name);
+		String newFilePath = file_path.substring(0, file_path.lastIndexOf("/ftp/")) + "/ftp_old";
+
+		if (file_type.equalsIgnoreCase("edi") || file_type.equalsIgnoreCase("zip") || file_type.equalsIgnoreCase("rar")
+				|| file_type.equalsIgnoreCase("jpg") || file_type.equalsIgnoreCase("png")
+				|| file_type.equalsIgnoreCase("gif") || file_type.equalsIgnoreCase("jpeg")
+				|| file_type.equalsIgnoreCase("tiff") || file_type.equalsIgnoreCase("pdf")
+				|| file_type.equalsIgnoreCase("docx") || file_type.equalsIgnoreCase("xlsx")
+				|| file_type.equalsIgnoreCase("doc") || file_type.equalsIgnoreCase("xls")) {
+			AcknoledgementStatus++;
+			FileOperations obj = new FileOperations();
+			obj.renameFile(file_path, newFilePath, file_name);
+			file_path = newFilePath + "/" + file_name;
+			File sizevalidate = new File(file_path);
+			String bytes = String.valueOf(sizevalidate.length());
+			System.out.println(bytes + "==" + file_size);
+			/* Check file size befour and after download in FTP file transfer */
+
+			if (bytes.equalsIgnoreCase(file_size)) {
+				AcknoledgementStatus++;
+				System.out.println("file path name ====> " + file_path);
+				Map<String, String> mapObject = new HashMap<String, String>();
+				mapObject.put("filePath", file_path);
+				mapObject.put("fileName", file_name);
+				mapObject.put("fileType", file_type);
+				mapObject.put("fileSize", file_size);
+				mapObject.put("formSource", "FTP");
+				mapObject.put("customer_id", Cus_id);
+				Gson gson = new Gson();
+				String returnString = gson.toJson(mapObject);
+				if ((!file_type.equals("zip"))) {
+					if ((!file_type.equals("rar")))
+						file_type = "single";
+				}
+
+				if (file.isDirectory())
+					file_type = "folder";
+				else
+					System.out.println("File " + file.getName() + " is at receive channel.");
+				msg = MessageBuilder.withPayload(returnString).setHeader("fileType", file_type).build();
+				System.out.println("handleFile compleated in ftp");
+				// return msg;
+			}
+		
+		}
+		
+			if (AcknoledgementStatus == 0) {
+				ftpAcknoledgement.invalidFormat(filenameFTP);
+			} else if (AcknoledgementStatus == 1){
+				ftpAcknoledgement.zipfileCorrupted(filenameFTP);
+			}
+		
 		return msg;
 	}
 
 	private static final int BUFFER_SIZE = 4096;
 
 	public void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
-		System.out.println("Enter the extract method===>  >>>.");
+		System.out.println("Enter the extract method===>  >>>.1< >2");
 		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
 		byte[] bytesIn = new byte[BUFFER_SIZE];
 		int read = 0;
 		while ((read = zipIn.read(bytesIn)) != -1) {
 			bos.write(bytesIn, 0, read);
-			//System.out.println("end the while extractFile");
+			// System.out.println("end the while extractFile");
 		}
 		bos.close();
-		//System.out.println("end the extractFile");
+		// System.out.println("end the extractFile");
 	}
 
 	public String unzipFile(String JSONData) throws IOException, ParseException {
-		System.out.println("unzipFile start in ftp");
+		System.out.println("unzipFile start in ftp 2");
 		Acknowledgement acknowledgement = new Acknowledgement();
+		FtpAcknoledgement ftpAcknoledgement = new FtpAcknoledgement();
 		String fileoldname = null;
 		String Cus_id = null;
 		Long today = new Date().getTime();
-		try
-		{
-			
+		String formSource = "";
+		String filenameFTP = "";
+		System.out.println(JSONData.toString());
+		System.out.println("unzip file data ===> +" + JSONData.toString());
+		try {
+			System.out.println("unzipFile Enter try block start in ftp 2-1");
 
-		JSONObject jsonObj = (JSONObject) new JSONParser().parse(JSONData);
-		 fileoldname= jsonObj.get("fileName").toString();
-		 Cus_id= jsonObj.get("customer_id").toString();
-		System.out.println(jsonObj.get("fileName").toString() + " is at Unzip channel..");
-		String destDirPath = jsonObj.get("filePath").toString().split(".zip")[0]+"_"+today;
-		int fileindex = destDirPath.lastIndexOf("/");
-		String zibFilename = destDirPath.substring(fileindex+1)+"."+jsonObj.get("fileType").toString();
-		System.out.println("destDirPath==> "+destDirPath);
-		File destDir = new File(destDirPath);
-		if (!destDir.exists()) {
-			destDir.mkdir();
-		}
-		
-		System.out.println("fileoldname in unzipFile method 1===> "+jsonObj.get("filePath").toString());
-		System.out.println("fileoldname in unzipFile method 11===> "+jsonObj.get("filePath").toString().split(".zip")[0]);
-		System.out.println("fileoldname in unzipFile method 2===> "+jsonObj.toString());
-		ZipInputStream zipIn = new ZipInputStream(new FileInputStream(jsonObj.get("filePath").toString()));
-		ZipEntry entry = zipIn.getNextEntry();
-		// iterates over entries in the zip file
-		while (entry != null) {
-			int length_of_file = entry.getName().length();
-			int last_index = entry.getName().lastIndexOf("/");
-			String fileName = entry.getName().substring(last_index + 1, length_of_file);
-			String filePath =  destDirPath+ File.separator + fileName;
-			System.out.println("file path in while ==> "+filePath);
-			if (!entry.isDirectory()) {
-				// if the entry is a file, extracts it
-				//System.out.println("if the entry is a file, extracts it");
-				extractFile(zipIn, filePath);
+			JSONObject jsonObj = (JSONObject) new JSONParser().parse(JSONData);
+			formSource = jsonObj.get("formSource").toString();
+			fileoldname = jsonObj.get("fileName").toString();
+			filenameFTP = jsonObj.get("fileName").toString().split(".zip")[0];
+			Cus_id = jsonObj.get("customer_id").toString();
+			System.out.println(jsonObj.get("fileName").toString() + " is at Unzip channel..");
+			String destDirPath = jsonObj.get("filePath").toString().split(".zip")[0];
+			int fileindex = destDirPath.lastIndexOf("/");
+			String zibFilename = destDirPath.substring(fileindex + 1) + "." + jsonObj.get("fileType").toString();
+			System.out.println("destDirPath==> " + destDirPath);
+			File destDir = new File(destDirPath);
+			if (!destDir.exists()) {
+				destDir.mkdir();
 			}
-			zipIn.closeEntry();
-			entry = zipIn.getNextEntry();
-		}
-		Map<String, String> mapObject = new HashMap<String, String>();
-		mapObject.put("filePath", destDirPath+"."+jsonObj.get("fileType").toString());
-		mapObject.put("fileName", zibFilename);
-		mapObject.put("fileType", jsonObj.get("fileType").toString());
-		mapObject.put("fileSize", jsonObj.get("fileSize").toString());
-		mapObject.put("formSource", jsonObj.get("formSource").toString());
-		Gson gson = new Gson();
-		String returnString = gson.toJson(mapObject);
-		zipIn.close();
-		System.out.println("unzipFile end in ftp");
-		return returnString;
-	}
-		catch(Exception e)
-		{
-			acknowledgement.corruptedFile(Cus_id,fileoldname);
+
+			System.out.println("fileoldname in unzipFile method 1===> " + jsonObj.get("filePath").toString());
+			System.out.println(
+					"fileoldname in unzipFile method 11===> " + jsonObj.get("filePath").toString().split(".zip")[0]);
+			System.out.println("fileoldname in unzipFile method 2===> " + jsonObj.toString());
+			ZipInputStream zipIn = new ZipInputStream(new FileInputStream(jsonObj.get("filePath").toString()));
+			ZipEntry entry = zipIn.getNextEntry();
+			// iterates over entries in the zip file
+			while (entry != null) {
+				int length_of_file = entry.getName().length();
+				int last_index = entry.getName().lastIndexOf("/");
+				String fileName = entry.getName().substring(last_index + 1, length_of_file);
+				String filePath = destDirPath + File.separator + fileName;
+				System.out.println("file path in while ==> " + filePath);
+				if (!entry.isDirectory()) {
+					// if the entry is a file, extracts it
+					// System.out.println("if the entry is a file, extracts
+					// it");
+					extractFile(zipIn, filePath);
+				}
+				zipIn.closeEntry();
+				entry = zipIn.getNextEntry();
+			}
+			Map<String, String> mapObject = new HashMap<String, String>();
+			mapObject.put("filePath", destDirPath + "." + jsonObj.get("fileType").toString());
+			mapObject.put("fileName", zibFilename);
+			mapObject.put("fileType", jsonObj.get("fileType").toString());
+			mapObject.put("fileSize", jsonObj.get("fileSize").toString());
+			mapObject.put("formSource", jsonObj.get("formSource").toString());
+			Gson gson = new Gson();
+			String returnString = gson.toJson(mapObject);
+			zipIn.close();
+			System.out.println("unzipFile end in ftp");
+			return returnString;
+		} catch (Exception e) {
+			System.out.println(e);
+			if (formSource.equalsIgnoreCase("FTP")) {
+				ftpAcknoledgement.zipfileCorrupted(filenameFTP);
+			} else if (formSource.equalsIgnoreCase("EMAIL")) {
+				acknowledgement.corruptedFile(Cus_id, fileoldname);
+			}
 		}
 		return null;
 	}
@@ -171,21 +219,32 @@ public class FTP {
 	@SuppressWarnings("rawtypes")
 	public Message<String> saveFile(String JSONData)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException {
-System.out.println("saveFile start in ftp");
-		System.out.println("Save file in saveFile method===> "+JSONData);
+		System.out.println("saveFile start in ftp 3 ");
+		System.out.println("Save file in saveFile method===> " + JSONData);
 		Long today = new Date().getTime();
 		Message<String> msg = null;
 		JSONObject jsonObj = null;
 		String newFilePath = "", newFileName = "";
+		String formSource = "";
 		try {
 			jsonObj = (JSONObject) new JSONParser().parse(JSONData);
 			String filePathToRename = jsonObj.get("filePath").toString();
-			System.out.println("saveFile process in ftp filePathToRename==>"+filePathToRename);
-			WriteToFile wFile = new WriteToFile();
-			File newFile = wFile.fileNameUpdation(filePathToRename);
-
-			newFilePath = newFile.getAbsolutePath();
-			newFileName = newFile.getName();
+			System.out.println("saveFile process in ftp filePathToRename==>" + filePathToRename);
+			newFilePath = filePathToRename;
+			formSource = jsonObj.get("formSource").toString();
+			// newFilePath =
+			// filePathToRename.substring(0,filePathToRename.lastIndexOf("."))+"_"+today+"."+jsonObj.get("fileType").toString();
+			System.out.println("Newname in ftp for file path ===>  " + newFilePath);
+			/*
+			 * WriteToFile wFile = new WriteToFile(); File newFile =
+			 * wFile.fileNameUpdation(filePathToRename);
+			 */
+			int fileindex = newFilePath.lastIndexOf("/");
+			newFileName = newFilePath.substring(fileindex + 1);
+			System.out.println("destDirPath==> " + newFileName);
+			// newFilePath = newFile.getAbsolutePath();
+			System.out.println("newfile path in ftp method======" + newFilePath);
+			// newFileName = newFile.getName();
 			System.out.println("new file path =" + newFilePath);
 
 			System.out.println("File store channel enabled for " + newFileName);
@@ -206,7 +265,7 @@ System.out.println("saveFile start in ftp");
 		Gson gson = new Gson();
 		UploadBeans bean = gson.fromJson(upload_idString, UploadBeans.class);
 		upload_id = String.valueOf(bean.getUpload_id());
-        System.out.println("start full extract");
+		System.out.println("start full extract");
 		String cus_id = "1";
 		String sfs_uin = "csfs100102";
 		String current_channel = "daas.fullextract";
@@ -217,12 +276,12 @@ System.out.println("saveFile start in ftp");
 			mapObj.put("fileLocation", newFilePath.split(".zip")[0]);
 			mapObj.put("fileName", newFileName);
 			mapObj.put("uploadId", upload_id);
-			mapObj.put("uid", upload_id);
 			mapObj.put("customer_id", cus_id);
 			mapObj.put("efs_uin", "");
 			mapObj.put("sfs_uin", sfs_uin);
 			mapObj.put("current_channel", current_channel);
 			mapObj.put("timestamp", today.toString());
+			mapObj.put("formSource", formSource);
 		} else {
 			mapObj.put("fileLocation", newFilePath);
 			mapObj.put("fileName", newFileName);
@@ -235,6 +294,7 @@ System.out.println("saveFile start in ftp");
 			mapObj.put("sfs_uin", sfs_uin);
 			mapObj.put("current_channel", current_channel);
 			mapObj.put("timestamp", today.toString());
+			mapObj.put("formSource", formSource);
 		}
 		String file_type = jsonObj.get("fileType").toString();
 		if ((!file_type.equals("zip"))) {
@@ -255,7 +315,7 @@ System.out.println("saveFile start in ftp");
 	public String listFolderContents(String JSONData)
 			throws ParseException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException,
 			IOException, MagicParseException, MagicMatchNotFoundException, MagicException, TesseractException {
-		System.out.println("listFolderContents in FTP method===>");
+		System.out.println("listFolderContents in FTP method===>4");
 
 		JSONObject jsonObj = (JSONObject) new JSONParser().parse(JSONData);
 		String folderLocation = jsonObj.get("fileLocation").toString();
@@ -299,31 +359,41 @@ System.out.println("saveFile start in ftp");
 				System.out.println("List folder channel is enabled for " + fileEntry.getName());
 				ArrayList<ArrayList> result = executor.callProcedure(sql);
 
+				/*
+				 * String file_idString = result.get(0).get(0).toString();
+				 * 
+				 * @SuppressWarnings("unused") JSONObject jsonObject = null;
+				 * String file_id = null; Gson gson = new Gson(); UploadBeans
+				 * bean = gson.fromJson(file_idString, UploadBeans.class);
+				 * file_id = String.valueOf(bean.getFile_id());
+				 * jsonObj.put("file_id", file_id);
+				 */
 			}
 		}
 		return JSONData;
 	}
 
-	public String saveFileDetails(String JSONData)
-			throws ParseException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException,
-			IOException, MagicParseException, MagicMatchNotFoundException, MagicException, TesseractException {
-		
-         System.out.println("saveFileDetails =========>    start===>");
+	public String saveFileDetails(String JSONData) throws Exception {
+
+		System.out.println("saveFileDetails =========>   5 start===>");
 		Log log = new Log();
 		Acknowledgement acknowledgement = new Acknowledgement();
+		FtpAcknoledgement ftpAcknoledgement = new FtpAcknoledgement();
 		JSONObject jsonObj = (JSONObject) new JSONParser().parse(JSONData);
 		System.out.println("receved json object======> " + jsonObj.toString());
 		String filePath = jsonObj.get("fileLocation").toString();
 		String Cus_id = jsonObj.get("customer_id").toString();
+		String formSource = jsonObj.get("formSource").toString();
 		ExtractZipFiles extract = new ExtractZipFiles();
 		ArrayList<String> str = extract.readFile();
 		String domain = str.get(0);
 		filePath = filePath.split("client")[1].replace("\\", "/");
-
+		String value = "";
 		String actualFile = jsonObj.get("fileName").toString();
 		String filenewname = jsonObj.get("fileName").toString();
 		String fileoldname = filenewname.substring(0, filenewname.lastIndexOf('_'));
-		System.out.println("fileoldname====  === == >> " + fileoldname);
+		System.out.println("formSource====  === == >> " + formSource);
+
 		String fileName = actualFile;
 
 		ImageValidator imgValid = new ImageValidator();
@@ -356,10 +426,14 @@ System.out.println("saveFile start in ftp");
 			log.log(Cus_id, uid, file_id, process_id, sub_process_id, "1", user_code);
 			log.log(Cus_id, uid, file_id, process_id, sub_process_id, "2", user_code);
 
-			String value = acknowledgement.successfullyReceived(Cus_id, fileoldname);
-			System.out.println("json uploadId string ==> " + uid);
-			jsonD.put("result", value);
-			String Ack = jsonD.toJSONString();
+			/*
+			 * if(formSource.equalsIgnoreCase("FTP")) {
+			 * ftpAcknoledgement.uploadFTPFile(fileoldname); } else
+			 * if(formSource.equalsIgnoreCase("EMAIL")) { value =
+			 * acknowledgement.successfullyReceived(Cus_id, fileoldname); }
+			 * System.out.println("json uploadId string ==> " + uid);
+			 * jsonD.put("result", value); String Ack = jsonD.toJSONString();
+			 */
 
 			log.log(Cus_id, uid, file_id, process_id, sub_process_id, "3", user_code);
 			System.out.println("Compleated log table update");
@@ -371,10 +445,38 @@ System.out.println("saveFile start in ftp");
 		return JSONData;
 	}
 
-	public void successMethod(String JSONData) throws ParseException, IOException {
-		System.out.println("Success channel enabled..");
+	public void successMethod(String JSONData) throws ParseException, IOException, InstantiationException,
+			IllegalAccessException, ClassNotFoundException, SQLException {
+		System.out.println("Success channel enabled..6");
 		System.out.println("---------------------------------");
-		System.out.println("last.." + JSONData);
+
+		Log log = new Log();
+		FtpAcknoledgement ftpAcknoledgement = new FtpAcknoledgement();
+		Acknowledgement acknowledgement = new Acknowledgement();
+		JSONObject jsonObj = (JSONObject) new JSONParser().parse(JSONData);
+		System.out.println("receved json object======> " + jsonObj.toString());
+		String filenewname = jsonObj.get("fileName").toString();
+		String fileoldname = filenewname.substring(0, filenewname.lastIndexOf('_'));
+		String Cus_id = jsonObj.get("customer_id").toString();
+		String formSource = jsonObj.get("formSource").toString();
+		// String file_id = jsonObj.get("file_id").toString();
+		String uid = jsonObj.get("uploadId").toString();
+		String process_id = "csfs100101";
+		String sub_process_id = "5";
+		String value = "";
+		// String status_code="1";
+		String user_code = "1";
+
+		if (formSource.equalsIgnoreCase("FTP")) {
+			ftpAcknoledgement.uploadFTPFile(fileoldname);
+		} else if (formSource.equalsIgnoreCase("EMAIL")) {
+			value = acknowledgement.successfullyReceived(Cus_id, fileoldname);
+		}
+		System.out.println("json uploadId string ==> " + uid);
+
+		System.out.println("Compleated log table update");
+
+		System.out.println("last.." + JSONData.toString());
 		AbstractApplicationContext context = new ClassPathXmlApplicationContext("/spring/hethi-workflow-services.xml");
 		WorkflowInterface test = (WorkflowInterface) context.getBean("WorkflowInterfaceBean");
 		String response = test.startProcess(JSONData);
@@ -388,32 +490,29 @@ System.out.println("saveFile start in ftp");
 
 	public String extractArchive(String JSONData) throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException, SQLException, ParseException {
-		try
-		{
-			System.out.println("extractArchive json data");
-		
-		JSONObject jsonObj = (JSONObject) new JSONParser().parse(JSONData);
-		String archive = jsonObj.get("filePath").toString();
-		String fileName = jsonObj.get("fileName").toString();
-		String fileSize = jsonObj.get("fileSize").toString();
-		System.out.println("haha" + fileName + " jhdf " + archive);
-		String destination = archive.substring(0, archive.lastIndexOf("/"));
-		if (archive == null || destination == null) {
-			throw new RuntimeException("archive and destination must me set");
-		}
-		File arch = new File(archive);
-		if (!arch.exists()) {
-			throw new RuntimeException("the archive does not exit: " + archive);
-		}
-		File dest = new File(destination);
-		if (!dest.exists()) {
-			dest.mkdir();
-			System.out.println("created.....");
-		}
-		return extractArchive(arch, dest, fileName, fileSize, archive);
-		}
-		catch(Exception e)
-		{
+		try {
+			System.out.println("extractArchive json data 7");
+
+			JSONObject jsonObj = (JSONObject) new JSONParser().parse(JSONData);
+			String archive = jsonObj.get("filePath").toString();
+			String fileName = jsonObj.get("fileName").toString();
+			String fileSize = jsonObj.get("fileSize").toString();
+			System.out.println("haha" + fileName + " jhdf " + archive);
+			String destination = archive.substring(0, archive.lastIndexOf("/"));
+			if (archive == null || destination == null) {
+				throw new RuntimeException("archive and destination must me set");
+			}
+			File arch = new File(archive);
+			if (!arch.exists()) {
+				throw new RuntimeException("the archive does not exit: " + archive);
+			}
+			File dest = new File(destination);
+			if (!dest.exists()) {
+				dest.mkdir();
+				System.out.println("created.....");
+			}
+			return extractArchive(arch, dest, fileName, fileSize, archive);
+		} catch (Exception e) {
 			System.out.println("Archive file not extracted");
 		}
 		return null;
@@ -422,7 +521,7 @@ System.out.println("saveFile start in ftp");
 	@SuppressWarnings("unused")
 	public static String extractArchive(File arch, File destination, String fileName, String fileSize, String archive)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		System.out.println("extractArchive parameters");
+		System.out.println("extractArchive parameters 8");
 		String result = "";
 		String filepath = "";
 		Archive arch1 = null;
@@ -478,6 +577,7 @@ System.out.println("saveFile start in ftp");
 	}
 
 	private static File createFile(FileHeader fh, File destination, String archive) throws IOException {
+		System.out.println(" File create file in ftp 9");
 		File f = null;
 		String name = null;
 		if (fh.isFileHeader() && fh.isUnicode()) {
@@ -502,6 +602,7 @@ System.out.println("saveFile start in ftp");
 	}
 
 	private static File makeFile(File destination, String name) throws IOException {
+		System.out.println(" File makeFile file in ftp 10");
 		String[] dirs = name.split("\\\\");
 		System.out.println("dirs=" + dirs);
 		if (dirs == null) {
@@ -531,6 +632,7 @@ System.out.println("saveFile start in ftp");
 	}
 
 	private static void createDirectory(FileHeader fh, File destination) {
+		System.out.println("createDirectory ===== 11 >");
 		File f = null;
 		if (fh.isDirectory() && fh.isUnicode()) {
 			System.out.println("fh.isDirectory() && fh.isUnicode() ");
@@ -550,6 +652,7 @@ System.out.println("saveFile start in ftp");
 	}
 
 	private static void makeDirectory(File destination, String fileName) {
+		System.out.println("makeDirectory ===== 12 >");
 		String dirs = fileName;
 		System.out.println("file name=" + dirs);
 		if (dirs == null) {
