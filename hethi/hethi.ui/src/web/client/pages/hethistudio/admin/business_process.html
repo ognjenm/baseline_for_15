@@ -125,14 +125,14 @@
                                                                   class="fa fa-minus-square-o mouse_point">
                                                             </span>
                                                             <span class="fa fa-long-arrow-right"></span>
-                                                            <span class="ruleBlock">
+                                                            <span class="otherwiseBlock">
                                                                  rule name
                                                             </span>
                                                             <span class="thenDataBlock">
                                                                  {{rule.rule_name}}
                                                             </span>
                                                             <span class="fa fa-long-arrow-right"> </span>
-                                                            <span class="ruleDescBlock">
+                                                            <span class="thenBlock">
                                                                  rule description
                                                             </span>
                                                             <span ng-show="!rule.editMode" class="thenDataBlock">
@@ -156,7 +156,7 @@
                                                                           ng-class="rule.rule_status == 0 ?'active btn btn-line-info':'btn btn-line-info'">disabled</button>
                                                             </span>
                                                         <span class="fa fa-long-arrow-right"> </span>
-                                                            <span class="effectiveStartBlock">
+                                                            <span class="otherwiseBlock">
                                                                  effective start
                                                             </span>
                                                             <span ng-show="!rule.editMode" id="startdate" class="thenDataBlock">
@@ -174,7 +174,7 @@
                                                                   <!--<span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>-->
                                                             </span>
                                                         <span class="fa fa-long-arrow-right"> </span>
-                                                            <span class="effectiveEndBlock">
+                                                            <span class="otherwiseBlock">
                                                                   effective end
                                                             </span>
                                                             <span id="enddate" ng-show="!rule.editMode" class="otherwiseDataBlock">
