@@ -522,7 +522,6 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
     };
     $scope.setFunctionCall=function(table){
         $scope.functionParameter=JSON.parse(table).operation_name;
-        //alert(JSON.stringify($scope.functionParameter))
     };
 
     $scope.addProcessQueue=function(queue){
@@ -541,16 +540,178 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         $scope.index=index;
 
     };
+    $scope.enableEdit=function(rule,index){
+        $scope.ruleTemp.forEach(function(data,i){
+            if(i == index){
+                data.editMode=true;
+            }
+            else{
+                data.editMode=false;
+            }
+        });
+    };
+    $scope.editThisRule=function(rule){
+        var condition_list=rule.rule_condition.split('ixsd_'+rule.efs_uin)[1];
+        var searchKey=condition_list.substring(condition_list.indexOf("(")+1,
+            condition_list.lastIndexOf(")")).split(',');
+        var searchKeyAfter='';
+        for(var i=0;i < searchKey.length;i++){
+            if(isNaN($scope.fieldList[i].value)){
+                if($scope.fieldList[i].fieldStatus.length > 0){
+                    $scope.fieldList[i].value='form.get'+$scope.fieldList[i].value.substring(0,1).toUpperCase()+
+                                     $scope.fieldList[i].value.substring(1)+"()";
+                    $scope.fieldList[i].reserved_value='form.get'+$scope.fieldList[i].reserved_value.substring(0,1).toUpperCase()+
+                                     $scope.fieldList[i].reserved_value.substring(1)+"()";
+                }
+            };
+            searchKey[i]=searchKey[i].replace($scope.fieldList[i].reserved_value,$scope.fieldList[i].value);
+            if(i == 0){
+                searchKeyAfter=searchKey[i];
+            }
+            else searchKeyAfter=searchKeyAfter+","+searchKey[i];
+        }
+        var subCond=condition_list.substring(condition_list.indexOf("(")+1,
+            condition_list.lastIndexOf(")"));
+        condition_list=condition_list.replace(subCond,searchKeyAfter);
+        rule.rule_condition=rule.rule_condition.split('ixsd_'+rule.efs_uin)[0]+
+                          'ixsd_'+rule.efs_uin+condition_list;
+        rule.effective_startdate=new Date(rule.effective_startdate).getFullYear()+"-"+(new Date(rule.effective_startdate).getMonth()+1)+"-"+
+                          new Date(rule.effective_startdate).getDate();
+        rule.effective_enddate=new Date(rule.effective_enddate).getFullYear()+"-"+(new Date(rule.effective_enddate).getMonth()+1)+"-"+
+                          new Date(rule.effective_enddate).getDate();
+        $scope.updateExistingRule(rule);
+        $scope.hideOthers($scope.fieldList[0].rule_index,rule,'load');
+
+    };
     $scope.shows=false;
-    $scope.list=[{color:'red'}]
     $scope.negateShowDetails = function(index){
         $scope.ruleRepo[index].showDetails=false;
     };
-    $scope.hideOthers=function(index){
+
+    $scope.displayDaasRules=function(rule,ruleIndex){
+        var condition_list=rule.rule_condition.split('ixsd_'+rule.efs_uin)[1];
+        var searchKey=condition_list.substring(condition_list.indexOf("(")+1,
+            condition_list.lastIndexOf(")")).split(',');
+        $scope.fieldList=[];
+        var field='',operation_name='',value='';
+        for(var i=0;i < searchKey.length;i++){
+            field='',operation_name='',value='';
+            $scope.ruleOperators.forEach(function(data,j){
+                if(data.type > 0 && data.operation_name !='in'){
+                    if(searchKey[i].lastIndexOf("."+data.operation_name) > -1){
+                        if(operation_name.length == 0)
+                            operation_name=data.operation_name;
+                        else if(operation_name.indexOf(data.operation_name) == -1)
+                            operation_name=operation_name+","+data.operation_name;
+                    }
+                }
+                else if(data.type == 0 && data.operation_name !='in'){
+                    if(searchKey[i].lastIndexOf(data.operation_name) > -1){
+                        if(operation_name.length == 0)
+                            operation_name=data.operation_name;
+                        else if(operation_name.indexOf(data.operation_name) == -1)
+                            operation_name=operation_name+","+data.operation_name;
+                    }
+                }
+            });
+
+            var temp=searchKey[i];
+            var index= 0,length=0;
+            var searchOps=operation_name.split(",");
+            var fieldStatus=' of ';
+            for(var j=0;j<searchOps.length;j++){
+                if(temp.indexOf(searchOps[j]) > -1){
+                   temp = temp.split(searchOps[j]);
+                   temp = temp[1];
+                   if(j == searchOps.length-1){
+                       value=temp.replace('(','').replace(')','').replace('\"','').replace('\"','').replace(' ','');
+                       if(value.indexOf('form.get') > -1){
+                           value= value.split('form.get')[1].toLowerCase().replace("(","").replace(")","");
+                       }
+                       else fieldStatus='';
+                   }
+                }
+                else{
+                    value=temp.replace('(','').replace(')','').replace('\"','').replace('\"','').replace(' ','');
+                    if(value.indexOf('form.get') > -1){
+                        value= value.split('form.get')[1].toLowerCase().replace("(","").replace(")","");
+                    }
+                    else fieldStatus='';
+                }
+            }
+            temp=searchKey[i];
+            for(var j=0;j<searchOps.length;j++){
+                if(temp.indexOf(searchOps[j]) > -1){
+                    temp = temp.split(searchOps[j]);
+                    temp = temp[0];
+                    if(j == searchOps.length-1){
+                        field=temp.replace('(','').replace(')','').replace('\"','').replace('\"','').replace('.','');
+                    }
+                }
+                else{
+                    field=temp.replace('(','').replace(')','').replace('\"','').replace('\"','').replace('.','');;
+                }
+            }
+            $scope.fieldList.push({fieldStatus:fieldStatus,reserved_value:value,value:value,field:field,operation_name:operation_name,index:index,stringlength:length,rule_index:ruleIndex})
+        }
+        $scope.selectFormField(rule.efs_uin);
+        $scope.selectedEfsUin.forEach(function(entity,i){
+            if(entity.column == value){
+                $scope.selectedEntity=entity.column;
+            }
+        })
+    };
+    $scope.fieldList=[];
+    $scope.displayBpaasRules=function(rule){
+        $scope.fieldList=[];
+        //var condition_list="'"+rule.rule_condition.split('ixsd_'+rule.efs_uin+"(ip.home(")[1]+"'";
+        //var searchKey=condition_list.substring(condition_list.indexOf("\"")+1,
+        //    condition_list.lastIndexOf("\"))"));
+        //var input={},custom_value='';
+        ////alert(searchKey[searchKey.indexOf('form')]);
+        //var i=0;
+        //while(searchKey.indexOf('form') >=-1 && i==0){
+        //    //alert(searchKey.indexOf('form'))
+        //    var beforeChange=searchKey.substring(searchKey.indexOf('form'),searchKey.indexOf(','))
+        //    searchKey=searchKey.replace(beforeChange,"\""+beforeChange+"\"");
+        //    //alert(searchKey)
+        //    i=1;
+        //}
+        //searchKey=JSON.parse(searchKey);
+        //$.each(searchKey['custom_inputs'],function(key,value){
+        //    if(key =='custom_input'){
+        //       custom_value=value ;
+        //    }
+        //});
+        //searchKey['inputs'].forEach(function(row){
+        //    input={};
+        //    $.each(row,function(key,value){
+        //        if(key !='mxml1' && key !='lookupTable'){
+        //            input['field']=key;
+        //        }
+        //        else if(key =='mxml1' && value.length > 0){
+        //            input['lookup']=value;
+        //        }
+        //    });
+        //    input['fieldStatus']='';
+        //    input['value']=custom_value;
+        //    input['operation_name']=searchKey['operation'];
+        //    $scope.fieldList.push(input)
+        //});
+        //alert(JSON.stringify($scope.fieldList))
+    };
+    $scope.hideOthers=function(index,rule,situation){
+        if(rule.rule_category == 'daas'){
+            $scope.displayDaasRules(rule,index);
+        }
+        else if(rule.rule_category == 'bpaas'){
+            $scope.displayBpaasRules(rule,index);
+        }
         var rule_uin='';
         $scope.ruleTemp.forEach(function(row,i){
             if(i==index){
-                row.status=!row.status;
+                if(row.status && situation == 'open')row.status=false;
+                else row.status=true;
                 rule_uin=row.rule_uin;
             }
             else row.status=false;
@@ -569,7 +730,9 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                 var lastRow='',row=[],rowToInsert={};
                 data[0].forEach(function(rows,i){
                     row=[];
-                    if(i == 0) lastRow=rows;
+                    if(i == 0){
+                        lastRow=rows;
+                    }
                     else{
                         $.each(lastRow,function(key,value){
                             rowToInsert={};
@@ -731,6 +894,9 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                $scope.ruleTemp.push((response));
                $scope.ruleSequence.push(response)
            }
+        });
+        $scope.ruleTemp.forEach(function(data){
+            data['editMode']=false;
         });
         $scope.temp=$scope.ruleSequence;
         $scope.ruleSequence=[];
@@ -998,17 +1164,7 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
     $scope.ruleType='computation';
     $scope.updateExistingRule= function(rule) {
         var flag = 0;
-        if ($scope.conditionList == undefined || $scope.conditionList.length == 0) flag = 1;
-        if ($scope.actionEvent == undefined || $scope.actionEvent.length == 0) flag = flag + 2;
-        if ($scope.failureEvent == undefined || $scope.failureEvent.length == 0) flag = flag + 4;
-        if (flag == 1) logger.logError('condition must be set');
-        else if (flag == 2) logger.logError('success action must be set');
-        else if (flag == 3) logger.logError('condition and success action must be set');
-        else if (flag == 4) logger.logError('failure action must be set');
-        else if (flag == 5) logger.logError('condition and failure action must be set');
-        else if (flag == 6) logger.logError('success action and failure action must be set');
-        else if (flag == 7) logger.logError('condition , success action and failure action must be set');
-        else if (flag == 0) {
+        if (flag == 0) {
             var startDate = '', endDate = '';
             if (rule.status == undefined)
                 rule.status = 'true';
@@ -1016,26 +1172,26 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                 startDate = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
             if (rule.endDate == undefined)
                 endDate = new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate();
-            startDate = rule.startDate;
-            endDate = rule.endDate;
+            startDate = rule.effective_startdate;
+            endDate = rule.effective_enddate;
             var input = {
                 rule_uin:rule.rule_uin,
                 rule_order:rule.rule_order,
                 rule_category:rule.rule_category,
-                ruleset_id: $scope.currentRuleSet,
-                rule_name: rule.name,
-                rule_desc: rule.desc,
-                rule_efs: rule.efs,
+                ruleset_id: rule.ruleset_id,
+                rule_name: rule.rule_name,
+                rule_desc: rule.rule_comments,
+                rule_efs: rule.efs_uin,
                 rule_type: 'header',
-                rule_condition: $scope.conditionList,
-                rule_action: $scope.actionEvent,
-                rule_failure: $scope.failureEvent,
+                rule_condition: rule.rule_condition,
+                rule_action: rule.rule_action,
+                rule_failure:rule.rule_failure,
                 rule_effective_startdate: startDate,
                 rule_effective_enddate: endDate,
-                rule_status: rule.status,
+                rule_status: rule.rule_status,
                 lastUpUser: '1'
             };
-            console.log(JSON.stringify(input));
+            //alert(JSON.stringify(input));
             $http({
                 method: 'POST',
                 url: $rootScope.spring_rest_service + '/updateRule',
@@ -1052,7 +1208,7 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                     inputFields: [{id: 1, status: false, tableRequired: false}]
                 }];
                 logger.logSuccess('rule updated successfully..');
-                $scope.isRuleDiv = true;
+                rule.editMode=false;
                 $http({
                     method: 'POST',
                     url: $rootScope.spring_rest_service + '/loadRulesPackages',
@@ -1116,6 +1272,9 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                 logger.logError('this rule has already created..')
             }
             else{
+                var rule_category='';
+                if($scope.ruleType =='simple') rule_category='daas';
+                else rule_category='bpaas';
                 var startDate='', endDate='';
                 if(rule.status==undefined)
                     rule.status='true';
@@ -1137,7 +1296,8 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
                     rule_effective_startdate:startDate,
                     rule_effective_enddate:endDate,
                     rule_status:rule.status,
-                    lastUpUser:'1'
+                    lastUpUser:'1',
+                    rule_category:rule_category
                 };
                 //alert(JSON.stringify(input));
                 $http({
@@ -1205,220 +1365,6 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         $scope.showRuleForm=false;
     };
     $scope.showList=true;
-    $scope.editCondition=function(row){
-        var conditionList='';
-        var searchKey='';
-        $scope.dynamicRule.forEach(function(data,i){
-            if(i == row.index){
-                data.field = row.field;
-                data.condition=row.condition;
-                searchKey=data.condition_statement.split("form:ixsd_"+$scope.efs+"(")[1].split(') and')[0].split('),');
-                for(var i=0;i < searchKey.length;i++){
-                    var field='',type='',category='',operation_name='',operationset,value='';
-                    $scope.ruleOperators.forEach(function(data,j){
-                        if(data.type > 0 && data.operation_name !='in'){
-                            if(searchKey[i].lastIndexOf("."+data.operation_name) > -1){
-                                type=data.type;
-                                category=data.category;
-                                operation_name=data.operation_name;
-                                field=searchKey[i].split(operation_name)[0].split(".")[0];
-                                operationset=searchKey[i].split(field)[1];
-                                return false;
-                            }
-                        }
-                        else if(data.type == 0 && data.operation_name !='in'){
-                            if(searchKey[i].lastIndexOf(data.operation_name) > -1){
-                                type=data.type;
-                                category=data.category;
-                                operation_name=data.operation_name;
-                                field=searchKey[i].split(operation_name)[0];
-                                operationset=searchKey[i].split(field)[1];
-                                return false;
-                            }
-                        }
-                    });
-                    if(operationset.indexOf('.') == 0) operationset=operationset.substring(1,operationset.length-1);
-                    var operationArray=operationset.split('.');
-                    var updatedOperation=data.field;
-                    for(var k=0;k< operationArray.length;k++){
-                        if(operationArray[k].indexOf(')') - operationArray[k].indexOf('(') > 1){
-                            value=operationArray[k].substring(operationArray[k].indexOf('(')+1,operationArray[k].indexOf(')'));
-                            if(!isNaN(data.condition)) operationArray[k]=operationArray[k].replace(value,data.condition);
-                            else  operationArray[k]=operationArray[k].replace(value,'"'+data.condition+'"');
-                        }
-                        updatedOperation=updatedOperation+"."+operationArray[k];
-                    }
-                    searchKey[i]=updatedOperation;
-                }
-                data.condition_statement='form:ixsd_'+$scope.efs+'('+updatedOperation+')';
-            }
-        });
-        $scope.conditionList='ip:iPost() and form:ixsd_'+$scope.efs+'(';
-        $scope.dynamicRule.forEach(function(data){
-            var condition=data.condition_statement.split("form:ixsd_"+$scope.efs+"(")[1].split(') and')[0].split('),');
-            for(var i=0;i < condition.length;i++){
-                if(i == 0)conditionList=conditionList+condition[i];
-                else conditionList=conditionList+","+condition[i];
-            }
-        });
-        $scope.conditionList=$scope.conditionList+conditionList+')';
-    };
-    $scope.editRule=function(rule){
-        //alert(JSON.stringify(rule));
-        $scope.isNewRule=false;
-        $scope.formVariable='on';
-        $scope.isRuleDiv=false;
-        $rootScope.currentTab='homePage';
-        if(rule.rule_category == 'daas') $scope.ruleType='simple';
-        else if(rule.rule_category == 'bpass') $scope.ruleType='computation';
-        $scope.showRuleForm=false;
-        $scope.r={};
-        $scope.r['name']=rule.rule_name;
-        $scope.rule_name=rule.rule_name;
-        $scope.r['desc']=rule.rule_comments;
-        $scope.r['startDate']=rule.effective_startdate;
-        $scope.r['endDate']=rule.effective_enddate;
-        $scope.r['efs']=rule.efs_uin;
-        $scope.r['rule_uin']=rule.rule_uin;
-        $scope.r['rule_order']=rule.rule_order;
-        $scope.r['rule_category']=rule.rule_category;
-        $scope.efsOfIndustry=[];
-        var index= 0;
-        $scope.efs=rule.efs_uin;
-        $scope.selectedEfsUin=[];
-        $scope.dynamicRule=[];
-        for(var key in $scope.formsOfIndustry){
-            $scope.formsOfIndustry[key].forEach(function(data,i){
-                if(data.efs_uin == rule.efs_uin){
-                    $scope.r['industry']=key;
-                    $scope.index=index;
-                    $scope.efsIndex=i;
-                    $scope.r['form_types']=data.form_type;
-                    $scope.efsOfIndustry=$scope.formsOfIndustry[key];
-                    var input={
-                        efs_uin:rule.efs_uin
-                    };
-                    $http({
-                        method: 'POST',
-                        url: $rootScope.spring_rest_service+'/loadEfsUin',
-                        dataType:'jsonp',
-                        data:input
-                    }).success(function(data) {
-                        data[1].forEach(function(item){
-                            $scope.selectedEfsUin.push(item)
-                        });
-                        var searchKey=rule.rule_condition.split("form:ixsd_"+rule.efs_uin+"(")[1].split(') and')[0].split(',');
-                        $scope.lastKey=searchKey.length-1;
-                        if(rule.rule_category == 'daas'){
-                            for(var i=0;i < searchKey.length;i++){
-                                var field='',type='',category='',operation_name='',operationset,value='';
-                                $scope.ruleOperators.forEach(function(data,j){
-                                    if(data.type > 0 && data.operation_name !='in'){
-                                        if(searchKey[i].lastIndexOf("."+data.operation_name) > -1){
-                                            type=data.type;
-                                            category=data.category;
-                                            operation_name=data.operation_name;
-                                            field=searchKey[i].split(operation_name)[0].split(".")[0];
-                                            operationset=searchKey[i].split(field)[1];
-                                            return false;
-                                        }
-                                    }
-                                    else if(data.type == 0 && data.operation_name !='in'){
-                                        if(searchKey[i].lastIndexOf(data.operation_name) > -1){
-                                            type=data.type;
-                                            category=data.category;
-                                            operation_name=data.operation_name;
-                                            field=searchKey[i].split(operation_name)[0];
-                                            operationset=searchKey[i].split(field)[1];
-                                            return false;
-                                        }
-                                    }
-                                });
-                                if(operationset.indexOf('.') == 0) operationset=operationset.substring(1,operationset.length-1);
-                                var operationArray=operationset.split('.');
-                                var operationList=[];
-                                for(var k=0;k< operationArray.length;k++){
-                                    if(operationArray[k].indexOf(')') - operationArray[k].indexOf('(') > 1){
-                                        value=operationArray[k].substring(operationArray[k].indexOf('(')+1,operationArray[k].indexOf(')'));
-                                        if(value.indexOf('"') > -1){
-                                            value=value.substring(value.indexOf('"')+1,value.lastIndexOf('"'));
-                                        }
-                                    }
-                                    var opera=operationArray[k].substring(0,operationArray[k].indexOf('('));
-                                    for(var key in $scope.typeOfOperators){
-                                        $scope.typeOfOperators[key].forEach(function(oper){
-                                            if(opera == oper.operation_name){
-                                                if(key==oper.category){
-                                                    $scope.operators=$scope.typeOfOperators[key];
-                                                }
-                                            }
-                                        });
-
-                                    }
-                                    var index=0;
-                                    $scope.operators.forEach(function(op,ind){
-                                       if(op.operation_name == opera) {
-                                           index=ind;
-                                       }
-                                    });
-                                    var input={id:k+1,
-                                        status:true,
-                                        operator:operationArray[k].substring(0,operationArray[k].indexOf('(')),
-                                        op_index:index,
-                                        type:type
-                                    };
-                                    operationList.push(input);
-                                }
-                                //alert(field+" "+type+" "+category+" "+operation_name+" "+operationset+" "+value);
-
-                                $scope.dynamicRule.push({id:$scope.dynamicRule.length+1,status:false,
-                                    functions:operationList,
-                                    fieldArray:[{id:1,status:true,tableIndex:false,field:field}],
-                                    condition:value,
-                                    fieldIndex:$scope.fieldIndex,
-                                    condition_statement:'form:ixsd_'+rule.efs_uin+'('+searchKey[i]+')'
-                                });
-                            }
-                        }
-
-                    });
-                }
-            });
-            index++;
-        };
-        //var success='';
-        //if(rule.rule_action.lastIndexOf('ip.setNext_channel("') > -1){
-        //    success=rule.rule_action.split('ip.setNext_channel("')[1].split("\")")[0];
-        //    $scope.tempQueueGroup=[];
-        //    for(var key in $scope.queueGroup){
-        //        for(var key1 in $scope.listOfQueue){
-        //            //alert(JSON.stringify($scope.listOfQueue[key1]))
-        //        }
-        //    }
-        //    //listOfQueue
-        //    $scope.tempQueueGroup.forEach(function(queue){
-        //        if(queue.hethi_subservicecode == success){
-        //            $scope.queue_name=queue.hethi_subservicecode;
-        //        }
-        //    })
-        //}
-        //else{
-        //    success=rule.rule_action.split('form.setQueue("')[1].split("\")")[0];
-        //    $scope.exceptionList.forEach(function(exception){
-        //        if($scope.efs==exception.efs_uin && exception.exception_name == success){
-        //            $scope.exceptionField=exception;
-        //        }
-        //    })
-        //}
-        $scope.created=true;
-        $scope.showList=false;
-        $scope.conditionList=rule.rule_condition;
-        $scope.actionEvent='';
-        $scope.actionEvent=rule.rule_action;
-        $scope.failureEvent='';
-        $scope.failureEvent=rule.rule_failure;
-
-    };
     $scope.changeOperator=function(opera,outer,index){
 
         $scope.tempDynamicRule.forEach(function(data,i){
@@ -1433,43 +1379,17 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
             })
         })
     };
+    $scope.enableOrDisable=function(index,value){
+        if($scope.ruleTemp[index].editMode)
+            $scope.ruleTemp[index].rule_status=value;
+    };
     $scope.viewEditHistory=function(rule){
         $scope.showDetails=false;
         $('#ruleRepo').modal('show');
     };
-    $scope.changeCondition=function(index){
-        $scope.tempDynamicRule=[];
-        $scope.dynamicRule.forEach(function(rows,i){
-            if(i == index){
-                var input= {
-                    id:$scope.tempDynamicRule.length+1,
-                    status:false,
-                    functions:rows.functions,
-                    tableIndex:false,
-                    field:rows.fieldArray[0].field,
-                    condition:rows.condition,
-                    index:i
-                };
-
-                $scope.selectedEfsUin.forEach(function(data,i){
-                    if(rows.fieldArray[0].field.lastIndexOf(data.column) > -1){
-                        $scope.key = i;
-                    }
-                });
-                $scope.tempDynamicRule.push(input);
-            }
-        })
-    };
     $scope.showSingle=false;
     $scope.showSingle2=true;
     $scope.showSingle3=true;
-    $scope.addNewOperations=function(index,outerIndexVal){
-        $scope.dynamicRules.forEach(function(fun,i){
-            if(i==outerIndexVal){
-                fun.functions.push({id:'opera'+fun.functions.length,status:false})
-            }
-        });
-    };
     $scope.addNewOperation=function(index,outerIndexVal){
         //$scope.dynamicRule.push({id:$scope.dynamicRule+1,status:false,
         //    functions:[{id:'opera'+1,status:true}],
@@ -1552,14 +1472,22 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
 
             });
             if(lookupType!=5){
+                var condition='';
                 $scope.field = rule.fieldArray[0].field;
-                if (rule.default != undefined) {
-                    rule.condition = rule.default;
+                if (rule.entityValue != undefined) {
+                    condition = rule.entityValue;
+                    var lower=condition.substring(0,1).toUpperCase()+condition.substring(1);
+                    lower='form.get'+lower+'()';
+                    statement = $scope.field +operator+ lower + ")";
                 }
-                if (isNaN(rule.condition))
-                    statement = $scope.field + operator + "'" + rule.condition + "')";
-                else
-                    statement = $scope.field + operator + rule.condition + ")";
+                else if(rule.condition != undefined) condition=rule.condition;
+                if (rule.condition !=undefined && isNaN(rule.condition)) {
+                    statement = $scope.field +operator+ "'" + condition + "')";
+                }
+                else if(rule.condition !=undefined) {
+                    statement = $scope.field + operator + condition + ")";
+                }
+
             }
             //else{
             //    var input='[';
@@ -2042,7 +1970,28 @@ hethi.controller('businessProcessController', ['$http','$scope','logger','$filte
         isFirstOpen6: true
     };
 
-
+    $scope.addItem=function(parentUL, branch) {
+        for (var key in branch.children) {
+            var item = branch.children[key];
+            item = $('<li>', {
+                id: "item" + item.id
+            });
+            $item.append($('<input>', {
+                type: "checkbox",
+                name: "item" + item.id
+            }));
+            $item.append($('<label>', {
+                for: "item" + item.id,
+                text: item.title
+            }));
+            parentUL.append($item);
+            if (item.children) {
+                var $ul = $('<ul>').appendTo($item);
+                item.append();
+                addItem($ul, item);
+            }
+        }
+    };
 
 
     $scope.showBusinessRule=[true,false,false,false];
