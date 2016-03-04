@@ -45,9 +45,6 @@
     transition:  .3s ease-in;
     cursor: pointer;
 }
-.containerCard_active{
-   border-bottom: 4px solid goldenrod;
-}
 .cardContainer:hover {
     padding: 6px 10px;
     position: relative;
