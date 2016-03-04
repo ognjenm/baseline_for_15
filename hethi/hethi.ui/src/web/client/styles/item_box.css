@@ -145,6 +145,9 @@
     line-height: 1;
     margin-bottom: 5px
 }
+.containerCard_active{
+    border-bottom: 4px solid goldenrod !important;
+}
 
 .form_selection{
     margin-top: 6%;
