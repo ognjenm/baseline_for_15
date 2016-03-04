@@ -20,6 +20,7 @@ import java.util.Map;
 public class FileOperations {
 	
 	public void renameFile(String oldPath,String newPath,String filename){
+		System.out.println("create folder for ftp");
 		File oldFile=new File(oldPath);
 		File newFolder=new File(newPath);
 		File newFile=new File(newPath+"/"+filename);

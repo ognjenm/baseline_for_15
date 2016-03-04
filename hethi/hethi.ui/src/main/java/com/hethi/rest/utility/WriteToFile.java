@@ -41,7 +41,7 @@ public class WriteToFile {
 		return newFolder;
 	}
 	
-	public final File fileNameUpdation(String filepath) {
+	public final File fileNameUpdation(String filepath ) {
 		System.out.println("saveFile process in ftp fileNameUpdation==>");
 		File currentDirFile = new File(".");
 		String helper = currentDirFile.getAbsolutePath();

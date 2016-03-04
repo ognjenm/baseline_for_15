@@ -1,6 +1,9 @@
 package com.hethi.rest.utility;
 
+
 public class Acknowledgement {
+	
+	/*Class created by Prabhakaran*/
 	
 	public String successfullyReceived(String Cus_id,String fileoldname)
 	{
@@ -12,7 +15,7 @@ public class Acknowledgement {
     	EmailNotificationService im=new EmailNotificationService();	        	
     	System.out.println("inside mail here ");
     	//System.out.println("check the String value ==> "+file_id+" "+uid+" "+ to+" "+customer+" "+cid+" "+uid); 
-    	String tosql="SELECT business_email FROM hethi.dcustomer where customer_id ="+"2"+"";
+    	String tosql="SELECT business_email FROM hethi.dcustomer where customer_id ="+Cus_id+"";
     	
     	   String to=executor.executeMyQuery(tosql);
     	   System.out.println("TO mail address===> "+to);
@@ -53,7 +56,7 @@ public class Acknowledgement {
     	EmailNotificationService im=new EmailNotificationService();	        	
     	System.out.println("inside mail here ");
     	//System.out.println("check the String value ==> "+file_id+" "+uid+" "+ to+" "+customer+" "+cid+" "+uid); 
-    	String tosql="SELECT business_email FROM hethi.dcustomer where customer_id ="+"2"+"";
+    	String tosql="SELECT business_email FROM hethi.dcustomer where customer_id ="+Cus_id+"";
     	
     	   String to=executor.executeMyQuery(tosql);
     	   System.out.println("TO mail address===> "+to);
