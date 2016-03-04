@@ -164,7 +164,6 @@
                                                             </span>
                                                             <span ng-show="rule.editMode" class="ui-datepicker">
                                                                   <input type="text"
-                                                                         class="thenDataBlock"
                                                                          datepicker-popup="{{format}}"
                                                                          ng-model="rule.effective_startdate"
                                                                          is-open="opened"
@@ -183,7 +182,7 @@
                                                             </span>
                                                             <span ng-show="rule.editMode" class="ui-datepicker">
                                                                   <input type="text"
-                                                                         class="headers"
+
                                                                          datepicker-popup="{{format}}"
                                                                          ng-model="rule.effective_enddate"
                                                                          is-open="opened1"
@@ -196,7 +195,7 @@
 
                                                 </div>
                                                 <div class="row " ng-show="shows">
-                                                    <ul class="treeview">
+                                                    <ul class="treeview" style="list-style-type: none">
 
                                                         <li class="margin-bottom-20" >
 
@@ -204,7 +203,7 @@
                                                                 when
                                                             </span>
 
-                                                            <ul class="margin-top-10 " >
+                                                            <ul class="margin-top-10 " style="list-style-type: none">
                                                                 <li ng-repeat="list in fieldList" class="margin-bottom-20">
                                                                     <span class="entityEndBlock">
                                                                           entity
@@ -234,7 +233,7 @@
                                                                          {{list.value}}
                                                                     </span>
                                                                     <input  ng-show="rule.editMode && list.fieldStatus.length == 0" type="text"
-                                                                           class="thenDataBlock" ng-model="list.value">
+                                                                            ng-model="list.value">
                                                                     <select ng-if="list.fieldStatus.length > 0 && rule.editMode" ng-model="list.value">
                                                                         <option value="{{entity.column}}" ng-selected="entity.column == selectedEntity" ng-repeat="entity in selectedEfsUin">{{entity.column}}</option>
                                                                     </select>
