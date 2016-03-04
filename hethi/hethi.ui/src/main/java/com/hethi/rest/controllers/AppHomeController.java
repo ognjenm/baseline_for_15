@@ -53,6 +53,8 @@ public class AppHomeController {
 	@ResponseBody
 	public String loadRuleRepo(@RequestBody String JSONData) throws ParseException {
 		System.out.println(JSONData);
+		String dat="vv";
+		if("vv" .equals("vv")) System.out.println("vxxcxcxcxcx");
 		return homeServices.loadRuleRepo(JSONData);
 	}
 
