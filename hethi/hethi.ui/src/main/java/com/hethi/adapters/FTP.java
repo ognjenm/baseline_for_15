@@ -116,15 +116,15 @@ public class FTP {
 				System.out.println("handleFile compleated in ftp");
 				// return msg;
 			}
-		
+
 		}
-		
-			if (AcknoledgementStatus == 0) {
-				ftpAcknoledgement.invalidFormat(filenameFTP);
-			} else if (AcknoledgementStatus == 1){
-				ftpAcknoledgement.zipfileCorrupted(filenameFTP);
-			}
-		
+
+		if (AcknoledgementStatus == 0) {
+			ftpAcknoledgement.invalidFormat(filenameFTP);
+		} else if (AcknoledgementStatus == 1) {
+			ftpAcknoledgement.zipfileCorrupted(filenameFTP);
+		}
+
 		return msg;
 	}
 
@@ -147,6 +147,7 @@ public class FTP {
 		System.out.println("unzipFile start in ftp 2");
 		Acknowledgement acknowledgement = new Acknowledgement();
 		FtpAcknoledgement ftpAcknoledgement = new FtpAcknoledgement();
+		int file_type_states = 0;
 		String fileoldname = null;
 		String Cus_id = null;
 		Long today = new Date().getTime();
@@ -183,13 +184,32 @@ public class FTP {
 				int length_of_file = entry.getName().length();
 				int last_index = entry.getName().lastIndexOf("/");
 				String fileName = entry.getName().substring(last_index + 1, length_of_file);
+				int filename_intex = fileName.lastIndexOf(".");
+				String filetype = fileName.substring(filename_intex + 1, fileName.length());
 				String filePath = destDirPath + File.separator + fileName;
 				System.out.println("file path in while ==> " + filePath);
-				if (!entry.isDirectory()) {
-					// if the entry is a file, extracts it
-					// System.out.println("if the entry is a file, extracts
-					// it");
-					extractFile(zipIn, filePath);
+				System.out.println("file path in while length_of_file ==> " + filetype);
+				System.out.println("file path in while fileName==> " + fileName);
+				if (filetype.equalsIgnoreCase("edi") || filetype.equalsIgnoreCase("jpg")
+						|| filetype.equalsIgnoreCase("png") || filetype.equalsIgnoreCase("gif")
+						|| filetype.equalsIgnoreCase("jpeg") || filetype.equalsIgnoreCase("tiff")
+						|| filetype.equalsIgnoreCase("pdf") || filetype.equalsIgnoreCase("docx")
+						|| filetype.equalsIgnoreCase("xlsx") || filetype.equalsIgnoreCase("doc")
+						|| filetype.equalsIgnoreCase("xls")) {
+
+					if (!entry.isDirectory()) {
+						// if the entry is a file, extracts it
+						// System.out.println("if the entry is a file, extracts
+						// it");
+						extractFile(zipIn, filePath);
+					}
+				} else {
+					file_type_states++;
+					if (formSource.equalsIgnoreCase("FTP")) {
+						ftpAcknoledgement.invalidFormat(fileName);
+					} else if (formSource.equalsIgnoreCase("EMAIL")) {
+						acknowledgement.invalidFormatFile(Cus_id, fileName);
+					}
 				}
 				zipIn.closeEntry();
 				entry = zipIn.getNextEntry();
@@ -207,10 +227,12 @@ public class FTP {
 			return returnString;
 		} catch (Exception e) {
 			System.out.println(e);
-			if (formSource.equalsIgnoreCase("FTP")) {
-				ftpAcknoledgement.zipfileCorrupted(filenameFTP);
-			} else if (formSource.equalsIgnoreCase("EMAIL")) {
-				acknowledgement.corruptedFile(Cus_id, fileoldname);
+			if (file_type_states == 0) {
+				if (formSource.equalsIgnoreCase("FTP")) {
+					ftpAcknoledgement.zipfileCorrupted(filenameFTP);
+				} else if (formSource.equalsIgnoreCase("EMAIL")) {
+					acknowledgement.corruptedFile(Cus_id, fileoldname);
+				}
 			}
 		}
 		return null;
