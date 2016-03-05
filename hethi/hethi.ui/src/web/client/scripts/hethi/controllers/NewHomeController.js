@@ -58,7 +58,7 @@ $rootScope.hideMegaMenu=function(){
 
     $scope.getHethiCloudPlug=function(){
         $('html, body').animate({
-            scrollTop: $("#hethiCloudPlug").offset().top -150
+            scrollTop: $("#hethiCloudPlug").offset().top -90
         }, 1000);
         $scope.BpaaSActive="";
         $scope.SimplifiedActive="";
@@ -74,7 +74,7 @@ $rootScope.hideMegaMenu=function(){
     };
     $scope.getHethiCloudplay=function(){
         $('html, body').animate({
-            scrollTop: $("#hethiCloudPlay").offset().top -150
+            scrollTop: $("#hethiCloudPlug").offset().top -150
         }, 1000);
         $scope.BpaaSActive="";
         $scope.SimplifiedActive="";
@@ -88,7 +88,7 @@ $rootScope.hideMegaMenu=function(){
     };
     $scope.getHethiBpaasStudio=function(){
         $('html, body').animate({
-            scrollTop: $("#hethiBpaasStudio").offset().top -150
+            scrollTop: $("#hethiCloudPlug").offset().top -90
         }, 1000);
         $scope.BpaaSActive="";
         $scope.SimplifiedActive="";
@@ -103,7 +103,7 @@ $rootScope.hideMegaMenu=function(){
     };
     $scope.getHethiBpaasMpc=function(){
         $('html, body').animate({
-            scrollTop: $("#hethiMPC").offset().top -150
+            scrollTop: $("#hethiCloudPlug").offset().top -90
         }, 1000);
 
         $scope.BpaaSActive="";
