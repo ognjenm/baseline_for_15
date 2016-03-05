@@ -74,7 +74,7 @@ $rootScope.hideMegaMenu=function(){
     };
     $scope.getHethiCloudplay=function(){
         $('html, body').animate({
-            scrollTop: $("#hethiCloudPlug").offset().top -150
+            scrollTop: $("#hethiCloudPlug").offset().top -90
         }, 1000);
         $scope.BpaaSActive="";
         $scope.SimplifiedActive="";
