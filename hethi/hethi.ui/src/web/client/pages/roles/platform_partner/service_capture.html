@@ -1,0 +1,200 @@
+<div class="row">
+    <h3  class="text-center"> <label>{{service_delivery_tab}} </label></h3>
+
+
+
+    <div class="col-md-offset-1 col-md-10">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+
+                        <select  class = "form-control input-hethi input-md "
+                                 data-ng-model="selected_form_for_capture"
+                                 data-ng-options="item as item.form_type for item in all_forms" >
+                            <option value=""> select the bundle  </option>
+                        </select>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+
+            </div>
+        </div>
+
+        <div class="divider-md"></div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-info ng-scope">
+                    <div class="panel-heading text-center">
+
+                        <!--<span class="fa fa-th"></span> -->
+                        capture services
+
+                    </div>
+                    <!--<div class="scrollbar-325" id="style-7">-->
+                    <!--<div class="force-overflow">-->
+                    <div class="panel-body " style="min-height: 328px">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div style="padding-top: 5px;padding-bottom: 5px;text-align: center;border: 1px solid grey">channel</div>
+                                <div class="panel-body">
+                                    <div class="row " ng-repeat="item in data_capture_services">
+                                        <label class="col-md-6 control-label">{{item.name}}</label>
+                                        <div   class="col-md-6 ">
+                                            <label class="switch"><input type="checkbox" ng-model="item.is_checked"><i></i></label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" class="text-center form-control input-hethi" placeholder="load start">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="text-center form-control input-hethi" placeholder="load end">
+
+                                    </div>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" class="text-center form-control input-hethi" placeholder="time control">
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" class="text-center form-control input-hethi" placeholder="time control">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div style="padding-top: 5px;padding-bottom: 5px;text-align: center;border: 1px solid grey">source</div>
+                                <div class="panel-body">
+                                    <div class="row " ng-repeat="item in data_capture_content">
+                                        <label class="col-md-6 control-label">{{item.name}}</label>
+                                        <div class="col-md-6">
+                                            <label class="switch"><input type="checkbox" ng-model="item.is_checked"><i></i></label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-offset-2 col-md-8">
+                                        <button type="button" class="form-control btn btn-round btn-info"><span class="fa fa-plus"></span> </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-offset-2 col-md-8">
+                                        <button type="button" class="form-control btn btn-round btn-info"><span class="fa fa-plus"></span> </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button class="btn_hethi btn-default" data-ng-click="add_capture_service(selected_form_for_capture)">save</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-info ng-scope">
+                    <div class="panel-heading text-center">
+
+                        <!--<span class="fa fa-th"></span> -->
+                        capture services summary
+
+                    </div>
+                    <div class="panel-body " style="min-height: 328px">
+                        <div class="scrollbar-245" id="style-7">
+                            <div class="force-overflow">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-responsive hethi_content_table">
+                                        <thead style="background-color: #000000;color: #ffffff">
+                                        <tr>
+
+                                            <th style="width: 10px">
+                                                <div class="">
+                                                    form
+                                                </div>
+                                            </th>
+
+                                            <th class="text-center" >
+                                                <div class="">
+                                                    source
+                                                </div>
+                                            </th>
+                                            <th class="text-center" >
+                                                <div class="">
+                                                   content
+                                                </div>
+                                            </th>
+
+
+                                        </tr>
+                                        </thead>
+                                        <tbody ng-repeat="user in capture_service_for_form">
+                                        <tr>
+                                            <td> {{user.form_type}} </td>
+                                            <td>
+                                                <p ng-repeat="list in user.data_capture_services">
+
+                                                </p>
+                                                    {{user.data_capture_services}} </td>
+                                            <td> {{user.data_capture_content}} </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                        <div ng-show="true" class="row margin-top-5" style="border-top: 2px solid #e96351; padding-top: 10px;">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <button type="button" data-ng-click="assignClick()" class="text-lowercase btn_hethi btn-info">&nbsp;&nbsp;Preview RFI&nbsp;&nbsp;</button>
+                                    <button type="submit"  class="text-lowercase btn_hethi btn-success">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
