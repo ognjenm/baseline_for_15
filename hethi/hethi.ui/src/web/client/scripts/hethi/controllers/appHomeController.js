@@ -854,6 +854,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
     $scope.load_business_modes();
     $scope.loadCustomerList();
     $scope.set_classify_source_tab('on_offer');
+
         $scope.selectedOffer='';
         $scope.selectedOfferChanged=function(item){
             $scope.selectedOffer=item;
@@ -870,7 +871,6 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
             }
 
         };
-
         $scope.assignToArtist=function(){
             if(angular.isObject($scope.assigned_artist)&&angular.isObject($scope.selectedOffer)){
                 var jsonData=[];
@@ -879,12 +879,12 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
                 });
                 var x2js =new X2JS();
                 var xml=x2js.json2xml_str({"root":{"data":jsonData}});
-                var selectedUploads=[]
+                var selectedUploads=[];
                 //alert(JSON.stringify($scope.assigned_artist));
                 //alert(JSON.stringify($scope.customerUploadsList[0]));
                 $scope.customerUploadsList.forEach(function(row){
                     if(row.status)selectedUploads.push({user_id:row.customer_id,upload_id:row.upload_id,efs_uin:row.efs_uin});
-                })
+                });
                 var xml2=x2js.json2xml_str({"root":{"data":selectedUploads}});
                 var input={
                     'customer_id': $rootScope.loginedUserData.customer_id,
@@ -908,8 +908,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
             //alert(JSON.stringify($scope.customerUploadsList[0]))
         }
 
-}])
-    .controller('PlatformPartnerController', ['$http','$scope','$filter','$location','$rootScope','logger','base64', function ($http,$scope,$filter,$location,$rootScope,logger,base64) {
+}]).controller('PlatformPartnerController', ['$http','$scope','$filter','$location','$rootScope','logger','base64', function ($http,$scope,$filter,$location,$rootScope,logger,base64) {
 
     var qs = $location.$$search;
     $scope.main_tabs=[{'menu_name':'service & delivery','is_active':''},{'menu_name': 'platform as a service','is_active':''},{'menu_name': 'infrastructure as a service',is_active :''}];
@@ -948,7 +947,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
         //$scope.selectOPTab('manage_offers');
     };
     $scope.service_delivery_tabs = [
-        { menu_name: 'capture',isActive: ' '},
+        { menu_name: 'capture',isActive: ''},
         { menu_name: 'workflow',isActive: ''},
         { menu_name: 'output',isActive: ''},
         { menu_name: 'BPaaS services',isActive: ''},
@@ -996,6 +995,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
     };
 
     $scope.load_data_cbaas_workflow=function(form){
+
         alert(form);
 
         $http({
@@ -1005,6 +1005,7 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
             data: form
 
         }).success(function(data){
+
             if(data[0][0].result=='Success'){
                 $scope.cbaas_workflow_rules=data[0];
             }
@@ -1017,12 +1018,14 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
     };
 
     $scope.load_customer_list=function(){
+
         $http({method: 'POST',
             url: $rootScope.spring_rest_service+'/loadCustomerName',
             dataType:'jsonp'
         }).success(function(data) {
             $scope.customerList=data[0];
         });
+
     };
     $scope.listenSelectedCustomer=function(){
 
@@ -2215,7 +2218,60 @@ hethi.controller('appHomeController', ['$http','$scope','$filter','$location','$
 
 
         }
+        $scope.data_capture_services=[
+            {name:'e-mail',is_checked:false},
+            {name:'SFTP',is_checked:false},
+            {name:'FTP',is_checked:false},
+            {name:'ERP (Integration)',is_checked:false},
+            {name:'fax',is_checked:false},
+            {name:'e-fax',is_checked:false},
+            {name:'webupload',is_checked:false},
+            {name:'webservice',is_checked:false},
+            {name:'cloudplug',is_checked:false},
+            {name:'e-fax',is_checked:false}
+        ];
+        $scope.data_capture_content=[
 
+            {name:'pdf editable',is_checked:false},
+            {name:'pdf scanned',is_checked:false},
+            {name:'jpeg',is_checked:false},
+            {name:'gif',is_checked:false},
+            {name:'tiff',is_checked:false},
+            {name:'png',is_checked:false},
+            {name:'docx / doc',is_checked:false},
+            {name:'xlsx / xls',is_checked:false},
+            {name:'xml',is_checked:false},
+            {name:'edi',is_checked:false}
+        ];
+        $scope.capture_service_for_form=[];
+        $scope.add_capture_service=function(form){
+            alert(form)
+          if(form){
+              var data={};
+              data=form;
+              data.data_capture_services=$scope.data_capture_services;
+              data.data_capture_content=$scope.data_capture_content;
+
+              $scope.capture_service_for_form.push(data);
+
+          }
+          else
+          {
+              logger.logWarning('Please select a form bundle ');
+          }
+        };
+        $scope.data_out_services_services=[
+            {name:'e-mail',is_checked:false},
+            {name:'SFTP',is_checked:false},
+            {name:'FTP',is_checked:false},
+            {name:'ERP (Integration)',is_checked:false},
+            {name:'fax',is_checked:false},
+            {name:'e-fax',is_checked:false},
+            {name:'webupload',is_checked:false},
+            {name:'webservice',is_checked:false},
+            {name:'cloudplug',is_checked:false},
+            {name:'e-fax',is_checked:false}
+        ];
 
 
 
