@@ -14,7 +14,7 @@
                                 || $index%2 == 1 && {'background-color':'white','padding':'10px','border':'1px solid cyan'}" ng-repeat="repo in ruleRepo" ng-init="outerIndex=$index">
                                     <div class="row margin-bottom-5">
                                         <div class="col-md-12">
-                                            <span class="text-primary">{{repo.user_firstname}}</span> &nbsp;&nbsp;updated <span class="text-primary">{{repo.rule_name}}</span>
+                                            user<span class="text-primary"> {{repo.user_firstname}}</span> &nbsp;&nbsp;updated <span class="text-primary">{{repo.rule_name}}</span>
                                             with
                                             <span ng-if="!repo.status">{{repo.updatedKeys}}</span>
                                             <span ng-if="repo.status" ng-repeat="field in repo.updatedKeys">
