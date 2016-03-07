@@ -541,7 +541,4 @@ public class QueryExecutors {
 	    return indexs;
 	}
 	
-		
-
-
 }
