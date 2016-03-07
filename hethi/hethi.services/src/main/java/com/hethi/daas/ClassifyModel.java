@@ -204,9 +204,9 @@ public class ClassifyModel {
 		
 		ArrayList<ClassifyModel> Classifypolicies=getUfs_uin(customerId);
 		
-		List<String> ufs_uinTotal=new ArrayList<>();
-		List<String> ufs_uinMatched=new ArrayList<>();
-		Map<String , String> efs_uinMap=new HashMap<>();
+		List<String> ufs_uinTotal=new ArrayList<String>();
+		List<String> ufs_uinMatched=new ArrayList<String>();
+		Map<String , String> efs_uinMap=new HashMap<String,String>();
 		/*
 		 * Iterate through object
 		 * 
